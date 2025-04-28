@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Photography Friends | Tokyo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="theme-toggle">
+        <div class="toggle-wrapper">
+            <input type="checkbox" id="theme-toggle" class="toggle-input">
+            <label for="theme-toggle" class="toggle-label">
+                <div class="toggle-icons">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </label>
+        </div>
+    </div>
+
+<!-- In the Navigation section -->
+<nav class="navbar">
+    <div class="container">
+        <a href="#" class="logo">
+            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
+                 alt="Circle Photography Friends Logo" 
+                 class="logo-image">
+        </a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+            <div class="nav-links">
+                <a href="#about"><i class="fas fa-heart"></i> About</a>
+                <a href="#gallery"><i class="fas fa-images"></i> Gallery</a>
+                <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
+                <a href="#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-video">
+            <video autoplay muted loop playsinline>
+                <source src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Welcome to ⭕️ Circle</h1>
+            <p class="subtitle">Where Photography Meets Community!</p>
+            <div class="hero-buttons">
+                <a href="#events" class="btn rainbow-btn">Upcoming Events</a>
+                <a href="#gallery" class="btn rainbow-btn">See Our Photos</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section about parallax-section">
+        <div class="section-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Happy Little Photo Family</h2>
+                <p class="section-description">No experience needed - just bring your smile and creativity!</p>
+            </div>
+            
+            <div class="about-redesign">
+                <!-- Main content card -->
+                <div class="about-main-card">
+                    <div class="about-content-wrapper">
+                        <div class="about-text-content">
+                            <h3>"Circle" connects creatives</h3>
+                            <p class="about-lead">We help photographers, models, hair and makeup artists and other creatives to connect and collaborate.</p>
+                            
+                            <p>Founded in 2024 by two friends, Circle has evolved from casual meetups to a thriving community. We emerged as a circle of friends passionate about photography, modeling and art.</p>
+                            
+                            <p>Circle offers opportunities to meet like-minded creatives and create in a fun environment. Our photowalks take place in different parts of Tokyo, as well as weekend trips outside the city.</p>
+                            
+                            <p class="about-tagline">All skill levels are welcome! Come join our circle of artists and friends.</p>
+                        </div>
+                        
+                        <div class="about-image-container">
+                            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/clean_525024856.avif?v=1743611940020" alt="Friends taking photos together">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Stats row -->
+                <div class="about-stats-row">
+                    <div class="stat-item">
+                        <div class="stat-number">750+</div>
+                        <div class="stat-description">
+                            <div class="stat-icon"><i class="fas fa-smile-beam"></i></div>
+                            <div class="stat-label">Happy Members</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-description">
+                            <div class="stat-icon"><i class="fas fa-camera"></i></div>
+                            <div class="stat-label">Photo Walks Yearly</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number">5000+</div>
+                        <div class="stat-description">
+                            <div class="stat-icon"><i class="fas fa-images"></i></div>
+                            <div class="stat-label">Photos Shared</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founders Section -->
+    <section class="section founders parallax-section">
+        <div class="section-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Your Photo Buddies</h2>
+                <p class="section-description">Your facilitators during the photowalks</p>
+            </div>
+            
+            <div class="founders-grid">
+                <a href="https://www.instagram.com/simsek.sua/" class="founder-link" target="_blank" rel="noopener noreferrer">
+                    <div class="founder-card">
+                        <div class="founder-image">
+                            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/simsek.jpg?v=1743706585204" alt="Simsek smiling with camera">
+                            <div class="social-links">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                        </div>
+                        <h3>Simsek Sua Tortu</h3>
+                        <p class="title"><i class="fab fa-instagram"></i>simsek.sua</p>
+                        <p>"I just love helping people discover the joy of photography!"</p>
+                    </div>
+                </a>
+                
+                <a href="https://www.instagram.com/nothing_special_88/" class="founder-link" target="_blank" rel="noopener noreferrer">
+                    <div class="founder-card">
+                        <div class="founder-image">
+                            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/IMG_4112.JPG?v=1743708634342" alt="Craig laughing with camera">
+                            <div class="social-links">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                        </div>
+                        <h3>Craig Stennett</h3>
+                        <p class="title"><i class="fab fa-instagram"></i>nothing_special_88</p>
+                        <p>"The best photos happen when we're having a good time together."</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+<section id="gallery" class="section gallery parallax-section">
+    <div class="section-wave">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+        </svg>
+    </div>
+    <div class="container">
+        <div class="section-header">
+            <h2>Highlights From Our Previous walks</h2>
+            <p class="section-description">Explore our favorite moments from recent adventures</p>
+        </div>
+        
+        <div class="gallery-container">
+            <div class="gallery-slider">
+                <div class="slide active">
+                    <div class="slide-content">
+                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/2024_03_16_Circle_Yoyogi_Koen_265.jpg?v=1743709494009" alt="Group photo walk">
+                        <div class="caption">
+                            <i class="fas fa-camera-retro"></i>
+                            <h3>Yoyogi Park</h3>
+                            <p>Photowalk around the Park</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/2023-09-24%2008-24-54%20-%20IMG_0289.jpg?v=1743709679327" alt="Night photography">
+                        <div class="caption">
+                            <i class="fas fa-moon"></i>
+                            <h3>Enoshima</h3>
+                            <p>Enoshima Sunset Walk</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/2023-09-24%2008-41-16%20-%20IMG_0423.jpg?v=1743836193904" alt="Portrait session">
+                        <div class="caption">
+                            <i class="fas fa-portrait"></i>
+                            <h3>Golden Hour Portraits</h3>
+                            <p>Kamakura Beach Walk</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gallery-controls">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <div class="dots-container"></div>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            <div class="full-gallery-link">
+                <a href="gallery.html" class="btn rainbow-btn"><i class="fas fa-images"></i> Explore Full Gallery</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Events Section -->
+    <section id="events" class="section events parallax-section">
+        <div class="section-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V7.23C0,65.52,268.63,112.77,600,112.77S1200,65.52,1200,7.23V0Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2>Upcoming Photowalk Events</h2>
+                <p class="section-description">Come join the adventure!</p>
+            </div>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-date pastel-blue">
+                        <span>15</span>
+                        <span>June</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Shibuya Scramble Night</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Shibuya Crossing</p>
+                        <p><i class="fas fa-clock"></i> 7:00 PM</p>
+                        <p>Let's capture Tokyo's famous crossing at night!</p>
+                        <a href="https://www.meetup.com/circle/" class="btn pastel-pink-btn">I'm Coming!</a>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-date pastel-yellow">
+                        <span>22</span>
+                        <span>June</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Yoyogi Park Picnic & Portraits</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Yoyogi Park</p>
+                        <p><i class="fas fa-clock"></i> 11:00 AM</p>
+                        <p>Bring snacks and your camera for a relaxing day!</p>
+                        <a href="https://www.meetup.com/circle/" class="btn pastel-green-btn">Count Me In!</a>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-date pastel-pink">
+                        <span>5</span>
+                        <span>July</span>
+                    </div>
+                    <div class="event-details">
+                        <h3>Rainy Day Reflections</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Meguro River</p>
+                        <p><i class="fas fa-clock"></i> 3:00 PM</p>
+                        <p>Beautiful reflections and umbrella photos!</p>
+                        <a href="https://www.meetup.com/circle/" class="btn pastel-blue-btn">Sign Me Up!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section id="join" class="section join parallax-section">
+        <div class="section-wave">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        <div class="container">
+            <div class="join-content">
+                <h2>Ready to Join the Fun?</h2>
+                <p>We can't wait to meet you! Here's how to get started:</p>
+                
+                <div class="join-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Follow Us</h3>
+                        <p>Check out our Instagram to see what we're up to</p>
+                        <a href="https://www.instagram.com/tokyocircle/" class="btn instagram-btn"><i class="fab fa-instagram"></i> tokyocircle</a>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Join Our Chat</h3>
+                        <p>Get added to our friendly LINE group today</p>
+                        <a href="https://line.me/ti/g/mJAkqUoScC" class="btn line-btn"><i class="fab fa-line"></i> Add Me</a>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Come Say Hi!</h3>
+                        <p>Show up to any event - we'll be expecting you!</p>
+                        <a href="https://www.meetup.com/circle/" class="btn meetup-btn"><i class="fab fa-meetup"></i> See Events</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-about">
+                    <h3>⭕️ Circle</h3>
+                    <div class="social-menu">
+                        <a href="https://www.instagram.com/tokyocircle/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://line.me/ti/g/mJAkqUoScC" aria-label="Line"><i class="fab fa-line"></i></a>
+                        <a href="https://www.meetup.com/circle/" aria-label="Meetup"><i class="fab fa-meetup"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#about"><i class="fas fa-heart"></i> About Us</a></li>
+                        <li><a href="#gallery"><i class="fas fa-images"></i> Photo Gallery</a></li>
+                        <li><a href="#events"><i class="fas fa-calendar-alt"></i> Events</a></li>
+                        <li><a href="#join"><i class="fas fa-user-plus"></i> Join Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section footer-contact">
+                    <h3>Contact Us</h3>
+                    <a href="mailto:hello@circletokyo.com"><i class="fas fa-envelope"></i> hello@circletokyo.com</a>
+                    <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> Message on Instagram</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Made with <i class="fas fa-heart heart"></i> in Tokyo by TT &copy; 2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Quote | Circle Photowalk Group</title>
+    <meta name="description" content="Request a quote for professional photography and videography services from Circle Photography in Tokyo">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="quote.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+<header>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <!-- Theme Toggle moved inside navbar container -->
+            <div class="theme-toggle" role="region" aria-label="Theme toggle">
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="theme-toggle" class="toggle-input" aria-label="Toggle dark mode">
+                    <label for="theme-toggle" class="toggle-label">
+                        <div class="toggle-icons" aria-hidden="true">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <a href="index.html" class="logo" aria-label="Circle Photography Friends - Home">
+                <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
+                     alt="Circle Photography Friends Logo" 
+                     class="logo-image"
+                     loading="eager">
+            </a>
+            <button class="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="index.html#about" aria-label="About us"><i class="fas fa-heart" aria-hidden="true"></i> About</a>
+                <a href="gallery.html" aria-label="Photo gallery"><i class="fas fa-images" aria-hidden="true"></i> Gallery</a>
+                <a href="index.html#events" aria-label="Our events"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Events</a>
+                <a href="index.html#hire-us" aria-label="Hire our services"><i class="fas fa-camera" aria-hidden="true"></i> Hire Us</a>
+                <a href="quote.html" class="active" aria-current="page" aria-label="Request a quote"><i class="fas fa-envelope" aria-hidden="true"></i> Quote</a>
+                <a href="index.html#join" class="btn" aria-label="Join our community"><i class="fas fa-user-plus" aria-hidden="true"></i> Join</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <!-- Quote Form Section -->
+    <section class="quote-section parallax-section">
+        <div class="container">
+            <div class="quote-container">
+                <div class="quote-intro">
+                    <div class="intro-card">
+                        <div class="intro-icon">
+                            <i class="fas fa-camera-retro"></i>
+                        </div>
+                        <h2>How It Works</h2>
+                        <p>Fill out the form with your event details and requirements. Our team will carefully review your needs and get back to you within 24 hours with a personalized quote.</p>
+                        
+                        <div class="service-list">
+                            <h3>Our Services Include:</h3>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Event Photography</li>
+                                <li><i class="fas fa-check"></i> Wedding Photography/Videography</li>
+                                <li><i class="fas fa-check"></i> Corporate Videos & Portraits</li>
+                                <li><i class="fas fa-check"></i> Creative Portrait Sessions</li>
+                                <li><i class="fas fa-check"></i> Custom Creative Projects</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="satisfaction-guarantee">
+                            <i class="fas fa-award"></i>
+                            <p>Satisfaction Guaranteed: We work until you're completely happy with the results</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quote-form-container">
+                    <form action="https://formspree.io/f/xeojnbye" method="POST" class="quote-form">
+                        <h2>Request Your Quote</h2>
+                        
+                        <div class="form-group">
+                            <label for="name">Your Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Service Type <span class="required">*</span></label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Select a service...</option>
+                                <option value="event-photography">Event Photography</option>
+                                <option value="wedding">Wedding Photography/Videography</option>
+                                <option value="corporate">Corporate Videos & Portraits</option>
+                                <option value="portrait">Portrait Sessions</option>
+                                <option value="custom">Custom Project</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date">Event Date (if applicable)</label>
+                            <input type="date" id="date" name="date">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">Event Location</label>
+                            <input type="text" id="location" name="location">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="details">Project Details <span class="required">*</span></label>
+                            <textarea id="details" name="details" rows="4" placeholder="Please describe your event or project, expected duration, and any specific requirements." required></textarea>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="budget">Approximate Budget (Optional)</label>
+                            <select id="budget" name="budget">
+                                <option value="" disabled selected>Select budget range...</option>
+                                <option value="under-25000">Under ¥25,000</option>
+                                <option value="25000-50000">¥25,000 - ¥50,000</option>
+                                <option value="50000-100000">¥50,000 - ¥100,000</option>
+                                <option value="100000-plus">¥100,000+</option>
+                                <option value="not-sure">Not sure yet</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="referral">How did you hear about us?</label>
+                            <select id="referral" name="referral">
+                                <option value="" disabled selected>Select an option...</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="friend">Friend/Colleague</option>
+                                <option value="google">Google Search</option>
+                                <option value="events">Circle Events</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-buttons">
+                            <button type="submit" class="btn rainbow-btn"><i class="fas fa-paper-plane"></i> Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>⭕️ Circle</h3>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/tokyocircle/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://line.me/ti/g/mJAkqUoScC" aria-label="Line"><i class="fab fa-line"></i></a>
+                    <a href="https://www.meetup.com/circle/" aria-label="Meetup"><i class="fab fa-meetup"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="index.html#about"><i class="fas fa-heart"></i> About Us</a>
+                <a href="gallery.html"><i class="fas fa-images"></i> Photo Gallery</a>
+                <a href="index.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
+                <a href="index.html#hire-us"><i class="fas fa-briefcase"></i> Services</a>
+                <a href="index.html#join"><i class="fas fa-user-plus"></i> Join Us</a>
+            </div>
+            
+            <div class="footer-contact">
+                <h4>Contact Us</h4>
+                <a href="mailto:hello@circletokyo.com"><i class="fas fa-envelope"></i> hello@circletokyo.com</a>
+                <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> Message on Instagram</a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <a>Made with <i class="fas fa-heart heart"></i> by TT &copy; 2024</a>
+        </div>
+    </div>
+</footer>
+<script>
+const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
+
+if (motion.matches) {
+  const themeColorMeta = document.getElementById('theme-color');
+  const navbar = document.querySelector('.navbar');
+  let hue = 0;
+
+  function getCurrentColor() {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    return isDarkMode
+      ? `hsl(${hue}, 30%, 25%)`
+      : `hsl(${hue}, 80%, 95%)`;
+  }
+
+  function updateColors() {
+    hue = (hue + 1) % 360;
+    const color = getCurrentColor();
+
+    document.body.style.background = color;
+    if (navbar) navbar.style.background = color;
+    if (themeColorMeta) themeColorMeta.setAttribute('content', color);
+  }
+
+  setInterval(updateColors, 100);
+}
+</script>
+<script src="script.js"></script>
+<script src="quote.js"></script>
+</body>
+</html>

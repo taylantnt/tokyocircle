@@ -1,0 +1,307 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.checked = true;
+    }
+    
+    // Toggle dark mode when switch is clicked
+    themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+            // Enable dark mode
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            // Disable dark mode
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // Mobile navigation setup
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (mobileMenuBtn && navLinks) {
+        // Set custom property for staggered animation
+        document.querySelectorAll('.nav-links a').forEach((link, index) => {
+            link.style.setProperty('--i', index);
+        });
+
+        // Add a body class when mobile menu is active for additional styling
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            this.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-links') && !e.target.closest('.mobile-menu-btn')) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        });
+
+        // Close menu when clicking a nav link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            });
+        });
+
+        // Improved resize handler
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            document.body.classList.add('resize-animation-stopper');
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                document.body.classList.remove('resize-animation-stopper');
+            }, 400);
+
+            if (window.innerWidth > 768) {
+                // Wait for transition to complete before removing active class
+                setTimeout(() => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                }, 300);
+            }
+        });
+    }
+
+    // Generate 30 categories with 50 photos each
+    const galleryData = { main: [] };
+    
+    // Categories to create
+    const categories = [
+        'Nature', 'Urban', 'Portraits', 'Street', 'Architecture', 'Landscapes', 
+        'Night Sky', 'Black & White', 'Macro', 'Wildlife', 'Travel', 'Food',
+        'Minimalist', 'Abstract', 'Candid', 'Cityscape', 'Events', 'Fashion',
+        'Flowers', 'Vintage', 'Beach', 'Sports', 'Bokeh', 'Rainy Days',
+        'Sunsets', 'Spiritual', 'Seasonal', 'Nightlife', 'Traditional', 'Creative'
+    ];
+    
+    // Generate photos for each category
+    categories.forEach(category => {
+        const images = [];
+        
+        // Create 50 photos per category
+        for (let i = 1; i <= 50; i++) {
+            // Using Picsum random photos with category name as seed for variety
+            images.push(`https://picsum.photos/800/800?${category.toLowerCase()}${i}`);
+        }
+        
+        // Add to main gallery data
+        galleryData.main.push({
+            type: 'folder',
+            name: category,
+            images: images
+        });
+    });
+
+    const gallery = document.getElementById('gallery');
+    const viewer = document.querySelector('.viewer');
+    const viewerImg = document.querySelector('.viewer-img');
+    const pageTitle = document.querySelector('.page-title');
+    let currentImages = [];
+    let currentIndex = 0;
+    let history = [];
+    let backBtn = null;
+
+    // Initialize gallery
+    loadGallery('main');
+
+    // Create back button function
+    function createBackButton() {
+        // Create back button if it doesn't exist
+        if (!backBtn) {
+            // Create containing cell first
+            const backCell = document.createElement('div');
+            backCell.className = 'back-cell';
+            backCell.style.position = 'relative';
+            
+            // Create button inside cell
+            backBtn = document.createElement('button');
+            backBtn.className = 'back-btn';
+            backBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            
+            backCell.appendChild(backBtn);
+            
+            backBtn.addEventListener('click', async () => {
+                if (history.length > 0) {
+                    const prevCategory = history.pop();
+                    await loadGallery(prevCategory);
+                }
+            });
+            
+            return backCell;
+        } else {
+            // Find the parent and return it
+            return backBtn.parentElement;
+        }
+    }
+
+    async function loadGallery(category) {
+        const items = galleryData[category];
+        await fadeOutGallery();
+        
+        gallery.innerHTML = '';
+        
+        // Add back button as the first item in grid if not on main gallery
+        if (category !== 'main' && history.length > 0) {
+            const backCell = createBackButton();
+            gallery.appendChild(backCell);
+            setTimeout(() => backBtn.classList.add('visible'), 100);
+        } else if (backBtn) {
+            backBtn.classList.remove('visible');
+        }
+        
+        items.forEach((item, index) => {
+            const container = document.createElement('div');
+            container.style.position = 'relative';
+            
+            const img = createGalleryImage(item, index, category);
+            container.appendChild(img);
+            
+            if (item.type === 'folder') {
+                const title = document.createElement('div');
+                title.className = 'folder-title';
+                title.textContent = item.name;
+                container.appendChild(title);
+            }
+            
+            gallery.appendChild(container);
+            fadeInImage(img, index);
+        });
+
+        // Update page title based on category
+        if (category === 'main') {
+            pageTitle.querySelector('h1').textContent = 'Our Photo Collection';
+            pageTitle.querySelector('p').textContent = 'Browse through memories from our walks and meetups';
+        } else {
+            pageTitle.querySelector('h1').textContent = category;
+            pageTitle.querySelector('p').textContent = 'Browse photos from this collection';
+        }
+    }
+
+    async function loadFolder(images, folderName) {
+        await fadeOutGallery();
+        gallery.innerHTML = '';
+        currentImages = images;
+        
+        // Update page title
+        pageTitle.querySelector('h1').textContent = folderName;
+        pageTitle.querySelector('p').textContent = `Explore our ${folderName.toLowerCase()} photography`;
+        
+        // Add back button as first item in grid
+        const backCell = createBackButton();
+        gallery.appendChild(backCell);
+        setTimeout(() => backBtn.classList.add('visible'), 100);
+        
+        images.forEach((imgUrl, index) => {
+            const container = document.createElement('div');
+            container.style.position = 'relative';
+            
+            const img = createImageElement(imgUrl, index);
+            container.appendChild(img);
+            gallery.appendChild(container);
+            fadeInImage(img, index);
+        });
+    }
+
+    function createGalleryImage(item, index, category) {
+        const img = document.createElement('img');
+        img.src = item.type === 'folder' ? item.images[0] : item;
+        img.classList.add('fade-in');
+        
+        img.addEventListener('click', () => {
+            if (item.type === 'folder') {
+                history.push(category);
+                loadFolder(item.images, item.name);
+            } else {
+                openViewer(items, index);
+            }
+        });
+        
+        return img;
+    }
+
+    function createImageElement(imgUrl, index) {
+        const img = document.createElement('img');
+        img.src = imgUrl;
+        img.classList.add('fade-in');
+        img.addEventListener('click', () => openViewer(currentImages, index));
+        return img;
+    }
+
+    async function fadeOutGallery() {
+        const images = Array.from(gallery.querySelectorAll('img'));
+        images.forEach(img => img.classList.add('fade-out'));
+        await new Promise(resolve => setTimeout(resolve, 300));
+    }
+
+    function fadeInImage(img, index) {
+        setTimeout(() => {
+            img.classList.remove('fade-in');
+        }, index * 50);
+    }
+
+    function openViewer(images, index) {
+        currentIndex = index;
+        viewerImg.src = images[currentIndex];
+        viewer.classList.add('active');
+    }
+
+    function closeViewer() {
+        viewer.classList.remove('active');
+    }
+
+    // Navigation controls for viewer
+    document.querySelector('.close-btn').addEventListener('click', closeViewer);
+    document.querySelector('.prev').addEventListener('click', () => navigate(-1));
+    document.querySelector('.next').addEventListener('click', () => navigate(1));
+
+    function navigate(direction) {
+        currentIndex = (currentIndex + direction + currentImages.length) % currentImages.length;
+        viewerImg.style.opacity = 0;
+        setTimeout(() => {
+            viewerImg.src = currentImages[currentIndex];
+            viewerImg.style.opacity = 1;
+        }, 150);
+    }
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+        if (viewer.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+            if (e.key === 'Escape') closeViewer();
+        }
+    });
+
+    // Swipe controls
+    let touchStartX = 0;
+    
+    document.addEventListener('touchstart', e => {
+        touchStartX = e.touches[0].clientX;
+    });
+
+    document.addEventListener('touchend', e => {
+        const touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) navigate(1);
+            else navigate(-1);
+        }
+    });
+});

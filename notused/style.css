@@ -1,0 +1,193 @@
+/* === GENERAL STYLES === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+main {
+  padding: 2rem;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  text-align: center;
+}
+
+p {
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* === NAVBAR === */
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  background: #111;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.navbar a:hover {
+  color: #ff69b4;
+}
+
+/* === FOOTER === */
+footer {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: 4rem;
+}
+
+.footer-nav {
+  margin-top: 1rem;
+}
+
+.footer-nav a {
+  color: white;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* === HERO SECTION === */
+.hero-section {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  padding: 4rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  color: white;
+  text-align: center;
+  animation: fadeIn 1.5s ease;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+/* === UPLOAD SECTION === */
+.upload-section {
+  margin: 2rem auto;
+  max-width: 600px;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  animation: fadeInUp 1.2s ease;
+}
+
+.upload-section input[type="file"] {
+  display: block;
+  margin: 1rem auto;
+}
+
+.upload-section button {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.upload-section button:hover {
+  background-color: #444;
+}
+
+/* === GALLERY === */
+.gallery-preview {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.gallery-thumb {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  object-fit: cover;
+  height: 150px;
+}
+
+/* === SECTIONS === */
+section {
+  padding: 3rem 1rem;
+}
+
+.community {
+  background: #fafafa;
+  border-top: 2px solid #eee;
+  border-bottom: 2px solid #eee;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === SLIDESHOW === */
+.slideshow-container {
+  position: relative;
+  max-width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.slideshow-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.slideshow-image.active {
+  opacity: 1;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-section, .upload-section {
+    padding: 2rem 1rem;
+  }
+
+  .slideshow-container {
+    height: 250px;
+  }
+}
