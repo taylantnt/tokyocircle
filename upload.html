@@ -674,7 +674,6 @@
           <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
           <a href="index.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
           <a href="index.html#hire-us"><i class="fas fa-briefcase"></i> Services</a>
-          <a href="upload.html" class="active"><i class="fas fa-cloud-upload-alt"></i> Upload</a>
           <a href="index.html#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
         </div>
       </div>
@@ -924,24 +923,27 @@
 const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
 
 if (motion.matches) {
-  const scheme = document.querySelector('meta[name="theme-color"]');
+  const themeColorMeta = document.getElementById('theme-color');
+  const navbar = document.querySelector('.navbar');
   let hue = 0;
 
-  setInterval(() => {
-    hue = (hue + 1) % 360;
-
-    // Detect if dark mode is active
+  function getCurrentColor() {
     const isDarkMode = document.body.classList.contains('dark-mode');
+    return isDarkMode
+      ? `hsl(${hue}, 30%, 25%)`
+      : `hsl(${hue}, 80%, 95%)`;
+  }
 
-    const color = isDarkMode
-      ? `hsl(${hue} 30% 20%)`   // Dark pastel tones
-      : `hsl(${hue} 50% 85%)`;  // Light pastel tones
+  function updateColors() {
+    hue = (hue + 1) % 360;
+    const color = getCurrentColor();
 
     document.body.style.background = color;
-    if (scheme) {
-      scheme.setAttribute('content', color);
-    }
-  }, 30);
+    if (navbar) navbar.style.background = color;
+    if (themeColorMeta) themeColorMeta.setAttribute('content', color);
+  }
+
+  setInterval(updateColors, 100);
 }
 </script>
   <!-- Firebase SDKs -->
