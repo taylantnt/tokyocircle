@@ -197,7 +197,9 @@ function initSlideshow() {
 // Fetch uploaded photos for slideshow
 async function fetchSlideshowImages() {
   try {
-    const snapshot = await db.collection("photos").get();
+    const snapshot = await db.collection("photos")
+      .where('status', '==', 'approved')
+      .get();
     
     if (snapshot.empty) {
       return; // Keep default images if no photos are uploaded
@@ -417,7 +419,9 @@ async function fetchGalleryImages() {
     loadingMessage.style.display = 'flex';
     gallery.innerHTML = '';
     
-    const snapshot = await db.collection("photos").get();
+    const snapshot = await db.collection("photos")
+      .where('status', '==', 'approved')
+      .get();
     
     if (snapshot.empty) {
       loadingMessage.style.display = 'none';
@@ -763,8 +767,8 @@ function setupFormSubmission() {
       // Upload image to Cloudinary
       const imageUrl = await uploadToCloudinary(selectedFile);
       
-      // Save to Firestore
-      await saveToFirestore(imageUrl);
+      // Save to Firestore with pending status
+      await saveToFirestore(imageUrl, 'pending');
       
       // Add photographer to database if new
       if (!photographers.includes(photographerName.value)) {
@@ -780,7 +784,7 @@ function setupFormSubmission() {
       fetchGalleryImages();
       
       // Show success message
-      showNotification('Photo uploaded successfully!', 'success');
+      showNotification('Photo uploaded successfully and will appear in our gallery after approval.', 'success');
     } catch (err) {
       console.error('Error uploading photo:', err);
       showNotification('Error uploading photo. Please try again.', 'error');
@@ -865,13 +869,15 @@ async function uploadToCloudinary(file) {
 }
 
 // Save to Firestore
-async function saveToFirestore(imageUrl) {
+async function saveToFirestore(imageUrl, status = 'pending') {
   return db.collection("photos").add({
     photographer: photographerName.value.trim(),
     event: eventName.value.trim() || null,
     category: categorySelect.value || 'Uncategorized',
     imageUrl: imageUrl,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+    status: status,
+    moderatedAt: null
   });
 }
 
