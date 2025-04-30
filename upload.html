@@ -21,6 +21,25 @@
       font-family: var(--body-font);
     }
     
+    /* Filter styles */
+    .filters-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+    }
+    
+    .filter-title {
+      font-family: var(--heading-font);
+      color: var(--text-primary);
+      margin: 10px 0 5px 0;
+      font-size: 1.1rem;
+    }
+    
+    .talent-type-filters {
+      margin-bottom: 10px;
+    }
+    
     /* Hero section with slideshow */
     .hero {
      /* height: 60vh;*/
@@ -453,6 +472,22 @@
       opacity: 0.8;
     }
     
+    .gallery-item-category,
+    .gallery-item-talent-type {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .gallery-item-talent-type {
+      color: var(--pastel-purple);
+      font-weight: bold;
+    }
+    
+    .dark-mode .gallery-item-talent-type {
+      color: var(--pastel-blue);
+    }
+    
     .loading {
       text-align: center;
       padding: 30px;
@@ -707,13 +742,24 @@
           <form id="uploadForm" class="upload-form">
             <div class="form-row">
               <div class="form-group">
-                <label for="photographerName">Photographer Name <span class="required">*</span></label>
+                <label for="talentType">Talent Type <span class="required">*</span></label>
+                <select id="talentType" aria-label="Select your talent type" required>
+                  <option value="" selected disabled>Select your talent type</option>
+                  <option value="photographer">Photographer</option>
+                  <option value="videographer">Videographer</option>
+                  <option value="hmu">Hair & Makeup Artist</option>
+                  <option value="model">Model</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="photographerName">Your Name <span class="required">*</span></label>
                 <div class="photographer-input">
-                  <select id="photographerSelect" aria-label="Select existing photographer">
+                  <select id="photographerSelect" aria-label="Select existing name">
                     <option value="" selected>Select your name or add new</option>
-                    <!-- Photographer names will be populated here -->
+                    <!-- Talent names will be populated here -->
                   </select>
-                  <input type="text" id="photographerName" placeholder="Enter your name" aria-label="Enter new photographer name">
+                  <input type="text" id="photographerName" placeholder="Enter your name" aria-label="Enter new name">
                 </div>
               </div>
               
@@ -846,9 +892,18 @@
     <div class="gallery-container">
       <div class="gallery-header">
         <h2>Community Gallery</h2>
-        <div class="gallery-filters" id="photographerFilters">
-          <button class="filter-btn active" data-photographer="all">All Photos</button>
-          <!-- Photographer filters will be added here -->
+        <div class="filters-container">
+          <!-- Talent type filters will be added here -->
+          <h3 class="filter-title">Filter by Talent Type:</h3>
+          <div class="gallery-filters talent-type-filters" id="talentTypeFilters">
+            <!-- Talent type filter buttons will be populated here -->
+          </div>
+          
+          <h3 class="filter-title">Filter by Name:</h3>
+          <div class="gallery-filters" id="photographerFilters">
+            <button class="filter-btn active" data-photographer="all">All Photos</button>
+            <!-- Name filter buttons will be populated here -->
+          </div>
         </div>
       </div>
       
@@ -931,7 +986,7 @@ if (motion.matches) {
     const isDarkMode = document.body.classList.contains('dark-mode');
     return isDarkMode
       ? `hsl(${hue}, 30%, 25%)`
-      : `hsl(${hue}, 50%, 85%)`;
+      : `hsl(${hue}, 40%, 90%)`;
   }
 
   function updateColors() {
@@ -952,3 +1007,5 @@ if (motion.matches) {
   
   <!-- Custom JavaScript -->
   <script src="upload.js"></script>
+  <script src="script.js"></script>
+

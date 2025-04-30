@@ -11,21 +11,63 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --gradient-light: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-      --gradient-dark: linear-gradient(120deg, #20202c 0%, #2c2c3c 100%);
+      /* Pastel color palette */
+      --primary: #F7CFD8;
+      --secondary: #CBBCF6;
+      --accent: #A6D6D6;
+      --success: #8E7DBE;
+      --danger: #F7CFD8;
+      --warning: #F4F8D3;
+      --light: #ffffff;
+      --dark: #2f3640;
+      
+      /* UI Elements */
+      --background-light: #fafafa;
+      --background-dark: #1a1f25;
+      --text-primary: #333333;
+      --text-secondary: #666666;
+      --border-color: #e0e0e0;
+      
+      /* Gradients */
+      --gradient-light: linear-gradient(120deg, var(--secondary) 0%, var(--primary) 100%);
+      --gradient-dark: linear-gradient(120deg, #4a5568 0%, #2d3748 100%);
+      
+      /* Layout */
       --sidebar-width: 250px;
       --header-height: 60px;
+      --border-radius: 10px;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      background: var(--gradient-light);
-      transition: background 0.3s ease;
+      background: var(--background-light);
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     .dark-mode body {
-      background: var(--gradient-dark);
+      background: var(--background-dark);
+      color: var(--light);
+    }
+
+    .content-section {
+      background: #F7E9F3;
+      margin: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      min-height: calc(100vh - 120px);
+      border: 1px solid var(--border-color);
+    }
+
+    .dark-mode .content-section {
+      background: var(--secondary);
+      border-color: var(--dark);
+      box-shadow: var(--shadow-dark);
     }
 
     .login-container {
@@ -42,79 +84,200 @@
     }
 
     .login-form {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
       width: 100%;
       max-width: 400px;
       text-align: center;
+      border: 1px solid var(--border-color);
+      backdrop-filter: blur(10px);
     }
 
     .dark-mode .login-form {
-      background: rgba(40, 40, 50, 0.9);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      background: rgba(44, 62, 80, 0.95);
+      box-shadow: var(--shadow-dark);
+      border-color: var(--dark);
     }
 
     .login-form h2 {
-      color: var(--pastel-purple);
+      color: var(--primary);
       margin-bottom: 1.5rem;
-      font-family: var(--heading-font);
+      font-weight: 600;
+      font-size: 1.75rem;
     }
 
     .login-form input {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 2px solid #ddd;
-      border-radius: 8px;
+      padding: 14px;
+      margin: 15px 0;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
       font-size: 1rem;
       transition: all 0.3s ease;
+      background: var(--light);
+      color: var(--text-primary);
+    }
+
+    .dark-mode .login-form input {
+      background: var(--dark);
+      border-color: var(--secondary);
+      color: var(--light);
     }
 
     .login-form input:focus {
-      border-color: var(--pastel-purple);
+      border-color: var(--accent);
       outline: none;
-      box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.2);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
     }
 
     .login-btn {
-      background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-pink));
+      background: var(--accent);
       color: white;
       border: none;
-      padding: 12px 24px;
-      border-radius: 8px;
+      padding: 14px 28px;
+      border-radius: var(--border-radius);
       font-size: 1rem;
+      font-weight: 500;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
       width: 100%;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .login-btn:hover {
+      background: #2980b9;
       transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .dark-mode .login-btn:hover {
+      box-shadow: var(--shadow-dark);
     }
     .admin-container {
       margin-left: var(--sidebar-width);
       padding: 20px;
+      margin-top: 40px;
+      background-color: #F7E9E3;
       min-height: calc(100vh - var(--header-height));
     }
 
-    .sidebar {
+    /* Mobile menu button */
+    .mobile-menu-btn {
+      display: none;
       position: fixed;
-      left: 0;
-      top: var(--header-height);
-      width: var(--sidebar-width);
-      height: calc(100vh - var(--header-height));
-      background: white;
-      border-right: 1px solid #eee;
-      padding: 20px;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent);
+      color: white;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
+    .mobile-menu-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .dark-mode .mobile-menu-btn {
+      background: var(--primary);
+      box-shadow: var(--shadow-dark);
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+      position: fixed;
+      transition: transform 0.3s ease;
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        z-index: 999;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .admin-container {
+        margin-left: 0;
+      }
+
+      /* Overlay when sidebar is active */
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+      }
+
+      .sidebar-overlay.active {
+        display: block;
+      }
+    }
+      left: 10px;
+      border-radius: 15px;
+      top: var(--header-height);
+      width: var(--sidebar-width);
+      height: calc(100vh - var(--header-height));
+      background: var(--secondary);
+      border-right: 1px solid var(--border-color);
+      padding: 20px;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -100%;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .admin-container {
+        margin-left: 0;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1000;
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+
     .dark-mode .sidebar {
-      background: #2a2a2a;
-      border-right-color: #444;
+      background: var(--background-dark);
+      border-right-color: var(--dark);
     }
 
     .sidebar-menu {
@@ -140,7 +303,7 @@
     .sidebar-menu a:hover,
     .sidebar-menu a.active {
       background: var(--gradient-light);
-      color: white;
+      color: rgba(157, 106, 158, 0.82);
     }
 
     .dark-mode .sidebar-menu a:hover,
@@ -154,6 +317,112 @@
       text-align: center;
     }
 
+    .filter-section {
+      margin-top: 30px;
+      padding: 20px;
+      border-top: 1px solid var(--border-color);
+      background: var(--light);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width: 768px) {
+      .filter-section {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        right: 0;
+        background: var(--light);
+        z-index: 1001;
+        margin: 0;
+        padding: 20px;
+        border-radius: 20px 20px 0 0;
+        transition: bottom 0.3s ease-in-out;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .filter-section.active {
+        bottom: 0;
+      }
+
+      .filter-toggle-btn {
+        display: flex;
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        background: var(--accent);
+        color: white;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow);
+        border: none;
+        z-index: 1000;
+        cursor: pointer;
+      }
+
+      .dark-mode .filter-toggle-btn {
+        background: var(--success);
+      }
+    }
+
+    .dark-mode .filter-section {
+      border-top-color: var(--dark);
+      background: #593f6c;
+    }
+
+    .filter-title {
+      font-size: 1rem;
+      color: var(--text-primary);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dark-mode .filter-title {
+      color: var(--light);
+    }
+
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 8px;
+      border-radius: var(--border-radius);
+    }
+
+    .dark-mode .filter-option {
+      color: var(--light);
+    }
+
+    .filter-option:hover {
+      background: var(--gradient-light);
+      color: white;
+    }
+
+    .dark-mode .filter-option:hover {
+      background: var(--gradient-dark);
+    }
+
+    .filter-option input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
     .pending-photos {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -163,81 +432,127 @@
 
     .photo-card {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
       overflow: hidden;
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border-color);
     }
 
     .dark-mode .photo-card {
-      background: #2a2a2a;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      background: var(--secondary);
+      border-color: var(--dark);
+      box-shadow: var(--shadow-dark);
     }
 
     .photo-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .photo-card:hover {
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     }
 
     .photo-card img {
       width: 100%;
-      height: 200px;
+      height: 240px;
       object-fit: cover;
+      border-bottom: 1px solid var(--border-color);
     }
 
     .photo-info {
-      padding: 15px;
+      padding: 20px;
     }
 
     .photo-info h3 {
-      margin: 0 0 10px;
-      color: var(--text-primary);
+      margin: 0 0 15px;
+      color: var(--primary);
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .dark-mode .photo-info h3 {
+      color: var(--light);
     }
 
     .photo-info p {
-      margin: 5px 0;
+      margin: 8px 0;
       color: var(--text-secondary);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .photo-info p strong {
+      color: var(--text-primary);
+      min-width: 100px;
+    }
+
+    .dark-mode .photo-info p strong {
+      color: var(--light);
     }
 
     .photo-actions {
       display: flex;
-      gap: 10px;
-      padding: 15px;
-      border-top: 1px solid #eee;
+      gap: 12px;
+      padding: 20px;
+      border-top: 1px solid var(--border-color);
       flex-wrap: wrap;
     }
 
     .dark-mode .photo-actions {
-      border-top-color: #444;
+      border-top-color: var(--dark);
     }
 
     .approve-btn,
     .reject-btn,
     .delete-btn {
       flex: 1;
-      padding: 8px;
+      padding: 12px;
       border: none;
-      border-radius: 5px;
+      border-radius: var(--border-radius);
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 500;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .approve-btn {
-      background-color: var(--pastel-green);
+      background-color: var(--success);
       color: white;
+    }
+
+    .approve-btn:hover {
+      background-color: #27ae60;
+      transform: translateY(-2px);
     }
 
     .reject-btn {
-      background-color: var(--pastel-red);
+      background-color: var(--danger);
       color: white;
     }
 
+    .reject-btn:hover {
+      background-color: #c0392b;
+      transform: translateY(-2px);
+    }
+
     .delete-btn {
-      background-color: #ff4444;
+      background-color: var(--danger);
       color: white;
       width: 100%;
       margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    .delete-btn:hover {
+      opacity: 1;
+      transform: translateY(-2px);
     }
 
     .approve-btn:hover,
@@ -261,41 +576,70 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
     }
 
     .stat-card {
       background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 24px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
       text-align: center;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      position: relative;
+      margin-top: 30px;
+
+      overflow: hidden;
     }
 
     .dark-mode .stat-card {
-      background: #2a2a2a;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      background: GREY;
+      border-color: #8660a2;
+      box-shadow: var(--shadow-dark);
+      margin-top: 30px;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .stat-card:hover {
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
     }
 
     .stat-card h3 {
-      margin: 0 0 10px;
+      margin: 0 0 15px;
       color: var(--text-primary);
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dark-mode .stat-card h3 {
+      color: var(--light);
     }
 
     .stat-card p {
-      font-size: 2rem;
+      font-size: 2.5rem;
       margin: 0;
-      color: var(--pastel-purple);
+      color: var(--accent);
+      font-weight: 600;
     }
 
     .dark-mode .stat-card p {
-      color: var(--pastel-blue);
+      color: var(--accent);
     }
   </style>
 </head>
 <body>
+  
   <!-- Login Container -->
   <div class="login-container" id="loginContainer">
     <form class="login-form" id="loginForm">
@@ -307,6 +651,19 @@
 
   <!-- Admin Interface -->
   <div id="adminInterface" style="display: none;">
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Filter Toggle Button -->
+    <button class="filter-toggle-btn" id="filterToggleBtn">
+      <i class="fas fa-filter"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    </button>
     <!-- Sidebar -->
     <aside class="sidebar">
       <ul class="sidebar-menu">
@@ -320,6 +677,27 @@
           <a href="#" onclick="loadPhotos('rejected')"><i class="fas fa-times-circle"></i> Rejected Photos</a>
         </li>
       </ul>
+      
+      <div class="filter-section">
+        <h3 class="filter-title"><i class="fas fa-filter"></i> Filter by Talent</h3>
+        <div class="filter-options">
+          <label class="filter-option">
+            <input type="checkbox" value="photographer" onchange="filterByTalent(this)"> Photographer
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" value="makeup_artist" onchange="filterByTalent(this)"> Makeup Artist
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" value="model" onchange="filterByTalent(this)"> Model
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" value="stylist" onchange="filterByTalent(this)"> Stylist
+          </label>
+          <label class="filter-option">
+            <input type="checkbox" value="other" onchange="filterByTalent(this)"> Other
+          </label>
+        </div>
+      </div>
     </aside>
 
     <header>
@@ -353,7 +731,8 @@
     </header>
 
   <main class="admin-container">
-    <h1>Photo Moderation Panel</h1>
+    <section class="content-section">
+      <h1>Photo Moderation Panel</h1>
     
     <div class="stats">
       <div class="stat-card">
@@ -379,13 +758,84 @@
       <h3>No Pending Photos</h3>
       <p>All photos have been moderated!</p>
     </div>
+      </section>
   </main>
+<script>
+const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
 
+if (motion.matches) {
+  const themeColorMeta = document.getElementById('theme-color');
+  const navbar = document.querySelector('.navbar');
+  let hue = 0;
+
+  function getCurrentColor() {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    return isDarkMode
+      ? `hsl(${hue}, 30%, 25%)`
+      : `hsl(${hue}, 40%, 90%)`;
+  }
+
+  function updateColors() {
+    hue = (hue + 1) % 360;
+    const color = getCurrentColor();
+    if (navbar) navbar.style.background = color;
+    if (themeColorMeta) themeColorMeta.setAttribute('content', color);
+  }
+
+  setInterval(updateColors, 100);
+}
+
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  sidebar.classList.toggle('active');
+}
+
+// Close sidebar when clicking outside of it on mobile
+document.addEventListener('click', (e) => {
+  const sidebar = document.querySelector('.sidebar');
+  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  
+  if (window.innerWidth <= 768 && 
+      !sidebar.contains(e.target) && 
+      !mobileMenuToggle.contains(e.target) && 
+      sidebar.classList.contains('active')) {
+    sidebar.classList.remove('active');
+  }
+});
+
+// Handle window resize
+window.addEventListener('resize', () => {
+  const sidebar = document.querySelector('.sidebar');
+  const filterSection = document.querySelector('.filter-section');
+  if (window.innerWidth > 768) {
+    sidebar.classList.remove('active');
+    filterSection.classList.remove('active');
+  }
+});
+
+// Filter toggle functionality
+const filterToggleBtn = document.getElementById('filterToggleBtn');
+const filterSection = document.querySelector('.filter-section');
+
+filterToggleBtn.addEventListener('click', () => {
+  filterSection.classList.toggle('active');
+});
+
+// Close filter panel when clicking outside
+document.addEventListener('click', (e) => {
+  if (!filterSection.contains(e.target) && 
+      !filterToggleBtn.contains(e.target) && 
+      filterSection.classList.contains('active')) {
+    filterSection.classList.remove('active');
+  }
+});
+</script>
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
   
   <!-- Admin JavaScript -->
   <script src="admin.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

@@ -23,6 +23,7 @@ const uploadForm = document.getElementById('uploadForm');
 const gallery = document.getElementById('gallery');
 const loadingMessage = document.getElementById('loadingMessage');
 const emptyGallery = document.getElementById('emptyGallery');
+const talentType = document.getElementById('talentType');
 const photographerSelect = document.getElementById('photographerSelect');
 const photographerName = document.getElementById('photographerName');
 const eventName = document.getElementById('eventName');
@@ -31,14 +32,19 @@ const dropArea = document.getElementById('dropArea');
 const selectedFileElement = document.getElementById('selectedFile');
 const fileName = document.getElementById('fileName');
 const removeFile = document.getElementById('removeFile');
+const talentTypeFilters = document.getElementById('talentTypeFilters');
 const photographerFilters = document.getElementById('photographerFilters');
 const categorySelect = document.getElementById('categorySelect');
 const slideshow = document.getElementById('slideshow');
 
+// Store talent types
+const talentTypes = ['photographer', 'videographer', 'hmu', 'model'];
+
 // Store photographers list and categories
 let photographers = ['all'];
 let categories = [];
-let currentFilter = 'all';
+let currentTalentTypeFilter = 'all';
+let currentPhotographerFilter = 'all';
 let selectedFile = null;
 
 // Initialize the page
@@ -139,8 +145,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize tips modal
   initTipsModal();
   
+  // Create talent type filters
+  createTalentTypeFilters();
+  
   // Fetch photographers and populate select
   fetchPhotographers();
+  
+  // Setup talent type selection
+  setupTalentTypeSelection();
   
   // Fetch categories
   fetchCategories();
@@ -331,27 +343,93 @@ function initTipsModal() {
   }
 }
 
+// Create talent type filters
+function createTalentTypeFilters() {
+  // Create talent type filters container if it doesn't exist
+  if (!talentTypeFilters) {
+    const filtersContainer = photographerFilters.parentElement;
+    const talentFiltersDiv = document.createElement('div');
+    talentFiltersDiv.id = 'talentTypeFilters';
+    talentFiltersDiv.className = 'gallery-filters talent-type-filters';
+    filtersContainer.insertBefore(talentFiltersDiv, photographerFilters);
+    
+    // Add a title for the talent type filters
+    const talentFilterTitle = document.createElement('h3');
+    talentFilterTitle.textContent = 'Filter by Talent Type:';
+    talentFilterTitle.className = 'filter-title';
+    filtersContainer.insertBefore(talentFilterTitle, talentFiltersDiv);
+    
+    // Add a title for the photographer filters
+    const photographerFilterTitle = document.createElement('h3');
+    photographerFilterTitle.textContent = 'Filter by Name:';
+    photographerFilterTitle.className = 'filter-title';
+    filtersContainer.insertBefore(photographerFilterTitle, photographerFilters);
+  }
+  
+  // Get the talent type filters container
+  const talentTypeFiltersContainer = document.getElementById('talentTypeFilters');
+  talentTypeFiltersContainer.innerHTML = '';
+  
+  // Add 'All Talents' filter button
+  const allTalentsBtn = document.createElement('button');
+  allTalentsBtn.className = 'filter-btn active';
+  allTalentsBtn.setAttribute('data-talent-type', 'all');
+  allTalentsBtn.textContent = 'All Talents';
+  allTalentsBtn.addEventListener('click', function() {
+    filterByTalentType('all');
+  });
+  talentTypeFiltersContainer.appendChild(allTalentsBtn);
+  
+  // Add filter button for each talent type
+  const talentTypeLabels = {
+    'photographer': 'Photographers',
+    'videographer': 'Videographers',
+    'hmu': 'Hair & Makeup Artists',
+    'model': 'Models'
+  };
+  
+  talentTypes.forEach(type => {
+    const filterBtn = document.createElement('button');
+    filterBtn.className = 'filter-btn';
+    filterBtn.setAttribute('data-talent-type', type);
+    filterBtn.textContent = talentTypeLabels[type];
+    filterBtn.addEventListener('click', function() {
+      filterByTalentType(type);
+    });
+    talentTypeFiltersContainer.appendChild(filterBtn);
+  });
+}
+
 // Fetch photographers from database
-async function fetchPhotographers() {
+async function fetchPhotographers(talentTypeFilter = 'all') {
   try {
-    const snapshot = await db.collection("photographers").get();
+    let query = db.collection("photographers");
+    
+    // Apply talent type filter if not 'all'
+    if (talentTypeFilter !== 'all') {
+      query = query.where('talentType', '==', talentTypeFilter);
+    }
+    
+    const snapshot = await query.get();
     photographers = ['all']; // Reset with 'all' option
     
-    // Clear existing filter buttons
+    // Clear existing filter buttons and dropdown options
     photographerFilters.innerHTML = '';
+    photographerSelect.innerHTML = '<option value="" selected>Select your name or add new</option>';
     
     // Add 'All Photos' filter button
     const allFilterBtn = document.createElement('button');
     allFilterBtn.className = 'filter-btn active'; // Set as active by default
     allFilterBtn.setAttribute('data-photographer', 'all');
-    allFilterBtn.textContent = 'All Photos';
+    allFilterBtn.textContent = 'All Names';
     allFilterBtn.addEventListener('click', function() {
-      filterGallery('all');
+      filterByPhotographer('all');
     });
     photographerFilters.appendChild(allFilterBtn);
     
     snapshot.forEach(doc => {
-      const name = doc.data().name;
+      const data = doc.data();
+      const name = data.name;
       photographers.push(name);
       
       // Add to select dropdown
@@ -366,13 +444,35 @@ async function fetchPhotographers() {
       filterBtn.setAttribute('data-photographer', name);
       filterBtn.textContent = name;
       filterBtn.addEventListener('click', function() {
-        filterGallery(name);
+        filterByPhotographer(name);
       });
       photographerFilters.appendChild(filterBtn);
     });
   } catch (err) {
     console.error('Error fetching photographers:', err);
   }
+}
+
+// Setup talent type selection
+function setupTalentTypeSelection() {
+  talentType.addEventListener('change', function() {
+    // Update the photographer label based on talent type
+    const talentLabels = {
+      'photographer': 'Photographer',
+      'videographer': 'Videographer',
+      'hmu': 'Hair & Makeup Artist',
+      'model': 'Model'
+    };
+    
+    const selectedType = this.value;
+    if (selectedType) {
+      const nameLabel = document.querySelector('label[for="photographerName"]');
+      nameLabel.innerHTML = `${talentLabels[selectedType]} Name <span class="required">*</span>`;
+      
+      // Fetch photographers of the selected talent type
+      fetchPhotographers(selectedType);
+    }
+  });
 }
 
 // Fetch categories from database
@@ -466,9 +566,14 @@ let currentCategoryPhotos = [];
 function displayGallery(photos) {
   gallery.innerHTML = '';
   
-  // Filter photos if needed
-  if (currentFilter !== 'all') {
-    photos = photos.filter(photo => photo.photographer === currentFilter);
+  // Filter photos by talent type if needed
+  if (currentTalentTypeFilter !== 'all') {
+    photos = photos.filter(photo => photo.talentType === currentTalentTypeFilter);
+  }
+  
+  // Filter photos by photographer if needed
+  if (currentPhotographerFilter !== 'all') {
+    photos = photos.filter(photo => photo.photographer === currentPhotographerFilter);
   }
   
   if (photos.length === 0) {
@@ -501,6 +606,17 @@ function displayGallery(photos) {
     const title = document.createElement('h3');
     title.textContent = photo.photographer;
     
+    // Add talent type label
+    const talentTypeLabels = {
+      'photographer': 'Photographer',
+      'videographer': 'Videographer',
+      'hmu': 'Hair & Makeup Artist',
+      'model': 'Model'
+    };
+    const talentType = document.createElement('p');
+    talentType.textContent = photo.talentType ? talentTypeLabels[photo.talentType] || 'Talent' : 'Photographer';
+    talentType.className = 'gallery-item-talent-type';
+    
     const details = document.createElement('p');
     details.textContent = photo.event || 'Personal Work';
     
@@ -509,6 +625,7 @@ function displayGallery(photos) {
     category.className = 'gallery-item-category';
     
     info.appendChild(title);
+    info.appendChild(talentType);
     info.appendChild(details);
     info.appendChild(category);
     
@@ -615,12 +732,45 @@ photoViewer.addEventListener('click', (e) => {
   }
 });
 
-// Filter gallery by photographer
-function filterGallery(photographer) {
-  currentFilter = photographer;
+// Filter gallery by talent type
+function filterByTalentType(talentType) {
+  currentTalentTypeFilter = talentType;
+  currentPhotographerFilter = 'all'; // Reset photographer filter when changing talent type
   
-  // Update active button
-  document.querySelectorAll('.filter-btn').forEach(btn => {
+  // Update active button for talent type
+  document.querySelectorAll('#talentTypeFilters .filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-talent-type') === talentType);
+  });
+  
+  // Reset photographer filter buttons
+  document.querySelectorAll('#photographerFilters .filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-photographer') === 'all');
+  });
+  
+  // Fetch photographers of the selected talent type for the filter
+  if (talentType !== 'all') {
+    fetchPhotographers(talentType);
+  } else {
+    fetchPhotographers();
+  }
+  
+  // Add fade-out effect before changing content
+  gallery.style.opacity = '0';
+  gallery.style.transition = 'opacity 0.3s ease';
+  
+  // Wait for fade-out to complete before fetching new images
+  setTimeout(() => {
+    // Fetch and display filtered images
+    fetchGalleryImages();
+  }, 300);
+}
+
+// Filter gallery by photographer
+function filterByPhotographer(photographer) {
+  currentPhotographerFilter = photographer;
+  
+  // Update active button for photographer
+  document.querySelectorAll('#photographerFilters .filter-btn').forEach(btn => {
     btn.classList.toggle('active', btn.getAttribute('data-photographer') === photographer);
   });
   
@@ -773,7 +923,8 @@ function setupFormSubmission() {
       // Add photographer to database if new
       if (!photographers.includes(photographerName.value)) {
         await db.collection("photographers").add({
-          name: photographerName.value
+          name: photographerName.value,
+          talentType: talentType.value
         });
       }
       
@@ -799,6 +950,14 @@ function setupFormSubmission() {
 // Validate form
 function validateForm() {
   let isValid = true;
+  
+  // Check talent type
+  if (!talentType.value) {
+    showFieldError(talentType, 'Please select your talent type');
+    isValid = false;
+  } else {
+    clearFieldError(talentType);
+  }
   
   // Check photographer name
   if (!photographerName.value.trim()) {
@@ -871,6 +1030,7 @@ async function uploadToCloudinary(file) {
 // Save to Firestore
 async function saveToFirestore(imageUrl, status = 'pending') {
   return db.collection("photos").add({
+    talentType: talentType.value,
     photographer: photographerName.value.trim(),
     event: eventName.value.trim() || null,
     category: categorySelect.value || 'Uncategorized',

@@ -58,12 +58,48 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+// Global variables to track filters
+let selectedTalentTypes = new Set();
+
 // DOM Elements
 const pendingPhotos = document.getElementById('pendingPhotos');
 const noPending = document.getElementById('noPending');
 const pendingCount = document.getElementById('pendingCount');
 const approvedCount = document.getElementById('approvedCount');
 const rejectedCount = document.getElementById('rejectedCount');
+
+// Handle talent type filtering
+function filterByTalent(checkbox) {
+  if (checkbox.checked) {
+    selectedTalentTypes.add(checkbox.value);
+  } else {
+    selectedTalentTypes.delete(checkbox.value);
+  }
+  const currentStatus = document.querySelector('.sidebar-menu a.active').textContent.toLowerCase().includes('approved') ? 'approved' : 
+                       document.querySelector('.sidebar-menu a.active').textContent.toLowerCase().includes('rejected') ? 'rejected' : 'pending';
+  loadPhotos(currentStatus);
+  loadStatistics();
+}
+
+// Mobile sidebar functionality
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  sidebar.classList.toggle('active');
+  overlay.classList.toggle('active');
+}
+
+// Handle stat card clicks
+function handleStatCardClick(status) {
+  loadPhotos(status);
+  // Close sidebar if open on mobile
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebarOverlay');
+  if (sidebar.classList.contains('active')) {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+  }
+}
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
@@ -75,6 +111,18 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Load statistics
   loadStatistics();
+
+  // Initialize mobile menu button
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+  mobileMenuBtn.addEventListener('click', toggleSidebar);
+  sidebarOverlay.addEventListener('click', toggleSidebar);
+
+  // Add click handlers to stat cards
+  document.querySelector('.stat-card:nth-child(1)').addEventListener('click', () => handleStatCardClick('pending'));
+  document.querySelector('.stat-card:nth-child(2)').addEventListener('click', () => handleStatCardClick('approved'));
+  document.querySelector('.stat-card:nth-child(3)').addEventListener('click', () => handleStatCardClick('rejected'));
 });
 
 // Initialize dark mode toggle
@@ -111,9 +159,15 @@ async function loadPhotos(status = 'pending') {
       }
     });
 
-    const snapshot = await db.collection('photos')
-      .where('status', '==', status)
-      .get();
+    // Build query with filters
+    let query = db.collection('photos').where('status', '==', status);
+    
+    // Apply talent type filters if any are selected
+    if (selectedTalentTypes.size > 0) {
+      query = query.where('talentType', 'in', Array.from(selectedTalentTypes));
+    }
+
+    const snapshot = await query.get();
     
     pendingPhotos.innerHTML = '';
     
@@ -145,10 +199,20 @@ function createPhotoCard(id, photo) {
        <button class="reject-btn" onclick="rejectPhoto('${id}')"><i class="fas fa-times"></i> Reject</button>`
     : '';
 
+  // Get talent type label
+  const talentTypeLabels = {
+    'photographer': 'Photographer',
+    'videographer': 'Videographer',
+    'hmu': 'Hair & Makeup Artist',
+    'model': 'Model'
+  };
+  const talentTypeLabel = photo.talentType ? talentTypeLabels[photo.talentType] || 'Talent' : 'Photographer';
+
   card.innerHTML = `
-    <img src="${photo.imageUrl}" alt="Photo by ${photo.photographer}">
+    <img src="${photo.imageUrl}" alt="${talentTypeLabel}: ${photo.photographer}">
     <div class="photo-info">
       <h3>${photo.photographer}</h3>
+      <p><strong>Talent Type:</strong> ${talentTypeLabel}</p>
       <p><strong>Category:</strong> ${photo.category}</p>
       ${photo.event ? `<p><strong>Event:</strong> ${photo.event}</p>` : ''}
       <p><strong>Uploaded:</strong> ${new Date(photo.timestamp).toLocaleDateString()}</p>
