@@ -3,667 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circle Photowalk Group</title>
-<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="Circle" />
-<meta name="theme-color" content="#000000" id="theme-color">
-<link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="popup.css">
-    <link rel="stylesheet" href="reviews.css">
+    <title>Circle - Choose Your Path</title>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Circle" />
+    <meta name="theme-color" content="#000000" id="theme-color">
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --transition-speed: 0.5s;
+            --overlay-color: rgba(0, 0, 0, 0.7);
+            --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .split-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .split {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            transition: flex var(--transition-speed) ease;
+        }
+
+        .split:hover {
+            flex: 1.5;
+        }
+
+        .split-left {
+            background: url('https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/2024_03_16_Circle_Yoyogi_Koen_265.jpg?v=1743709494009') center/cover no-repeat;
+        }
+
+        .split-right {
+            background: url('https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/4?v=1745346483217') center/cover no-repeat;
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-color);
+            transition: background var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .split:hover .overlay {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .title {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: var(--text-shadow);
+            transition: transform var(--transition-speed);
+        }
+
+        .split-left .title,
+        .split-left .description,
+        .split-left .btn {
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .split-right .title,
+        .split-right .description,
+        .split-right .btn {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all var(--transition-speed);
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .description {
+            color: white;
+            font-size: 1.2rem;
+            max-width: 80%;
+            margin-bottom: 2rem;
+            text-shadow: var(--text-shadow);
+            opacity: 0.9;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all var(--transition-speed);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: transform var(--transition-speed);
+            transform: skewX(10deg);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: black;
+        }
+
+        .btn:hover::before {
+            transform: skewX(10deg) translateX(100%);
+        }
+
+        .split:hover .title {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+
+            .split {
+                height: 50vh;
+            }
+
+            .split:hover {
+                flex: 1.2;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .description {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .description {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loader">
-        <div class="loader-spinner"></div>
-    </div>
-<!-- Navigation Section -->
-<nav class="navbar">
-    <div class="container">
-        <!-- Theme Toggle moved inside navbar container -->
-        <div class="theme-toggle">
-            <div class="toggle-wrapper">
-                <input type="checkbox" id="theme-toggle" class="toggle-input">
-                <label for="theme-toggle" class="toggle-label">
-                    <div class="toggle-icons">
-                        <i class="fas fa-sun"></i>
-                        <i class="fas fa-moon"></i>
-                    </div>
-                </label>
+    <div class="language-toggle" onclick="toggleLanguage()">EN | 日本語</div>
+    <div class="split-container">
+        <div class="split split-left">
+            <div class="overlay">
+                <h1 class="title" data-en="Circle Photowalk" data-jp="サークルフォトウォーク">Circle Photowalk</h1>
+                <p class="description" data-en="Join our fun community of photographers and explore Tokyo together!" data-jp="写真家のコミュニティに参加して、一緒に東京を探検しましょう！">Join our fun community of photographers and explore Tokyo together!</p>
+                <a href="index.html" class="btn" data-en="Let's Have Fun!" data-jp="楽しもう！">Let's Have Fun!</a>
             </div>
         </div>
-
-        <a href="#" class="logo">
-            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
-                 alt="Circle Photography Friends Logo" 
-                 class="logo-image">
-        </a>
-        <button class="mobile-menu-btn">
-            <i class="fas fa-bars"></i>
-        </button>
-            <div class="nav-links">
-                <a href="#about"><i class="fas fa-heart"></i> About</a>
-                <a href="#gallery"><i class="fas fa-images"></i> Gallery</a>
-                <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                <a href="#hire-us"><i class="fas fa-briefcase"></i> Services</a>
-                <a href="#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
+        <div class="split split-right">
+            <div class="overlay">
+                <h1 class="title" data-en="Professional Services" data-jp="プロフェッショナルサービス">Professional Services</h1>
+                <p class="description" data-en="Discover our network of professional photographers and creative talents." data-jp="プロの写真家やクリエイティブな人材のネットワークをご覧ください。">Discover our network of professional photographers and creative talents.</p>
+                <a href="main2.html" class="btn" data-en="See Talents" data-jp="ポートフォリオを見る">See Talents</a>
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-video">
-            <video autoplay muted loop playsinline>
-                <source src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" type="video/mp4">
-            </video>
-            <div class="overlay"></div>
-        </div>
-        <div class="hero-content">
-            <h1>Welcome to ⭕️ Circle</h1>
-            <div class="animated-slogan">
-                <span class="flip-text"></span>
-            </div>
-            <p class="subtitle">Where Photography Meets Community!</p>
-            <div class="hero-buttons">
-                <a href="#events" class="btn rainbow-btn">Upcoming Events</a>
-                <a href="#gallery" class="btn rainbow-btn">See Our Photos</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- About Section -->
-    <section id="about" class="section about parallax-section">
-
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Happy Little Photo Family</h2>
-                <p class="section-description">No experience needed - just bring your smile and creativity!</p>
-            </div>
-            
-            <div class="about-redesign">
-                <!-- Main content card -->
-                <div class="about-main-card">
-                    <div class="about-content-wrapper">
-                        <div class="about-text-content">
-                            <h3>"Circle" connects creatives</h3>
-                            <p class="about-lead">We help photographers, models, hair and makeup artists and other creatives to connect and collaborate.</p>
-                            
-                            <p>Founded in 2024 by two friends, Circle has evolved from casual meetups to a thriving community. We emerged as a circle of friends passionate about photography, modeling and art.</p>
-                            
-                            <p>Circle offers opportunities to meet like-minded creatives and create in a fun environment. Our photowalks take place in different parts of Tokyo, as well as weekend trips outside the city.</p>
-                            
-                            <p class="about-tagline">All skill levels are welcome! Come join our circle of artists and friends.</p>
-                        </div>
-                        
-                        <div class="about-image-container">
-                            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/clean_525024856.avif?v=1743611940020" alt="Friends taking photos together">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Stats row -->
-                <div class="about-stats-row">
-                    <div class="stat-item">
-                        <div class="stat-number">770+</div>
-                        <div class="stat-description">
-                            <div class="stat-icon"><i class="fas fa-smile-beam"></i></div>
-                            <div class="stat-label">Happy Members</div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-item">
-                        <div class="stat-number">30+</div>
-                        <div class="stat-description">
-                            <div class="stat-icon"><i class="fas fa-camera"></i></div>
-                            <div class="stat-label">Photo Walks Yearly</div>
-                        </div>
-                    </div>
-                    
-                    <div class="stat-item">
-                        <div class="stat-number">5000+</div>
-                        <div class="stat-description">
-                            <div class="stat-icon"><i class="fas fa-images"></i></div>
-                            <div class="stat-label">Photos Shared</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Founders Section -->
-    <section class="section founders parallax-section">
-
-        <div class="container">
-            <div class="section-header">
-                <h2>Meet Your Photo Buddies</h2>
-                <p class="section-description">Your facilitators during the photowalks</p>
-            </div>
-            
-            <div class="founders-grid">
-                <a href="https://www.instagram.com/simsek.sua/" class="founder-link" target="_blank" rel="noopener noreferrer">
-                    <div class="founder-card">
-                        <div class="founder-image">
-                            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/sim2?v=1745348082492" alt="Simsek smiling with camera">
-                            <div class="social-links">
-                                <i class="fab fa-instagram"></i>
-                            </div>
-                        </div>
-                        <h3>Simsek Sua Tortu</h3>
-                        <p class="title"><i class="fab fa-instagram"></i>simsek.sua</p>
-                        <p></p>
-                    </div>
-                </a>
-                
-                <a href="https://www.instagram.com/nothing_special_88/" class="founder-link" target="_blank" rel="noopener noreferrer">
-                    <div class="founder-card">
-                        <div class="founder-image2">
-                            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/craig1?v=1745347380483" alt="Craig laughing with camera">
-                            <div class="social-links">
-                                <i class="fab fa-instagram"></i>
-                            </div>
-                        </div>
-                        <h3>Craig Stennett</h3>
-                        <p class="title"><i class="fab fa-instagram"></i>nothing_special_88</p>
-                        <p></p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-<section id="gallery" class="section gallery parallax-section">
-    <div class="container">
-        <div class="section-header">
-            <h2>Highlights From Our Previous walks</h2>
-            <p class="section-description">Explore our favorite moments from recent adventures</p>
-        </div>
-        
-        <div class="gallery-container">
-            <div class="gallery-slider">
-                <div class="slide active">
-                    <div class="slide-content">
-                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/2024_03_16_Circle_Yoyogi_Koen_265.jpg?v=1743709494009" alt="Group photo walk">
-                        <div class="caption">
-                            <i class="fas fa-camera-retro"></i>
-                            <h3>Yoyogi Park</h3>
-                            <p>Photowalk around the Park</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-content">
-                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/2023-09-24%2008-24-54%20-%20IMG_0289.jpg?v=1743709679327" alt="Night photography">
-                        <div class="caption">
-                            <i class="fas fa-moon"></i>
-                            <h3>Enoshima</h3>
-                            <p>Enoshima Sunset Walk</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-content">
-                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/4?v=1745346483217" alt="Night photography">
-                        <div class="caption">
-                            <i class="fa-solid fa-handshake"></i>
-                            <h3>Exhibition</h3>
-                            <p>Circle Official Exhibition</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-content">
-                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/3?v=1745346488066" alt="Night photography">
-                        <div class="caption">
-                            <i class="fa-solid fa-handshake"></i>
-                            <h3>Exhibition</h3>
-                            <p>Circle Official Exhibition</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-content">
-                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/2023-09-24%2008-41-16%20-%20IMG_0423.jpg?v=1743836193904" alt="Portrait session">
-                        <div class="caption">
-                            <i class="fa-solid fa-sun"></i>
-                            <h3>Golden Hour Portraits</h3>
-                            <p>Kamakura Beach Walk</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="gallery-controls">
-                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <div class="dots-container"></div>
-                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            
-            <div class="full-gallery-link">      
-              <a href="gallery.html" class="btn rainbow-btn"><i class="fas fa-images"></i> Explore Full Gallery</a>
-              <a href="upload.html" class="btn rainbow-btn"><i class="fas fa-cloud-upload-alt"></i> Upload Your Photos</a>
-
-          </div>
         </div>
     </div>
-</section>
 
-    <!-- Events Section -->
-    <section id="events" class="section events parallax-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Upcoming Photowalk Events</h2>
-                <p class="section-description">Come join the adventure!</p>
-            </div>
+    <script>
+        function toggleLanguage() {
+            const isEnglish = document.documentElement.getAttribute('lang') === 'en';
+            document.documentElement.setAttribute('lang', isEnglish ? 'ja' : 'en');
             
-            <div class="events-grid">
-                <div class="event-card">
-                    <div class="event-date pastel-blue">
-                        <span>3</span>
-                        <span>May</span>
-                    </div>
-                    <div class="event-details">
-                        <h3>Osaka - Shinsekai Photowalk</h3>
-                        <p><i class="fas fa-map-marker-alt"></i>Don Quijote</p>
-                        <p><i class="fas fa-clock"></i> 3:00 PM - 5:00 PM</p>
-                        <p>Let's travel and capture Osaka together!</p>
-                        <a href="https://www.meetup.com/circle/events/307511903/?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link" class="btn pastel-pink-btn">I'm Coming!</a>
-                    </div>
-                </div>
-                
-                <div class="event-card">
-                    <div class="event-date pastel-yellow">
-                        <span>15</span>
-                        <span>March</span>
-                    </div>
-                    <div class="event-details">
-                        <h3>Kawagoe Little Edo (川越 小 江戸)</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> JR Kawagoe St.</p>
-                        <p><i class="fas fa-clock"></i> 3:30 PM- 5:30 PM</p>
-                        <p>🌸 Daytime Photowalk 🌸</p>
-                        <a href="https://www.meetup.com/circle/" class="btn pastel-green-btn">Count Me In!</a>
-                    </div>
-                </div>
-                
-                <div class="event-card">
-                    <div class="event-date pastel-pink">
-                        <span>13</span>
-                        <span>March</span>
-                    </div>
-                    <div class="event-details">
-                        <h3>Harajuku Night-Time Photowalk</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> JR. Harajuku Station Takeshita Exit</p>
-                        <p><i class="fas fa-clock"></i> 6:45 PM - 8:45 PM</p>
-                        <p>Dont forget to bring some lights!</p>
-                        <a href="https://www.meetup.com/circle/" class="btn pastel-blue-btn">Sign Me Up!</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Join Section -->
-    <section id="join" class="section join parallax-section">
-        <div class="container">
-            <div class="join-content">
-                <h2>Ready to Join the Fun?</h2>
-                <p>We can't wait to meet you! Here's how to get started:</p>
-                
-                <div class="join-steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <h3>Follow Us</h3>
-                        <p>Check out our Instagram to see what we're up to</p>
-                        <a href="https://www.instagram.com/tokyocircle/" class="btn instagram-btn"><i class="fab fa-instagram"></i> tokyocircle</a>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <h3>Join Our Chat</h3>
-                        <p>Get added to our friendly LINE group today</p>
-                        <a href="https://line.me/ti/g/mJAkqUoScC" class="btn line-btn"><i class="fab fa-line"></i> Add Me</a>
-                    </div>
-                    
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <h3>Come Say Hi!</h3>
-                        <p>Show up to any event - we'll be expecting you!</p>
-                        <a href="https://www.meetup.com/circle/" class="btn meetup-btn"><i class="fab fa-meetup"></i> See Events</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Hire Us Section -->
-    <section id="hire-us" class="section hire-us parallax-section">
-
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Creative Collective</h2>
-                <p class="section-description">Tokyo Circle is a vibrant hub of photographers, videographers, models, and hair & makeup artists — all passionate about storytelling and creativity. Whether you're looking for a team to bring your vision to life or need a single specialist to collaborate with, we can connect you with the right talent from our community. Every project is different, and we’re here to help you find the perfect match.</p>
-            </div>
-            
-            <div class="hire-us-content">
-                <div class="hire-us-cards">
-                    <div class="hire-card">
-                        <div class="hire-icon">
-                            <i class="fas fa-camera-retro"></i>
-                        </div>
-                        <h3>Photography & Videography</h3>
-                        <p>From stunning portraits to dynamic videos, our creatives capture your story in the most authentic way.</p>
-                        <ul class="hire-features">
-                            <li><i class="fas fa-check"></i> Portraits & Events</li>
-                            <li><i class="fas fa-check"></i> Digital and print options</li>
-                            <li><i class="fas fa-check"></i> High-resolution photos and videos</li>
-                        </ul>
-                        <a href="quote.html" class="btn rainbow-btn"><i class="fas fa-envelope"></i> Request Quote</a>
-                    </div>
-                    
-                    <div class="hire-card">
-                        <div class="hire-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h3>Models</h3>
-                        <p>Find the perfect face or personality to represent your vision — from editorial shoots to commercial projects.</p>
-                        <ul class="hire-features">
-                            <li><i class="fas fa-check"></i> Editorial & fashion</li>
-                            <li><i class="fas fa-check"></i> Diverse talents</li>
-                            <li><i class="fas fa-check"></i> Project-based matching</li>
-                        </ul>
-                        <a href="quote.html" class="btn rainbow-btn"><i class="fas fa-envelope"></i> Request Quote</a>
-                    </div>
-                    
-                    <div class="hire-card">
-                        <div class="hire-icon">
-                            <i class="fas fa-portrait"></i>
-                        </div>
-                        <h3>Hair & Makeup Artists</h3>
-                        <p>Our talented artists bring out the best in every look, enhancing shoots with professional styling and creativity.</p>
-                        <ul class="hire-features">
-                            <li><i class="fas fa-check"></i> On-set styling</li>
-                            <li><i class="fas fa-check"></i> Styling consultation</li>
-                            <li><i class="fas fa-check"></i> Creative looks</li>
-                        </ul>
-                        <a href="quote.html" class="btn rainbow-btn"><i class="fas fa-envelope"></i> Request Quote</a>
-                    </div>
-                </div>
-                
-                <div class="hire-promise">
-                    <h3>Custom Creative Teams</h3>
-                    <p>Need a full team? We curate the right mix of talents for your project — making collaboration seamless and inspiring.</p>
-                    <ul class="promise-points">
-                        <li><i class="fas fa-hand-holding-heart"></i> <strong>Tailored to Your Needs:</strong> We listen carefully to understand your vision and objectives</li>
-                        <li><i class="fas fa-coins"></i> <strong>Competitive Pricing:</strong> Transparent packages with no hidden costs suitable for projects of any scale or style</li>
-                        <li><i class="fas fa-thumbs-up"></i> <strong>Satisfaction Guaranteed:</strong> We work until you're completely happy with the results</li>
-                    </ul>
-                    <div class="hire-cta">
-                        <a href="upload.html" class="btn pastel-purple-btn"><i class="fas fa-paper-plane"></i> Browse Community Talents</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section id="reviews" class="section reviews parallax-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Our Members Say</h2>
-                <p class="section-description">Real experiences from our photography community</p>
-            </div>
-            
-            <div class="reviews-content">
-                <!-- Overall Rating -->
-                <div class="overall-rating">
-                    <div class="rating-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                    <div class="rating-number">4.8<span class="rating-total">/5</span></div>
-                    <p class="rating-count">Based on 189 ratings across all events</p>
-                </div>
-                
-                <!-- Reviews Grid -->
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user-circle"></i>
-                            </div>
-                            <div class="review-info">
-                                <h3>Mika T.</h3>
-                                <div class="review-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="review-text">"The hosts were so welcoming and made everyone feel included from the start. As someone new to photography, I felt right at home with this amazing group!"</p>
-                        <p class="review-event">Shibuya Night Photography Walk</p>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user-circle"></i>
-                            </div>
-                            <div class="review-info">
-                                <h3>James K.</h3>
-                                <div class="review-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Such an engaging experience! I learned so many new photography techniques while making friends. The organizers create a perfect balance of learning and socializing."</p>
-                        <p class="review-event">Yoyogi Park Cherry Blossom Walk</p>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user-circle"></i>
-                            </div>
-                            <div class="review-info">
-                                <h3>Naomi S.</h3>
-                                <div class="review-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="review-text">"As a solo female traveler, I always felt completely safe with this group. The organizers are professional and create a comfortable environment for everyone."</p>
-                        <p class="review-event">Meguro River Evening Walk</p>
-                    </div>
-                    
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user-circle"></i>
-                            </div>
-                            <div class="review-info">
-                                <h3>Alex R.</h3>
-                                <div class="review-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="review-text">"What makes Circle special is how inclusive everyone is. No matter your background or skill level, you'll find people who share your passion and make you feel welcome."</p>
-                        <p class="review-event">Kamakura Weekend Trip</p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user-circle"></i>
-                            </div>
-                            <div class="review-info">
-                                <h3>Sophia L.</h3>
-                                <div class="review-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Simsek's knowledge of Tokyo's hidden spots made such an impact on my photography! The locations were exactly as described and the event started right on time. Made some great connections too!"</p>
-                        <p class="review-event">Tokyo Hidden Gems Photo Tour</p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user-circle"></i>
-                            </div>
-                            <div class="review-info">
-                                <h3>David M.</h3>
-                                <div class="review-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Craig's sunset workshop was in the perfect setting - exactly as described in the event details. The punctual start gave us plenty of time to set up. I've attended many photography meetups but this one had the greatest impact on my skills."</p>
-                        <p class="review-event">Mount Takao Sunset Workshop</p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user-circle"></i>
-                            </div>
-                            <div class="review-info">
-                                <h3>Emma H.</h3>
-                                <div class="review-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="review-text">"The location was absolutely stunning and exactly as described in the event details. I met so many interesting people! Simsek made sure everyone was comfortable and the punctual start meant we had plenty of time to capture the perfect shots."</p>
-                        <p class="review-event">Enoshima Island Photo Adventure</p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <div class="review-avatar">
-                                <i class="fas fa-user-circle"></i>
-                            </div>
-                            <div class="review-info">
-                                <h3>Ryan T.</h3>
-                                <div class="review-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Craig's workshop had such a positive impact on my photography style. The setting was perfect for practicing different techniques, and everything was exactly as described in the event listing. Started right on time too!"</p>
-                        <p class="review-event">Urban Architecture Workshop</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <h3>⭕️ Circle</h3>
-                    <div class="footer-social">
-                        <a href="https://www.instagram.com/tokyocircle/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://line.me/ti/g/mJAkqUoScC" aria-label="Line"><i class="fab fa-line"></i></a>
-                        <a href="https://www.meetup.com/circle/" aria-label="Meetup"><i class="fab fa-meetup"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <a href="#about"><i class="fas fa-heart"></i> About Us</a>
-                    <a href="#gallery"><i class="fas fa-images"></i> Photo Gallery</a>
-                    <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                    <a href="#hire-us"><i class="fas fa-briefcase"></i> Services</a>
-                    <a href="#join"><i class="fas fa-user-plus"></i> Join Us</a>
-                </div>
-                
-                <div class="footer-contact">
-                    <h4>Contact Us</h4>
-                    <a href="mailto:hello@circletokyo.com"><i class="fas fa-envelope"></i> hello@circletokyo.com</a>
-                    <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> Message on Instagram</a>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <a>Made with <i class="fas fa-heart heart"></i> by TT &copy; 2024</a>
-            </div>
-        </div>
-    </footer>
-<script>
-const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
-
-if (motion.matches) {
-  const themeColorMeta = document.getElementById('theme-color');
-  const navbar = document.querySelector('.navbar');
-  let hue = 0;
-
-  function getCurrentColor() {
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    return isDarkMode
-      ? `hsl(${hue}, 30%, 25%)`
-      : `hsl(${hue}, 40%, 90%)`;
-  }
-
-  function updateColors() {
-    hue = (hue + 1) % 360;
-    const color = getCurrentColor();
-
-    document.body.style.background = color;
-    if (navbar) navbar.style.background = color;
-    if (themeColorMeta) themeColorMeta.setAttribute('content', color);
-  }
-
-  setInterval(updateColors, 100);
-}
-</script>
-    <script src="script.js"></script>
-    <script src="slogan-animation.js"></script>
-    <script src="popup.js"></script>
+            document.querySelectorAll('[data-en]').forEach(element => {
+                element.textContent = isEnglish ? element.getAttribute('data-jp') : element.getAttribute('data-en');
+            });
+        }
+    </script>
 </body>
 </html>
