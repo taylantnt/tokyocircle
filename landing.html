@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle - Choose Your Path</title>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Circle" />
+    <meta name="theme-color" content="#000000" id="theme-color">
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --transition-speed: 0.5s;
+            --overlay-color: rgba(0, 0, 0, 0.7);
+            --text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .split-container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .split {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            transition: flex var(--transition-speed) ease;
+        }
+
+        .split:hover {
+            flex: 1.5;
+        }
+
+        .split-left {
+            background: url('https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/2024_03_16_Circle_Yoyogi_Koen_265.jpg?v=1743709494009') center/cover no-repeat;
+        }
+
+        .split-right {
+            background: url('https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/4?v=1745346483217') center/cover no-repeat;
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-color);
+            transition: background var(--transition-speed);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .split:hover .overlay {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .title {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: var(--text-shadow);
+            transition: transform var(--transition-speed);
+        }
+
+        .split-left .title,
+        .split-left .description,
+        .split-left .btn {
+            font-family: 'Comic Neue', cursive;
+        }
+
+        .split-right .title,
+        .split-right .description,
+        .split-right .btn {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all var(--transition-speed);
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .description {
+            color: white;
+            font-size: 1.2rem;
+            max-width: 80%;
+            margin-bottom: 2rem;
+            text-shadow: var(--text-shadow);
+            opacity: 0.9;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: 2px solid white;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all var(--transition-speed);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: transform var(--transition-speed);
+            transform: skewX(10deg);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: black;
+        }
+
+        .btn:hover::before {
+            transform: skewX(10deg) translateX(100%);
+        }
+
+        .split:hover .title {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+
+            .split {
+                height: 50vh;
+            }
+
+            .split:hover {
+                flex: 1.2;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .description {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .description {
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .btn {
+                padding: 0.7rem 1.8rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-toggle" onclick="toggleLanguage()">EN | 日本語</div>
+    <div class="split-container">
+        <div class="split split-left">
+            <div class="overlay">
+                <h1 class="title" data-en="Circle Photowalk" data-jp="サークルフォトウォーク">Circle Photowalk</h1>
+                <p class="description" data-en="Join our fun community of photographers and explore Tokyo together!" data-jp="写真家のコミュニティに参加して、一緒に東京を探検しましょう！">Join our fun community of photographers and explore Tokyo together!</p>
+                <a href="index.html" class="btn" data-en="Let's Have Fun!" data-jp="楽しもう！">Let's Have Fun!</a>
+            </div>
+        </div>
+        <div class="split split-right">
+            <div class="overlay">
+                <h1 class="title" data-en="Professional Services" data-jp="プロフェッショナルサービス">Professional Services</h1>
+                <p class="description" data-en="Discover our network of professional photographers and creative talents." data-jp="プロの写真家やクリエイティブな人材のネットワークをご覧ください。">Discover our network of professional photographers and creative talents.</p>
+                <a href="gallery-new.html" class="btn" data-en="View Portfolio" data-jp="ポートフォリオを見る">View Portfolio</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleLanguage() {
+            const isEnglish = document.documentElement.getAttribute('lang') === 'en';
+            document.documentElement.setAttribute('lang', isEnglish ? 'ja' : 'en');
+            
+            document.querySelectorAll('[data-en]').forEach(element => {
+                element.textContent = isEnglish ? element.getAttribute('data-jp') : element.getAttribute('data-en');
+            });
+        }
+    </script>
+</body>
+</html>

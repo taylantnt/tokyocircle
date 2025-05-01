@@ -681,37 +681,38 @@
 </head>
 <body>
   <header>
-    <nav class="navbar" role="navigation" aria-label="Main navigation">
-      <div class="container">
+<!-- Navigation Section -->
+<nav class="navbar">
+    <div class="container">
         <!-- Theme Toggle moved inside navbar container -->
         <div class="theme-toggle">
-          <div class="toggle-wrapper">
-            <input type="checkbox" id="theme-toggle" class="toggle-input">
-            <label for="theme-toggle" class="toggle-label">
-              <div class="toggle-icons">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-              </div>
-            </label>
-          </div>
+            <div class="toggle-wrapper">
+                <input type="checkbox" id="theme-toggle" class="toggle-input">
+                <label for="theme-toggle" class="toggle-label">
+                    <div class="toggle-icons">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </label>
+            </div>
         </div>
 
         <a href="index.html" class="logo">
-          <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
-               alt="Circle Photography Friends Logo" 
-               class="logo-image">
+            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
+                 alt="Circle Photography Friends Logo" 
+                 class="logo-image">
         </a>
         <button class="mobile-menu-btn">
-          <i class="fas fa-bars"></i>
+            <i class="fas fa-bars"></i>
         </button>
-        <div class="nav-links">
-          <a href="index.html#about"><i class="fas fa-heart"></i> About</a>
-          <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
-          <a href="index.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
-          <a href="index.html#hire-us"><i class="fas fa-briefcase"></i> Services</a>
-          <a href="index.html#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
+            <div class="nav-links">
+                <a href="#about"><i class="fas fa-heart"></i> About</a>
+                <a href="#gallery"><i class="fas fa-images"></i> Gallery</a>
+                <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
+                <a href="#hire-us"><i class="fas fa-briefcase"></i> Services</a>
+                <a href="#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
+            </div>
         </div>
-      </div>
     </nav>
   </header>
 
@@ -719,8 +720,8 @@
   <header class="hero">
     <div class="slideshow-container" id="slideshow"></div>
     <div class="hero-content">
-      <h1>Share Your Photography</h1>
-      <p>Showcase your best shots from our photowalks and events with the Circle community</p>
+      <h1>Welcome to Our Creative Community</h1>
+      <p>A space where artists showcase their work and clients discover amazing talent</p>
     </div>
   </header>
 
@@ -728,8 +729,8 @@
   <section class="upload-section">
     <div class="upload-container">
       <div class="section-title">
-        <h2>Upload Your Work</h2>
-        <p>Share your favorite photos with our community and get featured in our gallery</p>
+        <h2>Share Your Artistry</h2>
+        <p>Join our vibrant community of creators and let your work shine in our curated gallery</p>
       </div>
       
       <div class="upload-card">
@@ -742,9 +743,9 @@
           <form id="uploadForm" class="upload-form">
             <div class="form-row">
               <div class="form-group">
-                <label for="talentType">Talent Type <span class="required">*</span></label>
-                <select id="talentType" aria-label="Select your talent type" required>
-                  <option value="" selected disabled>Select your talent type</option>
+                <label for="talentType">Artist Type <span class="required">*</span></label>
+                <select id="talentType" class="styled-select" aria-label="Select your artist type" required>
+                  <option value="" selected disabled>Select your creative field</option>
                   <option value="photographer">Photographer</option>
                   <option value="videographer">Videographer</option>
                   <option value="hmu">Hair & Makeup Artist</option>
@@ -753,13 +754,13 @@
               </div>
               
               <div class="form-group">
-                <label for="photographerName">Your Name <span class="required">*</span></label>
-                <div class="photographer-input">
-                  <select id="photographerSelect" aria-label="Select existing name">
+                <label for="photographerName">Artist Name <span class="required">*</span></label>
+                <div class="artist-input-container">
+                  <select id="photographerSelect" class="styled-select" aria-label="Select existing name">
                     <option value="" selected>Select your name or add new</option>
-                    <!-- Talent names will be populated here -->
+                    <!-- Artist names will be populated here -->
                   </select>
-                  <input type="text" id="photographerName" placeholder="Enter your name" aria-label="Enter new name">
+                  <input type="text" id="photographerName" class="styled-input" placeholder="Enter your artist name" aria-label="Enter new name">
                 </div>
               </div>
               

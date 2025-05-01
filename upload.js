@@ -287,20 +287,31 @@ function initMobileMenu() {
   const navLinks = document.querySelector('.nav-links');
   
   if (mobileMenuBtn && navLinks) {
-    mobileMenuBtn.addEventListener('click', function() {
+    // Toggle menu when button is clicked
+    mobileMenuBtn.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent event from bubbling to document
       navLinks.classList.toggle('active');
       this.classList.toggle('active');
       document.body.classList.toggle('menu-open');
-      document.body.classList.toggle('active', navLinks.classList.contains('active'));
+    });
+    
+    // Close menu when clicking a nav link
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      });
     });
     
     // Close menu when clicking outside
     document.addEventListener('click', function(e) {
-      if (!e.target.closest('.nav-links') && !e.target.closest('.mobile-menu-btn')) {
+      if (navLinks.classList.contains('active') && 
+          !e.target.closest('.nav-links') && 
+          !e.target.closest('.mobile-menu-btn')) {
         navLinks.classList.remove('active');
         mobileMenuBtn.classList.remove('active');
         document.body.classList.remove('menu-open');
-        document.body.classList.remove('active');
       }
     });
   }
@@ -478,21 +489,30 @@ function setupTalentTypeSelection() {
 // Fetch categories from database
 async function fetchCategories() {
   try {
+    // Get existing options from the dropdown (skip the first one which is the placeholder)
+    const existingOptions = Array.from(categorySelect.options)
+      .slice(1) // Skip the first placeholder option
+      .map(option => option.value.toLowerCase());
+    
+    // Fetch categories from database
     const snapshot = await db.collection("categories").get();
     categories = [];
     
+    // Process categories from database
     snapshot.forEach(doc => {
       const category = doc.data().name;
       categories.push(category);
       
-      // Add to select dropdown
-      const option = document.createElement('option');
-      option.value = category;
-      option.textContent = category;
-      categorySelect.appendChild(option);
+      // Only add to dropdown if it doesn't already exist
+      if (!existingOptions.includes(category.toLowerCase())) {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categorySelect.appendChild(option);
+      }
     });
     
-    // If no categories exist yet, add some default ones
+    // If no categories exist in database, add default ones
     if (categories.length === 0) {
       const defaultCategories = ['Portrait', 'Landscape', 'Street', 'Architecture', 'Nature', 'Event'];
       defaultCategories.forEach(category => {
@@ -501,11 +521,7 @@ async function fetchCategories() {
           name: category
         });
         
-        // Add to select dropdown
-        const option = document.createElement('option');
-        option.value = category;
-        option.textContent = category;
-        categorySelect.appendChild(option);
+        // Don't need to add to dropdown as they're already in the HTML
       });
     }
   } catch (err) {

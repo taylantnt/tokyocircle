@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Talent Agency | Professional Creatives</title>
+    <meta name="description" content="Circle Talent Agency - Connecting brands with top creative professionals in modeling, photography, and hair/makeup artistry.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        :root {
+            /* Color Palette */
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --accent-color: #000000;
+            --accent-dark: #1a1a1a;
+            --accent-light: #f5f5f5;
+            
+            /* Typography */
+            --font-heading: 'Helvetica Neue', sans-serif;
+            --font-body: 'Helvetica Neue', sans-serif;
+            
+            /* UI Elements */
+            --nav-height: 60px;
+            --hero-height: 70vh;
+            --overlay-dark: rgba(0, 0, 0, 0.3);
+            --overlay-light: rgba(255, 255, 255, 0.05);
+            --card-blur: none;
+            
+            /* Spacing & Effects */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 6rem;
+            --border-radius: 0;
+            --shadow-sm: none;
+            --shadow-md: none;
+            --shadow-lg: none;
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+                /* Global Styles */
+        body {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            height: var(--nav-height);
+            background: var(--bg-primary);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--bg-secondary);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: var(--hero-height);
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-primary);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+        }
+
+        /* Category Filters */
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-lg) 0;
+            flex-wrap: wrap;
+        }
+
+        .category-filter {
+            cursor: pointer;
+            padding: var(--spacing-xs) var(--spacing-md);
+            background: transparent;
+            transition: all var(--transition-smooth);
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .category-filter:hover {
+            color: var(--text-primary);
+        }
+
+        .category-filter.active {
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--text-primary);
+        }
+
+        /* Talent Grid */
+        .talent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            padding: 0 var(--spacing-md) var(--spacing-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .talent-card {
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-smooth);
+            text-decoration: none;
+            background: var(--bg-primary);
+        }
+
+        .talent-card:hover {
+            opacity: 0.9;
+        }
+
+        .talent-image {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            transition: transform var(--transition-smooth);
+        }
+
+        .talent-card:hover .talent-image {
+            transform: scale(1.05);
+        }
+
+        .talent-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            padding: var(--spacing-sm);
+            color: var(--text-primary);
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform var(--transition-smooth);
+        }
+
+        .talent-card:hover .talent-info {
+            transform: translateY(0);
+        }
+
+        .talent-name {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+
+        .talent-category {
+            display: inline-block;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .talent-bio {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: var(--spacing-sm);
+        }
+
+        .talent-social {
+            margin-top: var(--spacing-sm);
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .social-link {
+            color: var(--bg-primary);
+            font-size: 1.2rem;
+            opacity: 0.8;
+            transition: opacity var(--transition-fast);
+        }
+
+        .social-link:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .talent-grid {
+                padding: 0 var(--spacing-sm) var(--spacing-lg);
+                gap: var(--spacing-md);
+            }
+
+            .category-filters {
+                padding: var(--spacing-md) var(--spacing-sm);
+                gap: var(--spacing-sm);
+            }
+
+            .category-filter {
+                padding: var(--spacing-xs) var(--spacing-sm);
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Circle Talent</a>
+            <div class="nav-links">
+                <a href="gallery-new.html" class="nav-link">Gallery</a>
+                <a href="talents.html" class="nav-link">Talents</a>
+                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" data-aos="fade-in">
+        <div class="hero-content">
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">CIRCLE TALENT</h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">A curated selection of professional models, photographers, and artists.</p>
+        </div>
+    </section>
+
+    <div class="category-filters" data-aos="fade-up">
+        <div class="category-filter active" data-category="all">All Talents</div>
+        <div class="category-filter" data-category="models">Models</div>
+        <div class="category-filter" data-category="photographers">Photographers</div>
+        <div class="category-filter" data-category="hmus">Hair & Makeup</div>
+    </div>
+
+    <div class="talent-grid">
+        <!-- Talent cards will be dynamically generated -->
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Enhanced talent data with more professional details
+        const talents = [
+            {
+                name: 'Sarah Kingston',
+                category: 'models',
+                image: 'https://source.unsplash.com/random/600x800?fashion,model,professional',
+                profile: 'model-sarah.html',
+                social: { 
+                    instagram: '@sarahkingston',
+                    linkedin: 'sarah-kingston-model'
+                },
+                bio: 'International runway model with experience in haute couture and editorial fashion',
+                specialties: ['Runway', 'Editorial', 'Commercial'],
+                featured: true
+            },
+            {
+                name: 'James Peterson',
+                category: 'photographers',
+                image: 'https://source.unsplash.com/random/600x800?photographer,studio,professional',
+                profile: 'photographer-james.html',
+                social: {
+                    instagram: '@jamespeterson.photo',
+                    behance: 'jamespeterson'
+                },
+                bio: 'Award-winning fashion photographer specializing in editorial and commercial photography',
+                specialties: ['Fashion', 'Editorial', 'Commercial'],
+                featured: true
+            },
+            {
+                name: 'Mika Thompson',
+                category: 'hmus',
+                image: 'https://source.unsplash.com/random/600x800?makeup,artist,professional',
+                profile: 'hmu-mika.html',
+                social: {
+                    instagram: '@mikathompson.beauty',
+                    pinterest: 'mikathompsonbeauty'
+                },
+                bio: 'Celebrity makeup artist with expertise in editorial and runway beauty',
+                specialties: ['Editorial', 'Runway', 'Bridal'],
+                featured: true
+            },
+            {
+                name: 'Elena Martinez',
+                category: 'models',
+                image: 'https://source.unsplash.com/random/600x800?model,editorial,professional',
+                profile: 'model-elena.html',
+                social: {
+                    instagram: '@elenamartinez',
+                    tiktok: '@elena.martinez'
+                },
+                bio: 'Contemporary fashion model specializing in print and digital media campaigns',
+                specialties: ['Print', 'Digital', 'Commercial']
+            }
+        ];
+
+        // Enhanced filter functionality with smooth transitions
+        document.querySelectorAll('.category-filter').forEach(filter => {
+            filter.addEventListener('click', () => {
+                document.querySelector('.category-filter.active').classList.remove('active');
+                filter.classList.add('active');
+                const category = filter.dataset.category;
+                filterTalents(category);
+            });
+        });
+
+        function filterTalents(category) {
+            const grid = document.querySelector('.talent-grid');
+            const filteredTalents = talents
+                .filter(talent => category === 'all' || talent.category === category)
+                .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+
+            grid.innerHTML = filteredTalents.map(talent => `
+                <a href="${talent.profile}" class="talent-card" data-aos="fade-up">
+                    <img src="${talent.image}" class="talent-image" alt="${talent.name}">
+                    <div class="talent-info">
+                        <h3 class="talent-name">${talent.name}</h3>
+                        <span class="talent-category">${formatCategory(talent.category)}</span>
+                        ${talent.specialties ? `
+                            <div class="talent-specialties">
+                                ${talent.specialties.map(specialty => 
+                                    `<span class="specialty-tag">${specialty}</span>`
+                                ).join('')}
+                            </div>
+                        ` : ''}
+                        <p class="talent-bio">${talent.bio}</p>
+                        <div class="talent-social">
+                            ${talent.social ? Object.entries(talent.social).map(([platform, handle]) => 
+                                `<a href="#" class="social-link" data-platform="${platform}" title="${handle}">
+                                    <i class="fab fa-${platform}"></i>
+                                </a>`
+                            ).join('') : ''}
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+
+            // Refresh AOS for new elements
+            AOS.refresh();
+        }
+
+        function formatCategory(category) {
+            const categories = {
+                'models': 'Model',
+                'photographers': 'Photographer',
+                'hmus': 'Hair & Makeup Artist'
+            };
+            return categories[category] || category;
+        }
+
+        // Initial load
+        filterTalents('all');
+    </script>
+</body>
+</html>
+</body>
+</html>
