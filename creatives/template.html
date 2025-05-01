@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simsek Sua Tortu | Artist Page</title>
-    <meta name="description" content="Simsek - Professional photographer specializing in portrait and fashion photography. View portfolio and book sessions.">
+    <title>Taylan Topuz | Artist page</title>
+    <meta name="description" content="Sarah Smith - Contemporary photographer specializing in street photography and urban landscapes. Explore portfolio and commission work.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap" rel="stylesheet">
@@ -91,6 +91,18 @@
 
         .profile-header {
             margin-bottom: 40px;
+            position: relative;
+        }
+
+        .profile-header::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 3px;
         }
 
         .profile-name {
@@ -118,10 +130,18 @@
 
         .profile-details {
             margin-bottom: 40px;
+            background-color: var(--bg-secondary);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
         }
 
         .detail-item {
             margin-bottom: 20px;
+        }
+
+        .detail-item:last-child {
+            margin-bottom: 0;
         }
 
         .detail-label {
@@ -144,11 +164,20 @@
         .social-link {
             color: var(--text-secondary);
             font-size: 1.4rem;
-            transition: color var(--transition-fast);
+            transition: all var(--transition-fast);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--bg-secondary);
         }
 
         .social-link:hover {
             color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
         }
 
         /* Portfolio Gallery */
@@ -165,6 +194,7 @@
             box-shadow: var(--shadow-md);
             transition: transform var(--transition-normal), box-shadow var(--transition-normal);
             aspect-ratio: 3/4;
+            cursor: pointer;
         }
 
         .portfolio-item:hover {
@@ -181,6 +211,22 @@
 
         .portfolio-item:hover img {
             transform: scale(1.05);
+        }
+
+        .portfolio-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5));
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+        }
+
+        .portfolio-item:hover::after {
+            opacity: 1;
         }
 
         /* Responsive Design */
@@ -209,16 +255,21 @@
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 769px) {
             .portfolio-gallery {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .profile-name {
                 font-size: 2rem;
             }
-      }
-         @media (max-width: 823px) {
+
+            .profile-details {
+                padding: 20px;
+            }
+          
+                  @media (max-width: 823px) {
               .mobile-menu-btn {
                 display: block;
             }
@@ -249,15 +300,13 @@
         }
     </style>
 </head>
-    <!-- Modern Frosted Glass Navigation Bar -->
+      <!-- Modern Frosted Glass Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="/main2.html" class="logo">⭕️ Circle</a>
             <div class="nav-links">
                 <a href="#" class="nav-link">Home</a>
-                <a href="#" class="nav-link">About</a>
-                <a href="#" class="nav-link">Gallery</a>
-                <a href="#" class="nav-link">Contact</a>
+                <a href="#" class="nav-link">Inquiry</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -265,7 +314,7 @@
         </div>
     </nav>
 <body>
-   <!-- Theme Toggle -->
+    <!-- Theme Toggle -->
     <style>
         .theme-toggle {
             position: fixed;
@@ -342,7 +391,7 @@
             color: white;
         }
     </style>
-    <!-- Theme Toggle -->
+      <!-- Theme Toggle -->
     <div class="theme-toggle">
         <div class="toggle-wrapper">
             <input type="checkbox" id="theme-toggle" class="toggle-input">
@@ -359,22 +408,23 @@
         <!-- Profile Information -->
         <div class="profile-info">
             <div class="profile-header">
-                <h1 class="profile-name">Simsek Sua Tortu</h1>
-                <div class="profile-title">Portrait & Fine Art Photographer</div>
+                <h1 class="profile-name">Taylan Topuz</h1>
+                <div class="profile-title">Street & Urban Photographer</div>
             </div>
 
             <div class="profile-bio">
-Years of experience capturing authentic moments and creating compelling visual narratives. Specialising in portrait and fashion photography with a unique perspective that blends contemporary style with timeless elegance. As a co-founder of Circle, I am passionate about building a community and collaboratively creating something meaningful. I have a keen interest in shooting with film cameras, and my go-to lenses are ultra-wide or fisheye lenses, which allow me to capture expansive scenes and dynamic perspectives.            </div>
+                Capturing the essence of urban life through a contemporary lens. With a keen eye for composition and light, I specialise in street photography that tells compelling stories of city life and its inhabitants. I started photography when I was in high school and recently discovered the fun of videography in the recent year as well. My favourite genre is portrait photography. I love going on photo walks around Tokyo in my free time, exploring the dynamic and ever-changing scenery of the city.
+            </div>
 
             <div class="profile-details">
                 <div class="detail-item">
                     <div class="detail-label">Specialties</div>
-                    <div class="detail-value">Portrait Photography, Fashion Photography, Editorial Shoots</div>
+                    <div class="detail-value">Street Photography, Portraits, Videography</div>
                 </div>
 
                 <div class="detail-item">
                     <div class="detail-label">Experience</div>
-                    <div class="detail-value">10+ Years Professional Experience</div>
+                    <div class="detail-value">8 Years Professional Experience</div>
                 </div>
 
                 <div class="detail-item">
@@ -384,14 +434,19 @@ Years of experience capturing authentic moments and creating compelling visual n
 
                 <div class="detail-item">
                     <div class="detail-label">Equipment</div>
-                    <div class="detail-value">Sony A7R IV, Various Prime Lenses, Professional Lighting Setup</div>
+                    <div class="detail-value">Fujifilm XT-3 & XT-30II, Prime and Zoom Lens Collection</div>
+                </div>
+
+                <div class="detail-item">
+                    <div class="detail-label">Awards</div>
+                    <div class="detail-value">Not Yet<br>Not yet</div>
                 </div>
             </div>
 
             <div class="profile-social">
                 <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-behance"></i></a>
                 <a href="#" class="social-link"><i class="fas fa-globe"></i></a>
             </div>
         </div>
@@ -432,23 +487,19 @@ Years of experience capturing authentic moments and creating compelling visual n
                 localStorage.setItem('theme', 'light');
             }
         });
-      
+
         // Sample portfolio data - Replace with actual data
         const portfolioItems = [
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model9?v=1746095825219', caption: 'Fashion Editorial' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/justyna?v=1746085697827', caption: 'Portrait Session' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/marie?v=1746084416578', caption: 'Street Photography' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/lea?v=1746083142397', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/s192.jpg?v=1746080760292', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Akane?v=1746080918479', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Model2?v=1746081068140', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Model3?v=1746081421597', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Sora?v=1746081934982', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model4?v=1746082029863', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model5?v=1746083062900', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/lea?v=1746083142397', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model7?v=1746085912604', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model6?v=1746084560603', caption: 'Studio Work' },
+            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/mina?v=1746084961622', caption: 'Tokyo Streets at Night' },
+            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/diane?v=1746090955546', caption: 'Urban Geometry' },
+            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Danna?v=1746085200974', caption: 'City Life' },
+            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/lisa?v=1746091472128', caption: 'Street Stories' },
+            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nikki?v=1746092469106', caption: 'Metropolitan Moments' },
+            { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/IMG_6768.jpeg?v=1725061722347', caption: 'Urban Geometry' },
+            { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/IMG_6769.jpeg?v=1725061919742', caption: 'City Life' },
+            { image: 'https://cdn.glitch.me/d6da9e36-e150-4a04-8aac-2a224dc24a8d/DSCF1990.jpg?v=1725039332157', caption: 'Street Stories' },
+            { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/IMG_1782.JPG?v=1725178162333', caption: 'Metropolitan Moments' },
+            { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/IMG_6771.jpeg?v=1725063790132', caption: 'Urban Abstract' }
         ];
 
         // Populate portfolio gallery

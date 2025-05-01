@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circle Talent | Hire a Talent</title>
-    <meta name="description" content="Circle - A curated collection of talented individuals in the creative industry showcasing models, makeup artists, and photographers.">
+    <title>Request a Quote | Circle Creative Talent</title>
+    <meta name="description" content="Request a quote for professional creative services from Circle - connecting you with top talent in photography, modeling, and artistry.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="inquiry.css">
     <style>
         :root {
             /* Color Palette */
@@ -769,15 +770,15 @@
             }
         }
     </style>
-</head>
+  </head>
 <body>
     <!-- Modern Frosted Glass Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="logo">⭕️ Circle</a>
             <div class="nav-links">
-                <a href="/index.html" class="nav-link">Home</a>
-                <a href="/inquiry.html" class="nav-link">Inquiry</a>
+                <a href="/main2.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Inquiry</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -872,190 +873,123 @@
             </label>
         </div>
     </div>
-    <!-- Page Introduction -->
-    <div class="page-intro">
-        <h1>Hire a Talent</h1>
-        <p>Welcome to the Circle, a curated collection of talented individuals in the creative industry. Our talents page showcases a diverse range of models, makeup artists, and photographers who bring unique perspectives and artistic visions to their work.</p>
-        <p>Browse through our talents to discover the faces behind the art and the artists behind the lens.</p>
-    </div>
-    
-    <div class="category-buttons">
-        <span class="category-link active" data-category="models">Models</span>
-        <span class="category-link" data-category="hmus">Artists</span>
-        <span class="category-link" data-category="creatives">Creatives</span>
-    </div>
+    <main>
+        <div class="page-intro">
+            <h1>Request Your Quote</h1>
+            <p>Let's bring your creative vision to life. Fill out the form below and we'll craft a personalized quote tailored to your needs.</p>
+        </div>
 
-    <div class="gallery">
-        <!-- Gallery items will be loaded here dynamically -->
-    </div>
-
-    <script>
-        // Theme toggle functionality
-        const themeToggle = document.querySelector('.toggle-input');
-        const body = document.body;
-
-        // Check for saved theme preference
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme) {
-            body.classList.toggle('dark-mode', currentTheme === 'dark');
-            themeToggle.checked = currentTheme === 'dark';
-        }
-
-        // Handle theme toggle
-        themeToggle.addEventListener('change', () => {
-            body.classList.toggle('dark-mode');
-            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-        });
-
-        function loadGallery(category) {
-            const gallery = document.querySelector('.gallery');
-            gallery.classList.remove('show');
-
-            // Sample gallery data - replace with your actual data
-            const galleryData = {
-                models: [
-                    { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/XT302645.jpg?v=1725180097676', caption: 'Tapioka' },
-                    { image: 'https://cdn.glitch.me/d6da9e36-e150-4a04-8aac-2a224dc24a8d/DSCF1990.jpg?v=1725039332157', caption: 'Akiko' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/s192.jpg?v=1746080760292', caption: 'Model 1' },
-                    { image: 'https://cdn.glitch.me/d6da9e36-e150-4a04-8aac-2a224dc24a8d/DSCF8470.jpg?v=1725039579641', caption: 'Antonio' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Akane?v=1746080918479', caption: 'Akane' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Model2?v=1746081068140', caption: 'Model 2' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Model3?v=1746081421597', caption: 'Model 3' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Sora?v=1746081934982', caption: 'Sora' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model4?v=1746082029863', caption: 'Model 4' },
-                    { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/XT307099.webp?v=1726077112067', caption: 'james' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nami?v=1746108260327', caption: 'Nami Aratake' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model5?v=1746083062900', caption: 'Model 5' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nelson?v=1746108192499', caption: 'Nelson' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/lea?v=1746083142397', caption: 'Lea' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/marie?v=1746084416578', caption: 'marie' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model6?v=1746084560603', caption: 'Model 6' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/mina?v=1746084961622', caption: 'Mina' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Danna?v=1746085200974', caption: 'Danna' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/justyna?v=1746085697827', caption: 'Justyna' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model7?v=1746085912604', caption: 'Model 7' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/diane?v=1746090955546', caption: 'Diane' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/lisa?v=1746091472128', caption: 'Lisa' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nahnah?v=1746092281451', caption: 'Nahnah' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nikki?v=1746092469106', caption: 'Nikki' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model8?v=1746095762953', caption: 'Model 8' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model9?v=1746095825219', caption: 'Model 9' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/cammi2?v=1746095897849', caption: 'Cammi' }
-                ],
-                hmus: [
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/taylan?v=1746084892708', caption: 'Creative Makeup Artist' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/taylan?v=1746084892708', caption: 'Beauty Specialist' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/taylan?v=1746084892708', caption: 'Hair Stylist' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/taylan?v=1746084892708', caption: 'SFX Artist' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/taylan?v=1746084892708', caption: 'Editorial MUA' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/taylan?v=1746084892708', caption: 'Bridal Specialist' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Simsek?v=1746081860155', caption: 'Creative Makeup Artist' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Simsek?v=1746081860155', caption: 'Beauty Specialist' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Simsek?v=1746081860155', caption: 'Hair Stylist' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Simsek?v=1746081860155', caption: 'SFX Artist' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Simsek?v=1746081860155', caption: 'Editorial MUA' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Simsek?v=1746081860155', caption: 'Bridal Specialist' }
-                ],
-                creatives: [
-                    { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/IMG_6771.jpeg?v=1725063790132', caption: 'Ertug' },
-                    { image: 'https://cdn.glitch.me/d6da9e36-e150-4a04-8aac-2a224dc24a8d/DSCF8436.jpg?v=1725180401228', caption: 'Marvin' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/IMG_4112.JPG?v=1743708634342', caption: 'Craig' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/taylan?v=1746084892708', caption: 'Taylan' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Simsek?v=1746081860155', caption: 'Simsek' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nami2?v=1746104636189', caption: 'Nami' }, 
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/joker?v=1746093010073', caption: 'Joker' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/cammi?v=1746091110184', caption: 'Cammi' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari?v=1746097447669', caption: 'Hari' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/loner?v=1746092902452', caption: 'Loner' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hendrik?v=1746092056630', caption: 'Hendrik' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/cedric?v=1746096060288', caption: 'Cedric' }
-                ]
-            };
-
-            const items = galleryData[category];
-            gallery.innerHTML = items.map(item => {
-                // Define the profile links for specific photographers
-                let profileLink = '';
-                if (category === 'creatives','models' ) {
-                    switch(item.caption) {
-                        case 'Simsek':
-                            profileLink = '/creatives/simsek.html';
-                            break;
-                        case 'Craig':
-                            profileLink = '/creatives/craig.html';
-                            break;
-                        case 'Taylan':
-                            profileLink = '/creatives/taylan.html';
-                            break;
-                        case 'Nami Aratake':
-                            profileLink = '/models/nami.html';
-                            break;
-                    }
-                }
-                
-                // Wrap gallery item with link if profile exists
-                const content = `
-                    <div class="gallery-item">
-                        <img src="${item.image}" alt="${item.caption}">
-                        <div class="caption">${item.caption}</div>
+        <section class="quote-section">
+            <div class="quote-container">
+                <div class="quote-intro">
+                    <div class="intro-card">
+                        <div class="intro-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h2>Our Services</h2>
+                        <div class="service-list">
+                            <div class="service-item">
+                                <i class="fas fa-camera-retro"></i>
+                                <h3>Photography</h3>
+                                <p>Professional photography for events, portraits, and commercial projects</p>
+                            </div>
+                            <div class="service-item">
+                                <i class="fas fa-video"></i>
+                                <h3>Videography</h3>
+                                <p>Cinematic video production for your special moments</p>
+                            </div>
+                            <div class="service-item">
+                                <i class="fas fa-user-tie"></i>
+                                <h3>Modeling</h3>
+                                <p>Professional models for fashion, commercial, and editorial work</p>
+                            </div>
+                            <div class="service-item">
+                                <i class="fas fa-paint-brush"></i>
+                                <h3>Makeup Artistry</h3>
+                                <p>Expert makeup services for any occasion</p>
+                            </div>
+                        </div>
                     </div>
-                `;
+                </div>
                 
-                return profileLink ? 
-                    `<a href="${profileLink}" style="text-decoration: none;">${content}</a>` : 
-                    content;
-            }).join('');
-
-
-            // Trigger fade-in animations
-            requestAnimationFrame(() => {
-                gallery.classList.add('show');
-                document.querySelectorAll('.gallery-item').forEach((item, index) => {
-                    setTimeout(() => {
-                        item.classList.add('show');
-                    }, index * 100);
-                });
-            });
-        }
-
-        document.querySelectorAll('.category-link').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelectorAll('.category-link').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                link.classList.add('active');
-                loadGallery(link.dataset.category);
-            });
-        });
-
-        // Load initial gallery
-        loadGallery('models');
-
-        // Mobile menu toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                
-                // Change icon based on menu state
-                const icon = mobileMenuBtn.querySelector('i');
-                if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-        }
-    </script>
-
-    <div class="gallery">
-        <!-- Gallery items will be loaded dynamically -->
-    </div>
-
+                <div class="quote-form-container">
+                    <form action="https://formspree.io/f/xeojnbye" method="POST" class="quote-form">
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Service Type <span class="required">*</span></label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Select a service...</option>
+                                <option value="photography">Photography</option>
+                                <option value="videography">Videography</option>
+                                <option value="modeling">Modeling</option>
+                                <option value="makeup">Makeup Artistry</option>
+                                <option value="custom">Custom Project</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date">Preferred Date</label>
+                            <input type="date" id="date" name="date">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" placeholder="City, Country">
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="details">Project Details <span class="required">*</span></label>
+                            <textarea id="details" name="details" rows="4" placeholder="Please describe your project requirements..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">Budget Range</label>
+                            <select id="budget" name="budget">
+                                <option value="" disabled selected>Select budget range...</option>
+                                <option value="under-500">Under ¥50,000</option>
+                                <option value="500-1000">¥50,000 - ¥100,000</option>
+                                <option value="1000-2000">¥100,000 - ¥200,000</option>
+                                <option value="2000-plus">¥200,000+</option>
+                                <option value="flexible">Flexible</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="referral">How did you find us?</label>
+                            <select id="referral" name="referral">
+                                <option value="" disabled selected>Select an option...</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="google">Google Search</option>
+                                <option value="referral">Friend/Referral</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-buttons">
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i> Send Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
     <!-- Footer -->
     <footer>
         <div class="footer-container">
@@ -1084,140 +1018,6 @@
         </div>
     </footer>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        // Initialize AOS animation library
-        AOS.init({
-            duration: 800,
-            easing: 'ease-out',
-            once: true
-        });
-        
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-        
-        // Dark mode toggle functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        const body = document.body;
-
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark-mode');
-            themeToggle.checked = true;
-        }
-
-        // Theme toggle event listener
-        themeToggle.addEventListener('change', () => {
-            if (themeToggle.checked) {
-                body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-        
-
-        function loadGallery(category) {
-            const gallery = document.querySelector('.gallery');
-            gallery.innerHTML = '';
-            gallery.classList.remove('show');
-
-            const items = galleryData[category] || [];
-
-            items.forEach(item => {
-                const galleryItem = document.createElement('div');
-                galleryItem.className = 'gallery-item';
-
-                let content;
-                if (item.link) {
-                    const anchor = document.createElement('a');
-                    anchor.href = item.link;
-                    anchor.target = '_blank';
-                    anchor.rel = 'noopener noreferrer';
-
-                    const img = document.createElement('img');
-                    img.src = item.src;
-                    img.alt = item.alt || item.name;
-                    img.loading = 'lazy';
-
-                    anchor.appendChild(img);
-                    content = anchor;
-                } else {
-                    const img = document.createElement('img');
-                    img.src = item.src;
-                    img.alt = item.alt || item.name;
-                    img.loading = 'lazy';
-                    content = img;
-                }
-
-                const caption = document.createElement('div');
-                caption.className = 'caption';
-                caption.innerHTML = `<h3>${item.name}</h3>`;
-
-                galleryItem.appendChild(content);
-                galleryItem.appendChild(caption);
-                gallery.appendChild(galleryItem);
-            });
-
-            // Trigger fade-in animations
-            requestAnimationFrame(() => {
-                gallery.classList.add('show');
-                document.querySelectorAll('.gallery-item').forEach((item, index) => {
-                    setTimeout(() => {
-                        item.classList.add('show');
-                    }, index * 100);
-                });
-            });
-        }
-
-        document.querySelectorAll('.category-link').forEach(link => {
-            link.addEventListener('click', () => {
-                document.querySelectorAll('.category-link').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                link.classList.add('active');
-                loadGallery(link.dataset.category);
-            });
-        });
-
-        // Load initial gallery
-        loadGallery('models');
-
-        // Dark mode toggle
-        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        function handleDarkMode(e) {
-            document.body.classList.toggle('dark-mode', e.matches);
-        }
-        darkModeMediaQuery.addListener(handleDarkMode);
-        handleDarkMode(darkModeMediaQuery);
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                
-                // Change icon based on menu state
-                const icon = mobileMenuBtn.querySelector('i');
-                if (navLinks.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-        }
-    </script>
+    <script src="inquiry.js"></script>
 </body>
 </html>

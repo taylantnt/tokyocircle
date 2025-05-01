@@ -317,12 +317,10 @@
     <!-- Modern Frosted Glass Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="/gallery-new.html" class="logo">⭕️ Circle</a>
+            <a href="/main2.html" class="logo">⭕️ Circle</a>
             <div class="nav-links">
                 <a href="#" class="nav-link">Home</a>
-                <a href="#" class="nav-link">About</a>
-                <a href="#" class="nav-link">Gallery</a>
-                <a href="#" class="nav-link">Contact</a>
+                <a href="#" class="nav-link">Inquiry</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -330,9 +328,92 @@
         </div>
     </nav>
 <body>
-  <!-- Theme Toggle -->
+    <!-- Theme Toggle -->
     <style>
+        /* Theme Toggle Styles */
         .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+            transform: scale(0.95);
+            transition: transform var(--transition-fast);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1);
+        }
+        
+        .toggle-wrapper {
+            position: relative;
+            width: 64px;
+            height: 32px;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+        }
+        
+        .toggle-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            overflow: hidden;
+        }
+        
+        .toggle-label:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 2px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            transition: all var(--transition-normal);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .toggle-input:checked + .toggle-label {
+            background-color: rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .toggle-input:checked + .toggle-label:before {
+            transform: translateX(32px);
+            background-color: var(--accent-light);
+        }
+        
+        .toggle-icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 8px;
+            box-sizing: border-box;
+            color: var(--text-primary);
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity var(--transition-normal);
+        }
+
+        .toggle-label:hover .toggle-icons {
+            opacity: 1;
+        }
+              .theme-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
