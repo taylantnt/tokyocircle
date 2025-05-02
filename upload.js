@@ -38,7 +38,7 @@ const categorySelect = document.getElementById('categorySelect');
 const slideshow = document.getElementById('slideshow');
 
 // Store talent types
-const talentTypes = ['photographer', 'videographer', 'hmu', 'model'];
+const talentTypes = ['photographer', 'hmu', 'model'];
 
 // Store photographers list and categories
 let photographers = ['all'];
@@ -394,7 +394,6 @@ function createTalentTypeFilters() {
   // Add filter button for each talent type
   const talentTypeLabels = {
     'photographer': 'Photographers',
-    'videographer': 'Videographers',
     'hmu': 'Hair & Makeup Artists',
     'model': 'Models'
   };
@@ -470,7 +469,6 @@ function setupTalentTypeSelection() {
     // Update the photographer label based on talent type
     const talentLabels = {
       'photographer': 'Photographer',
-      'videographer': 'Videographer',
       'hmu': 'Hair & Makeup Artist',
       'model': 'Model'
     };
@@ -514,7 +512,7 @@ async function fetchCategories() {
     
     // If no categories exist in database, add default ones
     if (categories.length === 0) {
-      const defaultCategories = ['Portrait', 'Landscape', 'Street', 'Architecture', 'Nature', 'Event'];
+      const defaultCategories = ['Portrait', 'Landscape', 'Street', 'Architecture', 'Nature', 'Event',];
       defaultCategories.forEach(category => {
         // Add to database
         db.collection("categories").add({
@@ -625,7 +623,6 @@ function displayGallery(photos) {
     // Add talent type label
     const talentTypeLabels = {
       'photographer': 'Photographer',
-      'videographer': 'Videographer',
       'hmu': 'Hair & Makeup Artist',
       'model': 'Model'
     };

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Showcase Your Art | Circle Photowalk Group</title>
+  <title>Showcase Your Art | Circle Photowalk Community Gallery</title>
   <meta name="description" content="Upload and showcase your photography from Circle Photography events and walks">
   <link rel="stylesheet" href="upload.css">
   <link rel="stylesheet" href="upload-styles.css">
@@ -115,6 +115,7 @@
       position: relative;
       z-index: 10;
       border-radius: 40px 40px 0 0;
+      margin-bottom: 90px;
       margin-top: -40px;
       box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
     }
@@ -350,7 +351,6 @@
     .gallery-section {
       padding: 60px 20px 100px;
       background-color: var(--bg-primary);
-      margin-bottom: 120px; /* Increased from 40px to 120px to prevent footer overlap */
     }
     
     .gallery-container {
@@ -571,7 +571,7 @@
       border-radius: 20px;
       width: 90%;
       max-width: 600px;
-      max-height: 90vh;
+      max-height: 80vh;
       overflow-y: auto;
       padding: 30px;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
@@ -673,8 +673,8 @@
       }
       
       .modal {
-        width: 95%;
-        padding: 20px;
+        width: 85%;
+        padding: 15px;
       }
     }
   </style>
@@ -709,7 +709,7 @@
                 <a href="#about"><i class="fas fa-heart"></i> About</a>
                 <a href="#gallery"><i class="fas fa-images"></i> Gallery</a>
                 <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                <a href="#hire-us"><i class="fas fa-briefcase"></i> Services</a>
+                <a href="#hire-us"><i class="fas fa-briefcase"></i> Talents</a>
                 <a href="#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
             </div>
         </div>
@@ -721,15 +721,66 @@
     <div class="slideshow-container" id="slideshow"></div>
     <div class="hero-content">
       <h1>Welcome to Our Creative Community</h1>
-      <p>A space where artists showcase their work and clients discover amazing talent</p>
+      <p>A space where artists showcase their work</p>
     </div>
   </header>
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="gallery-container">
+      <div class="gallery-header">
+        <h2>Community Gallery</h2>
+        <div class="filters-container">
+          <!-- Talent type filters will be added here -->
+          <h3 class="filter-title">Filter by Talent Type:</h3>
+          <div class="gallery-filters talent-type-filters" id="talentTypeFilters">
+            <!-- Talent type filter buttons will be populated here -->
+          </div>
+          
+          <h3 class="filter-title">Filter by Name:</h3>
+          <div class="gallery-filters" id="photographerFilters">
+            <button class="filter-btn active" data-photographer="all">All Photos</button>
+            <!-- Name filter buttons will be populated here -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="loading" id="loadingMessage">
+        <i class="fas fa-spinner"></i> Loading gallery...
+      </div>
+      
+      <div class="gallery-grid" id="gallery"></div>
 
+    <!-- Photo Viewer Modal -->
+    <div id="photoViewer" class="photo-viewer-overlay">
+      <div class="photo-viewer-content">
+        <button id="closeViewer" class="photo-viewer-close" aria-label="Close viewer">
+          <i class="fas fa-times"></i>
+        </button>
+        <button id="prevPhoto" class="photo-viewer-nav photo-viewer-prev" aria-label="Previous photo">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="nextPhoto" class="photo-viewer-nav photo-viewer-next" aria-label="Next photo">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        <img id="viewerImage" class="photo-viewer-image" src="" alt="">
+      </div>
+      <div id="thumbnailStrip" class="photo-viewer-thumbnails">
+        <!-- Thumbnails will be populated here -->
+      </div>
+    </div>
+      
+      <div class="empty-gallery" id="emptyGallery" style="display: none;">
+        <i class="fas fa-camera"></i>
+        <h3>No photos yet</h3>
+        <p>Be the first to upload and share your photography with our community!</p>
+      </div>
+    </div>
+  </section>
   <!-- Upload Section -->
   <section class="upload-section">
     <div class="upload-container">
       <div class="section-title">
-        <h2>Share Your Artistry</h2>
+        <h2>Wanna share your photos?</h2>
         <p>Join our vibrant community of creators and let your work shine in our curated gallery</p>
       </div>
       
@@ -747,7 +798,6 @@
                 <select id="talentType" class="styled-select" aria-label="Select your artist type" required>
                   <option value="" selected disabled>Select your creative field</option>
                   <option value="photographer">Photographer</option>
-                  <option value="videographer">Videographer</option>
                   <option value="hmu">Hair & Makeup Artist</option>
                   <option value="model">Model</option>
                 </select>
@@ -774,6 +824,7 @@
                   <option value="Architecture">Architecture</option>
                   <option value="Nature">Nature</option>
                   <option value="Event">Event</option>
+                  <option value="Other">Other</option>
                   <!-- More categories will be populated here -->
                 </select>
               </div>
@@ -887,60 +938,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Gallery Section -->
-  <section class="gallery-section">
-    <div class="gallery-container">
-      <div class="gallery-header">
-        <h2>Community Gallery</h2>
-        <div class="filters-container">
-          <!-- Talent type filters will be added here -->
-          <h3 class="filter-title">Filter by Talent Type:</h3>
-          <div class="gallery-filters talent-type-filters" id="talentTypeFilters">
-            <!-- Talent type filter buttons will be populated here -->
-          </div>
-          
-          <h3 class="filter-title">Filter by Name:</h3>
-          <div class="gallery-filters" id="photographerFilters">
-            <button class="filter-btn active" data-photographer="all">All Photos</button>
-            <!-- Name filter buttons will be populated here -->
-          </div>
-        </div>
-      </div>
-      
-      <div class="loading" id="loadingMessage">
-        <i class="fas fa-spinner"></i> Loading gallery...
-      </div>
-      
-      <div class="gallery-grid" id="gallery"></div>
-
-    <!-- Photo Viewer Modal -->
-    <div id="photoViewer" class="photo-viewer-overlay">
-      <div class="photo-viewer-content">
-        <button id="closeViewer" class="photo-viewer-close" aria-label="Close viewer">
-          <i class="fas fa-times"></i>
-        </button>
-        <button id="prevPhoto" class="photo-viewer-nav photo-viewer-prev" aria-label="Previous photo">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button id="nextPhoto" class="photo-viewer-nav photo-viewer-next" aria-label="Next photo">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-        <img id="viewerImage" class="photo-viewer-image" src="" alt="">
-      </div>
-      <div id="thumbnailStrip" class="photo-viewer-thumbnails">
-        <!-- Thumbnails will be populated here -->
-      </div>
-    </div>
-      
-      <div class="empty-gallery" id="emptyGallery" style="display: none;">
-        <i class="fas fa-camera"></i>
-        <h3>No photos yet</h3>
-        <p>Be the first to upload and share your photography with our community!</p>
-      </div>
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -959,7 +956,7 @@
           <a href="main.html#about"><i class="fas fa-heart"></i> About Us</a>
           <a href="gallery.html"><i class="fas fa-images"></i> Photo Gallery</a>
           <a href="main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
-          <a href="main.html#hire-us"><i class="fas fa-briefcase"></i> Services</a>
+          <a href="main.html#hire-us"><i class="fas fa-briefcase"></i> Circle Talents</a>
           <a href="main.html#join"><i class="fas fa-user-plus"></i> Join Us</a>
         </div>
         
