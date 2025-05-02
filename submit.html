@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Profile | Circle Talents</title>
+    <meta name="description" content="Join Circle's exclusive talent network. Submit your portfolio as a model, photographer, or makeup artist and become part of our creative community.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        :root {
+            /* Color Palette */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9f9f9;
+            --text-primary: #2c3e50;
+            --text-secondary: #5d6d7e;
+            --accent-color: #ff0000;
+            --accent-light: #fe3a3a;
+            --accent-dark: #a70000;
+            
+            /* UI Elements */
+            --nav-bg: rgba(255, 255, 255, 0.98);
+            --nav-text: #2c3e50;
+            --footer-bg: #f9f9f9;
+            --footer-text: #5d6d7e;
+            --overlay-color: rgba(31, 31, 31, 0.27);
+            
+            /* Shadows & Effects */
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.1);
+            --border-radius: 10px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Typography */
+            --letter-spacing-tight: -0.5px;
+            --letter-spacing-normal: 0px;
+            --letter-spacing-wide: 0.5px;
+        }
+
+        body.dark-mode {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0b0b0;
+            --nav-bg: rgba(18, 18, 18, 0.95);
+            --nav-text: #f0f0f0;
+            --footer-bg: #1e1e1e;
+            --footer-text: #b0b0b0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Koh Santepheap', serif;
+            font-weight: 400;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: sticky;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-20%);
+            width: 70%;
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            z-index: 1000;
+            border-radius: 45px;
+            box-shadow: 0 3px 13px rgba(0, 0, 0, 0.49);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-normal);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .logo {
+            font-family: 'Baloo 2', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            letter-spacing: var(--letter-spacing-tight);
+            transition: all var(--transition-normal);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+        }
+
+        .nav-link {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: var(--letter-spacing-wide);
+            text-transform: none;
+            transition: all var(--transition-normal);
+            position: relative;
+            padding: 8px 0;
+            opacity: 0.9;
+        }
+
+        /* Form Styles */
+        .form-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-header h1 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .form-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all var(--transition-fast);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-light));
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+        }
+
+        .requirements {
+            margin-top: 40px;
+            padding: 24px;
+            background-color: var(--bg-primary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .requirements h3 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .requirements ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .requirements li {
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .requirements li i {
+            color: var(--accent-color);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 24px;
+                margin: 30px auto;
+            }
+
+            .form-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">⭕️Circle</a>
+            <div class="nav-links">
+                <a href="main2.html" class="nav-link">Home</a>
+                <a href="inquiry.html" class="nav-link">Inquiry</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Submission Form -->
+    <div class="form-container">
+        <div class="form-header">
+            <h1>Join Our Talent Network</h1>
+            <p>Take the first step towards exciting creative opportunities. Fill out the form below and share your portfolio with us.</p>
+        </div>
+
+<form name="talent-submission-form" method="POST" data-netlify="true" netlify class="talent-submission-form">
+  <input type="hidden" name="form-name" value="talent-submission-form">
+
+  <div class="form-group">
+    <label for="talent-type">I am a*</label>
+    <select id="talent-type" name="talent-type" required>
+      <option value="">Select your profession</option>
+      <option value="photographer">Photographer/Creative</option>
+      <option value="model">Model</option>
+      <option value="makeup">Hair & Makeup Artist</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="full-name">Full Name*</label>
+    <input type="text" id="full-name" name="full-name" placeholder="Real Name or Nickname you would like to be addressed as" required>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email Address*</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone">
+  </div>
+
+  <div class="form-group">
+    <label for="location">Location*</label>
+    <input type="text" id="location" name="location" placeholder="City, Country" required>
+  </div>
+
+  <div class="form-group">
+    <label for="portfolio">Portfolio Link*</label>
+    <input type="url" id="portfolio" name="portfolio" placeholder="Google Drive or Website URL" required>
+  </div>
+
+  <div class="form-group">
+    <label for="experience">Years of Experience*</label>
+    <select id="experience" name="experience" required>
+      <option value="">Select experience level</option>
+      <option value="0-2">0-2 years</option>
+      <option value="3-5">3-5 years</option>
+      <option value="5-10">5-10 years</option>
+      <option value="10+">10+ years</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="about">About You</label>
+    <textarea id="about" name="about" placeholder="Tell us about yourself, your style, and what makes you unique"></textarea>
+  </div>
+
+  <button type="submit" class="submit-btn">Submit Application</button>
+</form>
+
+        <div class="requirements">
+            <h3>Portfolio Requirements</h3>
+            <ul>
+                <li><i class="fas fa-check-circle"></i> Create a Google Drive folder with your full name as the title</li>
+                <li><i class="fas fa-check-circle"></i> Name the photo you would like to use as your profile photo as "profile.jpg"</li>
+                <li><i class="fas fa-check-circle"></i> Include a professional headshot or full-body photo (for models)</li>
+                <li><i class="fas fa-check-circle"></i> Share 10-15 of your best work samples</li>
+                <li><i class="fas fa-check-circle"></i> Ensure the Google Drive link is set to "Anyone with the link can view"</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
