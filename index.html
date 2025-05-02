@@ -118,6 +118,35 @@
         .language-toggle:hover {
             background: rgba(255, 255, 255, 0.3);
         }
+        
+        .social-links {
+            position: fixed;
+            top: 20px;
+            right: 140px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            width: 44px;
+            height: 4px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all var(--transition-speed);
+        }
+        
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
 
         .description {
             color: white;
@@ -212,15 +241,39 @@
                 padding: 0.7rem 1.8rem;
                 font-size: 0.8rem;
             }
+            
+            .language-toggle {
+                top: 15px;
+                right: 15px;
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .social-links {
+                top: 15px;
+                right: 110px;
+                gap: 10px;
+            }
+            
+            .social-links a {
+                width: 32px;
+                height: 32px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="social-links">
+        <a href="https://www.meetup.com/circle/" target="_blank" aria-label="Meetup"><i class="fab fa-meetup"></i></a>
+        <a href="https://line.me/ti/g/mJAkqUoScC" target="_blank" aria-label="LINE"><i class="fab fa-line"></i></a>
+        <a href="https://www.instagram.com/tokyocircle" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
     <div class="language-toggle" onclick="toggleLanguage()">EN | 日本語</div>
     <div class="split-container">
         <div class="split split-left">
             <div class="overlay">
-                <h1 class="title" data-en="Circle Photowalk" data-jp="Circle フォトウォーク">Circle Photowalk</h1>
+                <h1 class="title" data-en="Circle Photowalks" data-jp="Circle フォトウォーク">Circle Photowalks</h1>
                 <p class="description" data-en="Join our fun community of photographers and explore Tokyo together!" data-jp="写真家のコミュニティに参加して、一緒に東京を探検しましょう！">Join our fun community of photographers and explore Tokyo together!</p>
                 <a href="main.html" class="btn" data-en="Let's Have Fun!" data-jp="楽しもう！">Let's Have Fun!</a>
             </div>
