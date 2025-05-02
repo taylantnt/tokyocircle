@@ -634,6 +634,14 @@
             }
         });
 
+        // Mobile menu functionality
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
         // Sample portfolio data - Replace with actual data
         const portfolioItems = [
             { 
