@@ -329,10 +329,25 @@
             </button>
         </div>
     </nav>
-
     <!-- Page Introduction -->
     <div class="page-intro">
-        <h1>Hire Top Creative Talent</h1>
+        <h1>Browse Creatives</h1>
+        <p>Browse curated collection of talented individuals in the creative industry. Our Creatives page showcases a diverse range of models, makeup artists, and creatives who bring unique perspectives and artistic visions to their work.</p>
+    <p>Explore the profiles, see their past work, and connect with the right people to help you create something amazing.</p>
+    </div>
+    
+    <div class="category-buttons">
+        <span class="category-link active" data-category="models">Models</span>
+        <span class="category-link" data-category="hmus">Artists</span>
+        <span class="category-link" data-category="creatives">Creatives</span>
+    </div>
+
+    <div class="gallery">
+        <!-- Gallery items will be loaded here dynamically -->
+    </div>
+    <!-- Page Introduction -->
+    <div class="page-intro">
+        <h1>Hire Top Creatives</h1>
     <p>From photographers to models to makeup artists — find and hire the right people for your next shoot. Explore curated portfolios and connect with professionals ready to bring your ideas to life.</p>
     </div>
 
@@ -348,7 +363,7 @@
                     <ul class="service-features">
                     <li><i class="fas fa-check"></i> Portrait Photography</li>
                     <li><i class="fas fa-check"></i> Wedding & Event Coverage</li>
-                    <li><i class="fas fa-check"></i> Product & Brand Shoots</li>
+                    <li><i class="fas fa-check"></i> Travel Photography</li>
                     <li><i class="fas fa-check"></i> Studio & Location Sessions</li>
                     </ul>
                     <a href="inquiry.html" class="btn">Hire a Photographer</a>
@@ -1881,30 +1896,14 @@
             </label>
         </div>
     </div>
-    <!-- Page Introduction -->
-    <div class="page-intro">
-        <h1>Browse Talents</h1>
-        <p>Browse curated collection of talented individuals in the creative industry. Our talents page showcases a diverse range of models, makeup artists, and creatives who bring unique perspectives and artistic visions to their work.</p>
-    <p>Explore the profiles, see their past work, and connect with the right people to help you create something amazing.</p>
-    </div>
-    
-    <div class="category-buttons">
-        <span class="category-link active" data-category="models">Models</span>
-        <span class="category-link" data-category="hmus">Artists</span>
-        <span class="category-link" data-category="creatives">Creatives</span>
-    </div>
-
-    <div class="gallery">
-        <!-- Gallery items will be loaded here dynamically -->
-    </div>
 
     <!-- Join Our Talent Section -->
     <section class="join-talent-section" style="padding: 80px 0; margin-top: 100px; background-color: var(--bg-secondary);">
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
             <div class="content-wrapper" style="text-align: center;">
-                <h2 style="color: var(--accent-color); font-size: 2rem; margin-bottom: 24px;">Wanna Join Circle Talents?</h2>
+                <h2 style="color: var(--accent-color); font-size: 2rem; margin-bottom: 24px;">Wanna Join Circle Creatives?</h2>
                 <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                    Are you a creative professional, model, or makeup artist looking to showcase your talent? Submit your profile to get a chance to become part of our exclusive Circle Talents community.
+                    Are you a creative professional, model, or makeup artist looking to showcase your talent? Submit your profile to get a chance to become part of our exclusive Circle Creative community.
                 </p>
                 <a href="submit.html" class="btn" style="display: inline-block; background-color: var(--accent-color); color: white; padding: 12px 32px; border-radius:var(--border-radius); text-decoration: none; transition: all 0.3s ease;">
                     Submit Your Profile
@@ -1937,31 +1936,25 @@
             // Sample gallery data - replace with your actual data
             const galleryData = {
                 models: [
-                    { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/XT302645.jpg?v=1725180097676', caption: 'Tapioka' },
-                    { image: 'https://cdn.glitch.me/d6da9e36-e150-4a04-8aac-2a224dc24a8d/DSCF1990.jpg?v=1725039332157', caption: 'Akiko' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/s192.jpg?v=1746080760292', caption: 'Model 1' },
+                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/tapi?v=1743603358817', caption: 'Tapioka' },
                     { image: 'https://cdn.glitch.me/d6da9e36-e150-4a04-8aac-2a224dc24a8d/DSCF8470.jpg?v=1725039579641', caption: 'Antonio' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Akane?v=1746080918479', caption: 'Akane' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Model2?v=1746081068140', caption: 'Model 2' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Model3?v=1746081421597', caption: 'Model 3' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Sora?v=1746081934982', caption: 'Sora' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model4?v=1746082029863', caption: 'Model 4' },
+                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/yin?v=1746082029863', caption: 'Yin' },
                     { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/XT307099.webp?v=1726077112067', caption: 'james' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nami?v=1746108260327', caption: 'Nami Aratake' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model5?v=1746083062900', caption: 'Model 5' },
+                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/doria?v=1746083062900', caption: 'Doria' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/lea?v=1746083142397', caption: 'Lea' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/marie?v=1746084416578', caption: 'marie' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model6?v=1746084560603', caption: 'Model 6' },
+                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Annabel?v=1746084560603', caption: 'Annabel' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/mina?v=1746084961622', caption: 'Mina' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Danna?v=1746085200974', caption: 'Danna' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/justyna?v=1746085697827', caption: 'Justyna' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model7?v=1746085912604', caption: 'Model 7' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/diane?v=1746090955546', caption: 'Diane' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/lisa?v=1746091472128', caption: 'Lisa' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nahnah?v=1746092281451', caption: 'Nahnah' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nikki?v=1746092469106', caption: 'Nikki' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model8?v=1746095762953', caption: 'Model 8' },
-                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/model9?v=1746095825219', caption: 'Model 9' },
+                    { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/sabrina?v=1746095762953', caption: 'Sabrina' },
                     { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/cammi2?v=1746095897849', caption: 'Cammi' }
                 ],
                 hmus: [

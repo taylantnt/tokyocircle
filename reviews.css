@@ -120,9 +120,10 @@
 }
 
 .review-text {
-    font-style: italic;
+    font-style: none;
     margin-bottom: var(--space-md);
     line-height: 1.6;
+  font-weight: 600;
 }
 
 .review-event {

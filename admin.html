@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photo Moderation | Admin Panel</title>
+  <title>Circle Photo Moderation | Admin Panel</title>
   <link rel="stylesheet" href="upload.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,8 +22,8 @@
       --dark: #2f3640;
       
       /* UI Elements */
-      --background-light: #fafafa;
-      --background-dark: #1a1f25;
+      --background-light: linear-gradient(135deg, var(--pastel-blue), var(--pastel-pink));
+      --background-dark: rgba(109, 91, 143, 0.87);
       --text-primary: #333333;
       --text-secondary: #666666;
       --border-color: #e0e0e0;
@@ -65,8 +65,7 @@
     }
 
     .dark-mode .content-section {
-      background: var(--secondary);
-      border-color: var(--dark);
+      background: #d5bece;
       box-shadow: var(--shadow-dark);
     }
 
@@ -161,7 +160,6 @@
       margin-left: var(--sidebar-width);
       padding: 20px;
       margin-top: 40px;
-      background-color: #F7E9E3;
       min-height: calc(100vh - var(--header-height));
     }
 
@@ -302,13 +300,13 @@
 
     .sidebar-menu a:hover,
     .sidebar-menu a.active {
-      background: var(--gradient-light);
+      background: color(srgb 0.9709 0.9117 0.9516);
       color: rgba(157, 106, 158, 0.82);
     }
 
     .dark-mode .sidebar-menu a:hover,
     .dark-mode .sidebar-menu a.active {
-      background: var(--gradient-dark);
+      background: #d5bece;
     }
 
     .sidebar-menu i {
@@ -371,7 +369,7 @@
 
     .dark-mode .filter-section {
       border-top-color: var(--dark);
-      background: #593f6c;
+      background: rgb(150, 140, 184);
     }
 
     .filter-title {
@@ -598,8 +596,8 @@
     }
 
     .dark-mode .stat-card {
-      background: GREY;
-      border-color: #8660a2;
+      background: rgb(150, 140, 184);
+      border-color: rgb(174, 164, 226);
       box-shadow: var(--shadow-dark);
       margin-top: 30px;
     }

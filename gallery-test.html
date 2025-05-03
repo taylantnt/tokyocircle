@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Photo Gallery </title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="Browse through memories from our photography walks and meetups in Tokyo">
+    <link rel="stylesheet" href="gallery.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+<body>
+  <style>
+      
+    body {
+        background: var(--bg-primary);
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .navbar {
+        transition: background 0.5s ease;
+    }
+    
+    main {
+        background: var(--bg-primary);
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .dark-mode main {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+              .gallery {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 60px auto;
+            position: relative;
+        }
+
+        .back-to-albums {
+            position: absolute;
+            top: -40px;
+            left: 20px;
+            padding: 8px 16px;
+            background: var(--background-secondary);
+            color: var(--text-primary);
+            border-radius: 20px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-albums.visible {
+            display: flex;
+        }
+
+        .back-to-albums:hover {
+            transform: translateX(-5px);
+        }
+
+        .album-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .gallery-album:hover .album-title {
+            transform: translateY(0);
+        }
+
+        .gallery-album {
+            background: var(--background-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .gallery-album:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .gallery-thumb {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-album h3 {
+            padding: 15px;
+            color: var(--text-primary);
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .viewer.active {
+            display: flex;
+        }
+
+        .viewer-img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .viewer-img.loaded {
+            opacity: 1;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s ease;
+            z-index: 1001;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        .viewer-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                padding: 10px;
+                margin: 40px auto;
+            }
+        :root {
+            --background-primary: #ffffff;
+            --background-secondary: #f8f9fa;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --accent-color: #dd6dfb;
+            --border-color: #e0e0e0;
+        }
+
+        body.dark-mode {
+            --background-primary: #1a1a1a;
+            --background-secondary: #2d2d2d;
+            --text-primary: #f0f0f0;
+            --text-secondary: #d0d0d0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+            /* Enhanced divider line at the overlap point */
+        .founders::before,
+        .gallery::before,
+        .events::before,
+        .join::before,
+        .footer::before {
+            content: '';
+            position: none; !important
+            top: 0px;
+            left: 5%;
+            width: 0%; !important
+            height: 6px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 6px;
+            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        }
+</style>
+  <header>
+<nav class="navbar">
+    <div class="container">
+        <!-- Theme Toggle moved inside navbar container -->
+        <div class="theme-toggle">
+            <div class="toggle-wrapper">
+                <input type="checkbox" id="theme-toggle" class="toggle-input">
+                <label for="theme-toggle" class="toggle-label">
+                    <div class="toggle-icons">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <a href="main.html" class="logo">
+            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
+                 alt="Circle Photography Friends Logo" 
+                 class="logo-image">
+        </a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+            <a href="main.html#about"><i class="fas fa-heart"></i> About</a>
+            <a href="gallery.html" class="active"><i class="fas fa-images"></i> Gallery</a>
+            <a href="main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
+            <a href="main.html#hire-us"><i class="fas fa-briefcase"></i> Creatives</a>
+            <a href="main.html#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
+        </div>
+    </div>
+</nav>
+</header>
+
+<main>
+    <div class="page-title" role="banner">
+        <h1>Our Photo Collection</h1>
+        <p>Browse through memories from our walks and meetups</p>
+    </div>
+    <div class="theme-toggle">
+        <div class="toggle-wrapper">
+            <input type="checkbox" id="theme-toggle" class="toggle-input">
+            <label for="theme-toggle" class="toggle-label"></label>
+        </div>
+    </div>
+
+    <div id="gallery" class="gallery"></div>
+    <div class="viewer">
+        <button class="nav-btn prev-btn" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+        <img class="viewer-img" src="" alt="Enlarged view">
+        <button class="nav-btn next-btn" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+        <div class="viewer-controls">
+            <span class="image-counter"></span>
+        </div>
+    </div>
+   <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <h3>⭕️ Circle</h3>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/tokyocircle/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://line.me/ti/g/mJAkqUoScC" aria-label="Line"><i class="fab fa-line"></i></a>
+                        <a href="https://www.meetup.com/circle/" aria-label="Meetup"><i class="fab fa-meetup"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="main.html#about"><i class="fas fa-heart"></i> About Us</a>
+                    <a href="#gallery"><i class="fas fa-images"></i> Photo Gallery</a>
+                    <a href="main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
+                    <a href="main.html#hire-us"><i class="fas fa-briefcase"></i> Circle Creatives</a>
+                    <a href="main.html#join"><i class="fas fa-user-plus"></i> Join Us</a>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <a href="mailto:hello@circletokyo.com"><i class="fas fa-envelope"></i> hello@circletokyo.com</a>
+                    <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> Message on Instagram</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>Made with <i class="fas fa-heart heart"></i> by TT &copy; 2024</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add preloader function
+        function preloadImage(url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+                img.src = url;
+            });
+        }
+
+        // Add preloader cache
+        const preloadCache = new Map();
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initGallery();
+
+            // Dark Mode Toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.checked = true;
+            }
+            
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        });
+
+        // Gallery data
+        const albums = [ 
+            { 
+                title: "Shibamata Walk", 
+                photos: [ 
+                    { url: "https://cdn.glitch.me/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shibamata1.jpg?v=1746194973078" },
+                    { url: "https://cdn.glitch.me/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shibamata2.jpg?v=1746194972795" },
+                    { url: "https://cdn.glitch.me/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shibamata3.jpg?v=1746194973078" }
+                ] 
+            }, 
+            { 
+                title: "Kanda Photowalk", 
+                photos: [ 
+                    { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda1?v=1746211508651" },
+                    { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda2?v=1746211513285" },
+                    { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda3?v=1746211515026" },  
+                    { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda4?v=1746211516643" },
+                    { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda5?v=1746211518584" }
+                ] 
+            } 
+        ];
+
+        let currentImages = [];
+        let currentIndex = 0;
+        let currentView = 'albums'; // 'albums' or 'photos'
+
+        const PLACEHOLDER_IMAGE = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzY2NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkxvYWRpbmcuLi48L3RleHQ+PC9zdmc+';
+        const ERROR_IMAGE = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjgwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmZlZmVmIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2RjMzU0NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkVycm9yIGxvYWRpbmcuLi48L3RleHQ+PC9zdmc+';
+
+        // Image loading helper
+        function loadImage(img, url) {
+            return new Promise((resolve, reject) => {
+                img.src = url;
+                img.onload = () => {
+                    img.classList.add('loaded');
+                    resolve(img);
+                };
+                img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+            });
+        }
+
+        // Initialize gallery with error handling
+        async function initGallery() {
+            try {
+                const gallery = document.getElementById('gallery');
+                if (!gallery) {
+                    throw new Error('Gallery element not found');
+                }
+                gallery.innerHTML = '';
+                
+                // Add back button
+                const backBtn = document.createElement('button');
+                backBtn.className = 'back-to-albums';
+                backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Back to Albums';
+                backBtn.addEventListener('click', showAlbums);
+                gallery.appendChild(backBtn);
+
+                for (const album of albums) {
+                    const container = document.createElement('div');
+                    container.className = 'gallery-album';
+
+                    const img = document.createElement('img');
+                    img.src = PLACEHOLDER_IMAGE;
+                    img.alt = album.title;
+                    img.classList.add('gallery-thumb');
+
+                    try {
+                        await loadImage(img, album.photos[0].url);
+                    } catch (err) {
+                        console.error(`Error loading thumbnail for ${album.title}:`, err);
+                        img.src = ERROR_IMAGE;
+                    }
+
+                    container.appendChild(img);
+
+                    const title = document.createElement('h3');
+                    title.textContent = album.title;
+                    container.appendChild(title);
+
+                    // Add album title overlay
+                    const titleOverlay = document.createElement('div');
+                    titleOverlay.className = 'album-title';
+                    titleOverlay.textContent = album.title;
+                    container.appendChild(titleOverlay);
+
+                    container.addEventListener('click', () => {
+                        showAlbumPhotos(album);
+                    });
+
+                    gallery.appendChild(container);
+                }
+            } catch (error) {
+                console.error('Error initializing gallery:', error);
+                const gallery = document.getElementById('gallery');
+                if (gallery) {
+                    gallery.innerHTML = '<p class="error-message">Failed to load gallery. Please try again later.</p>';
+                }
+            }
+        }
+
+        // Load viewer image
+        async function loadViewerImage(imageData) {
+            const viewerImg = document.querySelector('.viewer-img');
+            if (!viewerImg) return;
+
+            viewerImg.src = PLACEHOLDER_IMAGE;
+            viewerImg.classList.remove('loaded');
+
+            try {
+                await loadImage(viewerImg, imageData.url);
+                viewerImg.classList.add('loaded');
+            } catch (error) {
+                console.error('Error loading viewer image:', error);
+                viewerImg.src = ERROR_IMAGE;
+            }
+        }
+
+        // Navigation functions
+        function showNextImage() {
+            currentIndex = (currentIndex + 1) % currentImages.length;
+            loadViewerImage(currentImages[currentIndex]);
+            updateImageCounter();
+        }
+
+        function showPrevImage() {
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+            loadViewerImage(currentImages[currentIndex]);
+            updateImageCounter();
+        }
+
+        function updateImageCounter() {
+            const counter = document.querySelector('.image-counter');
+            counter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+        }
+
+        // Event listeners for navigation
+        document.querySelector('.next-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            showNextImage();
+        });
+
+        document.querySelector('.prev-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            showPrevImage();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!document.querySelector('.viewer.active')) return;
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                    showNextImage();
+                    break;
+                case 'ArrowLeft':
+                    showPrevImage();
+                    break;
+                case 'Escape':
+                    document.querySelector('.viewer').classList.remove('active');
+                    break;
+            }
+        });
+
+        // Close viewer when clicking outside the image
+        document.querySelector('.viewer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
+        // Function to show all albums
+        function showAlbums() {
+            currentView = 'albums';
+            document.querySelector('.back-to-albums').classList.remove('visible');
+            initGallery();
+        }
+
+        // Function to show photos in an album
+        async function showAlbumPhotos(album) {
+            currentView = 'photos';
+            currentImages = album.photos;
+            currentIndex = 0;
+            
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            
+            // Show back button
+            const backBtn = document.createElement('button');
+            backBtn.className = 'back-to-albums visible';
+            backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Back to Albums';
+            backBtn.addEventListener('click', showAlbums);
+            gallery.appendChild(backBtn);
+            
+            // Display all photos in the album
+            for (const photo of album.photos) {
+                const container = document.createElement('div');
+                container.className = 'gallery-album';
+
+                const img = document.createElement('img');
+                img.src = PLACEHOLDER_IMAGE;
+                img.alt = album.title;
+                img.classList.add('gallery-thumb');
+
+                try {
+                    await loadImage(img, photo.url);
+                } catch (err) {
+                    console.error(`Error loading photo:`, err);
+                    img.src = ERROR_IMAGE;
+                }
+
+                container.appendChild(img);
+
+                container.addEventListener('click', () => {
+                    currentIndex = album.photos.indexOf(photo);
+                    const viewer = document.querySelector('.viewer');
+                    if (viewer) {
+                        viewer.classList.add('active');
+                        loadViewerImage(currentImages[currentIndex]);
+                        updateImageCounter();
+                    }
+                });
+
+                gallery.appendChild(container);
+            }
+        }
+
+        // Update counter when opening viewer
+        container.addEventListener('click', () => {
+            updateImageCounter();
+        });
+    </script>
+  <script>
+const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
+
+if (motion.matches) {
+  const themeColorMeta = document.getElementById('theme-color');
+  const navbar = document.querySelector('.navbar');
+  let hue = 0;
+
+  function getCurrentColor() {
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    return isDarkMode
+      ? `hsl(${hue}, 30%, 25%)`
+      : `hsl(${hue}, 40%, 90%)`;
+  }
+
+  function updateColors() {
+    hue = (hue + 1) % 360;
+    const color = getCurrentColor();
+
+    document.body.style.background = color;
+    if (navbar) navbar.style.background = color;
+    if (themeColorMeta) themeColorMeta.setAttribute('content', color);
+  }
+
+  setInterval(updateColors, 100);
+}
+</script>
+  <script src="script.js"></script>
+</body>
+</html>
