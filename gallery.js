@@ -520,6 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = index;
         currentImages = images;
         viewer.classList.add('active');
+        document.body.classList.add('viewer-active');
         loadViewerImage(images[currentIndex]);
         
         // Add keyboard navigation
@@ -533,6 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeViewer() {
         viewer.classList.remove('active');
+        document.body.classList.remove('viewer-active');
         viewerImg.src = '';
         viewerImg.classList.remove('loaded');
         // Cleanup
