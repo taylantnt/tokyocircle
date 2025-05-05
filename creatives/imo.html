@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imo | Artist Page</title>
+    <meta name="description" content="Imo - Video Producer & Specialist. View portfolio and inquire about projects.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="/navbar.css" />
+    <style>
+        :root {
+            /* Color Palette */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9f9f9;
+            --text-primary: #2c3e50;
+            --text-secondary: #5d6d7e;
+            --accent-color: #ff0000;
+            --accent-light: #fe3a3a;
+            --accent-dark: #a70000;
+            
+            /* UI Elements */
+            --nav-bg: rgba(255, 255, 255, 0.98);
+            --nav-text: #2c3e50;
+            --footer-bg: #f9f9f9;
+            --footer-text: #5d6d7e;
+            --overlay-color: rgba(31, 31, 31, 0.27);
+            
+            /* Shadows & Effects */
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.1);
+            --border-radius: 10px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Typography */
+            --letter-spacing-tight: -0.5px;
+            --letter-spacing-normal: 0px;
+            --letter-spacing-wide: 0.5px;
+        }
+
+        body.dark-mode {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0b0b0;
+            --nav-bg: rgba(18, 18, 18, 0.95);
+            --nav-text: #f0f0f0;
+            --footer-bg: #1e1e1e;
+            --footer-text: #b0b0b0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Koh Santepheap', serif;
+            font-weight: 400;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Profile Layout */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .profile-info {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            padding: 30px;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: var(--letter-spacing-tight);
+        }
+
+        .profile-title {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-weight: 300;
+            letter-spacing: var(--letter-spacing-wide);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .profile-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        .profile-bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+            text-align: left;
+        }
+
+        .profile-details {
+            margin: 40px 0;
+        }
+
+        .detail-item {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-label i {
+            font-size: 1.2rem;
+        }
+
+        .detail-value {
+            color: var(--text-secondary);
+        }
+
+        .profile-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            color: var(--text-secondary);
+            font-size: 1.4rem;
+            transition: all var(--transition-fast);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .social-link:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px) rotate(8deg);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Portfolio Gallery */
+        .portfolio-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+            aspect-ratio: 16/9;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .portfolio-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-normal);
+        }
+
+        .portfolio-item:hover video {
+            transform: scale(1.1);
+        }
+
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            z-index: 1;
+        }
+
+        .portfolio-item:hover::before {
+            opacity: 1;
+        }
+
+        .portfolio-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            color: white;
+            transform: translateY(100%);
+            transition: transform var(--transition-normal);
+            z-index: 2;
+            text-align: center;
+        }
+
+        .portfolio-item:hover .portfolio-caption {
+            transform: translateY(0);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            background: var(--bg-primary);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: black;
+        }
+
+        .modal-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal);
+        }
+
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: rotate(90deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .profile-container {
+                grid-template-columns: 1fr 1.2fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .profile-info {
+                position: static;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+
+            .portfolio-gallery {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .portfolio-gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .profile-name {
+                font-size: 2rem;
+            }
+
+            .profile-info {
+                padding: 20px;
+            }
+      }
+                   @media (max-width: 823px) {
+              .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                border-radius: 45px;
+                background-color: var(--nav-bg);
+                padding: 20px;
+                box-shadow: 0 2px 22px rgba(4, 4, 4, 0.32);
+                gap: 15px;
+              align-items: center;
+            }
+
+            .nav-link {
+                padding: 10px 0;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+   <!-- Modern Frosted Glass Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/main2.html" class="logo">⭕️ Circle</a>
+            <div class="nav-links">
+                <a href="/main2.html" class="nav-link">Home</a>
+                <a href="/inquiry.html" class="nav-link">Inquiry</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+<body>
+    <!-- Theme Toggle -->
+    <style>
+        /* Theme Toggle Styles */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+            transform: scale(0.95);
+            transition: transform var(--transition-fast);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1);
+        }
+        
+        .toggle-wrapper {
+            position: relative;
+            width: 64px;
+            height: 32px;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+        }
+        
+        .toggle-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            overflow: hidden;
+        }
+        
+        .toggle-label:before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 2px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            transition: all var(--transition-normal);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .toggle-input:checked + .toggle-label {
+            background-color: rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .toggle-input:checked + .toggle-label:before {
+            transform: translateX(32px);
+            background-color: var(--accent-light);
+        }
+        
+        .toggle-icons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 8px;
+            box-sizing: border-box;
+            color: var(--text-primary);
+            font-size: 14px;
+            opacity: 0.8;
+            transition: opacity var(--transition-normal);
+        }
+
+        .toggle-label:hover .toggle-icons {
+            opacity: 1;
+        }
+              .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .toggle-wrapper {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg-secondary);
+            border-radius: 34px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .toggle-label:before {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            border-radius: 50%;
+            transition: 0.4s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-input:checked + .toggle-label {
+            background-color: var(--accent-color);
+        }
+
+        .toggle-input:checked + .toggle-label:before {
+            transform: translateX(30px);
+        }
+
+        .toggle-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 8px;
+            box-sizing: border-box;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .toggle-icons i {
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-input:checked ~ .toggle-label .toggle-icons i {
+            color: white;
+        }
+    </style>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <div class="toggle-wrapper">
+            <input type="checkbox" id="theme-toggle" class="toggle-input">
+            <label for="theme-toggle" class="toggle-label">
+                <div class="toggle-icons">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <main class="profile-container">
+        <section class="profile-info">
+            <div class="profile-header">
+                <div class="profile-image">
+                    <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/imo?v=1746329396883" alt="Imo">
+                </div>
+                <h1 class="profile-name">Imo</h1>
+                <p class="profile-title">VIDEO PRODUCER・VIDEO SPECIALIST</p>
+            </div>
+            
+            <p class="profile-bio">
+Massimo (芋） is an Indonesian filmmaker who was born in Italy. He received his Bachelor’s degree in Cinema from San Francisco State University, USA in 2009. Years later, he earned an award from Sony Computer Entertainment Asia after winning the Playstation Games Apps Challenge, 2012 in Hong Kong. In 2013, he was chosen, among thousands to be a co-producer at the Indie Movie workshop in Indonesia under the supervision of Garin Nugroho. The project was selected at the Bali International Film Festival 2014 and NETPAC Asian Film Festival, 2014. His next film was a musical called "Cakra Buana." The film premiered at the Bali International Film Festival, 2015 and won more than 20 awards. In 2017, he was selected as part of the Kyoto Filmmakerslab program as the production manager of a short Jidaigeki Film.            </p>
+            
+            <div class="profile-details">
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-map-marker-alt"></i> Location
+                    </div>
+                    <div class="detail-value">Tokyo, Japan</div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-language"></i> Languages
+                    </div>
+                    <div class="detail-value">Indonesian, English, Japanese</div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-label">
+                        <i class="fas fa-video"></i> Specialties
+                    </div>
+                    <div class="detail-value">Commercial, Documentary, Music Videos, Short Films</div>
+                </div>
+            
+            <div class="profile-social">
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-vimeo-v"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </section>
+        
+        <section class="portfolio-gallery">
+            <div class="portfolio-item" data-aos="fade-up">
+                <video src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-water-1164-large.mp4" muted loop></video>
+                <div class="portfolio-caption">
+                    <h3>Ocean Waves Commercial</h3>
+                    <p>Client: Blue Ocean Resort</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item" data-aos="fade-up" data-aos-delay="100">
+                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
+                <div class="portfolio-caption">
+                    <h3>Circle Opening Video</h3>
+                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item" data-aos="fade-up" data-aos-delay="200">
+                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
+                <div class="portfolio-caption">
+                    <h3>Circle Opening Video</h3>
+                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item" data-aos="fade-up" data-aos-delay="300">
+                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
+                <div class="portfolio-caption">
+                    <h3>Circle Opening Video</h3>
+                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item" data-aos="fade-up" data-aos-delay="400">
+                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
+                <div class="portfolio-caption">
+                    <h3>Circle Opening Video</h3>
+                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                </div>
+            </div>
+            
+            <div class="portfolio-item" data-aos="fade-up" data-aos-delay="500">
+                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
+                <div class="portfolio-caption">
+                    <h3>Circle Opening Video</h3>
+                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeToggle.checked = true;
+        }
+
+        // Theme toggle event listener
+        themeToggle.addEventListener('change', () => {
+            if (themeToggle.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        <script>
+            // Portfolio data with video sources
+            const portfolioData = [
+                {
+                    videoSrc: 'https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974',
+                    title: 'Commercial Project',
+                    description: 'A dynamic commercial video showcasing product excellence'
+                },
+                {
+                    videoSrc: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/video2.mp4',
+                    title: 'Short Film',
+                    description: 'An emotional narrative exploring human connections'
+                },
+                {
+                    videoSrc: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/video3.mp4',
+                    title: 'Music Video',
+                    description: 'Visually stunning music video production'
+                }
+            ];
+        
+            // Function to create portfolio items
+            function createPortfolioItems() {
+                const gallery = document.querySelector('.portfolio-gallery');
+                
+                portfolioData.forEach(item => {
+                    const portfolioItem = document.createElement('div');
+                    portfolioItem.className = 'portfolio-item';
+                    
+                    const video = document.createElement('video');
+                    video.muted = true;
+                    video.loop = true;
+                    video.playsInline = true;
+                    
+                    const source = document.createElement('source');
+                    source.src = item.videoSrc;
+                    source.type = 'video/mp4';
+                    
+                    video.appendChild(source);
+                    portfolioItem.appendChild(video);
+                    
+                    const caption = document.createElement('div');
+                    caption.className = 'portfolio-caption';
+                    caption.innerHTML = `
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                    `;
+                    
+                    portfolioItem.appendChild(caption);
+                    gallery.appendChild(portfolioItem);
+            
+                    // Add hover effect
+                    portfolioItem.addEventListener('mouseenter', () => {
+                        video.play().catch(err => console.log('Video autoplay failed:', err));
+                    });
+            
+                    portfolioItem.addEventListener('mouseleave', () => {
+                        video.pause();
+                        video.currentTime = 0;
+                    });
+            
+                    // Modal functionality
+                    portfolioItem.addEventListener('click', () => {
+                        const modal = document.getElementById('videoModal');
+                        const modalVideo = modal.querySelector('video source');
+                        modalVideo.src = item.videoSrc;
+                        modalVideo.parentElement.load();
+                        modal.classList.add('active');
+                    });
+                });
+            }
+        
+            // Close modal functionality
+            document.querySelector('.modal-close').addEventListener('click', () => {
+                const modal = document.getElementById('videoModal');
+                const modalVideo = modal.querySelector('video');
+                modalVideo.pause();
+                modal.classList.remove('active');
+            });
+        
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+        
+            themeToggle.addEventListener('change', () => {
+                body.classList.toggle('dark-mode');
+            });
+        
+            // Initialize portfolio
+            document.addEventListener('DOMContentLoaded', createPortfolioItems);
+        
+            // Mobile menu functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+        
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        </script>
+        </body>
+        </html>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animation library
+        AOS.init({
+            duration: 800,
+            easing: 'ease',
+            once: true
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.querySelector('.toggle-input');
+        const body = document.querySelector('body');
+        
+        // Check for saved theme preference or use device preference
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const savedTheme = localStorage.getItem('theme');
+        
+        if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+            body.classList.add('dark-mode');
+            themeToggle.checked = true;
+        }
+        
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Video portfolio hover functionality
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        portfolioItems.forEach(item => {
+            const video = item.querySelector('video');
+            
+            item.addEventListener('mouseenter', () => {
+                video.play();
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                video.pause();
+            });
+            
+            // For touch devices
+            item.addEventListener('touchstart', () => {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

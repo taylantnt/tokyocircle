@@ -286,35 +286,7 @@ function initMobileMenu() {
   const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
   const navLinks = document.querySelector('.nav-links');
   
-  if (mobileMenuBtn && navLinks) {
-    // Toggle menu when button is clicked
-    mobileMenuBtn.addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent event from bubbling to document
-      navLinks.classList.toggle('active');
-      this.classList.toggle('active');
-      document.body.classList.toggle('menu-open');
-    });
-    
-    // Close menu when clicking a nav link
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-        document.body.classList.remove('menu-open');
-      });
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-      if (navLinks.classList.contains('active') && 
-          !e.target.closest('.nav-links') && 
-          !e.target.closest('.mobile-menu-btn')) {
-        navLinks.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-        document.body.classList.remove('menu-open');
-      }
-    });
-  }
+
 }
 
 // Initialize tips modal
