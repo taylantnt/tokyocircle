@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="/navbar.css" />
-    <style>
+  
+  <style>
         :root {
             /* Color Palette */
             --bg-primary: #ffffff;
@@ -215,71 +216,114 @@
         /* Portfolio Gallery */
         .portfolio-gallery {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
+            grid-template-columns: 1fr;
+            gap: 60px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .portfolio-item {
-            position: relative;
-            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+            align-items: center;
+            padding: 30px;
+            background-color: var(--bg-secondary);
             border-radius: var(--border-radius);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-lg);
             transition: all var(--transition-normal);
-            aspect-ratio: 16/9;
-            cursor: pointer;
-            width: 100%;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .portfolio-item:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
         }
 
-        .portfolio-item video {
+        .video-container {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            cursor: pointer;
+        }
+
+        .video-container video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform var(--transition-normal);
         }
-
-        .portfolio-item:hover video {
-            transform: scale(1.1);
-        }
-
-        .portfolio-item::before {
-            content: '';
+        
+        .thumbnail-container {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
-            opacity: 0;
-            transition: opacity var(--transition-normal);
+            width: 100%;
+            height: 100%;
             z-index: 1;
+            display: flex;
+            background-color: rgba(0, 0, 0, 0.2);
+            transition: opacity var(--transition-normal);
         }
-
-        .portfolio-item:hover::before {
+        
+        .thumbnail-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            opacity: 0.9;
+            transition: all var(--transition-normal);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .video-container:hover .play-button {
+            transform: scale(1.1);
             opacity: 1;
         }
 
-        .portfolio-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            color: white;
-            transform: translateY(100%);
-            transition: transform var(--transition-normal);
-            z-index: 2;
-            text-align: center;
+        .video-container:hover video {
+            transform: scale(1.05);
         }
 
-        .portfolio-item:hover .portfolio-caption {
-            transform: translateY(0);
+        .portfolio-content {
+            padding: 20px;
+        }
+
+        .portfolio-title {
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .portfolio-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .portfolio-item {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .portfolio-content {
+                padding: 10px 0;
+            }
         }
 
         /* Modal Styles */
@@ -612,7 +656,7 @@
                     <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/imo?v=1746329396883" alt="Imo">
                 </div>
                 <h1 class="profile-name">Imo</h1>
-                <p class="profile-title">VIDEO PRODUCER・VIDEO SPECIALIST</p>
+                <p class="profile-title">Video Producer & Specialist</p>
             </div>
             
             <p class="profile-bio">
@@ -649,51 +693,99 @@ Massimo (芋） is an Indonesian filmmaker who was born in Italy. He received hi
         </section>
         
         <section class="portfolio-gallery">
-            <div class="portfolio-item" data-aos="fade-up">
-                <video src="https://assets.mixkit.co/videos/preview/mixkit-waves-in-the-water-1164-large.mp4" muted loop></video>
-                <div class="portfolio-caption">
-                    <h3>Ocean Waves Commercial</h3>
-                    <p>Client: Blue Ocean Resort</p>
+            <div class="portfolio-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="video-container">
+                    <div class="thumbnail-container">
+                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/imo1.jpg" alt="Circle Opening Video" class="video-thumbnail" loading="lazy">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <video data-src="https://www.youtube.com/watch?v=iyTPcgAw9s0&t=13s" muted loop preload="none"></video>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Winter Elegy</h3>
+                    <p class="portfolio-description">Four husbands are lost in a plane crash. In moments of grief, four wives discover that they are not their husband true love.</p>
                 </div>
             </div>
             
             <div class="portfolio-item" data-aos="fade-up" data-aos-delay="100">
-                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
-                <div class="portfolio-caption">
-                    <h3>Circle Opening Video</h3>
-                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                <div class="video-container">
+                    <div class="thumbnail-container">
+                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/imo2.jpg" alt="Circle Opening Video" class="video-thumbnail" loading="lazy">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <video data-src="https://www.youtube.com/watch?v=iyTPcgAw9s0&t=13s" muted loop preload="none"></video>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Berebut Jenazah</h3>
+                    <p class="portfolio-description">Naomi, a Japanese idol, has died. Her body is being fought over by her parents who have different religions. Her father, an Indonesian citizen and a Muslim. While her mother, a Japanese woman, is a Buddhist. How will Naomi be buried?</p>
                 </div>
             </div>
             
             <div class="portfolio-item" data-aos="fade-up" data-aos-delay="200">
-                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
-                <div class="portfolio-caption">
-                    <h3>Circle Opening Video</h3>
-                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                <div class="video-container">
+                    <div class="thumbnail-container">
+                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/video-thumb2.jpg?v=1746329396883" alt="Urban Life Documentary" class="video-thumbnail" loading="lazy">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <video data-src="https://m.youtube.com/watch?v=9S3MiHBU8OU" muted loop preload="none"></video>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Urban Life Documentary</h3>
+                    <p class="portfolio-description">An intimate look at city life through the lens of everyday stories. This documentary captures the essence of urban living and human connections in the modern world.</p>
                 </div>
             </div>
             
             <div class="portfolio-item" data-aos="fade-up" data-aos-delay="300">
-                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
-                <div class="portfolio-caption">
-                    <h3>Circle Opening Video</h3>
-                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                <div class="video-container">
+                    <div class="thumbnail-container">
+                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/video-thumb3.jpg?v=1746329396883" alt="Fashion Campaign" class="video-thumbnail" loading="lazy">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <video data-src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop preload="none"></video>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Fashion Campaign</h3>
+                    <p class="portfolio-description">A bold and stylish fashion campaign that pushes creative boundaries. Featuring innovative cinematography and compelling visual storytelling.</p>
                 </div>
             </div>
             
             <div class="portfolio-item" data-aos="fade-up" data-aos-delay="400">
-                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
-                <div class="portfolio-caption">
-                    <h3>Circle Opening Video</h3>
-                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                <div class="video-container">
+                    <div class="thumbnail-container">
+                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/video-thumb4.jpg?v=1746329396883" alt="Music Video Production" class="video-thumbnail" loading="lazy">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <video data-src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop preload="none"></video>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Music Video Production</h3>
+                    <p class="portfolio-description">A visually stunning music video that combines artistic vision with technical excellence. Created for an emerging artist's debut single.</p>
                 </div>
             </div>
             
             <div class="portfolio-item" data-aos="fade-up" data-aos-delay="500">
-                <video src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop></video>
-                <div class="portfolio-caption">
-                    <h3>Circle Opening Video</h3>
-                    <p>Circle Creatives Introduction and photowalk recap video</p>
+                <div class="video-container">
+                    <div class="thumbnail-container">
+                        <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/video-thumb5.jpg?v=1746329396883" alt="Commercial Project" class="video-thumbnail" loading="lazy">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <video data-src="https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974" muted loop preload="none"></video>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Commercial Project</h3>
+                    <p class="portfolio-description">A high-impact commercial production that effectively communicates brand values and engages the target audience through compelling storytelling.</p>
                 </div>
             </div>
         </section>
@@ -725,11 +817,6 @@ Massimo (芋） is an Indonesian filmmaker who was born in Italy. He received hi
             // Portfolio data with video sources
             const portfolioData = [
                 {
-                    videoSrc: 'https://cdn.glitch.me/5cc59f19-bd55-4aeb-a982-792cd1e97b86/y2mate.com%20-%20Circle%20%20Tokyo%20Photowalks_v720P.mp4?v=17295225931974',
-                    title: 'Commercial Project',
-                    description: 'A dynamic commercial video showcasing product excellence'
-                },
-                {
                     videoSrc: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/video2.mp4',
                     title: 'Short Film',
                     description: 'An emotional narrative exploring human connections'
@@ -748,18 +835,39 @@ Massimo (芋） is an Indonesian filmmaker who was born in Italy. He received hi
                 portfolioData.forEach(item => {
                     const portfolioItem = document.createElement('div');
                     portfolioItem.className = 'portfolio-item';
+                    portfolioItem.setAttribute('data-aos', 'fade-up');
                     
                     const video = document.createElement('video');
                     video.muted = true;
                     video.loop = true;
                     video.playsInline = true;
+                    video.preload = 'none';
+                    video.setAttribute('loading', 'lazy');
+                    video.setAttribute('data-src', item.videoSrc);
                     
-                    const source = document.createElement('source');
-                    source.src = item.videoSrc;
-                    source.type = 'video/mp4';
+                    // Only load video when needed
+                    const loadVideo = () => {
+                        if (!video.src) {
+                            video.src = video.getAttribute('data-src');
+                        }
+                    };
+                    
+                    portfolioItem.addEventListener('mouseenter', loadVideo);
+                    playButton.addEventListener('click', loadVideo);
                     
                     video.appendChild(source);
                     portfolioItem.appendChild(video);
+                    
+                    // Create thumbnail overlay with play button
+                    const thumbnailContainer = document.createElement('div');
+                    thumbnailContainer.className = 'thumbnail-container';
+                    
+                    const playButton = document.createElement('div');
+                    playButton.className = 'play-button';
+                    playButton.innerHTML = '<i class="fas fa-play"></i>';
+                    
+                    thumbnailContainer.appendChild(playButton);
+                    portfolioItem.appendChild(thumbnailContainer);
                     
                     const caption = document.createElement('div');
                     caption.className = 'portfolio-caption';
@@ -774,11 +882,13 @@ Massimo (芋） is an Indonesian filmmaker who was born in Italy. He received hi
                     // Add hover effect
                     portfolioItem.addEventListener('mouseenter', () => {
                         video.play().catch(err => console.log('Video autoplay failed:', err));
+                        thumbnailContainer.classList.add('hidden');
                     });
             
                     portfolioItem.addEventListener('mouseleave', () => {
                         video.pause();
                         video.currentTime = 0;
+                        thumbnailContainer.classList.remove('hidden');
                     });
             
                     // Modal functionality
@@ -787,7 +897,16 @@ Massimo (芋） is an Indonesian filmmaker who was born in Italy. He received hi
                         const modalVideo = modal.querySelector('video source');
                         modalVideo.src = item.videoSrc;
                         modalVideo.parentElement.load();
+                        modalVideo.parentElement.play().catch(err => console.log('Modal video play failed:', err));
                         modal.classList.add('active');
+                        thumbnailContainer.classList.add('hidden');
+                    });
+                    
+                    // Play button click handler
+                    playButton.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent triggering the portfolioItem click
+                        video.play().catch(err => console.log('Video play failed:', err));
+                        thumbnailContainer.classList.add('hidden');
                     });
                 });
             }
