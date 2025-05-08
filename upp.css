@@ -1,0 +1,724 @@
+  /* ================ */
+          /* website Variables */
+          /* ================ */
+          :root {
+              /* Pastel Rainbow Colors - Light Mode */
+              --pastel-red: hsl(354, 100%, 85%);
+              --pastel-orange: hsl(33, 100%, 87%);
+              --pastel-yellow: hsl(42, 95%, 89%);
+              --pastel-green: hsl(144, 70%, 92%);
+              --pastel-blue: hsl(210, 100%, 87%);
+              --pastel-purple: hsl(270, 100%, 87%);
+              --pastel-pink: hsl(330, 100%, 85%);
+
+              /* Navigation Colors - Light Mode */
+              --nav-gradient-start: hsla(354, 100%, 85%, 0.65);
+              --nav-gradient-end: hsla(330, 100%, 85%, 0.65);
+              --nav-backdrop-blur: 10px;
+
+              /* Background Colors - Light Mode */
+              --bg-primary: white;
+              --bg-secondary: #f8f8f8;
+              --bg-about: var(--pastel-blue);
+              --bg-founders: #E5FEFD;
+              --bg-gallery: linear-gradient(135deg, var(--pastel-blue), var(--pastel-pink));
+              --bg-events: #F5E6d4;
+              --bg-join: var(--pastel-green);
+              --bg-footer: #6a5acd;
+
+              /* Text Colors - Light Mode */
+              --text-primary: #333;
+              --text-secondary: #666;
+              --text-light: white;
+
+              /* Fonts */
+              --heading-font: 'Fredoka One', cursive;
+              --body-font: 'Comic Neue', cursive;
+
+              /* Spacing */
+              --space-sm: 0.5rem;
+              --space-md: 1rem;
+              --space-lg: 1.5rem;
+              --space-xl: 2rem;
+              --space-xxl: 3rem;
+
+              /* Shadows */
+              --soft-shadow: 0 4px 8px rgba(0,0,0,0.1);
+              --floating-shadow: 0 8px 16px rgba(0,0,0,0.15);
+          }
+
+          /* Dark Mode Colors */
+          .dark-mode {
+              /* Accent Colors - Dark Mode (more sophisticated) */
+              --pastel-red: #ff6b95;
+              --pastel-orange: #b57dff;
+              --pastel-yellow: #ffd166;
+              --pastel-green: #4fd8eb;
+              --pastel-blue: #59a5ff;
+              --pastel-purple: #9d5de0;
+              --pastel-pink: #ff7eb6;
+
+              /* Navigation Colors - Dark Mode */
+              --nav-gradient-start: rgba(45, 50, 80, 0.85);
+              --nav-gradient-end: rgba(85, 33, 85, 0.85);
+
+              /* Background Colors - Dark Mode (distinct sections) */
+              --bg-primary: #121212;
+              --bg-secondary: #1e1e1e;
+              --bg-about: #2c3862;       /* Deep blue */
+              --bg-founders: #2d2a4a;    /* Deep purple-blue */
+              --bg-gallery: linear-gradient(135deg, #2c3862, #74325e);
+              --bg-events: #303b58;      /* Steel blue */
+              --bg-join: #274559;        /* Deep teal */
+              --bg-footer: #1e1537;      /* Dark purple */
+
+              /* Text Colors - Dark Mode (improved contrast) */
+              --text-primary: #f0f0f0;
+              --text-secondary: #d0d0d0;
+          }
+
+          /* ================ */
+          /* Dark Mode Toggle */
+          /* ================ */
+          .theme-toggle {
+              position: fixed;
+              top: 85px;
+              right: 20px;
+              z-index: 2000;
+              display: flex;
+              align-items: center;
+          }
+
+          /*NOT USED AT THE MOMENT: For mobile screens, position the toggle differently */
+        /*  @media (max-width: 768px) {
+              .theme-toggle {
+                  top: auto;
+                  bottom: 20px;
+                  right: 20px;
+              }
+          } NOT USED AT THE MOMENT */
+
+          .toggle-wrapper {
+              position: relative;
+              width: 60px;
+              height: 30px;
+              margin-left: 10px;
+          }
+
+          .toggle-input {
+              opacity: 0;
+              width: 0;
+              height: 0;
+          }
+
+          .toggle-label {
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+              background: linear-gradient(90deg, #f6a3ef, #dd6dfb);
+              display: flex;
+              align-items: center;
+              border-radius: 30px;
+              cursor: pointer;
+              transition: all 0.4s ease;
+              overflow: hidden;
+          }
+
+          .toggle-label:before {
+              content: "";
+              position: absolute;
+              width: 22px;
+              height: 22px;
+              left: 4px;
+              bottom: 4px;
+              border-radius: 50%;
+              background: white;
+              transition: all 0.4s ease;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+          }
+
+          .toggle-icons {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0 8px;
+              pointer-events: none;
+              color: white;
+              z-index: 2;
+          }
+
+          .toggle-icons i {
+              font-size: 14px;
+          }
+
+          .toggle-input:checked + .toggle-label {
+              background: linear-gradient(90deg, #4900ff, #ff00c1);
+          }
+
+          .toggle-input:checked + .toggle-label:before {
+              transform: translateX(30px);
+              background: #00fff9;
+          }
+
+          /* Apply background colors based on theme */
+          body {
+              background-color: var(--bg-primary);
+              color: var(--text-primary);
+          }
+
+          .footer {
+              background-color: var(--bg-footer);
+          }
+
+          /* Navbar with specific transition properties */
+          .navbar {
+              position: fixed;
+              width: 100%;
+            height: 50px;
+              top: 0;
+              left: 0;
+              background: linear-gradient(90deg, 
+                  hsla(354, 100%, 85%, 0.75),  /* pastel red */
+                  hsla(33, 100%, 87%, 0.75),   /* pastel orange */
+                  hsla(42, 95%, 89%, 0.75),    /* pastel yellow */
+                  hsla(144, 70%, 92%, 0.75),   /* pastel green */
+                  hsla(210, 100%, 87%, 0.75),  /* pastel blue */
+                  hsla(270, 100%, 87%, 0.75),  /* pastel purple */
+                  hsla(330, 100%, 85%, 0.75)   /* pastel pink */
+              );
+              z-index: 1000;
+              padding: 5px 20px;
+              backdrop-filter: blur(8px); /* Ensure constant blur */
+              border-radius: 0 0 40px 40px;
+              box-shadow: 0 9px 11px rgba(0, 0, 0, 0.4);
+              transition: all 0.5s ease;
+              transform: translateZ(0); /* Force hardware acceleration */
+              will-change: background; /* Hint for browser optimization */
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+          }
+
+          /* Ensure transitions take priority during theme change */
+          .navbar.theme-transition {
+              transition: all 0.5s ease !important;
+              transform: translateZ(0); /* Force hardware acceleration */
+          }
+
+          /* Pause all other animations during theme transition */
+          body.transition-active * {
+              animation-play-state: paused !important;
+          }
+
+          /* Adjust text colors */
+          body, p {
+              color: var(--text-primary);
+          }
+
+          .section-description {
+              color: var(--text-secondary);
+          }
+
+          /* ================ */
+          /* Base Styles */
+          /* ================ */
+          * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+          }
+
+          body {
+              font-family: var(--body-font);
+              color: #333;
+              background-color: white;
+              overflow-x: hidden; /* Prevent horizontal scrolling */
+              width: 100%;
+          }
+
+          h1, h2, h3, h4 {
+              font-family: var(--heading-font);
+              font-weight: normal;
+              color: white;
+          }
+
+          a {
+              text-decoration: none;
+              color: inherit;
+          }
+
+          .container {
+              width: 100%;
+              max-width: 1500px;
+              margin: 0 auto;
+              padding: 0; /* Remove horizontal padding */
+          }
+
+        
+          /* ================ */
+          /* Navigation */
+          /* ================ */
+  .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+
+  .logo {
+      display: flex;
+      align-items: center;
+      height: 45px;
+      z-index: 1001;
+  }
+
+  .logo-image {
+      height: 45px;
+      width: auto;
+      transition: transform 0.2s ease;
+      display: block;
+      opacity: 1;
+  }
+
+          .logo:hover .logo-image {
+              transform: scale(1.1);
+          }
+
+          .mobile-menu-btn {
+              display: none;
+              background: none;
+              border: none;
+              font-size: 1.5rem;
+              color: white;
+              cursor: pointer;
+              z-index: 1001;
+              padding: 0.5rem;
+          }
+
+          .nav-links {
+              display: flex;
+              align-items: center;
+              gap: var(--space-lg);
+          }
+
+          .nav-links a {
+              font-size: 1.1rem;
+              transition: all 0.5s ease;
+              display: flex;
+              align-items: center;
+              gap: var(--space-sm);
+              color: white;
+              text-shadow: 0 1px 5px rgba(0,0,0,0.4);
+              text-decoration: none;
+              position: relative;
+              padding: 5px 8px;
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+
+
+
+          .nav-links a.active,
+          .nav-links a:hover {
+              color: hsl(330, 100%, 80%);
+              transform: scale(1.1);
+          }
+
+          /* Active state for current page */
+          .nav-links a.active::before {
+              background-color: rgba(60, 60, 100, 0.7);
+          }
+
+          /* Active menu item */
+          .nav-links a.active {
+              background: none;
+          }
+
+  /* Join button with more contrast */
+  .nav-links a.btn {
+      padding: var(--space-sm) var(--space-md);
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+  }
+
+  .nav-links a.btn:hover {
+      background-color: var(--pastel-pink);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+               transform: scale(1.1);
+  }
+
+  /* Dark mode styles for navigation */
+  .dark-mode .nav-links a:hover::before {
+      background-color: rgba(40, 40, 70, 0.8);
+  }
+
+  .dark-mode .nav-links a.active::before {
+      background-color: rgba(60, 60, 120, 0.8);
+  }
+
+  /* Stop animations during resize */
+  .resize-animation-stopper * {q
+      animation: none !important;
+      transition: none !important;
+  }
+
+
+          /* ================ */
+          /* Responsive Styles */
+          /* ================ */
+          @media (max-width: 768px) {
+                .mobile-menu-btn {
+          display: block;
+      }
+
+                .logo {
+                  position: absolute;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  height: 40px;
+              }
+              .logo-image {
+                  height: 50px;
+              }
+
+              
+              /* Mobile menu styles */
+              .mobile-menu-btn {
+                  display: block;
+              }
+
+              .nav-links {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100vh;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  transform: translateY(-100%);
+                  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                  z-index: 1000;
+                  padding: 2rem;
+              }
+
+              .nav-links.active {
+                  transform: translateY(0);
+                  overflow-y: auto;
+              }
+
+              .nav-links a {
+                  font-size: 1.3rem;
+                  margin: 0.8rem 0;
+                  opacity: 0;
+                  transform: translateY(20px);
+                  transition: opacity 0.3s ease, transform 0.3s ease;
+                  text-align: center;
+                  padding: 0.5rem 1rem;
+                  max-width: 300px;
+              }
+
+              .nav-links.active a {
+                  opacity: 1;
+                  transform: translateY(0);
+                  transition-delay: calc(0.05s * var(--i));
+              }
+
+              .mobile-menu-btn.active i::before {
+                  content: "\f00d"; /* Font Awesome close icon (X) */
+              }
+                        .theme-toggle {
+                  position: static;
+                  margin: 0;
+                  z-index: 1001;
+              }
+          }
+
+          @media (max-width: 480px) {
+              .hero-buttons {
+                  flex-direction: column;
+              }
+
+              .hero-content h1 {
+                  font-size: 2rem;
+              }
+
+              .section-header h2 {
+                  font-size: 2rem;
+              }
+          }
+
+          /* Add styles for when mobile menu is open */
+          body.menu-open::after {
+              content: '';
+              position: fixed;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: rgba(255, 255, 255, 0.1);
+              backdrop-filter: blur(0px);
+              -webkit-backdrop-filter: blur(0px);
+              z-index: 998;
+              pointer-events: none;
+              opacity: 0;
+              transition: opacity 0.5s ease-in-out, backdrop-filter 0.5s ease-in-out, -webkit-backdrop-filter 0.5s ease-in-out;
+          }
+
+          /* When menu is actually open, apply the blur with animation */
+          body.menu-open.active::after {
+              backdrop-filter: blur(15px);
+              -webkit-backdrop-filter: blur(15px);
+              opacity: 1;
+          }
+
+          /* Additional styling for dark mode */
+          .dark-mode.menu-open::after {
+              background: rgba(0, 0, 0, 0.2);
+          }
+
+        
+          /* Make sure container position is relative for proper stacking */
+          .section .container {
+              position: relative;
+              z-index: 2; /* Ensure content is above section styling */
+              transition: transform 0.3s ease, opacity 0.3s ease;
+              max-width: 1200px;
+              width: 100%;
+              margin: 0 auto;
+              padding: 0 var(--space-md);
+          }
+
+          /* Enhanced divider line at the overlap point */
+          .about::before,
+          .founders::before,
+          .events::before,
+          .join::before,
+          .hire-us::before,
+          .footer::before {
+              content: '';
+              position: absolute;
+              top: 40px;
+              left: 5%;
+              width: 90%;
+              height: 6px;
+              background: linear-gradient(90deg, var(--pastel-blue), var(--pastel-pink));
+              border-radius: 6px;
+              z-index: 1;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.09);
+          }
+
+          /* ================ */
+          /* About Section */
+          /* ================ */
+          .about {
+              position: relative;
+              background-color: var(--pastel-blue);
+              color: #333;
+              padding-bottom: 150px;
+              z-index: 10;
+          }
+
+          /* ================ */
+          /* Updated About Section */
+          /* ================ */
+
+          /* Full gallery link styling */
+          .full-gallery-link {
+              text-align: center;
+              margin-top: 2.5rem;
+              margin-bottom: 1.5rem;
+              transition: transform 0.3s ease;
+          }
+
+          .full-gallery-link .btn {
+              padding: 12px 28px;
+              font-size: 1.1rem;
+              box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+              transition: all 0.3s ease;
+          }
+
+          .full-gallery-link .btn:hover {
+              transform: translateY(-3px);
+              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+          }
+
+          .full-gallery-link .btn i {
+              margin-right: 8px;
+          }
+
+          /* Only apply variable-based colors in dark mode */
+          .dark-mode body {
+              color: var(--text-primary);
+              background-color: var(--bg-primary);
+          }
+
+          .dark-mode .section-description {
+              color: var(--text-secondary);
+          }
+
+          .dark-mode .about {
+              background-color: var(--bg-about);
+          }
+
+          .dark-mode .founders {
+              background-color: var(--bg-founders);
+          }
+
+          .dark-mode .gallery {
+              background: var(--bg-gallery);
+          }
+
+          .dark-mode .events {
+              background-color: var(--bg-events);
+          }
+
+          .dark-mode .join {
+              background-color: var(--bg-join);
+          }
+
+          .dark-mode .footer {
+              background-color: var(--bg-footer);
+          }
+
+          /* Updated navbar styling for dark mode */
+          .dark-mode .navbar {
+              background: linear-gradient(90deg, 
+                  var(--nav-gradient-start),
+                  rgba(150, 0, 255, 0.35),
+                  rgba(238, 205, 105, 0.35),
+                  rgba(0, 255, 249, 0.35),
+                  rgba(0, 184, 255, 0.35),
+                  rgba(126, 16, 143, 0.35),
+                  var(--nav-gradient-end)
+              );
+          }
+
+          /* Enhance dark mode card styling */
+          .dark-mode .founder-card,
+          .dark-mode .event-card,
+          .dark-mode .step,
+          .dark-mode .stat-item,
+          .dark-mode .about-main-card {
+              background-color: rgba(40, 40, 50, 0.8);
+              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+              border: 1px solid rgba(255, 255, 255, 0.05);
+          }
+
+          /* Improve dark mode heading visibility */
+          .dark-mode .section-header h2,
+          .dark-mode .event-details h3,
+          .dark-mode .founder-card h3,
+          .dark-mode .step h3,
+          .dark-mode .about-text-content h3,
+          .dark-mode .join-content h2 {
+              color: var(--pastel-blue);
+              text-shadow: 0 0 10px rgba(79, 216, 235, 0.3);
+          }
+
+          /* Enhance dark mode text visibility */
+          .dark-mode .about-lead {
+              color: var(--text-primary);
+          }
+
+          .dark-mode .about-text-content p,
+          .dark-mode .stat-label,
+          .dark-mode .event-details p,
+          .dark-mode .step p {
+              color: var(--text-secondary);
+          }
+
+          /* Add subtle glow effects to icons in dark mode */
+          .dark-mode .stat-icon,
+          .dark-mode .caption i,
+          .dark-mode .event-details i,
+          .dark-mode .footer-social a {
+              filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.4));
+          }
+
+          /* Dark mode event card button styling */
+          .dark-mode .event-details .btn {
+              background-color: var(--pastel-blue);
+              color: white;
+              border: none;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+          }
+
+          .dark-mode .event-details .btn:hover {
+              background-color: var(--pastel-green);
+              transform: translateY(-3px);
+              box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+          }
+
+          /* Ensure consistent button styling across events section in dark mode */
+          .dark-mode .pastel-pink-btn,
+          .dark-mode .pastel-blue-btn,
+          .dark-mode .pastel-green-btn {
+              background-color: var(--pastel-blue);
+              border: none;
+          }
+
+          .dark-mode .pastel-pink-btn:hover,
+          .dark-mode .pastel-blue-btn:hover,
+          .dark-mode .pastel-green-btn:hover {
+              background-color: var(--pastel-green);
+          }
+
+
+
+          /* Add specific transitions for section headers */
+          .section-header h2,
+          .section-header .section-description {
+              transition: color 0.6s ease, text-shadow 0.6s ease !important;
+          }
+
+          body.transition-active .section-header h2,
+          body.transition-active .section-header .section-description {
+              transition: color 0.6s ease, text-shadow 0.6s ease !important;
+          }
+
+          /* Global style for transition pause */
+          body.transition-active * {
+              animation-play-state: paused !important;
+              /* This ensures all other animations are paused during theme transition */
+          }
+
+          /* Specific styles for dark mode transitions */
+          body.transition-active .section-header h2,
+          body.transition-active .section-header .section-description {
+              transition: color 0.4s ease, text-shadow 0.4s ease !important;
+          }
+
+          /* Ensure all sections have consistent transitions */
+          .section {
+              transition-duration: 0.4s;
+              transition-timing-function: ease;
+          }
+
+          /* Navbar transitions */
+          .navbar {
+              transition: background 0.4s ease, backdrop-filter 0.4s ease !important;
+          }
+
+          /* Navbar transitions */
+          .navbar {
+              transition: background 0.4s ease, backdrop-filter 0.4s ease !important;
+          }
+
+
+          /* Ensure consistent button styling across events section in dark mode */
+          .dark-mode .pastel-pink-btn,
+          .dark-mode .pastel-blue-btn,
+          .dark-mode .pastel-green-btn {
+              background-color: var(--pastel-blue);
+              border: none;
+          }
