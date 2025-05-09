@@ -75,8 +75,10 @@ function filterByTalent(checkbox) {
   } else {
     selectedTalentTypes.delete(checkbox.value);
   }
+  
   const currentStatus = document.querySelector('.sidebar-menu a.active').textContent.toLowerCase().includes('approved') ? 'approved' : 
                        document.querySelector('.sidebar-menu a.active').textContent.toLowerCase().includes('rejected') ? 'rejected' : 'pending';
+  
   loadPhotos(currentStatus);
   loadStatistics();
 }
@@ -346,4 +348,293 @@ function showNotification(message, type) {
     notification.style.animation = 'slideOut 0.3s ease forwards';
     setTimeout(() => notification.remove(), 300);
   }, 3000);
+}
+
+// ========== NEW ADMIN PANEL LOGIC ========== //
+
+const PHOTOS_PER_PAGE = 20;
+let currentStatus = 'pending';
+let currentPage = 1;
+let totalPages = 1;
+let allPhotos = [];
+let filteredPhotos = [];
+let selectedPhotoIds = new Set();
+
+// DOM Elements
+const adminTabs = document.querySelectorAll('.admin-tab');
+const adminSearch = document.getElementById('adminSearch');
+const filterTalentType = document.getElementById('filterTalentType');
+const filterCategory = document.getElementById('filterCategory');
+const filterEvent = document.getElementById('filterEvent');
+const adminBatchBar = document.getElementById('adminBatchBar');
+const selectedCount = document.getElementById('selectedCount');
+const adminPaginationTop = document.getElementById('adminPaginationTop');
+const adminPaginationBottom = document.getElementById('adminPaginationBottom');
+const pendingPhotosGrid = document.getElementById('pendingPhotos');
+const tabPendingCount = document.getElementById('tabPendingCount');
+const tabApprovedCount = document.getElementById('tabApprovedCount');
+const tabRejectedCount = document.getElementById('tabRejectedCount');
+const adminPhotoModal = document.getElementById('adminPhotoModal');
+const adminPhotoModalClose = document.getElementById('adminPhotoModalClose');
+const modalPhotoImg = document.getElementById('modalPhotoImg');
+const modalPhotoArtist = document.getElementById('modalPhotoArtist');
+const modalPhotoTalent = document.getElementById('modalPhotoTalent');
+const modalPhotoCategory = document.getElementById('modalPhotoCategory');
+const modalPhotoEvent = document.getElementById('modalPhotoEvent');
+const modalPhotoDate = document.getElementById('modalPhotoDate');
+const modalPhotoStatus = document.getElementById('modalPhotoStatus');
+const modalApproveBtn = document.getElementById('modalApproveBtn');
+const modalRejectBtn = document.getElementById('modalRejectBtn');
+const modalDeleteBtn = document.getElementById('modalDeleteBtn');
+
+// Tab switching
+adminTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    adminTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentStatus = tab.dataset.status;
+    currentPage = 1;
+    selectedPhotoIds.clear();
+    updateBatchBar();
+    loadAndRenderPhotos();
+  });
+});
+
+// Search and filter logic
+[adminSearch, filterTalentType, filterCategory, filterEvent].forEach(input => {
+  input.addEventListener('input', () => {
+    currentPage = 1;
+    selectedPhotoIds.clear();
+    updateBatchBar();
+    filterAndRenderPhotos();
+  });
+});
+
+// Batch action buttons
+adminBatchBar.querySelector('.batch-approve-btn').onclick = () => batchModerate('approved');
+adminBatchBar.querySelector('.batch-reject-btn').onclick = () => batchModerate('rejected');
+adminBatchBar.querySelector('.batch-delete-btn').onclick = () => batchDelete();
+
+// Pagination controls
+function renderPagination() {
+  [adminPaginationTop, adminPaginationBottom].forEach(container => {
+    container.innerHTML = '';
+    if (totalPages <= 1) return;
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      btn.className = i === currentPage ? 'active' : '';
+      btn.onclick = () => {
+        currentPage = i;
+        selectedPhotoIds.clear();
+        updateBatchBar();
+        renderPhotoGrid();
+      };
+      container.appendChild(btn);
+    }
+  });
+}
+
+// Load and render photos from Firestore
+async function loadAndRenderPhotos() {
+  // Show loading state
+  pendingPhotosGrid.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading...</div>';
+  // Query all photos for current status
+  let query = db.collection('photos').where('status', '==', currentStatus);
+  const snapshot = await query.get();
+  allPhotos = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  updateTabCounts();
+  filterAndRenderPhotos();
+}
+
+// Update tab counts
+async function updateTabCounts() {
+  const [pendingSnap, approvedSnap, rejectedSnap] = await Promise.all([
+    db.collection('photos').where('status', '==', 'pending').get(),
+    db.collection('photos').where('status', '==', 'approved').get(),
+    db.collection('photos').where('status', '==', 'rejected').get()
+  ]);
+  tabPendingCount.textContent = pendingSnap.size;
+  tabApprovedCount.textContent = approvedSnap.size;
+  tabRejectedCount.textContent = rejectedSnap.size;
+}
+
+// Filter and render photos
+function filterAndRenderPhotos() {
+  const search = adminSearch.value.trim().toLowerCase();
+  const talent = filterTalentType.value;
+  const category = filterCategory.value;
+  const event = filterEvent.value.trim().toLowerCase();
+  filteredPhotos = allPhotos.filter(photo => {
+    let match = true;
+    if (search) {
+      match = (
+        (photo.photographer && photo.photographer.toLowerCase().includes(search)) ||
+        (photo.category && photo.category.toLowerCase().includes(search)) ||
+        (photo.event && photo.event.toLowerCase().includes(search))
+      );
+    }
+    if (talent && photo.talentType !== talent) match = false;
+    if (category && photo.category !== category) match = false;
+    if (event && (!photo.event || !photo.event.toLowerCase().includes(event))) match = false;
+    return match;
+  });
+  totalPages = Math.max(1, Math.ceil(filteredPhotos.length / PHOTOS_PER_PAGE));
+  if (currentPage > totalPages) currentPage = totalPages;
+  renderPhotoGrid();
+}
+
+// Render photo grid
+function renderPhotoGrid() {
+  pendingPhotosGrid.innerHTML = '';
+  if (filteredPhotos.length === 0) {
+    document.getElementById('noPending').style.display = '';
+    renderPagination();
+    return;
+  }
+  document.getElementById('noPending').style.display = 'none';
+  const start = (currentPage - 1) * PHOTOS_PER_PAGE;
+  const end = start + PHOTOS_PER_PAGE;
+  const pagePhotos = filteredPhotos.slice(start, end);
+  pagePhotos.forEach(photo => {
+    const card = document.createElement('div');
+    card.className = 'admin-photo-card' + (selectedPhotoIds.has(photo.id) ? ' selected' : '');
+    // Checkbox
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'admin-photo-checkbox';
+    checkbox.checked = selectedPhotoIds.has(photo.id);
+    checkbox.onclick = e => {
+      e.stopPropagation();
+      if (checkbox.checked) selectedPhotoIds.add(photo.id);
+      else selectedPhotoIds.delete(photo.id);
+      updateBatchBar();
+      card.classList.toggle('selected', checkbox.checked);
+    };
+    card.appendChild(checkbox);
+    // Image
+    const img = document.createElement('img');
+    img.src = photo.imageUrl;
+    img.alt = `${photo.photographer || ''}`;
+    img.onclick = () => openPhotoModal(photo);
+    card.appendChild(img);
+    // Info
+    const info = document.createElement('div');
+    info.className = 'admin-photo-info';
+    info.innerHTML = `
+      <h3>${photo.photographer || ''}</h3>
+      <p><strong>Talent:</strong> ${photo.talentType || ''}</p>
+      <p><strong>Category:</strong> ${photo.category || ''}</p>
+      <p><strong>Event:</strong> ${photo.event || ''}</p>
+      <p><strong>Date:</strong> ${photo.timestamp ? new Date(photo.timestamp).toLocaleDateString() : ''}</p>
+    `;
+    card.appendChild(info);
+    // Actions
+    const actions = document.createElement('div');
+    actions.className = 'admin-photo-actions';
+    if (currentStatus === 'pending') {
+      const approveBtn = document.createElement('button');
+      approveBtn.textContent = 'Approve';
+      approveBtn.onclick = e => { e.stopPropagation(); moderatePhoto(photo.id, 'approved'); };
+      actions.appendChild(approveBtn);
+      const rejectBtn = document.createElement('button');
+      rejectBtn.textContent = 'Reject';
+      rejectBtn.onclick = e => { e.stopPropagation(); moderatePhoto(photo.id, 'rejected'); };
+      actions.appendChild(rejectBtn);
+    }
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.onclick = e => { e.stopPropagation(); confirmDeletePhoto(photo.id); };
+    actions.appendChild(deleteBtn);
+    card.appendChild(actions);
+    pendingPhotosGrid.appendChild(card);
+  });
+  renderPagination();
+  updateBatchBar();
+}
+
+// Update batch bar
+function updateBatchBar() {
+  if (selectedPhotoIds.size > 0) {
+    adminBatchBar.style.display = '';
+    selectedCount.textContent = `${selectedPhotoIds.size} selected`;
+  } else {
+    adminBatchBar.style.display = 'none';
+  }
+}
+
+// Batch moderate
+async function batchModerate(newStatus) {
+  if (selectedPhotoIds.size === 0) return;
+  if (!confirm(`Are you sure you want to set status to ${newStatus} for ${selectedPhotoIds.size} photos?`)) return;
+  const ids = Array.from(selectedPhotoIds);
+  await Promise.all(ids.map(id => db.collection('photos').doc(id).update({ status: newStatus, moderatedAt: Date.now() })));
+  showNotification(`Batch ${newStatus} successful`, 'success');
+  selectedPhotoIds.clear();
+  loadAndRenderPhotos();
+}
+
+// Batch delete
+async function batchDelete() {
+  if (selectedPhotoIds.size === 0) return;
+  if (!confirm(`Are you sure you want to delete ${selectedPhotoIds.size} photos? This cannot be undone.`)) return;
+  const ids = Array.from(selectedPhotoIds);
+  await Promise.all(ids.map(id => db.collection('photos').doc(id).delete()));
+  showNotification('Batch delete successful', 'success');
+  selectedPhotoIds.clear();
+  loadAndRenderPhotos();
+}
+
+// Moderate single photo
+async function moderatePhoto(id, newStatus) {
+  await db.collection('photos').doc(id).update({ status: newStatus, moderatedAt: Date.now() });
+  showNotification(`Photo ${newStatus}`, 'success');
+  loadAndRenderPhotos();
+}
+
+// Modal logic
+let modalPhotoId = null;
+function openPhotoModal(photo) {
+  modalPhotoId = photo.id;
+  modalPhotoImg.src = photo.imageUrl;
+  modalPhotoArtist.textContent = photo.photographer || '';
+  modalPhotoTalent.textContent = photo.talentType || '';
+  modalPhotoCategory.textContent = photo.category || '';
+  modalPhotoEvent.textContent = photo.event || '';
+  modalPhotoDate.textContent = photo.timestamp ? new Date(photo.timestamp).toLocaleDateString() : '';
+  modalPhotoStatus.textContent = photo.status || '';
+  adminPhotoModal.style.display = 'flex';
+}
+adminPhotoModalClose.onclick = () => {
+  adminPhotoModal.style.display = 'none';
+  modalPhotoId = null;
+};
+modalApproveBtn.onclick = async () => {
+  if (!modalPhotoId) return;
+  await moderatePhoto(modalPhotoId, 'approved');
+  adminPhotoModal.style.display = 'none';
+};
+modalRejectBtn.onclick = async () => {
+  if (!modalPhotoId) return;
+  await moderatePhoto(modalPhotoId, 'rejected');
+  adminPhotoModal.style.display = 'none';
+};
+modalDeleteBtn.onclick = async () => {
+  if (!modalPhotoId) return;
+  if (!confirm('Are you sure you want to delete this photo?')) return;
+  await db.collection('photos').doc(modalPhotoId).delete();
+  showNotification('Photo deleted', 'success');
+  adminPhotoModal.style.display = 'none';
+  loadAndRenderPhotos();
+};
+window.onclick = function(event) {
+  if (event.target === adminPhotoModal) {
+    adminPhotoModal.style.display = 'none';
+    modalPhotoId = null;
+  }
+};
+
+// Initial load
+if (adminTabs.length) {
+  loadAndRenderPhotos();
 }

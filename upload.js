@@ -47,6 +47,10 @@ let currentTalentTypeFilter = 'all';
 let currentPhotographerFilter = 'all';
 let selectedFile = null;
 
+// Add autocomplete logic for artist name
+let artistNames = [];
+let canonicalArtistMap = {};
+
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
     // Create back to top button
@@ -112,26 +116,24 @@ document.addEventListener('DOMContentLoaded', function() {
         return backToTopBtn;
     };
 
-    // Initialize back to top button
-    const backToTopBtn = createBackToTopButton();
-
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    });
-
-    // Smooth scroll to top when button is clicked
-    backToTopBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
+    // Initialize back to top button only if not already present
+    if (!document.getElementById('back-to-top')) {
+      const backToTopBtn = createBackToTopButton();
+      window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+              backToTopBtn.classList.add('show');
+          } else {
+              backToTopBtn.classList.remove('show');
+          }
+      });
+      backToTopBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+      });
+    }
 
   // Initialize slideshow
   initSlideshow();
@@ -145,26 +147,30 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize tips modal
   initTipsModal();
   
-  // Create talent type filters
-  createTalentTypeFilters();
-  
-  // Fetch photographers and populate select
-  fetchPhotographers();
-  
-  // Setup talent type selection
-  setupTalentTypeSelection();
+  // --- Only run old filter setup if old containers exist (upload section) ---
+  if (typeof createTalentTypeFilters === 'function' && talentTypeFilters && photographerFilters) {
+    createTalentTypeFilters();
+    fetchPhotographers();
+    setupTalentTypeSelection();
+  }
+
+  // --- Only run new community gallery filter code if new filter elements exist ---
+  if (document.getElementById('talentTypeDropdown') && document.getElementById('artistNameDropdown')) {
+    fetchCommunityGalleryImages();
+  } else {
+    // Fallback: fetch and display gallery for upload section
+    fetchGalleryImages();
+  }
   
   // Fetch categories
   fetchCategories();
   
-  // Fetch gallery images
-  fetchGalleryImages();
-  
   // Setup file upload UI
   setupFileUpload();
   
-  // Setup photographer selection
-  setupPhotographerSelection();
+  // Setup artist autocomplete
+  fetchArtistNames();
+  setupArtistAutocomplete();
   
   // Setup form submission
   setupFormSubmission();
@@ -174,11 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function initSlideshow() {
   // First load default images in case there are no uploaded photos yet
   const defaultSlideshowImages = [
-    'https://source.unsplash.com/random/1600x900/?photography,camera',
-    'https://source.unsplash.com/random/1600x900/?photography,portrait',
-    'https://source.unsplash.com/random/1600x900/?photography,landscape',
-    'https://source.unsplash.com/random/1600x900/?photography,street',
-    'https://source.unsplash.com/random/1600x900/?photography,nature'
+    ''
   ];
   
   // Create initial image elements with default images
@@ -384,54 +386,9 @@ function createTalentTypeFilters() {
 
 // Fetch photographers from database
 async function fetchPhotographers(talentTypeFilter = 'all') {
-  try {
-    let query = db.collection("photographers");
-    
-    // Apply talent type filter if not 'all'
-    if (talentTypeFilter !== 'all') {
-      query = query.where('talentType', '==', talentTypeFilter);
-    }
-    
-    const snapshot = await query.get();
-    photographers = ['all']; // Reset with 'all' option
-    
-    // Clear existing filter buttons and dropdown options
-    photographerFilters.innerHTML = '';
-    photographerSelect.innerHTML = '<option value="" selected>Select your name or add new</option>';
-    
-    // Add 'All Photos' filter button
-    const allFilterBtn = document.createElement('button');
-    allFilterBtn.className = 'filter-btn active'; // Set as active by default
-    allFilterBtn.setAttribute('data-photographer', 'all');
-    allFilterBtn.textContent = 'All Names';
-    allFilterBtn.addEventListener('click', function() {
-      filterByPhotographer('all');
-    });
-    photographerFilters.appendChild(allFilterBtn);
-    
-    snapshot.forEach(doc => {
-      const data = doc.data();
-      const name = data.name;
-      photographers.push(name);
-      
-      // Add to select dropdown
-      const option = document.createElement('option');
-      option.value = name;
-      option.textContent = name;
-      photographerSelect.appendChild(option);
-      
-      // Add filter button
-      const filterBtn = document.createElement('button');
-      filterBtn.className = 'filter-btn';
-      filterBtn.setAttribute('data-photographer', name);
-      filterBtn.textContent = name;
-      filterBtn.addEventListener('click', function() {
-        filterByPhotographer(name);
-      });
-      photographerFilters.appendChild(filterBtn);
-    });
-  } catch (err) {
-    console.error('Error fetching photographers:', err);
+  await fetchArtistNames(talentTypeFilter);
+  if (typeof originalFetchPhotographers === 'function') {
+    await originalFetchPhotographers(talentTypeFilter);
   }
 }
 
@@ -499,41 +456,213 @@ async function fetchCategories() {
   }
 }
 
-// Fetch gallery images
-async function fetchGalleryImages() {
+// --- Community Gallery Filter Redesign ---
+// Elements for new filter UI
+const talentTypeDropdown = document.getElementById('talentTypeDropdown');
+const artistNameDropdown = document.getElementById('artistNameDropdown');
+const clearAllFiltersBtn = document.getElementById('clearAllFilters');
+const activeFiltersDiv = document.getElementById('activeFilters');
+const resultsCountDiv = document.getElementById('resultsCount');
+
+// Store all loaded photos for filtering
+let allCommunityPhotos = [];
+
+// Fetch community gallery images and store for filtering
+async function fetchCommunityGalleryImages() {
   try {
     loadingMessage.style.display = 'flex';
     gallery.innerHTML = '';
-    
+    emptyGallery.style.display = 'none';
+    resultsCountDiv.style.display = 'none';
+
     const snapshot = await db.collection("photos")
       .where('status', '==', 'approved')
       .get();
-    
+
     if (snapshot.empty) {
       loadingMessage.style.display = 'none';
       emptyGallery.style.display = 'block';
       return;
     }
-    
-    const photos = [];
+
+    allCommunityPhotos = [];
     snapshot.forEach(doc => {
-      photos.push({
+      allCommunityPhotos.push({
         id: doc.id,
         ...doc.data()
       });
     });
-    
+
     // Sort by timestamp (newest first)
-    photos.sort((a, b) => b.timestamp - a.timestamp);
-    
-    // Display photos
-    displayGallery(photos);
-    
+    allCommunityPhotos.sort((a, b) => b.timestamp - a.timestamp);
+
+    // Populate artist dropdown
+    populateArtistDropdown();
+
+    // Display filtered photos
+    displayCommunityFilteredGallery();
     loadingMessage.style.display = 'none';
   } catch (err) {
     console.error('Error fetching gallery images:', err);
     loadingMessage.style.display = 'none';
   }
+}
+
+// Populate artist name dropdown based on current talent type filter
+function populateArtistDropdown() {
+  let filtered = allCommunityPhotos;
+  if (currentTalentTypeFilter !== 'all') {
+    filtered = filtered.filter(photo => photo.talentType === currentTalentTypeFilter);
+  }
+  // Get unique artist names
+  const names = Array.from(new Set(filtered.map(photo => photo.photographer))).sort();
+  artistNameDropdown.innerHTML = '<option value="all">All Artists</option>';
+  names.forEach(name => {
+    if (name && name.trim()) {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      artistNameDropdown.appendChild(opt);
+    }
+  });
+}
+
+// Display community gallery based on current filters
+function displayCommunityFilteredGallery() {
+  let photos = allCommunityPhotos;
+  if (currentTalentTypeFilter !== 'all') {
+    photos = photos.filter(photo => photo.talentType === currentTalentTypeFilter);
+  }
+  if (currentPhotographerFilter !== 'all') {
+    photos = photos.filter(photo => photo.photographer === currentPhotographerFilter);
+  }
+
+  // Show result count
+  resultsCountDiv.style.display = 'block';
+  resultsCountDiv.textContent = `${photos.length} result${photos.length === 1 ? '' : 's'} found`;
+
+  // Show/hide empty state
+  if (photos.length === 0) {
+    emptyGallery.style.display = 'block';
+    gallery.innerHTML = '';
+    return;
+  } else {
+    emptyGallery.style.display = 'none';
+  }
+
+  // Render gallery
+  gallery.innerHTML = '';
+  photos.forEach((photo, index) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    const img = document.createElement('img');
+    img.src = photo.imageUrl;
+    img.alt = `Photo by ${photo.photographer}`;
+    img.loading = 'lazy';
+    img.addEventListener('click', () => {
+      currentViewerPhotos = photos; // Show all filtered photos in viewer
+      currentPhotoIndex = index; // Use the correct index
+      openPhotoViewer(currentPhotoIndex);
+    });
+    const info = document.createElement('div');
+    info.className = 'gallery-item-info';
+    // Add "Uploaded by" label
+    const uploadedBy = document.createElement('div');
+    uploadedBy.className = 'uploaded-by';
+    uploadedBy.textContent = 'Uploaded by';
+    info.appendChild(uploadedBy);
+    const title = document.createElement('h3');
+    title.textContent = photo.photographer;
+    info.appendChild(title);
+    const talentTypeLabels = {
+      'photographer': 'Photographer',
+      'hmu': 'Hair & Makeup Artist',
+      'model': 'Model'
+    };
+    const talentType = document.createElement('p');
+    talentType.textContent = photo.talentType ? talentTypeLabels[photo.talentType] || 'Talent' : 'Photographer';
+    talentType.className = 'gallery-item-talent-type';
+    info.appendChild(talentType);
+    // Removed event and category display
+    item.appendChild(img);
+    item.appendChild(info);
+    gallery.appendChild(item);
+  });
+  setTimeout(() => {
+    gallery.style.opacity = '1';
+  }, 50);
+  updateActiveFiltersUI();
+}
+
+// Update active filter chips UI
+function updateActiveFiltersUI() {
+  const chips = [];
+  if (currentTalentTypeFilter !== 'all') {
+    const label = {
+      'photographer': 'Photographer',
+      'hmu': 'Hair & Makeup',
+      'model': 'Model'
+    }[currentTalentTypeFilter] || currentTalentTypeFilter;
+    chips.push(`<span class="active-filter-chip" data-type="talent"><span>${label}</span><button class="remove-chip" title="Remove talent filter">&times;</button></span>`);
+  }
+  if (currentPhotographerFilter !== 'all') {
+    chips.push(`<span class="active-filter-chip" data-type="artist"><span>${currentPhotographerFilter}</span><button class="remove-chip" title="Remove artist filter">&times;</button></span>`);
+  }
+  activeFiltersDiv.innerHTML = chips.join('');
+  activeFiltersDiv.style.display = chips.length ? 'flex' : 'none';
+
+  // Add event listeners for chip removal
+  activeFiltersDiv.querySelectorAll('.active-filter-chip').forEach(chip => {
+    chip.querySelector('.remove-chip').addEventListener('click', () => {
+      if (chip.getAttribute('data-type') === 'talent') {
+        currentTalentTypeFilter = 'all';
+        talentTypeDropdown.value = 'all';
+        populateArtistDropdown();
+      }
+      if (chip.getAttribute('data-type') === 'artist') {
+        currentPhotographerFilter = 'all';
+        artistNameDropdown.value = 'all';
+      }
+      displayCommunityFilteredGallery();
+      updateClearAllBtn();
+    });
+  });
+  updateClearAllBtn();
+}
+
+// Update clear all button visibility
+function updateClearAllBtn() {
+  if (currentTalentTypeFilter !== 'all' || currentPhotographerFilter !== 'all') {
+    clearAllFiltersBtn.style.display = 'inline-block';
+  } else {
+    clearAllFiltersBtn.style.display = 'none';
+  }
+}
+
+// Event listeners for dropdowns and clear button
+if (talentTypeDropdown && artistNameDropdown && clearAllFiltersBtn) {
+  talentTypeDropdown.addEventListener('change', function() {
+    currentTalentTypeFilter = this.value;
+    currentPhotographerFilter = 'all';
+    artistNameDropdown.value = 'all';
+    populateArtistDropdown();
+    displayCommunityFilteredGallery();
+    updateClearAllBtn();
+  });
+  artistNameDropdown.addEventListener('change', function() {
+    currentPhotographerFilter = this.value;
+    displayCommunityFilteredGallery();
+    updateClearAllBtn();
+  });
+  clearAllFiltersBtn.addEventListener('click', function() {
+    currentTalentTypeFilter = 'all';
+    currentPhotographerFilter = 'all';
+    talentTypeDropdown.value = 'all';
+    artistNameDropdown.value = 'all';
+    populateArtistDropdown();
+    displayCommunityFilteredGallery();
+    updateClearAllBtn();
+  });
 }
 
 // Photo viewer elements
@@ -546,10 +675,19 @@ const thumbnailStrip = document.getElementById('thumbnailStrip');
 
 // Photo viewer state
 let currentPhotoIndex = 0;
-let currentCategoryPhotos = [];
+let currentViewerPhotos = [];
 
 // Display gallery images
 function displayGallery(photos) {
+  // Only show loading spinner if this section is visible
+  const communitySection = document.getElementById('community-gallery-section');
+  if (communitySection && communitySection.style.display !== 'none') {
+    loadingMessage.style.display = 'block';
+    console.log('Loader shown (displayGallery)');
+  } else {
+    loadingMessage.style.display = 'none';
+    console.log('Loader hidden (displayGallery, not visible)');
+  }
   gallery.innerHTML = '';
   
   // Filter photos by talent type if needed
@@ -565,6 +703,8 @@ function displayGallery(photos) {
   if (photos.length === 0) {
     emptyGallery.style.display = 'block';
     gallery.style.opacity = '1'; // Ensure gallery is visible even when empty
+    loadingMessage.style.display = 'none';
+    console.log('Loader hidden (no photos)');
     return;
   }
   
@@ -581,9 +721,9 @@ function displayGallery(photos) {
     
     // Make image clickable
     img.addEventListener('click', () => {
-      currentCategoryPhotos = photos.filter(p => p.category === photo.category);
-      const categoryIndex = currentCategoryPhotos.findIndex(p => p.imageUrl === photo.imageUrl);
-      openPhotoViewer(categoryIndex);
+      currentViewerPhotos = photos; // Show all filtered photos in viewer
+      currentPhotoIndex = photos.findIndex(p => p.imageUrl === photo.imageUrl);
+      openPhotoViewer(currentPhotoIndex);
     });
     
     const info = document.createElement('div');
@@ -602,17 +742,9 @@ function displayGallery(photos) {
     talentType.textContent = photo.talentType ? talentTypeLabels[photo.talentType] || 'Talent' : 'Photographer';
     talentType.className = 'gallery-item-talent-type';
     
-    const details = document.createElement('p');
-    details.textContent = photo.event || 'Personal Work';
-    
-    const category = document.createElement('p');
-    category.textContent = photo.category || 'Uncategorized';
-    category.className = 'gallery-item-category';
-    
     info.appendChild(title);
     info.appendChild(talentType);
-    info.appendChild(details);
-    info.appendChild(category);
+    // Removed event and category display
     
     item.appendChild(img);
     item.appendChild(info);
@@ -620,10 +752,9 @@ function displayGallery(photos) {
     gallery.appendChild(item);
   });
   
-  // Add fade-in effect after content is updated
-  setTimeout(() => {
-    gallery.style.opacity = '1';
-  }, 50);
+  // Remove fade-in effect: gallery is always visible
+  loadingMessage.style.display = 'none';
+  console.log('Loader hidden (gallery rendered)');
 }
 
 // Open photo viewer
@@ -636,13 +767,13 @@ function openPhotoViewer(index) {
 
 // Update photo viewer content
 function updatePhotoViewer() {
-  const photo = currentCategoryPhotos[currentPhotoIndex];
+  const photo = currentViewerPhotos[currentPhotoIndex];
   viewerImage.src = photo.imageUrl;
   viewerImage.alt = `Photo by ${photo.photographer}`;
   
   // Update navigation buttons
   prevPhoto.style.display = currentPhotoIndex > 0 ? 'block' : 'none';
-  nextPhoto.style.display = currentPhotoIndex < currentCategoryPhotos.length - 1 ? 'block' : 'none';
+  nextPhoto.style.display = currentPhotoIndex < currentViewerPhotos.length - 1 ? 'block' : 'none';
   
   // Update thumbnails
   updateThumbnails();
@@ -651,7 +782,7 @@ function updatePhotoViewer() {
 // Update thumbnail strip
 function updateThumbnails() {
   thumbnailStrip.innerHTML = '';
-  currentCategoryPhotos.forEach((photo, index) => {
+  currentViewerPhotos.forEach((photo, index) => {
     const thumb = document.createElement('img');
     thumb.src = photo.imageUrl;
     thumb.alt = `Thumbnail ${index + 1}`;
@@ -664,28 +795,139 @@ function updateThumbnails() {
   });
 }
 
+// --- Swipe support for thumbnail strip ---
+(function() {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+  let moved = false;
+  let touchStartTime = 0;
+  const TAP_THRESHOLD = 10; // px
+  const TAP_TIME = 250; // ms
+
+  thumbnailStrip.addEventListener('touchstart', function(e) {
+    e.stopPropagation();
+    isDown = true;
+    moved = false;
+    startX = e.touches[0].pageX - thumbnailStrip.offsetLeft;
+    scrollLeft = thumbnailStrip.scrollLeft;
+    touchStartTime = Date.now();
+  });
+  thumbnailStrip.addEventListener('touchmove', function(e) {
+    e.stopPropagation();
+    if (!isDown) return;
+    const x = e.touches[0].pageX - thumbnailStrip.offsetLeft;
+    const walk = (startX - x); // Negative = right, positive = left
+    if (Math.abs(walk) > TAP_THRESHOLD) moved = true;
+    thumbnailStrip.scrollLeft = scrollLeft + walk;
+    if (moved) e.preventDefault();
+  }, { passive: false });
+  thumbnailStrip.addEventListener('touchend', function(e) {
+    e.stopPropagation();
+    isDown = false;
+  });
+  // Prevent click on thumbnail if swipe occurred
+  thumbnailStrip.addEventListener('click', function(e) {
+    if (moved || (Date.now() - touchStartTime) > TAP_TIME) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+    }
+    // else allow click
+  }, true);
+})();
+
+// --- Swipe support for community gallery photo viewer ---
+(function() {
+  if (!photoViewer || !viewerImage) return;
+  let startX = 0, startY = 0, endX = 0, endY = 0;
+  let isTouching = false;
+  let swipeJustHappened = false;
+  const minSwipeDist = 50; // px
+  function handleTouchStart(e) {
+    if (e.touches.length !== 1) return;
+    isTouching = true;
+    swipeJustHappened = false;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }
+  function handleTouchMove(e) {
+    if (!isTouching) return;
+    endX = e.touches[0].clientX;
+    endY = e.touches[0].clientY;
+    // Prevent horizontal scroll when swiping left/right
+    if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
+      e.preventDefault();
+    }
+  }
+  function handleTouchEnd(e) {
+    if (!isTouching) return;
+    isTouching = false;
+    const dx = endX - startX;
+    const dy = endY - startY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
+      // Horizontal swipe
+      e.preventDefault();
+      swipeJustHappened = true;
+      if (dx < 0) {
+        // Swipe left: next photo
+        if (currentPhotoIndex < currentViewerPhotos.length - 1) {
+          currentPhotoIndex++;
+          updatePhotoViewer();
+        }
+      } else {
+        // Swipe right: previous photo
+        if (currentPhotoIndex > 0) {
+          currentPhotoIndex--;
+          updatePhotoViewer();
+        }
+      }
+    } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
+      // Vertical swipe
+      if (dy > 0) {
+        // Swipe down: close viewer
+        swipeJustHappened = true;
+        closePhotoViewer();
+      }
+    }
+  }
+  // Prevent close button click if a swipe just happened
+  closeViewer.addEventListener('click', function(e) {
+    if (swipeJustHappened) {
+      e.preventDefault();
+      swipeJustHappened = false;
+      return;
+    }
+    closePhotoViewer();
+  });
+  // Attach to both overlay and image for robustness
+  [photoViewer, viewerImage].forEach(el => {
+    el.addEventListener('touchstart', handleTouchStart, { passive: true });
+    el.addEventListener('touchmove', handleTouchMove, { passive: false });
+    el.addEventListener('touchend', handleTouchEnd, { passive: false });
+  });
+})();
+
 // Close photo viewer
 function closePhotoViewer() {
   photoViewer.classList.remove('active');
   document.body.style.overflow = '';
+  // Prevent any accidental navigation on close
+  // (Do not change currentPhotoIndex or currentViewerPhotos here)
 }
 
 // Event listeners for photo viewer
-closeViewer.addEventListener('click', closePhotoViewer);
-
-prevPhoto.addEventListener('click', () => {
-  if (currentPhotoIndex > 0) {
-    currentPhotoIndex--;
-    updatePhotoViewer();
-  }
+closeViewer.addEventListener('click', function(e) {
+  e.stopPropagation(); // Prevent bubbling to parent
+  closePhotoViewer();
 });
-
-nextPhoto.addEventListener('click', () => {
-  if (currentPhotoIndex < currentCategoryPhotos.length - 1) {
-    currentPhotoIndex++;
-    updatePhotoViewer();
-  }
-});
+// Also ensure the top-right close button only closes
+const closeViewerTopRight = document.getElementById('closeViewerTopRight');
+if (closeViewerTopRight) {
+  closeViewerTopRight.addEventListener('click', function(e) {
+    e.stopPropagation();
+    closePhotoViewer();
+  });
+}
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
@@ -702,7 +944,7 @@ document.addEventListener('keydown', (e) => {
       }
       break;
     case 'ArrowRight':
-      if (currentPhotoIndex < currentCategoryPhotos.length - 1) {
+      if (currentPhotoIndex < currentViewerPhotos.length - 1) {
         currentPhotoIndex++;
         updatePhotoViewer();
       }
@@ -711,7 +953,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Close viewer when clicking outside the image
-photoViewer.addEventListener('click', (e) => {
+photoViewer.addEventListener('click', function(e) {
   if (e.target === photoViewer) {
     closePhotoViewer();
   }
@@ -746,7 +988,7 @@ function filterByTalentType(talentType) {
   // Wait for fade-out to complete before fetching new images
   setTimeout(() => {
     // Fetch and display filtered images
-    fetchGalleryImages();
+    fetchCommunityGalleryImages();
   }, 300);
 }
 
@@ -766,7 +1008,7 @@ function filterByPhotographer(photographer) {
   // Wait for fade-out to complete before fetching new images
   setTimeout(() => {
     // Fetch and display filtered images
-    fetchGalleryImages();
+    fetchCommunityGalleryImages();
   }, 300);
 }
 
@@ -852,82 +1094,134 @@ function handleFileSelect() {
   }
 }
 
-// Setup photographer selection logic
-function setupPhotographerSelection() {
-  // When selecting from dropdown
-  photographerSelect.addEventListener('change', function() {
-    if (this.value) {
-      photographerName.value = this.value;
-      photographerName.disabled = true;
-    } else {
-      photographerName.value = '';
-      photographerName.disabled = false;
-      photographerName.focus();
+// Setup artist autocomplete
+function setupArtistAutocomplete() {
+  const input = document.getElementById('photographerName');
+  const list = document.getElementById('artistAutocompleteList');
+  let currentFocus = -1;
+
+  input.addEventListener('input', function() {
+    const val = this.value;
+    list.innerHTML = '';
+    list.classList.remove('show');
+    if (!val) return;
+    const suggestions = artistNames.filter(name => name.toLowerCase().includes(val.toLowerCase()));
+    if (suggestions.length === 0) return;
+    suggestions.forEach((name, idx) => {
+      const div = document.createElement('div');
+      div.className = 'artist-autocomplete-suggestion';
+      // Highlight match
+      const regex = new RegExp(`(${val})`, 'i');
+      div.innerHTML = name.replace(regex, '<strong>$1</strong>');
+      div.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        input.value = name;
+        list.innerHTML = '';
+        list.classList.remove('show');
+      });
+      list.appendChild(div);
+    });
+    list.classList.add('show');
+    currentFocus = -1;
+  });
+
+  input.addEventListener('keydown', function(e) {
+    let items = list.getElementsByClassName('artist-autocomplete-suggestion');
+    if (e.key === 'ArrowDown') {
+      currentFocus++;
+      addActive(items);
+    } else if (e.key === 'ArrowUp') {
+      currentFocus--;
+      addActive(items);
+    } else if (e.key === 'Enter') {
+      if (currentFocus > -1 && items[currentFocus]) {
+        e.preventDefault();
+        items[currentFocus].dispatchEvent(new Event('mousedown'));
+      }
     }
   });
-  
-  // When typing in the name field
-  photographerName.addEventListener('input', function() {
-    // If the name matches an existing photographer, select it in the dropdown
-    const matchingOption = Array.from(photographerSelect.options).find(option => 
-      option.value.toLowerCase() === this.value.toLowerCase() && option.value !== '');
-    
-    if (matchingOption) {
-      photographerSelect.value = matchingOption.value;
-      this.value = matchingOption.value; // Ensure correct capitalization
-      this.disabled = true;
-    } else {
-      photographerSelect.value = '';
+
+  document.addEventListener('click', function(e) {
+    if (!list.contains(e.target) && e.target !== input) {
+      list.innerHTML = '';
+      list.classList.remove('show');
     }
   });
+
+  function addActive(items) {
+    if (!items) return;
+    removeActive(items);
+    if (currentFocus >= items.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = items.length - 1;
+    items[currentFocus].classList.add('active');
+    items[currentFocus].scrollIntoView({block: 'nearest'});
+  }
+  function removeActive(items) {
+    for (let i = 0; i < items.length; i++) {
+      items[i].classList.remove('active');
+    }
+  }
+}
+
+// Fetch artist names from database
+async function fetchArtistNames(talentTypeFilter = 'all') {
+  try {
+    let query = db.collection("photographers");
+    if (talentTypeFilter !== 'all') {
+      query = query.where('talentType', '==', talentTypeFilter);
+    }
+    const snapshot = await query.get();
+    artistNames = [];
+    canonicalArtistMap = {};
+    snapshot.forEach(doc => {
+      const name = doc.data().name;
+      if (name && name.trim()) {
+        artistNames.push(name);
+        canonicalArtistMap[name.toLowerCase()] = name;
+      }
+    });
+    artistNames = Array.from(new Set(artistNames)).sort();
+  } catch (err) {
+    console.error('Error fetching artist names:', err);
+  }
 }
 
 // Setup form submission
 function setupFormSubmission() {
   uploadForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    
-    // Validate form
-    if (!validateForm()) {
-      return;
-    }
-    
-    // Show loading state
+    if (!validateForm()) return;
     const submitBtn = this.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
     submitBtn.disabled = true;
-    
     try {
-      // Upload image to Cloudinary
+      // Upload image to Cloudinary (with progress)
       const imageUrl = await uploadToCloudinary(selectedFile);
-      
+      // Use normalized artist name
+      const normalizedName = normalizeArtistName(photographerName.value);
+      photographerName.value = normalizedName;
       // Save to Firestore with pending status
       await saveToFirestore(imageUrl, 'pending');
-      
-      // Add photographer to database if new
-      if (!photographers.includes(photographerName.value)) {
+      // Add photographer to database if new (case-insensitive)
+      if (!artistNames.map(n => n.toLowerCase()).includes(normalizedName.toLowerCase())) {
         await db.collection("photographers").add({
-          name: photographerName.value,
+          name: normalizedName,
           talentType: talentType.value
         });
+        artistNames.push(normalizedName);
+        canonicalArtistMap[normalizedName.toLowerCase()] = normalizedName;
       }
-      
-      // Reset form
       resetForm();
-      
-      // Refresh gallery
-      fetchGalleryImages();
-      
-      // Show success message
+      if (document.getElementById('uploadForm')) fetchGalleryImages();
       showNotification('Photo uploaded successfully and will appear in our gallery after approval.', 'success');
     } catch (err) {
       console.error('Error uploading photo:', err);
       showNotification('Error uploading photo. Please try again.', 'error');
     } finally {
-      // Reset button
       submitBtn.innerHTML = originalBtnText;
       submitBtn.disabled = false;
+      hideUploadProgress();
     }
   });
 }
@@ -942,14 +1236,6 @@ function validateForm() {
     isValid = false;
   } else {
     clearFieldError(talentType);
-  }
-  
-  // Check photographer name
-  if (!photographerName.value.trim()) {
-    showFieldError(photographerName, 'Please enter your name');
-    isValid = false;
-  } else {
-    clearFieldError(photographerName);
   }
   
   // Check file
@@ -995,20 +1281,33 @@ async function uploadToCloudinary(file) {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', UPLOAD_PRESET);
-    
-    fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.secure_url) {
-        resolve(data.secure_url);
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`);
+    xhr.upload.addEventListener('progress', function(e) {
+      if (e.lengthComputable) {
+        const percent = Math.round((e.loaded / e.total) * 100);
+        showUploadProgress(percent);
+      }
+    });
+    xhr.onload = function() {
+      hideUploadProgress();
+      if (xhr.status === 200) {
+        const data = JSON.parse(xhr.responseText);
+        if (data.secure_url) {
+          resolve(data.secure_url);
+        } else {
+          reject(new Error('Failed to upload image'));
+        }
       } else {
         reject(new Error('Failed to upload image'));
       }
-    })
-    .catch(err => reject(err));
+    };
+    xhr.onerror = function() {
+      hideUploadProgress();
+      reject(new Error('Failed to upload image'));
+    };
+    xhr.send(formData);
+    showUploadProgress(0);
   });
 }
 
@@ -1029,7 +1328,6 @@ async function saveToFirestore(imageUrl, status = 'pending') {
 // Reset form
 function resetForm() {
   uploadForm.reset();
-  photographerName.disabled = false;
   selectedFileElement.classList.remove('active');
   selectedFile = null;
 }
@@ -1075,4 +1373,69 @@ function hideNotification(notification) {
   setTimeout(() => {
     notification.remove();
   }, 300);
+}
+
+// Restore original fetchGalleryImages for upload section
+async function fetchGalleryImages() {
+  try {
+    loadingMessage.style.display = 'flex';
+    gallery.innerHTML = '';
+    emptyGallery.style.display = 'none';
+
+    const snapshot = await db.collection("photos")
+      .where('status', '==', 'approved')
+      .get();
+
+    if (snapshot.empty) {
+      loadingMessage.style.display = 'none';
+      emptyGallery.style.display = 'block';
+      return;
+    }
+
+    const photos = [];
+    snapshot.forEach(doc => {
+      photos.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+
+    // Sort by timestamp (newest first)
+    photos.sort((a, b) => b.timestamp - a.timestamp);
+
+    displayGallery(photos);
+    loadingMessage.style.display = 'none';
+  } catch (err) {
+    console.error('Error fetching gallery images:', err);
+    loadingMessage.style.display = 'none';
+  }
+}
+
+// Show upload progress
+function showUploadProgress(percent) {
+  const bar = document.getElementById('uploadProgressBar');
+  const fill = document.getElementById('uploadProgressFill');
+  const label = document.getElementById('uploadProgressLabel');
+  if (bar && fill && label) {
+    bar.classList.add('show');
+    fill.style.width = percent + '%';
+    label.textContent = percent + '%';
+  }
+}
+
+function hideUploadProgress() {
+  const bar = document.getElementById('uploadProgressBar');
+  const fill = document.getElementById('uploadProgressFill');
+  const label = document.getElementById('uploadProgressLabel');
+  if (bar && fill && label) {
+    bar.classList.remove('show');
+    fill.style.width = '0%';
+    label.textContent = '0%';
+  }
+}
+
+// Normalize artist name
+function normalizeArtistName(name) {
+  const lower = name.trim().toLowerCase();
+  return canonicalArtistMap[lower] || name.trim();
 }

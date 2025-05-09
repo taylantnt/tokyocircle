@@ -1,9 +1,5 @@
 /* Additional styles for the improved upload page */
 
-        body, p {
-            color: white; !important
-        }
-
 /* Upload card tabs */
 .upload-tabs {
   display: flex;
@@ -68,7 +64,6 @@
 
 .tab-content {
   display: none;
-  animation: fadeIn 0.5s ease;
 }
 
 .tab-content.active {
@@ -122,7 +117,6 @@
 
 .upload-progress.active {
   display: block;
-  animation: fadeIn 0.3s ease;
 }
 
 .progress-bar {

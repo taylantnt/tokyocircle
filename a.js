@@ -1,123 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Circle Photo Gallery | Tokyo</title>
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <meta name="description" content="Browse through memories from our photography walks and meetups in Tokyo">
-    <link rel="stylesheet" href="gallery.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <meta name="theme-color" content="#ffffff" id="theme-color">
-</head>
-<body>
-
-<header>
-    <nav class="navbar">
-        <div class="container">
-            <div class="theme-toggle">
-                <div class="toggle-wrapper">
-                    <input type="checkbox" id="theme-toggle" class="toggle-input">
-                    <label for="theme-toggle" class="toggle-label">
-                        <div class="toggle-icons">
-                            <i class="fas fa-sun"></i>
-                            <i class="fas fa-moon"></i>
-                        </div>
-                    </label>
-                </div>
-            </div>
-
-            <a href="/main.html" class="logo">
-                <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
-                     alt="Circle Photography Friends Logo" 
-                     class="logo-image">
-            </a>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="nav-links">
-                <a href="/main.html#about"><i class="fas fa-heart"></i> About</a>
-                <a href="/main.html#gallery"><i class="fas fa-images"></i> Gallery</a>
-                <a href="/main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                <a href="/main.html#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
-                <a href="/main.html#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
-            </div>
-        </div>
-    </nav>
-</header>
-
-<main>
-    <div class="page-title" role="banner">
-        <h1>Our Photo Collection</h1>
-        <p>Browse through memories from our walks and meetups</p>
-    </div>
-    
-    <div id="gallery2" class="gallery2" role="region" aria-label="Photo gallery grid">
-        <div class="loading-spinner"></div>
-    </div>
-
-    <div class="viewer" role="dialog" aria-label="Image viewer" aria-modal="true">
-        <button class="nav-btn prev-btn" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
-        <div class="viewer-content">
-            <img class="viewer-img" src="" alt="Enlarged view" loading="lazy">
-            <div class="loading-overlay">
-                <div class="loading-spinner"></div>
-            </div>
-            <button class="close-btn" aria-label="Close viewer">
-                <i class="fas fa-times"></i>
-                <span class="close-text">Close</span>
-            </button>
-        </div>
-        <button class="nav-btn next-btn" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
-        <div class="viewer-controls">
-            <span class="image-counter"></span>
-        </div>
-    </div>
-</main>
-
-<!-- Back to Top Button -->
-<button id="back-to-top" class="back-to-top">
-    <i class="fas fa-arrow-up"></i>
-</button>
-  
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-about">
-                <h3>⭕️ Circle</h3>
-                <div class="footer-social">
-                    <a href="https://www.instagram.com/tokyocircle/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://line.me/ti/g/mJAkqUoScC" aria-label="Line"><i class="fab fa-line"></i></a>
-                    <a href="https://www.meetup.com/circle/" aria-label="Meetup"><i class="fab fa-meetup"></i></a>
-                </div>
-            </div>
-            
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <a href="main.html#about"><i class="fas fa-heart"></i> About Us</a>
-                <a href="gallery.html"><i class="fas fa-images"></i> Photo Gallery</a>
-                <a href="main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                <a href="main.html#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
-                <a href="main.html#join"><i class="fas fa-user-plus"></i> Join Us</a>
-            </div>
-            
-            <div class="footer-contact">
-                <h4>Contact Us</h4>
-                <a href="mailto:hello@circletokyo.com"><i class="fas fa-envelope"></i> hello@circletokyo.com</a>
-                <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> Message on Instagram</a>
-            </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <a>Made with <i class="fas fa-heart heart"></i> by TT &copy; 2025</a>
-        </div>
-    </div>
-</footer>
-
-<script>
 // Initialize mobile menu
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navLinks = document.querySelector('.nav-links');
@@ -151,10 +31,9 @@ const pageTitleObserver = new IntersectionObserver((entries) => {
 
 // Observe page title
 document.addEventListener('DOMContentLoaded', () => {
-    const pageTitle = document.querySelector('.page-title');
-    if (pageTitle) {
+    document.querySelectorAll('.page-title').forEach(pageTitle => {
         pageTitleObserver.observe(pageTitle);
-    }
+    });
     
     // Initialize back-to-top button
     const backToTopBtn = document.getElementById('back-to-top');
@@ -614,14 +493,17 @@ const lazyLoader = new LazyLoader();
 // Gallery initialization
 async function initGallery() {
     const gallery = document.getElementById('gallery2');
-    if (!gallery2) throw new Error('Gallery element not found');
+    if (!gallery) throw new Error('Gallery element not found');
 
     // Clear gallery and show loading state
-    gallery.innerHTML = '<div class="loading-spinner"></div>';
+    gallery.innerHTML = '<div class="loading-spinner show-spinner"></div>';
     
     // Initialize with albums view after a short delay
     setTimeout(() => {
         showAlbums();
+        // Hide spinner after loading
+        const spinner = gallery.querySelector('.loading-spinner');
+        if (spinner) spinner.classList.remove('show-spinner');
     }, 300);
 }
 
@@ -701,6 +583,7 @@ async function showViewer() {
     const loadingOverlay = viewer.querySelector('.loading-overlay');
 
     viewer.classList.add('active');
+    document.body.classList.add('viewer-active'); // Add viewer-active class to body
     loadingOverlay.style.display = 'flex';
     viewerImg.style.opacity = '0';
 
@@ -832,7 +715,7 @@ function handleTouchEnd() {
     } else {
         // Vertical swipe
         if (diffY < -minSwipeDistance) {
-            closeViewer(); // Swipe up to close
+            officialCloseViewer(); // Swipe up to close
         }
     }
 }
@@ -847,9 +730,10 @@ function enableScroll() {
     document.body.style.touchAction = '';
 }
 
-function closeViewer() {
+function officialCloseViewer() {
     const viewer = document.querySelector('.viewer');
     viewer.classList.remove('active');
+    document.body.classList.remove('viewer-active'); // Remove viewer-active class from body
     enableScroll();
 }
 
@@ -897,7 +781,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         showPrevImage();
     });
 
-    document.querySelector('.close-btn').addEventListener('click', closeViewer);
+    document.querySelector('.close-btn').addEventListener('click', officialCloseViewer);
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
@@ -911,7 +795,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 showPrevImage();
                 break;
             case 'Escape':
-                closeViewer();
+                officialCloseViewer();
                 break;
         }
     });
@@ -919,7 +803,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Close viewer on background click
     document.querySelector('.viewer').addEventListener('click', function(e) {
         if (e.target === this) {
-            closeViewer();
+            officialCloseViewer();
         }
     });
 });
@@ -936,172 +820,21 @@ window.addEventListener('resize', handleResize);
 // Back to top button functionality
 const backToTopButton = document.getElementById('back-to-top');
 
-const handleScroll = () => {
-    if (window.scrollY > 300) {
-        backToTopButton.classList.add('visible');
-    } else {
-        backToTopButton.classList.remove('visible');
-    }
-};
-
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-window.addEventListener('scroll', handleScroll);
-</script>
-  <style>
-body {
-    margin: 0;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    font-family: var(--body-font);
-}
-
-/* Back to Top Button */
-.back-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
-    color: white;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    z-index: 998;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.back-to-top.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.back-to-top:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-    transform: translateY(-3px);
-}
-
-.back-to-top i {
-    font-size: 1.2rem;
-}
-
-@media (max-width: 768px) {
-    .back-to-top {
-        bottom: 20px;
-        right: 20px;
-        width: 45px;
-        height: 45px;
-    }
-}
-</style>
-
-<script>
-// Initialize mobile menu
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navLinks = document.querySelector('.nav-links');
-
-if (mobileMenuBtn && navLinks) {
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenuBtn.classList.toggle('active');
-        navLinks.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-    });
-
-    // Close menu when clicking a link
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenuBtn.classList.remove('active');
-            navLinks.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        });
-    });
-}
-
-// Initialize Intersection Observer for page title
-const pageTitleObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            pageTitleObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1 });
-
-// Observe page title
-document.addEventListener('DOMContentLoaded', () => {
-    const pageTitle = document.querySelector('.page-title');
-    if (pageTitle) {
-        pageTitleObserver.observe(pageTitle);
-    }
-    
-    // Create back to top button
-    const backToTopBtn = document.createElement('button');
-    backToTopBtn.id = 'back-to-top';
-    backToTopBtn.className = 'back-to-top';
-    backToTopBtn.setAttribute('aria-label', 'Return to top of page');
-    backToTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
-    document.body.appendChild(backToTopBtn);
-
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', () => {
+if (backToTopButton) {
+    const handleScroll = () => {
         if (window.scrollY > 300) {
-            backToTopBtn.classList.add('show');
+            backToTopButton.classList.add('visible');
         } else {
-            backToTopBtn.classList.remove('show');
+            backToTopButton.classList.remove('visible');
         }
-    });
+    };
 
-    // Smooth scroll to top when button is clicked
-    backToTopBtn.addEventListener('click', (e) => {
-        e.preventDefault();
+    backToTopButton.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     });
-});
-</script>
-  <script>
-const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
 
-if (motion.matches) {
-  const themeColorMeta = document.getElementById('theme-color');
-  const navbar = document.querySelector('.navbar');
-  let hue = 0;
-
-  function getCurrentColor() {
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    return isDarkMode
-      ? `hsl(${hue}, 30%, 25%)`
-      : `hsl(${hue}, 40%, 90%)`;
-  }
-
-  function updateColors() {
-    hue = (hue + 1) % 360;
-    const color = getCurrentColor();
-
-    document.body.style.background = color;
-    if (navbar) navbar.style.background = color;
-    if (themeColorMeta) themeColorMeta.setAttribute('content', color);
-  }
-
-  setInterval(updateColors, 100);
+    window.addEventListener('scroll', handleScroll);
 }
-</script>
-  </body>
-</html>

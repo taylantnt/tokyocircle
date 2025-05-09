@@ -221,7 +221,7 @@
 
           /* Adjust text colors */
           body, p {
-              color: var(--text-primary);
+              color: white;
           }
 
           .section-description {

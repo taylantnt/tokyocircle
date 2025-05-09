@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Circle Photo Moderation | Admin Panel</title>
   <link rel="stylesheet" href="upload.css">
+  <link rel="stylesheet" href="new-gallery.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
@@ -635,6 +636,355 @@
     .dark-mode .stat-card p {
       color: var(--accent);
     }
+
+    /* Admin Panel Consistency Styles */
+    .section-card {
+      background: #f8f9fa;
+      border-radius: 40px 40px 0 0;
+      box-shadow: 0 8px 32px rgba(60,60,100,0.08), 0 1.5px 6px rgba(60,60,100,0.04);
+      margin-top: 40px;
+      z-index: 10;
+      position: relative;
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .dark-mode .section-card {
+      background: #181824;
+      color: var(--text-primary);
+    }
+    .admin-tabs {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: flex-start;
+      margin-bottom: 2rem;
+    }
+    .admin-tab {
+      background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-pink));
+      color: white;
+      border: none;
+      border-radius: 30px 30px 0 0;
+      padding: 0.8rem 2.2rem;
+      font-size: 1.1rem;
+      font-family: var(--heading-font);
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(106, 90, 205, 0.08);
+      transition: background 0.2s, color 0.2s;
+      outline: none;
+      opacity: 0.85;
+    }
+    .admin-tab.active, .admin-tab:hover {
+      background: linear-gradient(90deg, var(--pastel-blue), var(--pastel-purple));
+      color: #fff;
+      opacity: 1;
+    }
+    .admin-filters-bar {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    .admin-search {
+      flex: 2;
+      min-width: 220px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1.5px solid #e0e0e0;
+      font-size: 1rem;
+      background: #fff;
+      color: var(--text-primary);
+      transition: border 0.2s;
+    }
+    .admin-search:focus {
+      border-color: var(--pastel-purple);
+      box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.13);
+      outline: none;
+    }
+    .admin-filter-dropdown {
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: 1.5px solid #e0e0e0;
+      font-size: 1rem;
+      background: #f8f8f8;
+      color: var(--text-primary);
+      min-width: 150px;
+      transition: border 0.2s;
+    }
+    .admin-filter-dropdown:focus {
+      border-color: var(--pastel-purple);
+      box-shadow: 0 0 0 2px rgba(106, 90, 205, 0.13);
+      outline: none;
+    }
+    .admin-batch-bar {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-pink));
+      color: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      padding: 12px 24px;
+      margin-bottom: 1.2rem;
+      font-size: 1.08rem;
+    }
+    .admin-batch-bar button {
+      background: #fff;
+      color: var(--pastel-purple);
+      border: none;
+      border-radius: 20px;
+      padding: 8px 22px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px rgba(106, 90, 205, 0.08);
+    }
+    .admin-batch-bar button:hover {
+      background: var(--pastel-purple);
+      color: #fff;
+    }
+    .admin-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .admin-photo-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 16px rgba(60,60,100,0.08);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+      border: 1.5px solid #e0e0e0;
+    }
+    .admin-photo-card.selected {
+      box-shadow: 0 0 0 3px var(--pastel-purple);
+      border-color: var(--pastel-purple);
+    }
+    .admin-photo-checkbox {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      width: 22px;
+      height: 22px;
+      accent-color: var(--pastel-purple);
+    }
+    .admin-photo-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+    .admin-photo-card:hover img {
+      filter: brightness(1.08);
+    }
+    .admin-photo-info {
+      padding: 1rem 1.2rem 0.5rem 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .admin-photo-info h3 {
+      font-size: 1.1rem;
+      font-family: var(--heading-font);
+      color: var(--pastel-purple);
+      margin: 0 0 0.2rem 0;
+      font-weight: 600;
+    }
+    .admin-photo-info p {
+      font-size: 0.98rem;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .admin-photo-actions {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.8rem 1.2rem 1.2rem 1.2rem;
+      justify-content: flex-end;
+    }
+    .admin-photo-actions button {
+      background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-pink));
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 7px 18px;
+      font-size: 0.98rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .admin-photo-actions button:hover {
+      background: linear-gradient(90deg, var(--pastel-blue), var(--pastel-purple));
+    }
+    .admin-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .admin-pagination button {
+      background: #fff;
+      color: var(--pastel-purple);
+      border: 1.5px solid var(--pastel-purple);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .admin-pagination button.active, .admin-pagination button:hover {
+      background: var(--pastel-purple);
+      color: #fff;
+    }
+    /* Modal Styles */
+    .admin-photo-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.2s;
+    }
+    .admin-photo-modal-content {
+      background: #fff;
+      border-radius: 24px;
+      padding: 2rem 2.5rem;
+      max-width: 480px;
+      width: 95vw;
+      box-shadow: 0 8px 32px rgba(60,60,100,0.18);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .admin-photo-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-size: 2rem;
+      color: var(--pastel-purple);
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 2;
+    }
+    .admin-photo-modal-content img {
+      width: 100%;
+      max-height: 260px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 1.2rem;
+    }
+    .modal-photo-info {
+      width: 100%;
+      margin-bottom: 1.2rem;
+    }
+    .modal-photo-info h3 {
+      color: var(--pastel-purple);
+      font-family: var(--heading-font);
+      margin-bottom: 0.5rem;
+    }
+    .modal-photo-info p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin: 0.2rem 0;
+    }
+    .modal-photo-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .modal-photo-actions button {
+      background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-pink));
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 8px 22px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .modal-photo-actions button:hover {
+      background: linear-gradient(90deg, var(--pastel-blue), var(--pastel-purple));
+    }
+    /* Dark mode for modal and cards */
+    .dark-mode .admin-photo-modal-content {
+      background: #23233a;
+      color: var(--text-primary);
+    }
+    .dark-mode .admin-photo-modal-close {
+      color: var(--pastel-blue);
+    }
+    .dark-mode .admin-photo-card {
+      background: #23233a;
+      color: var(--text-primary);
+      border-color: #23233a;
+    }
+    .dark-mode .admin-photo-info h3,
+    .dark-mode .modal-photo-info h3 {
+      color: var(--pastel-blue);
+    }
+    .dark-mode .admin-photo-info p,
+    .dark-mode .modal-photo-info p {
+      color: var(--text-secondary);
+    }
+    .dark-mode .admin-batch-bar {
+      background: linear-gradient(90deg, var(--pastel-blue), var(--pastel-purple));
+      color: #fff;
+    }
+    .dark-mode .admin-batch-bar button {
+      background: #23233a;
+      color: var(--pastel-blue);
+    }
+    .dark-mode .admin-batch-bar button:hover {
+      background: var(--pastel-blue);
+      color: #fff;
+    }
+    .dark-mode .admin-pagination button {
+      background: #23233a;
+      color: var(--pastel-blue);
+      border-color: var(--pastel-blue);
+    }
+    .dark-mode .admin-pagination button.active, .dark-mode .admin-pagination button:hover {
+      background: var(--pastel-blue);
+      color: #fff;
+    }
+    @media (max-width: 900px) {
+      .admin-photo-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      }
+      .section-card {
+        padding: 1.2rem 0.5rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .admin-tabs {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .admin-filters-bar {
+        flex-direction: column;
+        gap: 0.7rem;
+        align-items: stretch;
+      }
+      .admin-photo-modal-content {
+        padding: 1rem 0.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -727,35 +1077,71 @@
     </header>
 
   <main class="admin-container">
-    <section class="content-section">
-      <h1>Photo Moderation Panel</h1>
-    
-    <div class="stats">
-      <div class="stat-card">
-        <h3>Pending Photos</h3>
-        <p id="pendingCount">0</p>
+    <section class="content-section section-card">
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-status="pending">Pending (<span id="tabPendingCount">0</span>)</button>
+        <button class="admin-tab" data-status="approved">Approved (<span id="tabApprovedCount">0</span>)</button>
+        <button class="admin-tab" data-status="rejected">Rejected (<span id="tabRejectedCount">0</span>)</button>
       </div>
-      <div class="stat-card">
-        <h3>Approved Photos</h3>
-        <p id="approvedCount">0</p>
+      <div class="admin-filters-bar">
+        <input type="text" id="adminSearch" class="admin-search" placeholder="Search by artist, event, or category...">
+        <select id="filterTalentType" class="admin-filter-dropdown">
+          <option value="">All Talent Types</option>
+          <option value="photographer">Photographer</option>
+          <option value="hmu">Hair & Makeup Artist</option>
+          <option value="model">Model</option>
+          <option value="other">Other</option>
+        </select>
+        <select id="filterCategory" class="admin-filter-dropdown">
+          <option value="">All Categories</option>
+          <option value="Portrait">Portrait</option>
+          <option value="Landscape">Landscape</option>
+          <option value="Street">Street</option>
+          <option value="Architecture">Architecture</option>
+          <option value="Nature">Nature</option>
+          <option value="Event">Event</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" id="filterEvent" class="admin-filter-dropdown" placeholder="Event (optional)">
       </div>
-      <div class="stat-card">
-        <h3>Rejected Photos</h3>
-        <p id="rejectedCount">0</p>
+      <div class="admin-batch-bar" id="adminBatchBar" style="display:none;">
+        <span id="selectedCount">0 selected</span>
+        <button class="batch-approve-btn">Approve</button>
+        <button class="batch-reject-btn">Reject</button>
+        <button class="batch-delete-btn">Delete</button>
       </div>
-    </div>
-
-    <div class="pending-photos" id="pendingPhotos">
-      <!-- Pending photos will be loaded here -->
-    </div>
-
-    <div class="no-pending" id="noPending" style="display: none;">
-      <i class="fas fa-check-circle"></i>
-      <h3>No Pending Photos</h3>
-      <p>All photos have been moderated!</p>
-    </div>
-      </section>
+      <div class="admin-pagination" id="adminPaginationTop"></div>
+      <div class="pending-photos admin-photo-grid" id="pendingPhotos">
+        <!-- Photo cards will be loaded here -->
+      </div>
+      <div class="admin-pagination" id="adminPaginationBottom"></div>
+      <div class="no-pending" id="noPending" style="display: none;">
+        <i class="fas fa-check-circle"></i>
+        <h3>No Photos</h3>
+        <p>All photos have been moderated!</p>
+      </div>
+    </section>
   </main>
+  <!-- Photo Preview Modal -->
+  <div class="admin-photo-modal" id="adminPhotoModal" style="display:none;">
+    <div class="admin-photo-modal-content">
+      <span class="admin-photo-modal-close" id="adminPhotoModalClose">&times;</span>
+      <img id="modalPhotoImg" src="" alt="Photo Preview">
+      <div class="modal-photo-info">
+        <h3 id="modalPhotoArtist"></h3>
+        <p><strong>Talent Type:</strong> <span id="modalPhotoTalent"></span></p>
+        <p><strong>Category:</strong> <span id="modalPhotoCategory"></span></p>
+        <p><strong>Event:</strong> <span id="modalPhotoEvent"></span></p>
+        <p><strong>Uploaded:</strong> <span id="modalPhotoDate"></span></p>
+        <p><strong>Status:</strong> <span id="modalPhotoStatus"></span></p>
+      </div>
+      <div class="modal-photo-actions">
+        <button id="modalApproveBtn">Approve</button>
+        <button id="modalRejectBtn">Reject</button>
+        <button id="modalDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
 <script>
 const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
 

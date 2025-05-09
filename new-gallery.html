@@ -6,8 +6,10 @@
   <title>Showcase Your Art | Circle Photowalk Community Gallery</title>
   <meta name="description" content="Upload and showcase your photography from Circle Photography events and walks">
   <link rel="stylesheet" href="upload.css">
+  <link rel="stylesheet" href="new-gallery.css">
   <link rel="stylesheet" href="upload-styles.css">
   <link rel="stylesheet" href="photo-viewer.css">
+  <link rel="stylesheet" href="gallery-switcher.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
@@ -95,17 +97,22 @@
     }
     
     .hero-content h1 {
-      font-size: 3rem;
+      font-size: 2.2rem;
       margin-bottom: 1rem;
       font-family: var(--heading-font);
-      animation: fadeIn 2s ease-in-out;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.25);
     }
     
     .hero-content p {
-      font-size: 1.2rem;
-      opacity: 0.9;
+      font-size: 1.15rem;
       margin-bottom: 2rem;
-      animation: fadeIn 2.5s ease-in-out;
+      color: #f8f8ff;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.35);
     }
     
     /* Upload section */
@@ -131,8 +138,7 @@
     .section-title {
       text-align: center;
       margin-bottom: 40px;
-      animation: fadeInUp 1s ease-in-out forwards;
-      opacity: 0;
+      /* No animation, always visible */
     }
     
     .section-title h2 {
@@ -155,15 +161,8 @@
       border-radius: 20px;
       padding: 30px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-      animation: fadeInUp 1.5s ease-in-out forwards;
-      opacity: 0;
+      /* No animation, always visible */
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .dark-mode .upload-card {
-      background-color: rgba(40, 40, 50, 0.8);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .upload-card:hover {
@@ -349,12 +348,12 @@
     
     /* Gallery section */
     .gallery-section {
-      padding: 60px 20px 100px;
+      padding: 60px 40px 100px;
       background-color: var(--bg-primary);
     }
     
     .gallery-container {
-      max-width: 1200px;
+      max-width: 1500px;
       margin: 0 auto;
     }
     
@@ -414,8 +413,7 @@
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      opacity: 0;
-      animation: fadeInUp 2s ease-in-out forwards;
+      /* No animation, always visible */
     }
     
     .gallery-item {
@@ -527,17 +525,6 @@
     @keyframes fadeIn {
       from {opacity: 0}
       to {opacity: 1}
-    }
-    
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
     
     @keyframes spin {
@@ -669,12 +656,20 @@
       }
     
       .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
       }
       
       .modal {
         width: 85%;
         padding: 15px;
+      }
+    }
+    
+    /* Extra small devices (phones, 375px and down) */
+    @media (max-width: 375px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 6px;
       }
     }
   </style>
@@ -720,55 +715,99 @@
   <header class="hero">
     <div class="slideshow-container" id="slideshow"></div>
     <div class="hero-content">
-      <h1>Welcome to Our Creative Community</h1>
-      <p>A space where artists showcase their work</p>
+      <h1>Showcase, Discover, and Connect in the Circle Community</h1>
+      <p>Welcome to your creative hub! Browse our official photo gallery, explore community submissions, or upload your own work to share with fellow artists.<br><br>
+      Use the buttons below to switch between galleries or add your own photos. Whether you're a photographer, model, or creative, this is your space to shine, connect, and be inspired. Enjoy discovering new talent and sharing your passion with the Circle community!</p>
+      <div class="gallery-switcher-wrapper">
+        <div class="gallery-switcher">
+          <button class="switcher-btn active" data-section="official-gallery-section"><i class="fas fa-crown"></i> Official Gallery</button>
+          <button class="switcher-btn" data-section="community-gallery-section"><i class="fas fa-users"></i> Community Gallery</button>
+          <button class="switcher-btn" data-section="upload-section"><i class="fas fa-upload"></i> Upload</button>
+        </div>
+        <div class="gallery-switcher-divider"></div>
+      </div>
     </div>
   </header>
-  <!-- Gallery Section -->
-  <section class="gallery-section">
-    <div class="gallery-container">
-      <div class="gallery-header">
-        <h2>Community Gallery</h2>
-        <div class="filters-container">
-          <!-- Talent type filters will be added here -->
-          <h3 class="filter-title">Filter by Talent Type:</h3>
-          <div class="gallery-filters talent-type-filters" id="talentTypeFilters">
-            <!-- Talent type filter buttons will be populated here -->
-          </div>
-          
-          <h3 class="filter-title">Filter by Name:</h3>
-          <div class="gallery-filters" id="photographerFilters">
-            <button class="filter-btn active" data-photographer="all">All Photos</button>
-            <!-- Name filter buttons will be populated here -->
-          </div>
+
+  <!-- Official Gallery Section -->
+  <main id="official-gallery-section" class="section-card">
+    <div class="page-title" role="banner">
+        <h1>Official Gallery </h1>
+        <p>Browse through memories from our walks and meetups</p>
+    </div>
+    <div id="gallery2" class="gallery2" role="region" aria-label="Photo gallery grid">
+        <div class="loading-spinner"></div>
+    </div>
+    <div class="viewer" role="dialog" aria-label="Image viewer" aria-modal="true">
+        <button class="nav-btn prev-btn" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+        <div class="viewer-content">
+            <img class="viewer-img" src="" alt="Enlarged view" loading="lazy">
+            <div class="loading-overlay">
+                <div class="loading-spinner"></div>
+            </div>
+            <button class="close-btn" aria-label="Close viewer">
+                <i class="fas fa-times"></i>
+                <span class="close-text">Close</span>
+            </button>
         </div>
+        <button class="nav-btn next-btn" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+        <div class="viewer-controls">
+            <span class="image-counter"></span>
+        </div>
+    </div>
+  </main>
+
+  <!-- Community Gallery Section -->
+  <section class="gallery-section section-card" id="community-gallery-section" style="display:none;">
+    <div class="gallery-container">
+      <div class="page-title" role="banner">
+        <h1>Community Gallery</h1>
+        <p>See photos shared by our members and filter by artist or talent type.</p>
       </div>
-      
-      <div class="loading" id="loadingMessage">
+      <div class="gallery-header">
+        <div class="community-filter-bar">
+          <select id="talentTypeDropdown" class="filter-dropdown" aria-label="Filter by Talent Type">
+            <option value="all">All Talent Types</option>
+            <option value="photographer">Photographer</option>
+            <option value="hmu">Hair & Makeup Artist</option>
+            <option value="model">Model</option>
+          </select>
+          <select id="artistNameDropdown" class="filter-dropdown" aria-label="Filter by Artist Name">
+            <option value="all">All Artists</option>
+            <!-- Artist names will be populated here -->
+          </select>
+          <button id="clearAllFilters" class="clear-filters-btn" style="display:none;">Clear All</button>
+        </div>
+        <div class="active-filters" id="activeFilters" style="display:none;"></div>
+      </div>
+      <div class="results-count" id="resultsCount" style="display:none;"></div>
+      <div class="loading" id="loadingMessage" style="display:none;">
         <i class="fas fa-spinner"></i> Loading gallery...
       </div>
-      
       <div class="gallery-grid" id="gallery"></div>
-
-    <!-- Photo Viewer Modal -->
-    <div id="photoViewer" class="photo-viewer-overlay">
-      <div class="photo-viewer-content">
-        <button id="closeViewer" class="photo-viewer-close" aria-label="Close viewer">
-          <i class="fas fa-times"></i>
-        </button>
-        <button id="prevPhoto" class="photo-viewer-nav photo-viewer-prev" aria-label="Previous photo">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <button id="nextPhoto" class="photo-viewer-nav photo-viewer-next" aria-label="Next photo">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-        <img id="viewerImage" class="photo-viewer-image" src="" alt="">
+      <!-- Photo Viewer Modal -->
+      <div id="photoViewer" class="photo-viewer-overlay">
+        <div class="photo-viewer-content">
+          <button id="closeViewer" class="photo-viewer-close" aria-label="Close viewer">
+            <i class="fas fa-times"></i>
+          </button>
+          <!-- Added close button like official gallery -->
+          <button class="close-btn" id="closeViewerTopRight" aria-label="Close viewer" style="position:absolute;top:20px;right:20px;z-index:1000;">
+            <i class="fas fa-times"></i>
+            <span class="close-text">Close</span>
+          </button>
+          <button id="prevPhoto" class="photo-viewer-nav photo-viewer-prev" aria-label="Previous photo">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button id="nextPhoto" class="photo-viewer-nav photo-viewer-next" aria-label="Next photo">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+          <img id="viewerImage" class="photo-viewer-image" src="" alt="">
+        </div>
+        <div id="thumbnailStrip" class="photo-viewer-thumbnails">
+          <!-- Thumbnails will be populated here -->
+        </div>
       </div>
-      <div id="thumbnailStrip" class="photo-viewer-thumbnails">
-        <!-- Thumbnails will be populated here -->
-      </div>
-    </div>
-      
       <div class="empty-gallery" id="emptyGallery" style="display: none;">
         <i class="fas fa-camera"></i>
         <h3>No photos yet</h3>
@@ -776,20 +815,19 @@
       </div>
     </div>
   </section>
+
   <!-- Upload Section -->
-  <section class="upload-section">
+  <section class="upload-section section-card" id="upload-section" style="display:none;">
     <div class="upload-container">
-      <div class="section-title">
-        <h2>Wanna share your photos?</h2>
-        <p>Join our vibrant community of creators and let your work shine in our curated gallery</p>
+      <div class="page-title" role="banner">
+        <h1>Share Your Photos</h1>
+        <p>Join our vibrant community and let your work shine in our curated gallery.</p>
       </div>
-      
       <div class="upload-card">
         <div class="upload-tabs">
           <button class="tab-btn active" data-tab="upload"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
           <button class="tab-btn" id="tips-btn"><i class="fas fa-lightbulb"></i> Tips</button>
         </div>
-        
         <div class="tab-content active" id="upload-tab">
           <form id="uploadForm" class="upload-form">
             <div class="form-row">
@@ -802,7 +840,6 @@
                   <option value="model">Model</option>
                 </select>
               </div>
-              
               <div class="form-group">
                 <label for="photographerName">Artist Name <span class="required">*</span></label>
                 <div class="artist-autocomplete-wrapper">
@@ -810,7 +847,6 @@
                   <div class="artist-autocomplete-list" id="artistAutocompleteList"></div>
                 </div>
               </div>
-              
               <div class="form-group">
                 <label for="categorySelect">Category <span class="required">*</span></label>
                 <select id="categorySelect" aria-label="Select photo category" required>
@@ -822,16 +858,13 @@
                   <option value="Nature">Nature</option>
                   <option value="Event">Event</option>
                   <option value="Other">Other</option>
-                  <!-- More categories will be populated here -->
                 </select>
               </div>
             </div>
-            
             <div class="form-group">
               <label for="eventName">Event (Optional)</label>
               <input type="text" id="eventName" placeholder="e.g. Yoyogi Park Photowalk, April 2024" aria-label="Enter event name">
             </div>
-            
             <div class="form-group">
               <label for="fileUpload">Upload Photo <span class="required">*</span></label>
               <div class="file-upload" id="dropArea">
@@ -848,19 +881,15 @@
                 </button>
               </div>
             </div>
-            
             <div class="upload-progress-bar" id="uploadProgressBar">
               <div class="upload-progress-fill" id="uploadProgressFill"></div>
             </div>
             <div class="upload-progress-label" id="uploadProgressLabel">0%</div>
-            
             <button type="submit" class="upload-btn">
               <i class="fas fa-cloud-upload-alt"></i> Upload Photo
             </button>
           </form>
         </div>
-        
-        <!-- Tips content moved to modal popup -->
       </div>
     </div>
   </section>
@@ -967,33 +996,62 @@
       </div>
     </div>
   </footer>
-<script>
-const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
-
-if (motion.matches) {
-  const themeColorMeta = document.getElementById('theme-color');
-  const navbar = document.querySelector('.navbar');
-  let hue = 0;
-
-  function getCurrentColor() {
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    return isDarkMode
-      ? `hsl(${hue}, 30%, 25%)`
-      : `hsl(${hue}, 40%, 90%)`;
-  }
-
-  function updateColors() {
-    hue = (hue + 1) % 360;
-    const color = getCurrentColor();
-
-    document.body.style.background = color;
-    if (navbar) navbar.style.background = color;
-    if (themeColorMeta) themeColorMeta.setAttribute('content', color);
-  }
-
-  setInterval(updateColors, 100);
+   <style>
+body {
+    margin: 0;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    font-family: var(--body-font);
 }
-</script>
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 998;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
+}
+
+.back-to-top i {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+</style>
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
@@ -1001,4 +1059,180 @@ if (motion.matches) {
   <!-- Custom JavaScript -->
   <script src="upload.js"></script>
   <script src="script.js"></script>
+    <script src="a.js"></script>
+    <script src="a2.js"></script>
+    <script src="a3.js"></script>
+    <script>
+      // Gallery Switcher Logic
+      document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.switcher-btn');
+        const sections = [
+          document.getElementById('official-gallery-section'),
+          document.getElementById('community-gallery-section'),
+          document.getElementById('upload-section')
+        ];
+        const loadingMessage = document.getElementById('loadingMessage');
+        function animateSection(sectionId) {
+          // No animation logic needed, just ensure content is visible
+        }
+        function showSection(sectionId) {
+          sections.forEach(section => {
+            if (section.id === sectionId) {
+              section.style.display = '';
+              section.classList.remove('hide');
+              section.removeAttribute('hidden');
+              animateSection(sectionId);
+              // Scroll to the section after it becomes visible
+              setTimeout(() => {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 100); // slight delay to ensure visibility
+            } else {
+              section.classList.add('hide');
+              setTimeout(() => {
+                section.setAttribute('hidden', '');
+                section.style.display = 'none';
+                if (section.id === 'community-gallery-section' && loadingMessage) {
+                  loadingMessage.style.display = 'none';
+                }
+              }, 400);
+            }
+          });
+        }
+        buttons.forEach(btn => {
+          btn.addEventListener('click', function() {
+            buttons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            showSection(this.dataset.section);
+          });
+        });
+        // Show correct section on load based on hash
+        if (window.location.hash === '#upload-section') {
+          const uploadBtn = document.querySelector('.switcher-btn[data-section="upload-section"]');
+          if (uploadBtn) {
+            uploadBtn.classList.add('active');
+            showSection('upload-section');
+            setTimeout(() => {
+              const uploadSection = document.getElementById('upload-section');
+              if (uploadSection) uploadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 700);
+          }
+        } else {
+          // Default: show official gallery
+          showSection('official-gallery-section');
+        }
+      });
 
+      // Swipe functionality for community gallery photo viewer
+      (function() {
+        const viewer = document.getElementById('photoViewer');
+        const viewerImage = document.getElementById('viewerImage');
+        if (!viewer || !viewerImage) return;
+        let startX = 0, startY = 0, endX = 0, endY = 0;
+        let isTouching = false;
+        const minSwipeDist = 50; // px
+        function handleTouchStart(e) {
+          if (e.touches.length !== 1) return;
+          isTouching = true;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+        }
+        function handleTouchMove(e) {
+          if (!isTouching) return;
+          endX = e.touches[0].clientX;
+          endY = e.touches[0].clientY;
+          // Prevent horizontal scroll when swiping left/right
+          if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
+            e.preventDefault();
+          }
+        }
+        function handleTouchEnd(e) {
+          if (!isTouching) return;
+          isTouching = false;
+          const dx = endX - startX;
+          const dy = endY - startY;
+          if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
+            // Horizontal swipe
+            e.preventDefault();
+            if (dx < 0) {
+              // Swipe left: next photo
+              const nextBtn = document.getElementById('nextPhoto');
+              if (nextBtn) nextBtn.click();
+            } else {
+              // Swipe right: previous photo
+              const prevBtn = document.getElementById('prevPhoto');
+              if (prevBtn) prevBtn.click();
+            }
+          } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
+            // Vertical swipe
+            if (dy > 0) {
+              // Swipe down: close viewer
+              const closeBtn = document.getElementById('closeViewer');
+              if (closeBtn) closeBtn.click();
+            }
+          }
+        }
+        // Attach to both overlay and image for robustness
+        [viewer, viewerImage].forEach(el => {
+          el.addEventListener('touchstart', handleTouchStart, { passive: true });
+          el.addEventListener('touchmove', handleTouchMove, { passive: false }); // PATCHED: passive: false
+          el.addEventListener('touchend', handleTouchEnd, { passive: false });
+        });
+      })();
+
+      // --- Swipe controls for official gallery viewer ---
+      document.addEventListener('DOMContentLoaded', function() {
+        const officialViewer = document.querySelector('.viewer');
+        if (officialViewer) {
+          let startX = 0, startY = 0, endX = 0, endY = 0;
+          let isTouching = false;
+          const minSwipeDist = 50;
+          officialViewer.addEventListener('touchstart', function(e) {
+            if (e.touches.length !== 1) return;
+            isTouching = true;
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+          });
+          officialViewer.addEventListener('touchmove', function(e) {
+            if (!isTouching) return;
+            endX = e.touches[0].clientX;
+            endY = e.touches[0].clientY;
+          });
+          officialViewer.addEventListener('touchend', function(e) {
+            if (!isTouching) return;
+            isTouching = false;
+            const dx = endX - startX;
+            const dy = endY - startY;
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
+              // Horizontal swipe
+              if (dx < 0) {
+                // Swipe left: next photo
+                const nextBtn = officialViewer.querySelector('.next-btn');
+                if (nextBtn) nextBtn.click();
+              } else {
+                // Swipe right: previous photo
+                const prevBtn = officialViewer.querySelector('.prev-btn');
+                if (prevBtn) prevBtn.click();
+              }
+            } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
+              // Vertical swipe
+              if (dy > 0) {
+                // Swipe down: close viewer
+                const closeBtn = officialViewer.querySelector('.close-btn');
+                if (closeBtn) closeBtn.click();
+              }
+            }
+          });
+        }
+
+        // Add event listener for new close button in community gallery viewer
+        var closeBtnTopRight = document.getElementById('closeViewerTopRight');
+        var closeBtn = document.getElementById('closeViewer');
+        if (closeBtnTopRight && closeBtn) {
+          closeBtnTopRight.addEventListener('click', function() {
+            closeBtn.click();
+          });
+        }
+      });
+    </script>
+</body>
+</html>

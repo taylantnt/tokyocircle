@@ -219,7 +219,7 @@
         </div>
         
         <div class="gallery-container">
-            <div class="gallery-slider">
+            <div class="gallery-slider" id="clickable-gallery" style="cursor:pointer;">
                 <div class="slide active">
                     <div class="slide-content">
                         <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/2024_03_16_Circle_Yoyogi_Koen_265.jpg?v=1743709494009" alt="Group photo walk">
@@ -279,8 +279,8 @@
             </div>
             
             <div class="full-gallery-link">      
-              <a href="gallery.html" class="btn rainbow-btn"><i class="fas fa-images"></i> Explore Full Gallery</a>
-              <a href="upload.html" class="btn rainbow-btn"><i class="fas fa-cloud-upload-alt"></i> Upload Your Photos</a>
+              <a href="new-gallery.html" class="btn rainbow-btn"><i class="fas fa-images"></i> Explore Full Gallery</a>
+              <a href="new-gallery.html#upload-section" class="btn rainbow-btn"><i class="fas fa-cloud-upload-alt"></i> Upload Your Photos</a>
 
           </div>
         </div>
@@ -638,6 +638,14 @@ if (motion.matches) {
   }
 
   setInterval(updateColors, 100);
+}
+
+// Make gallery-slider clickable
+const gallerySlider = document.getElementById('clickable-gallery');
+if (gallerySlider) {
+  gallerySlider.addEventListener('click', function() {
+    window.location.href = 'new-gallery.html';
+  });
 }
 </script>
     <script src="script.js"></script>

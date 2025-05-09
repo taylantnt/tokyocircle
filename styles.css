@@ -425,7 +425,7 @@ body {
           h1, h2, h3, h4 {
               font-family: var(--heading-font);
               font-weight: normal;
-              color: white;
+              color: var(--pastel-purple);
           }
   
           a {
@@ -2124,6 +2124,7 @@ body {
           .section,
           .container,
           .hero,
+          .review-info
           .hero-content,
           .about-main-card,
           .founder-card,
