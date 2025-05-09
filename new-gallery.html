@@ -632,8 +632,13 @@
     /* Responsive */
     @media (max-width: 768px) {
       .hero-content h1 {
-        font-size: 2.2rem;
+        font-size: 1.5rem;
       }
+      
+            .hero-content p {
+        font-size: 1rem;
+      }
+      
       .gallery-item-info {
         position: absolute;
         bottom: 0;
@@ -700,13 +705,14 @@
         <button class="mobile-menu-btn">
             <i class="fas fa-bars"></i>
         </button>
-            <div class="nav-links">
-                <a href="/main.html#about"><i class="fas fa-heart"></i> About</a>
-                <a href="/main.html#gallery"><i class="fas fa-images"></i> Gallery</a>
-                <a href="/main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                <a href="/main.html#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
-                <a href="/main.html#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
-            </div>
+        <div class="nav-blur-overlay"></div>
+        <div class="nav-links">
+            <a href="/main.html#about"><i class="fas fa-heart"></i> About</a>
+            <a href="/main.html#gallery"><i class="fas fa-images"></i> Gallery</a>
+            <a href="/main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
+            <a href="/main.html#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
+            <a href="/main.html#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
+        </div>
         </div>
     </nav>
   </header>
@@ -1063,6 +1069,31 @@ body {
     <script src="a2.js"></script>
     <script src="a3.js"></script>
     <script>
+      // Hamburger menu functionality for mobile
+      document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        if (mobileMenuBtn && navLinks) {
+          // Set custom property for staggered animation
+          navLinks.querySelectorAll('a').forEach((link, index) => {
+            link.style.setProperty('--i', index);
+          });
+          mobileMenuBtn.addEventListener('click', function() {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+          });
+          // Close menu when clicking a link
+          navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+              mobileMenuBtn.classList.remove('active');
+              navLinks.classList.remove('active');
+              document.body.classList.remove('menu-open');
+            });
+          });
+        }
+      });
+
       // Gallery Switcher Logic
       document.addEventListener('DOMContentLoaded', function() {
         const buttons = document.querySelectorAll('.switcher-btn');
