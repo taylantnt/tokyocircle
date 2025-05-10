@@ -739,11 +739,11 @@ function officialCloseViewer() {
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', async () => {
-    // Touch event listeners for viewer
-    const viewer = document.querySelector('.viewer');
-    viewer.addEventListener('touchstart', handleTouchStart, false);
-    viewer.addEventListener('touchmove', handleTouchMove, false);
-    viewer.addEventListener('touchend', handleTouchEnd, false);
+    // Touch event listeners for viewer (DISABLED to prevent double swipe navigation)
+    // const viewer = document.querySelector('.viewer');
+    // viewer.addEventListener('touchstart', handleTouchStart, false);
+    // viewer.addEventListener('touchmove', handleTouchMove, false);
+    // viewer.addEventListener('touchend', handleTouchEnd, false);
 
     await initGallery();
 

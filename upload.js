@@ -763,6 +763,14 @@ function openPhotoViewer(index) {
   updatePhotoViewer();
   photoViewer.classList.add('active');
   document.body.style.overflow = 'hidden';
+  document.body.style.touchAction = 'none';
+  document.body.style.overscrollBehavior = 'contain';
+  // Prevent background scroll on mobile
+  document.body.addEventListener('touchmove', preventBodyScroll, { passive: false });
+}
+
+function preventBodyScroll(e) {
+  e.preventDefault();
 }
 
 // Update photo viewer content
@@ -911,6 +919,10 @@ function updateThumbnails() {
 function closePhotoViewer() {
   photoViewer.classList.remove('active');
   document.body.style.overflow = '';
+  document.body.style.touchAction = '';
+  document.body.style.overscrollBehavior = '';
+  // Remove background scroll prevention
+  document.body.removeEventListener('touchmove', preventBodyScroll, { passive: false });
   // Prevent any accidental navigation on close
   // (Do not change currentPhotoIndex or currentViewerPhotos here)
 }

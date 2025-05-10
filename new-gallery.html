@@ -93,7 +93,7 @@
       z-index: 2;
       text-align: center;
       max-width: 800px;
-      padding: 0 20px;
+      padding: 0 20px 30px;
     }
     
     .hero-content h1 {
@@ -631,6 +631,20 @@
     
     /* Responsive */
     @media (max-width: 768px) {
+      .hero-content {
+        padding-top: 60px !important;
+      }
+      .hero-content h1 {
+        font-size: 1.3rem !important;
+        margin-bottom: 0.7rem;
+      }
+      .hero-content p {
+        font-size: 0.95rem !important;
+        margin-bottom: 1.2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
       .hero-content h1 {
         font-size: 2.2rem;
       }
@@ -717,7 +731,7 @@
     <div class="hero-content">
       <h1>Showcase, Discover, and Connect in the Circle Community</h1>
       <p>Welcome to your creative hub! Browse our official photo gallery, explore community submissions, or upload your own work to share with fellow artists.<br><br>
-      Use the buttons below to switch between galleries or add your own photos. Whether you're a photographer, model, or creative, this is your space to shine, connect, and be inspired. Enjoy discovering new talent and sharing your passion with the Circle community!</p>
+Switch between galleries or add your photos using the buttons below. Whether you’re a photographer, model, or creative, this is your space to shine, connect, and be inspired. Discover new talent and share your passion with the Circle community!
       <div class="gallery-switcher-wrapper">
         <div class="gallery-switcher">
           <button class="switcher-btn active" data-section="official-gallery-section"><i class="fas fa-crown"></i> Official Gallery</button>
@@ -1229,14 +1243,14 @@ body {
             const dy = endY - startY;
             if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
               // Horizontal swipe
+              e.preventDefault();
+              e.stopPropagation();
               if (dx < 0) {
                 // Swipe left: next photo
-                const nextBtn = officialViewer.querySelector('.next-btn');
-                if (nextBtn) nextBtn.click();
+                if (typeof showNextImage === 'function') showNextImage();
               } else {
                 // Swipe right: previous photo
-                const prevBtn = officialViewer.querySelector('.prev-btn');
-                if (prevBtn) prevBtn.click();
+                if (typeof showPrevImage === 'function') showPrevImage();
               }
             } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
               // Vertical swipe
@@ -1246,7 +1260,7 @@ body {
                 if (closeBtn) closeBtn.click();
               }
             }
-          });
+          }, { passive: false });
         }
 
         // Add event listener for new close button in community gallery viewer
