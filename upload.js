@@ -560,12 +560,18 @@ function displayCommunityFilteredGallery() {
     img.alt = `Photo by ${photo.photographer}`;
     img.loading = 'lazy';
     img.addEventListener('click', () => {
-      currentViewerPhotos = photos; // Show all filtered photos in viewer
-      currentPhotoIndex = index; // Use the correct index
+      currentViewerPhotos = photos.slice(); // Always fresh copy
+      currentPhotoIndex = index;
       openPhotoViewer(currentPhotoIndex);
     });
     const info = document.createElement('div');
     info.className = 'gallery-item-info';
+    // Make info section clickable
+    info.addEventListener('click', () => {
+      currentViewerPhotos = photos.slice(); // Always fresh copy
+      currentPhotoIndex = index;
+      openPhotoViewer(currentPhotoIndex);
+    });
     // Add "Uploaded by" label
     const uploadedBy = document.createElement('div');
     uploadedBy.className = 'uploaded-by';
@@ -721,13 +727,20 @@ function displayGallery(photos) {
     
     // Make image clickable
     img.addEventListener('click', () => {
-      currentViewerPhotos = photos; // Show all filtered photos in viewer
+      currentViewerPhotos = photos.slice(); // Always fresh copy
       currentPhotoIndex = photos.findIndex(p => p.imageUrl === photo.imageUrl);
       openPhotoViewer(currentPhotoIndex);
     });
     
     const info = document.createElement('div');
     info.className = 'gallery-item-info';
+    
+    // Make info section clickable
+    info.addEventListener('click', () => {
+      currentViewerPhotos = photos.slice(); // Always fresh copy
+      currentPhotoIndex = photos.findIndex(p => p.imageUrl === photo.imageUrl);
+      openPhotoViewer(currentPhotoIndex);
+    });
     
     const title = document.createElement('h3');
     title.textContent = photo.photographer;
@@ -757,16 +770,30 @@ function displayGallery(photos) {
   console.log('Loader hidden (gallery rendered)');
 }
 
-// Open photo viewer
+// Hide left/right arrows on mobile
+function updateNavArrowsForMobile() {
+  if (window.innerWidth <= 768) {
+    if (prevPhoto) prevPhoto.style.display = 'none';
+    if (nextPhoto) nextPhoto.style.display = 'none';
+  } else {
+    if (prevPhoto) prevPhoto.style.display = currentPhotoIndex > 0 ? 'block' : 'none';
+    if (nextPhoto) nextPhoto.style.display = currentPhotoIndex < currentViewerPhotos.length - 1 ? 'block' : 'none';
+  }
+}
+window.addEventListener('resize', updateNavArrowsForMobile);
+
+// Call on open
 function openPhotoViewer(index) {
   currentPhotoIndex = index;
   updatePhotoViewer();
   photoViewer.classList.add('active');
+  document.body.classList.add('photo-viewer-active'); // Add this line
   document.body.style.overflow = 'hidden';
   document.body.style.touchAction = 'none';
   document.body.style.overscrollBehavior = 'contain';
   // Prevent background scroll on mobile
   document.body.addEventListener('touchmove', preventBodyScroll, { passive: false });
+  updateNavArrowsForMobile();
 }
 
 function preventBodyScroll(e) {
@@ -785,6 +812,7 @@ function updatePhotoViewer() {
   
   // Update thumbnails
   updateThumbnails();
+  updateNavArrowsForMobile();
 }
 
 // Update thumbnail strip
@@ -849,12 +877,41 @@ function updateThumbnails() {
   if (!photoViewer || !viewerImage) return;
   let startX = 0, startY = 0, endX = 0, endY = 0;
   let isTouching = false;
+  // Prevent close button click if a swipe just happened
   let swipeJustHappened = false;
+  let lastTouchTime = 0;
+  closeViewer.addEventListener('touchend', function(e) {
+    // Only handle touchend for close on mobile
+    if (swipeJustHappened) {
+      e.preventDefault();
+      swipeJustHappened = false;
+      return;
+    }
+    e.stopPropagation();
+    closePhotoViewer();
+    lastTouchTime = Date.now();
+  }, { passive: false });
+  closeViewer.addEventListener('click', function(e) {
+    // Prevent double fire if a touch just happened
+    if (Date.now() - lastTouchTime < 400) {
+      e.preventDefault();
+      return;
+    }
+    if (swipeJustHappened) {
+      e.preventDefault();
+      swipeJustHappened = false;
+      return;
+    }
+    e.stopPropagation();
+    closePhotoViewer();
+  });
+  let moved = false;
   const minSwipeDist = 50; // px
   function handleTouchStart(e) {
     if (e.touches.length !== 1) return;
     isTouching = true;
     swipeJustHappened = false;
+    moved = false;
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
   }
@@ -895,29 +952,31 @@ function updateThumbnails() {
         // Swipe down: close viewer
         swipeJustHappened = true;
         closePhotoViewer();
+        lastTouchTime = Date.now();
       }
     }
   }
-  // Prevent close button click if a swipe just happened
-  closeViewer.addEventListener('click', function(e) {
-    if (swipeJustHappened) {
-      e.preventDefault();
-      swipeJustHappened = false;
-      return;
-    }
-    closePhotoViewer();
-  });
   // Attach to both overlay and image for robustness
   [photoViewer, viewerImage].forEach(el => {
     el.addEventListener('touchstart', handleTouchStart, { passive: true });
     el.addEventListener('touchmove', handleTouchMove, { passive: false });
     el.addEventListener('touchend', handleTouchEnd, { passive: false });
   });
+  // Make close button easier to tap on mobile
+  if (window.innerWidth <= 768) {
+    closeViewer.style.minWidth = '48px';
+    closeViewer.style.minHeight = '48px';
+    closeViewer.style.padding = '12px';
+    closeViewer.style.margin = '8px';
+    closeViewer.style.zIndex = '10001';
+    closeViewer.style.touchAction = 'manipulation';
+  }
 })();
 
 // Close photo viewer
 function closePhotoViewer() {
   photoViewer.classList.remove('active');
+  document.body.classList.remove('photo-viewer-active'); // Add this line
   document.body.style.overflow = '';
   document.body.style.touchAction = '';
   document.body.style.overscrollBehavior = '';
@@ -925,20 +984,6 @@ function closePhotoViewer() {
   document.body.removeEventListener('touchmove', preventBodyScroll, { passive: false });
   // Prevent any accidental navigation on close
   // (Do not change currentPhotoIndex or currentViewerPhotos here)
-}
-
-// Event listeners for photo viewer
-closeViewer.addEventListener('click', function(e) {
-  e.stopPropagation(); // Prevent bubbling to parent
-  closePhotoViewer();
-});
-// Also ensure the top-right close button only closes
-const closeViewerTopRight = document.getElementById('closeViewerTopRight');
-if (closeViewerTopRight) {
-  closeViewerTopRight.addEventListener('click', function(e) {
-    e.stopPropagation();
-    closePhotoViewer();
-  });
 }
 
 // Keyboard navigation
@@ -1450,4 +1495,35 @@ function hideUploadProgress() {
 function normalizeArtistName(name) {
   const lower = name.trim().toLowerCase();
   return canonicalArtistMap[lower] || name.trim();
+}
+
+// Remove all previous closeViewer event listeners and logic
+// Add a single, robust close button handler
+const closeBtn = document.getElementById('closeViewer');
+if (closeBtn) {
+  closeBtn.onclick = function(e) {
+    e.preventDefault();
+    closePhotoViewer();
+  };
+  closeBtn.ontouchend = function(e) {
+    e.preventDefault();
+    closePhotoViewer();
+  };
+  // Make sure it's always visible and on top
+  closeBtn.style.position = 'absolute';
+  closeBtn.style.top = '16px';
+  closeBtn.style.right = '16px';
+  closeBtn.style.zIndex = '10001';
+  closeBtn.style.minWidth = '48px';
+  closeBtn.style.minHeight = '48px';
+  closeBtn.style.padding = '12px';
+  closeBtn.style.background = 'rgba(0,0,0,0.7)';
+  closeBtn.style.color = '#fff';
+  closeBtn.style.border = 'none';
+  closeBtn.style.borderRadius = '50%';
+  closeBtn.style.fontSize = '2rem';
+  closeBtn.style.display = 'flex';
+  closeBtn.style.alignItems = 'center';
+  closeBtn.style.justifyContent = 'center';
+  closeBtn.style.cursor = 'pointer';
 }

@@ -781,7 +781,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         showPrevImage();
     });
 
-    document.querySelector('.close-btn').addEventListener('click', officialCloseViewer);
+    document.querySelector('.close-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        officialCloseViewer();
+    });
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {

@@ -603,6 +603,97 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.prev').addEventListener('click', () => navigate(-1));
     document.querySelector('.next').addEventListener('click', () => navigate(1));
 
+    // --- Mobile-friendly close button for official gallery viewer ---
+    (function() {
+        const viewer = document.querySelector('.viewer');
+        const closeBtn = viewer ? viewer.querySelector('.close-btn') : null;
+        const viewerImg = viewer ? viewer.querySelector('.viewer-img') : null;
+        if (!viewer || !closeBtn || !viewerImg) return;
+        let isTouching = false;
+        let startX = 0, startY = 0, endX = 0, endY = 0;
+        let swipeJustHappened = false;
+        let lastTouchTime = 0;
+        const minSwipeDist = 50;
+        // Touch events for swipe-to-close and navigation
+        [viewer, viewerImg].forEach(el => {
+            el.addEventListener('touchstart', function(e) {
+                if (e.touches.length !== 1) return;
+                isTouching = true;
+                swipeJustHappened = false;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+            el.addEventListener('touchmove', function(e) {
+                if (!isTouching) return;
+                endX = e.touches[0].clientX;
+                endY = e.touches[0].clientY;
+                if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            el.addEventListener('touchend', function(e) {
+                if (!isTouching) return;
+                isTouching = false;
+                const dx = endX - startX;
+                const dy = endY - startY;
+                if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
+                    // Horizontal swipe
+                    e.preventDefault();
+                    swipeJustHappened = true;
+                    if (dx < 0) {
+                        // Swipe left: next image
+                        if (typeof showNextImage === 'function') showNextImage();
+                    } else {
+                        // Swipe right: previous image
+                        if (typeof showPrevImage === 'function') showPrevImage();
+                    }
+                } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
+                    // Vertical swipe
+                    if (dy > 0) {
+                        // Swipe down: close viewer
+                        swipeJustHappened = true;
+                        closeViewer();
+                        lastTouchTime = Date.now();
+                    }
+                }
+            }, { passive: false });
+        });
+        // Touchend for close button
+        closeBtn.addEventListener('touchend', function(e) {
+            if (swipeJustHappened) {
+                e.preventDefault();
+                swipeJustHappened = false;
+                return;
+            }
+            e.stopPropagation();
+            closeViewer();
+            lastTouchTime = Date.now();
+        }, { passive: false });
+        // Click for close button
+        closeBtn.addEventListener('click', function(e) {
+            if (Date.now() - lastTouchTime < 400) {
+                e.preventDefault();
+                return;
+            }
+            if (swipeJustHappened) {
+                e.preventDefault();
+                swipeJustHappened = false;
+                return;
+            }
+            e.stopPropagation();
+            closeViewer();
+        });
+        // Make close button easier to tap on mobile
+        if (window.innerWidth <= 768) {
+            closeBtn.style.minWidth = '48px';
+            closeBtn.style.minHeight = '48px';
+            closeBtn.style.padding = '12px';
+            closeBtn.style.margin = '8px';
+            closeBtn.style.zIndex = '10001';
+            closeBtn.style.touchAction = 'manipulation';
+        }
+    })();
+
     // Initialize gallery
     initGallery();
 });
