@@ -787,12 +787,16 @@ function openPhotoViewer(index) {
   currentPhotoIndex = index;
   updatePhotoViewer();
   photoViewer.classList.add('active');
-  document.body.classList.add('photo-viewer-active'); // Add this line
+  document.body.classList.add('photo-viewer-active');
   document.body.style.overflow = 'hidden';
   document.body.style.touchAction = 'none';
   document.body.style.overscrollBehavior = 'contain';
   // Prevent background scroll on mobile
   document.body.addEventListener('touchmove', preventBodyScroll, { passive: false });
+  // Use consolidated keyboard navigation
+  if (window.setupKeyboardNavigation) {
+    window.setupKeyboardNavigation();
+  }
   updateNavArrowsForMobile();
 }
 
@@ -818,95 +822,93 @@ function updatePhotoViewer() {
 // Update thumbnail strip
 function updateThumbnails() {
   thumbnailStrip.innerHTML = '';
+  
+  // Container for thumbnails
+  const thumbsContainer = document.createElement('div');
+  thumbsContainer.className = 'thumbnail-container';
+  thumbnailStrip.appendChild(thumbsContainer);
+
   currentViewerPhotos.forEach((photo, index) => {
-    const thumb = document.createElement('img');
-    thumb.src = photo.imageUrl;
-    thumb.alt = `Thumbnail ${index + 1}`;
-    thumb.className = `photo-viewer-thumbnail${index === currentPhotoIndex ? ' active' : ''}`;
-    thumb.addEventListener('click', () => {
-      currentPhotoIndex = index;
-      updatePhotoViewer();
+    const thumb = document.createElement('div');
+    thumb.className = `photo-viewer-thumbnail-wrapper${index === currentPhotoIndex ? ' active' : ''}`;
+    thumb.setAttribute('role', 'button');
+    thumb.setAttribute('tabindex', '0');
+    thumb.setAttribute('aria-label', `View photo ${index + 1}`);
+    thumb.setAttribute('data-index', index);
+
+    const img = document.createElement('img');
+    img.src = photo.imageUrl;
+    img.alt = `Thumbnail ${index + 1}`;
+    img.className = 'photo-viewer-thumbnail';
+    thumb.appendChild(img);
+
+    // Click/keyboard navigation only
+    thumb.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (currentPhotoIndex !== index) {
+        currentPhotoIndex = index;
+        updatePhotoViewer();
+      }
     });
-    thumbnailStrip.appendChild(thumb);
+    thumb.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (currentPhotoIndex !== index) {
+          currentPhotoIndex = index;
+          updatePhotoViewer();
+        }
+      }
+    });
+    thumbsContainer.appendChild(thumb);
+  });
+
+  // Center active thumbnail
+  setTimeout(() => {
+    const activeThumb = thumbnailStrip.querySelector('.photo-viewer-thumbnail-wrapper.active');
+    if (activeThumb) {
+      const stripRect = thumbnailStrip.getBoundingClientRect();
+      const thumbRect = activeThumb.getBoundingClientRect();
+      const scrollLeft = (activeThumb.offsetLeft + thumbRect.width/2) - (stripRect.width/2);
+      thumbnailStrip.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
+  }, 0);
+}
+
+// Add navigation for prev/next buttons (community gallery viewer)
+if (prevPhoto && nextPhoto) {
+  prevPhoto.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (currentPhotoIndex > 0) {
+      currentPhotoIndex--;
+      updatePhotoViewer();
+    }
+  });
+  nextPhoto.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (currentPhotoIndex < currentViewerPhotos.length - 1) {
+      currentPhotoIndex++;
+      updatePhotoViewer();
+    }
   });
 }
 
-// --- Swipe support for thumbnail strip ---
-(function() {
-  let isDown = false;
-  let startX;
-  let scrollLeft;
-  let moved = false;
-  let touchStartTime = 0;
-  const TAP_THRESHOLD = 10; // px
-  const TAP_TIME = 250; // ms
-
-  thumbnailStrip.addEventListener('touchstart', function(e) {
-    e.stopPropagation();
-    isDown = true;
-    moved = false;
-    startX = e.touches[0].pageX - thumbnailStrip.offsetLeft;
-    scrollLeft = thumbnailStrip.scrollLeft;
-    touchStartTime = Date.now();
-  });
-  thumbnailStrip.addEventListener('touchmove', function(e) {
-    e.stopPropagation();
-    if (!isDown) return;
-    const x = e.touches[0].pageX - thumbnailStrip.offsetLeft;
-    const walk = (startX - x); // Negative = right, positive = left
-    if (Math.abs(walk) > TAP_THRESHOLD) moved = true;
-    thumbnailStrip.scrollLeft = scrollLeft + walk;
-    if (moved) e.preventDefault();
-  }, { passive: false });
-  thumbnailStrip.addEventListener('touchend', function(e) {
-    e.stopPropagation();
-    isDown = false;
-  });
-  // Prevent click on thumbnail if swipe occurred
-  thumbnailStrip.addEventListener('click', function(e) {
-    if (moved || (Date.now() - touchStartTime) > TAP_TIME) {
-      e.stopImmediatePropagation();
-      e.preventDefault();
-    }
-    // else allow click
-  }, true);
-})();
-
-// --- Swipe support for community gallery photo viewer ---
+// --- Swipe support for photo viewer ---
 (function() {
   if (!photoViewer || !viewerImage) return;
-  let startX = 0, startY = 0, endX = 0, endY = 0;
-  let isTouching = false;
-  // Prevent close button click if a swipe just happened
-  let swipeJustHappened = false;
-  let lastTouchTime = 0;
-  closeViewer.addEventListener('touchend', function(e) {
-    // Only handle touchend for close on mobile
-    if (swipeJustHappened) {
-      e.preventDefault();
-      swipeJustHappened = false;
-      return;
-    }
-    e.stopPropagation();
-    closePhotoViewer();
-    lastTouchTime = Date.now();
-  }, { passive: false });
-  closeViewer.addEventListener('click', function(e) {
-    // Prevent double fire if a touch just happened
-    if (Date.now() - lastTouchTime < 400) {
-      e.preventDefault();
-      return;
-    }
-    if (swipeJustHappened) {
-      e.preventDefault();
-      swipeJustHappened = false;
-      return;
-    }
-    e.stopPropagation();
-    closePhotoViewer();
-  });
-  let moved = false;
-  const minSwipeDist = 50; // px
+
+  const state = {
+    isTouching: false,
+    touchStartX: 0,
+    touchStartY: 0,
+    touchEndX: 0,
+    touchEndY: 0,
+    moved: false,
+    swipeJustHappened: false,
+    lastTouchTime: 0,
+  };
+
+  const MIN_SWIPE_DISTANCE = 50;
+
   function handleTouchStart(e) {
     if (e.touches.length !== 1) return;
     isTouching = true;
@@ -915,21 +917,24 @@ function updateThumbnails() {
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
   }
+
   function handleTouchMove(e) {
     if (!isTouching) return;
     endX = e.touches[0].clientX;
     endY = e.touches[0].clientY;
+
     // Prevent horizontal scroll when swiping left/right
     if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
       e.preventDefault();
     }
   }
+
   function handleTouchEnd(e) {
     if (!isTouching) return;
     isTouching = false;
     const dx = endX - startX;
     const dy = endY - startY;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > MIN_SWIPE_DISTANCE) {
       // Horizontal swipe
       e.preventDefault();
       swipeJustHappened = true;
@@ -946,7 +951,7 @@ function updateThumbnails() {
           updatePhotoViewer();
         }
       }
-    } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
+    } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > MIN_SWIPE_DISTANCE) {
       // Vertical swipe
       if (dy > 0) {
         // Swipe down: close viewer
@@ -973,48 +978,76 @@ function updateThumbnails() {
   }
 })();
 
-// Close photo viewer
+// Close photo viewer and clean up event listeners
 function closePhotoViewer() {
   photoViewer.classList.remove('active');
-  document.body.classList.remove('photo-viewer-active'); // Add this line
+  document.body.classList.remove('photo-viewer-active');
   document.body.style.overflow = '';
   document.body.style.touchAction = '';
   document.body.style.overscrollBehavior = '';
+  
   // Remove background scroll prevention
   document.body.removeEventListener('touchmove', preventBodyScroll, { passive: false });
-  // Prevent any accidental navigation on close
-  // (Do not change currentPhotoIndex or currentViewerPhotos here)
+  
+  // Clean up keyboard navigation
+  if (window.cleanupKeyboardNavigation) {
+    window.cleanupKeyboardNavigation();
+  }
+
+  // Reset state
+  currentPhotoIndex = 0;
+  currentViewerPhotos = [];
+
+  // Remove focus from thumbnails
+  const activeThumbnail = thumbnailStrip.querySelector('.photo-viewer-thumbnail-wrapper.active');
+  if (activeThumbnail) {
+    activeThumbnail.blur();
+  }
 }
 
-// Keyboard navigation
-document.addEventListener('keydown', (e) => {
-  if (!photoViewer.classList.contains('active')) return;
-  
-  switch (e.key) {
-    case 'Escape':
-      closePhotoViewer();
-      break;
-    case 'ArrowLeft':
-      if (currentPhotoIndex > 0) {
-        currentPhotoIndex--;
-        updatePhotoViewer();
-      }
-      break;
-    case 'ArrowRight':
-      if (currentPhotoIndex < currentViewerPhotos.length - 1) {
-        currentPhotoIndex++;
-        updatePhotoViewer();
-      }
-      break;
-  }
-});
+// Add keyboard navigation
+window.setupKeyboardNavigation = function() {
+  const handleKeyboard = (e) => {
+    if (!photoViewer.classList.contains('active')) return;
+    
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+    }
 
-// Close viewer when clicking outside the image
-photoViewer.addEventListener('click', function(e) {
-  if (e.target === photoViewer) {
-    closePhotoViewer();
-  }
-});
+    switch (e.key) {
+      case 'Escape':
+        closePhotoViewer();
+        break;
+      case 'ArrowLeft':
+        if (currentPhotoIndex > 0) {
+          currentPhotoIndex--;
+          updatePhotoViewer();
+        }
+        break;
+      case 'ArrowRight':
+        if (currentPhotoIndex < currentViewerPhotos.length - 1) {
+          currentPhotoIndex++;
+          updatePhotoViewer();
+        }
+        break;
+      case 'Home':
+        e.preventDefault();
+        currentPhotoIndex = 0;
+        updatePhotoViewer();
+        break;
+      case 'End':
+        e.preventDefault();
+        currentPhotoIndex = currentViewerPhotos.length - 1;
+        updatePhotoViewer();
+        break;
+    }
+  };
+
+  document.addEventListener('keydown', handleKeyboard);
+  window.cleanupKeyboardNavigation = () => {
+    document.removeEventListener('keydown', handleKeyboard);
+  };
+};
 
 // Filter gallery by talent type
 function filterByTalentType(talentType) {

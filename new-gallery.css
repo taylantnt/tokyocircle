@@ -522,7 +522,7 @@ body.menu-open.active::after {
 .gallery2 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    padding: 0.5rem;
+    padding: 100px 8px 8px 8px!important;
     position: relative;
     transition: opacity 0.3s ease;
     max-width: 1400px;
@@ -615,11 +615,11 @@ body.menu-open.active::after {
     cursor: pointer; /* Add pointer cursor to indicate clickable area */
 }
 
-.gallery2-album:hover h3 {
+/*.gallery2-album:hover h3 {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.1) 100%);
     opacity: 1;
     transform: translateY(0);
-}
+}*/
 
 /* Image Viewer Styles */
 .viewer {
@@ -630,7 +630,7 @@ body.menu-open.active::after {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.9);
-    z-index: 9999; /* Increased z-index to be higher than footer */
+    z-index: 9999;
     justify-content: center;
     align-items: center;
     opacity: 0;
@@ -669,10 +669,14 @@ body.menu-open.active::after {
 }
 
 body.viewer-active .navbar,
-body.viewer-active .footer {
-    display: none !important; /* Force hiding with !important */
-    z-index: -1; /* Ensure they're below other elements */
-    visibility: hidden; /* Additional property to ensure elements are hidden */
+body.viewer-active .footer,
+body.viewer-active .back-to-top,
+body.photo-viewer-active .back-to-top {
+    display: none !important;
+    z-index: -1 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 .viewer.active {
@@ -745,35 +749,31 @@ body.viewer-active .footer {
 
 .close-btn {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 16px;
+    right: 16px;
     background: rgba(0, 0, 0, 0.6);
     border: 2px solid rgba(255, 255, 255, 0.8);
     border-radius: 30px;
     color: #fff;
     cursor: pointer;
     font-size: 20px;
-    padding: 10px 20px;
+    padding: 12px;
+    margin: 8px;
+    min-width: 48px;
+    min-height: 48px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     transition: all 0.3s ease;
-    z-index: 1000;
-}
-
-.close-btn:hover {
-    background: rgba(0, 0, 0, 0.8);
-    transform: scale(1.05);
+    z-index: 10001;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .close-btn .close-text {
     font-size: 16px;
     font-weight: 500;
-}
-
-.close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
 }
 
 .viewer-controls {
@@ -1095,20 +1095,20 @@ body.viewer-active .footer {
     right: 30px;
     width: 50px;
     height: 50px;
-    background-color: var(--accent-color);
-    color: white;
     border-radius: 50%;
+    background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
+    color: white;
+    border: none;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
-    transition: all 0.3s ease;
-    border: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 999;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 998;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .back-to-top.show {
@@ -1118,12 +1118,26 @@ body.viewer-active .footer {
 }
 
 .back-to-top:hover {
-    background-color: #c44ee0;
-    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    transform: translateY(-3px);
 }
 
 .back-to-top i {
-    font-size: 20px;
+    font-size: 1.2rem;
+}
+
+/* Dark mode styles for back-to-top button */
+.dark-mode .back-to-top {
+    background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-purple));
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
 }
 
 /* Dark mode styles for back-to-top button */
@@ -1527,7 +1541,7 @@ main.section-card {
   background: #f8f9fa;
   border-radius: 40px 40px 0 0;
   box-shadow: 0 8px 32px rgba(60,60,100,0.08), 0 1.5px 6px rgba(60,60,100,0.04);
-  margin-top: -40px;
+  margin-top: -120px;
   margin-bottom: 80px;
   z-index: 10;
   position: relative;
@@ -1565,7 +1579,7 @@ main.section-card {
   .upload-section.section-card,
   main.section-card {
     border-radius: 28px 28px 0 0;
-    margin-top: -20px;
+    margin-top: -140px;
   }
 }
 
@@ -1611,7 +1625,7 @@ main.section-card {
   #official-gallery-section .gallery2 {
     display: grid;
     grid-template-columns: repeat(3, 1fr) !important;
-    padding: 0 4px !important;
+    padding: 110px 0 4px !important;
   }
   #official-gallery-section .gallery2 > div {
     min-width: 0;

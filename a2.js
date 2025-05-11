@@ -36,24 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
         pageTitleObserver.observe(pageTitle);
     }
     
-    // Use the existing back to top button
-    const backToTopBtn = document.getElementById('back-to-top');
-
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    });
-
-    // Smooth scroll to top when button is clicked
-    backToTopBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
 });

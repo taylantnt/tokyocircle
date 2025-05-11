@@ -582,8 +582,9 @@ async function showViewer() {
     const viewerImg = viewer.querySelector('.viewer-img');
     const loadingOverlay = viewer.querySelector('.loading-overlay');
 
+    // Ensure proper order: first add the body class, then show the viewer
+    document.body.classList.add('viewer-active');
     viewer.classList.add('active');
-    document.body.classList.add('viewer-active'); // Add viewer-active class to body
     loadingOverlay.style.display = 'flex';
     viewerImg.style.opacity = '0';
 
@@ -732,10 +733,104 @@ function enableScroll() {
 
 function officialCloseViewer() {
     const viewer = document.querySelector('.viewer');
+    // First remove body classes to ensure UI elements are restored
+    document.body.classList.remove('viewer-active');
+    // Then close the viewer
     viewer.classList.remove('active');
-    document.body.classList.remove('viewer-active'); // Remove viewer-active class from body
+    // Restore body styles
+    document.body.style.overflow = '';
+    document.body.style.touchAction = '';
+    document.body.style.overscrollBehavior = '';
+    // Remove background scroll prevention
+    document.body.removeEventListener('touchmove', preventBodyScroll, { passive: false });
     enableScroll();
 }
+
+// Function to prevent background scroll on mobile
+function preventBodyScroll(e) {
+    e.preventDefault();
+}
+
+// Handle viewer opening
+function openViewer(images, index) {
+    currentIndex = index;
+    currentImages = images;
+    viewer.classList.add('active');
+    document.body.classList.add('viewer-active');
+    loadViewerImage(images[currentIndex]);
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', handleKeyboardNavigation);
+    // Prevent body scroll and improve touch handling
+    document.body.style.overflow = 'hidden';
+    document.body.style.touchAction = 'none';
+    document.body.style.overscrollBehavior = 'contain';
+    // Prevent background scroll on mobile
+    document.body.addEventListener('touchmove', preventBodyScroll, { passive: false });
+    
+    // Initial thumbnails update
+    updateThumbnails();
+}
+
+// Add swipe gesture support for official gallery viewer
+(function() {
+    const viewer = document.querySelector('.viewer');
+    const viewerImg = viewer ? viewer.querySelector('.viewer-img') : null;
+    if (!viewer || !viewerImg) return;
+
+    let startX = 0, startY = 0, endX = 0, endY = 0;
+    let isTouching = false;
+    const minSwipeDist = 50;
+
+    function handleTouchStart(e) {
+        if (e.touches.length !== 1) return;
+        isTouching = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+    }
+
+    function handleTouchMove(e) {
+        if (!isTouching) return;
+        endX = e.touches[0].clientX;
+        endY = e.touches[0].clientY;
+        // Prevent horizontal scroll when swiping left/right
+        if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
+            e.preventDefault();
+        }
+    }
+
+    function handleTouchEnd(e) {
+        if (!isTouching) return;
+        isTouching = false;
+        const dx = endX - startX;
+        const dy = endY - startY;
+
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
+            // Horizontal swipe
+            e.preventDefault();
+            if (dx < 0) {
+                // Swipe left: next photo
+                showNextImage();
+            } else {
+                // Swipe right: previous photo
+                showPrevImage();
+            }
+        } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
+            // Vertical swipe
+            if (dy > 0) {
+                // Swipe down: close viewer
+                officialCloseViewer();
+            }
+        }
+    }
+
+    // Attach to both overlay and image for robustness
+    [viewer, viewerImg].forEach(el => {
+        el.addEventListener('touchstart', handleTouchStart, { passive: true });
+        el.addEventListener('touchmove', handleTouchMove, { passive: false });
+        el.addEventListener('touchend', handleTouchEnd, { passive: false });
+    });
+})();
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', async () => {
@@ -787,6 +882,52 @@ document.addEventListener('DOMContentLoaded', async () => {
         officialCloseViewer();
     });
 
+    // Close button touch and click handling
+    (function() {
+        const closeBtn = document.querySelector('.viewer .close-btn');
+        if (closeBtn) {
+            let swipeJustHappened = false;
+            let lastTouchTime = 0;
+            const TAP_TIME = 300;
+
+            // Handle touch events for close button
+            closeBtn.addEventListener('touchend', function(e) {
+                if (swipeJustHappened) {
+                    e.preventDefault();
+                    swipeJustHappened = false;
+                    return;
+                }
+                e.stopPropagation();
+                officialCloseViewer();
+                lastTouchTime = Date.now();
+            }, { passive: false });
+
+            // Handle click events for close button
+            closeBtn.addEventListener('click', function(e) {
+                // Prevent double fire if a touch just happened
+                if (Date.now() - lastTouchTime < TAP_TIME) {
+                    e.preventDefault();
+                    return;
+                }
+                if (swipeJustHappened) {
+                    e.preventDefault();
+                    swipeJustHappened = false;
+                    return;
+                }
+                e.stopPropagation();
+                officialCloseViewer();
+            });
+
+            // Improve mobile touch target
+            if (window.innerWidth <= 768) {
+                closeBtn.style.minWidth = '48px';
+                closeBtn.style.minHeight = '48px';
+                closeBtn.style.padding = '12px';
+                closeBtn.style.margin = '8px';
+            }
+        }
+    })();
+
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         if (!document.querySelector('.viewer.active')) return;
@@ -804,12 +945,41 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    // Close viewer on background click
-    document.querySelector('.viewer').addEventListener('click', function(e) {
-        if (e.target === this) {
+    // Close viewer on background click/tap with improved handling
+    (function() {
+        const viewer = document.querySelector('.viewer');
+        if (!viewer) return;
+
+        let moved = false;
+        let touchStartTime = 0;
+        const TAP_TIME = 300;
+
+        viewer.addEventListener('touchstart', () => {
+            moved = false;
+            touchStartTime = Date.now();
+        }, { passive: true });
+
+        viewer.addEventListener('touchmove', () => {
+            moved = true;
+        }, { passive: true });
+
+        viewer.addEventListener('touchend', (e) => {
+            if (e.target !== viewer) return;
+            if (moved || (Date.now() - touchStartTime) > TAP_TIME) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                return;
+            }
             officialCloseViewer();
-        }
-    });
+        }, { passive: false });
+
+        // Regular click handler for desktop
+        viewer.addEventListener('click', function(e) {
+            if (e.target === viewer) {
+                officialCloseViewer();
+            }
+        });
+    })();
 });
 
 // Handle window resize
@@ -821,24 +991,3 @@ const handleResize = debounce(() => {
 }, 250);
 
 window.addEventListener('resize', handleResize);
-// Back to top button functionality
-const backToTopButton = document.getElementById('back-to-top');
-
-if (backToTopButton) {
-    const handleScroll = () => {
-        if (window.scrollY > 300) {
-            backToTopButton.classList.add('visible');
-        } else {
-            backToTopButton.classList.remove('visible');
-        }
-    };
-
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    window.addEventListener('scroll', handleScroll);
-}

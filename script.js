@@ -466,89 +466,26 @@ document.addEventListener('scroll', function() {
       // ======================
       // Back to Top Button
       // ======================
-      // Create back to top button dynamically
-      const createBackToTopButton = () => {
-          const backToTopBtn = document.createElement('button');
-          backToTopBtn.id = 'back-to-top';
-          backToTopBtn.className = 'back-to-top';
-          backToTopBtn.setAttribute('aria-label', 'Return to top of page');
-          backToTopBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
-          document.body.appendChild(backToTopBtn);
-
-          // Add styles for the button
-          const style = document.createElement('style');
-          style.textContent = `
-              .back-to-top {
-                  position: fixed;
-                  bottom: 30px;
-                  right: 30px;
-                  width: 50px;
-                  height: 50px;
-                  border-radius: 50%;
-                  background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
-                  color: white;
-                  border: none;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  cursor: pointer;
-                  opacity: 0;
-                  visibility: hidden;
-                  transform: translateY(20px);
-                  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-                  z-index: 998;
-                  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (backToTopBtn) {
+          const handleScroll = () => {
+              if (window.scrollY > 300) {
+                  backToTopBtn.classList.add('show');
+              } else {
+                  backToTopBtn.classList.remove('show');
               }
+          };
 
-              .back-to-top.show {
-                  opacity: 1;
-                  visibility: visible;
-                  transform: translateY(0);
-              }
-
-              .back-to-top:hover {
-                  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-                  transform: translateY(-3px);
-              }
-
-              .back-to-top i {
-                  font-size: 1.2rem;
-              }
-
-              @media (max-width: 768px) {
-                  .back-to-top {
-                      bottom: 20px;
-                      right: 20px;
-                      width: 45px;
-                      height: 45px;
-                  }
-              }
-          `;
-          document.head.appendChild(style);
-
-          return backToTopBtn;
-      };
-
-      // Initialize back to top button
-      const backToTopBtn = createBackToTopButton();
-
-      // Show/hide button based on scroll position
-      window.addEventListener('scroll', () => {
-          if (window.scrollY > 300) {
-              backToTopBtn.classList.add('show');
-          } else {
-              backToTopBtn.classList.remove('show');
-          }
-      });
-
-      // Smooth scroll to top when button is clicked
-      backToTopBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
+          window.addEventListener('scroll', handleScroll);
+          
+          backToTopBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+              });
           });
-      });
+      }
 
       // ======================
       // Hover Effects

@@ -670,17 +670,72 @@
         background-color: rgba(255, 255, 255, 0.1);
       }
       
+      /* Mini Switcher Animated Indicator */
+      .mini-switcher {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: #f7f7fa;
+        border-radius: 30px;
+        padding: 4px 6px;
+        gap: 0.5rem;
+        margin: 0 auto 18px auto;
+        width: fit-content;
+        box-shadow: 0 2px 8px rgba(106,90,205,0.07);
+      }
+      .mini-switcher-btn {
+        position: relative;
+        background: none;
+        border: none;
+        outline: none;
+        font-family: var(--heading-font);
+        font-size: 1.05rem;
+        color: var(--pastel-purple);
+        padding: 10px 22px;
+        border-radius: 22px;
+        cursor: pointer;
+        z-index: 2;
+        transition: color 0.2s;
+      }
+      .mini-switcher-btn.active {
+        color: var(--pastel-purple);
+      }
+      .mini-switcher-indicator {
+        position: absolute;
+        top: 4px;
+        left: 0;
+        height: calc(100% - 8px);
+        background: linear-gradient(90deg, #6a5acd, #ff6b6b);
+        border-radius: 22px;
+        z-index: 1;
+        transition: left 0.32s cubic-bezier(.4,1.4,.6,1), width 0.32s cubic-bezier(.4,1.4,.6,1);
+        box-shadow: 0 2px 8px rgba(106,90,205,0.13);
+        width: 0;
+        pointer-events: none;
+      }
+      @media (max-width: 600px) {
+        .mini-switcher {
+          width: 100%;
+          justify-content: space-between;
+        }
+        .mini-switcher-btn {
+          flex: 1 1 0;
+          padding: 10px 0;
+          font-size: 0.98rem;
+        }
+      }
+      
       /* Responsive */
       @media (max-width: 768px) {
         .hero-content {
-          padding-top: 60px !important;
+          padding-top: 0px !important;
         }
         .hero-content h1 {
           font-size: 1.3rem !important;
           margin-bottom: 0.7rem;
         }
         .hero-content p {
-          font-size: 0.95rem !important;
+          font-size: 1.1rem !important;
           margin-bottom: 1.2rem;
         }
       }
@@ -802,8 +857,8 @@
       <div class="slideshow-container" id="slideshow"></div>
       <div class="hero-content">
         <h1>Showcase, Discover, and Connect in the Circle Community</h1>
-        <p class="hero-lead">Welcome to your creative hub! Browse our official photo gallery, explore community submissions, or upload your own work to share with fellow artists.<br><br>
-Switch between galleries or add your photos below. Whether you’re a photographer, model, or creative, this is your space to shine, connect, and be inspired. Discover new talent and share your passion with the Circle community!</p>
+        <p class="hero-lead">Welcome to your creative hub! Browse our official photo gallery, explore community submissions, or upload your work.<br><br>
+Switch galleries or add photos below. This is your space to shine, connect, and be inspired. Discover new talent and share your passion with the Circle community!</p>
         <div class="swipe-down-hint">
           <span class="swipe-text">Swipe down to explore the gallery</span>
           <span class="down-arrow">
@@ -819,7 +874,7 @@ Switch between galleries or add your photos below. Whether you’re a photograph
           <h1>Official Gallery </h1>
           <p>Browse through memories from our walks and meetups</p>
         </div>
-        <div class="mini-switcher-wrapper" style="margin-top: 24px;">
+        <div class="mini-switcher-wrapper" style="margin-top: 18px;">
           <div class="mini-switcher">
             <button class="mini-switcher-btn active" data-section="official-gallery-section"><i class="fas fa-crown"></i> Official</button>
             <button class="mini-switcher-btn" data-section="community-gallery-section"><i class="fas fa-users"></i> Community</button>
@@ -1107,57 +1162,11 @@ Switch between galleries or add your photos below. Whether you’re a photograph
       overflow-x: hidden;
       font-family: var(--body-font);
   }
-
-  /* Back to Top Button */
-  .back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
-      color: white;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px);
-      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-      z-index: 998;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .back-to-top.show {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-  }
-
-  .back-to-top:hover {
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-      transform: translateY(-3px);
-  }
-
-  .back-to-top i {
-      font-size: 1.2rem;
-  }
-
-  @media (max-width: 768px) {
-      .back-to-top {
-          bottom: 20px;
-          right: 20px;
-          width: 45px;
-          height: 45px;
-      }
-  }
   </style>
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     
     <!-- Custom JavaScript -->
     <script src="upload.js"></script>
@@ -1284,6 +1293,19 @@ document.addEventListener('DOMContentLoaded', function() {
       const btns = getAllSwitcherButtons(id);
       btns.forEach(btn => btn.classList.toggle('active', id === sectionId));
     });
+    // --- Animate mini-switcher indicator ---
+    document.querySelectorAll('.mini-switcher').forEach(switcher => {
+      const indicator = switcher.querySelector('.mini-switcher-indicator');
+      const activeBtn = switcher.querySelector('.mini-switcher-btn.active');
+      if (indicator && activeBtn) {
+        const btnRect = activeBtn.getBoundingClientRect();
+        const switcherRect = switcher.getBoundingClientRect();
+        const left = activeBtn.offsetLeft - switcher.scrollLeft;
+        indicator.style.left = left + 'px';
+        indicator.style.width = activeBtn.offsetWidth + 'px';
+      }
+    });
+    // --- End animate ---
   }
   // Attach click listeners to all switcher buttons
   [
@@ -1302,16 +1324,46 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     setActiveSection('official-gallery-section');
   }
+  // Animate indicator on window resize
+  window.addEventListener('resize', function() {
+    const activeSection = document.querySelector('.mini-switcher-btn.active')?.dataset.section;
+    if (activeSection) setActiveSection(activeSection);
+  });
 });
 
         // Swipe functionality for community gallery photo viewer
         (function() {
           const viewer = document.getElementById('photoViewer');
           const viewerImage = document.getElementById('viewerImage');
+          const thumbnailStrip = document.getElementById('thumbnailStrip');
           if (!viewer || !viewerImage) return;
           let startX = 0, startY = 0, endX = 0, endY = 0;
           let isTouching = false;
           const minSwipeDist = 50; // px
+
+          // --- Prevent swipe navigation from thumbnail strip ---
+          if (thumbnailStrip) {
+            ['touchstart', 'touchmove', 'touchend'].forEach(evt => {
+              thumbnailStrip.addEventListener(evt, function(e) {
+                // Allow native horizontal scrolling, but block propagation so parent never sees these events
+                e.stopPropagation();
+                // For horizontal swipes, prevent default to avoid accidental vertical scrolls
+                if (evt === 'touchmove') {
+                  const t = e.touches[0];
+                  if (t && e.targetTouches.length === 1) {
+                    // Only prevent default if horizontal movement is dominant
+                    const dx = t.clientX - startX;
+                    const dy = t.clientY - startY;
+                    if (Math.abs(dx) > Math.abs(dy)) {
+                      e.preventDefault();
+                    }
+                  }
+                }
+              }, { passive: false });
+            });
+          }
+          // --- End block ---
+
           function handleTouchStart(e) {
             if (e.touches.length !== 1) return;
             isTouching = true;
@@ -1322,7 +1374,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isTouching) return;
             endX = e.touches[0].clientX;
             endY = e.touches[0].clientY;
-            // Prevent horizontal scroll when swiping left/right
             if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
               e.preventDefault();
             }
@@ -1356,82 +1407,197 @@ document.addEventListener('DOMContentLoaded', function() {
           // Attach to both overlay and image for robustness
           [viewer, viewerImage].forEach(el => {
             el.addEventListener('touchstart', handleTouchStart, { passive: true });
-            el.addEventListener('touchmove', handleTouchMove, { passive: false }); // PATCHED: passive: false
+            el.addEventListener('touchmove', handleTouchMove, { passive: false });
             el.addEventListener('touchend', handleTouchEnd, { passive: false });
           });
         })();
 
-        // --- Swipe controls for official gallery viewer ---
-        document.addEventListener('DOMContentLoaded', function() {
-          const officialViewer = document.querySelector('.viewer');
-          if (officialViewer) {
-            let startX = 0, startY = 0, endX = 0, endY = 0;
-            let isTouching = false;
-            const minSwipeDist = 50;
-            officialViewer.addEventListener('touchstart', function(e) {
-              if (e.touches.length !== 1) return;
-              isTouching = true;
-              startX = e.touches[0].clientX;
-              startY = e.touches[0].clientY;
-            });
-            officialViewer.addEventListener('touchmove', function(e) {
-              if (!isTouching) return;
-              endX = e.touches[0].clientX;
-              endY = e.touches[0].clientY;
-            });
-            officialViewer.addEventListener('touchend', function(e) {
-              if (!isTouching) return;
-              isTouching = false;
-              const dx = endX - startX;
-              const dy = endY - startY;
-              if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
-                // Horizontal swipe
-                e.preventDefault();
-                e.stopPropagation();
-                if (dx < 0) {
-                  // Swipe left: next photo
-                  if (typeof showNextImage === 'function') showNextImage();
-                } else {
-                  // Swipe right: previous photo
-                  if (typeof showPrevImage === 'function') showPrevImage();
-                }
-              } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
-                // Vertical swipe
-                if (dy > 0) {
-                  // Swipe down: close viewer
-                  const closeBtn = officialViewer.querySelector('.close-btn');
-                  if (closeBtn) closeBtn.click();
-                }
-              }
+        // --- Block touch event propagation in thumbnail strip to prevent swipe navigation ---
+        (function() {
+          const thumbnailStrip = document.getElementById('thumbnailStrip');
+          if (!thumbnailStrip) return;
+          ['touchstart', 'touchmove', 'touchend', 'touchcancel'].forEach(evt => {
+            thumbnailStrip.addEventListener(evt, function(e) {
+              e.stopPropagation();
+              // Do NOT call preventDefault, so native scrolling works
             }, { passive: false });
-          }
-        });
+          });
+        })();
 
-        // Mini Switcher Animated Indicator Logic (refined for smooth animation)
-function updateMiniSwitcherIndicator() {
-  document.querySelectorAll('.mini-switcher').forEach(switcher => {
-    const indicator = switcher.querySelector('.mini-switcher-indicator');
-    const activeBtn = switcher.querySelector('.mini-switcher-btn.active');
-    if (indicator && activeBtn) {
-      // Use requestAnimationFrame for smoothness
-      window.requestAnimationFrame(() => {
-        const left = activeBtn.offsetLeft;
-        const width = activeBtn.offsetWidth;
-        indicator.style.transform = `translateX(${left}px)`;
-        indicator.style.width = width + 'px';
-      });
+        // Official gallery viewer controls
+document.addEventListener('DOMContentLoaded', function() {
+    const viewer = document.querySelector('.viewer');
+    const viewerImg = viewer.querySelector('.viewer-img');
+    const nextBtn = viewer.querySelector('.next-btn');
+    const prevBtn = viewer.querySelector('.prev-btn');
+    const closeBtn = viewer.querySelector('.close-btn');
+    const imageCounter = viewer.querySelector('.image-counter');
+    
+    if (!viewer || !viewerImg) return;
+
+    // State management
+    const state = {
+        currentIndex: 0,
+        total: 0,
+        images: [],
+        isNavigating: false,
+        isTouching: false,
+        touchStartX: 0,
+        touchStartY: 0,
+        touchEndX: 0,
+        touchEndY: 0,
+        moved: false
+    };
+
+    const TRANSITION_DURATION = 300;
+    const MIN_SWIPE_DISTANCE = 50;
+
+    function updateImageCounter() {
+        if (imageCounter) {
+            imageCounter.textContent = `${state.currentIndex + 1} / ${state.total}`;
+        }
     }
-  });
-}
-// Call on load and on resize
-window.addEventListener('DOMContentLoaded', updateMiniSwitcherIndicator);
-window.addEventListener('resize', updateMiniSwitcherIndicator);
-// Update on tab change
-[...document.querySelectorAll('.mini-switcher-btn')].forEach(btn => {
-  btn.addEventListener('click', function() {
-    setTimeout(updateMiniSwitcherIndicator, 20);
-  });
+
+    function showImage(index, direction = null) {
+        if (state.isNavigating) return;
+        state.isNavigating = true;
+        
+        viewerImg.style.opacity = '0';
+        if (direction) {
+            viewerImg.classList.add(direction === 'next' ? 'slide-out-left' : 'slide-out-right');
+        }
+
+        setTimeout(() => {
+            viewerImg.src = state.images[index].src || state.images[index].url || state.images[index];
+            viewerImg.classList.remove('slide-out-left', 'slide-out-right');
+            viewerImg.style.opacity = '1';
+            state.currentIndex = index;
+            updateImageCounter();
+
+            // Reset navigation state after transition
+            setTimeout(() => {
+                state.isNavigating = false;
+            }, TRANSITION_DURATION);
+        }, TRANSITION_DURATION);
+    }
+
+    function navigateNext() {
+        if (state.isNavigating || state.currentIndex >= state.total - 1) return;
+        showImage(state.currentIndex + 1, 'next');
+    }
+
+    function navigatePrev() {
+        if (state.isNavigating || state.currentIndex <= 0) return;
+        showImage(state.currentIndex - 1, 'prev');
+    }
+
+    function closeViewer() {
+        viewer.classList.remove('active');
+        document.body.classList.remove('viewer-active');
+        document.body.style.overflow = '';
+        document.body.style.touchAction = '';
+        document.body.style.overscrollBehavior = '';
+        state.isNavigating = false;
+    }
+
+    // Touch event handlers
+    function handleTouchStart(e) {
+        if (e.touches.length !== 1) return;
+        state.isTouching = true;
+        state.moved = false;
+        state.touchStartX = e.touches[0].clientX;
+        state.touchStartY = e.touches[0].clientY;
+    }
+
+    function handleTouchMove(e) {
+        if (!state.isTouching) return;
+        state.moved = true;
+        state.touchEndX = e.touches[0].clientX;
+        state.touchEndY = e.touches[0].clientY;
+
+        const dx = state.touchEndX - state.touchStartX;
+        const dy = state.touchEndY - state.touchStartY;
+
+        // Prevent vertical scrolling when swiping horizontally
+        if (Math.abs(dx) > Math.abs(dy)) {
+            e.preventDefault();
+        }
+    }
+
+    function handleTouchEnd(e) {
+        if (!state.isTouching) return;
+        state.isTouching = false;
+
+        const dx = state.touchEndX - state.touchStartX;
+        const dy = state.touchEndY - state.touchStartY;
+
+        if (state.moved) {
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > MIN_SWIPE_DISTANCE) {
+                e.preventDefault();
+                if (dx > 0) {
+                    navigatePrev(); // Swipe right for previous
+                } else {
+                    navigateNext(); // Swipe left for next
+                }
+            } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > MIN_SWIPE_DISTANCE && dy > 0) {
+                e.preventDefault();
+                closeViewer(); // Swipe down to close
+            }
+        }
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', () => navigateNext());
+    prevBtn.addEventListener('click', () => navigatePrev());
+    closeBtn.addEventListener('click', () => closeViewer());
+    
+    [viewer, viewerImg].forEach(el => {
+        el.addEventListener('touchstart', handleTouchStart, { passive: true });
+        el.addEventListener('touchmove', handleTouchMove, { passive: false });
+        el.addEventListener('touchend', handleTouchEnd, { passive: false });
+    });
+
+    // Keyboard navigation
+    function handleKeyboard(e) {
+        if (!viewer.classList.contains('active')) return;
+
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            e.preventDefault();
+        }
+
+        switch (e.key) {
+            case 'ArrowLeft':
+                navigatePrev();
+                break;
+            case 'ArrowRight':
+                navigateNext();
+                break;
+            case 'Escape':
+                closeViewer();
+                break;
+        }
+    }
+
+    document.addEventListener('keydown', handleKeyboard);
+
+    // Set up global access for other components
+    window.photoViewer = {
+        open: function(images, startIndex = 0) {
+            state.images = images;
+            state.total = images.length;
+            state.currentIndex = startIndex;
+            state.isNavigating = false;
+            
+            viewer.classList.add('active');
+            document.body.classList.add('viewer-active');
+            document.body.style.overflow = 'hidden';
+            document.body.style.touchAction = 'none';
+            document.body.style.overscrollBehavior = 'contain';
+            
+            showImage(startIndex);
+        }
+    };
 });
-      </script>
+    </script>
   </body>
   </html>
