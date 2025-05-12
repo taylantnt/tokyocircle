@@ -1,749 +1,484 @@
-<!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Showcase Your Art | Circle Photowalk Community Gallery</title>
-    <meta name="description" content="Upload and showcase your photography from Circle Photography events and walks">
-    <link rel="stylesheet" href="upload.css">
-    <link rel="stylesheet" href="new-gallery.css">
-    <link rel="stylesheet" href="upload-styles.css">
-    <link rel="stylesheet" href="photo-viewer.css">
-    <link rel="stylesheet" href="gallery-switcher.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-      body {
-        margin: 0;
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
-        overflow-x: hidden;
-        font-family: var(--body-font);
-      }
-      
-      /* Filter styles */
-      .filters-container {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
-      }
-      
-      .filter-title {
-        font-family: var(--heading-font);
-        color: var(--text-primary);
-        margin: 10px 0 5px 0;
-        font-size: 1.1rem;
-      }
-      
-      .talent-type-filters {
-        margin-bottom: 10px;
-      }
-      
-      /* Hero section with slideshow */
-      .hero {
-      /* height: 60vh;*/
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        overflow: hidden;
-        margin-top: 0px;
-      }
-      
-      .slideshow-container {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-      }
-      
-      .slideshow-container img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: opacity 1.5s ease-in-out; /* Increased from 1s to 1.5s for smoother transition */
-      }
-      
-      .slideshow-container img.active {
-        opacity: 1;
-        z-index: 1; /* Ensure active image is on top */
-        animation: slowZoom 10s ease-in-out forwards;
-      }
-      
-      @keyframes slowZoom {
-        from { transform: scale(1); }
-        to { transform: scale(1.05); }
-      }
-      
-      .hero::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
-      
-      .hero-content {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        max-width: 800px;
-        padding: 0 20px 30px;
-      }
-      
-      .hero-content h1 {
-        font-size: 2.2rem;
-        margin-bottom: 1rem;
-        font-family: var(--heading-font);
-        color: #fff;
-        text-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      }
-      
-      .hero-content p {
-        font-size: 1.15rem;
-        margin-bottom: 2rem;
-        color: #f8f8ff;
-        line-height: 1.7;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        text-shadow: 0 2px 8px rgba(0,0,0,0.35);
-      }
-      
-      .hero-lead {
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-        color: #f0f0f5;
-        line-height: 1.6;
-      }
-      
-      .swipe-down-hint {
-        margin-top: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-      }
-      
-      .swipe-text {
-        font-size: 1.22rem;
-        color: #f0f0f5;
-        opacity: 0.93;
-        font-weight: 600;
-        letter-spacing: 0.01em;
-      }
-      
-      @media (max-width: 600px) {
-        .swipe-text {
-          font-size: 1.25rem;
-          font-weight: 700;
+  <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Showcase Your Art | Circle Photowalk Community Gallery</title>
+      <meta name="description" content="Upload and showcase your photography from Circle Photography events and walks">
+      <link rel="stylesheet" href="upload.css">
+      <link rel="stylesheet" href="new-gallery.css">
+      <link rel="stylesheet" href="upload-styles.css">
+      <link rel="stylesheet" href="photo-viewer.css">
+      <link rel="stylesheet" href="gallery-switcher.css">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <style>
+        body {
+          margin: 0;
+          background-color: var(--bg-primary);
+          color: var(--text-primary);
+          overflow-x: hidden;
+          font-family: var(--body-font);
         }
-      }
-      
-      .down-arrow {
-        font-size: 1.5rem;
-        color: #ff6b6b;
-        animation: bounce 1.5s infinite;
-      }
-      
-      @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-      }
-      
-      /* Upload section */
-      .upload-section {
-        background-color: var(--bg-secondary);
-        padding: 60px 20px;
-        position: relative;
-        z-index: 10;
-        border-radius: 40px 40px 0 0;
-        margin-bottom: 90px;
-        margin-top: -40px;
-        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
-      }
-      
-      .upload-container {
-        max-width: 1000px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-      }
-      
-      .section-title {
-        text-align: center;
-        margin-bottom: 40px;
-        /* No animation, always visible */
-      }
-      
-      .section-title h2 {
-        font-family: var(--heading-font);
-        color: var(--pastel-purple);
-        font-size: 2.2rem;
-        margin-bottom: 10px;
-      }
-      
-      .section-title p {
-        color: var(--text-secondary);
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-      
-      /* Upload card */
-      .upload-card {
-        background-color: white;
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        /* No animation, always visible */
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      
-      .upload-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-      }
-      
-      .upload-form {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-      
-      .form-group {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-      
-      .form-group label {
-        font-weight: bold;
-        color: var(--text-primary);
-        font-size: 1.1rem;
-      }
-      
-      .form-group input,
-      .form-group select {
-        padding: 12px 15px;
-        border-radius: 10px;
-        border: 1px solid #ddd;
-        font-family: var(--body-font);
-        font-size: 1rem;
-        transition: all 0.3s ease;
-      }
-      
-      .dark-mode .form-group input,
-      .dark-mode .form-group select {
-        background-color: rgba(30, 30, 40, 0.8);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: var(--text-primary);
-      }
-      
-      .form-group input:focus,
-      .form-group select:focus {
-        outline: none;
-        border-color: var(--pastel-purple);
-        box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.2);
-      }
-      
-      .photographer-input {
-        display: flex;
-        gap: 10px;
-      }
-      
-      .photographer-input select {
-        flex: 1;
-      }
-      
-      .photographer-input input {
-        flex: 2;
-      }
-      
-      .file-upload {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 30px;
-        border: 2px dashed #ddd;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      
-      .file-upload:hover {
-        border-color: var(--pastel-purple);
-        background-color: rgba(106, 90, 205, 0.05);
-      }
-      
-      .dark-mode .file-upload {
-        border-color: rgba(255, 255, 255, 0.2);
-      }
-      
-      .dark-mode .file-upload:hover {
-        border-color: var(--pastel-blue);
-        background-color: rgba(79, 216, 235, 0.1);
-      }
-      
-      .file-upload i {
-        font-size: 3rem;
-        color: var(--pastel-purple);
-      }
-      
-      .dark-mode .file-upload i {
-        color: var(--pastel-blue);
-      }
-      
-      .file-upload p {
-        margin: 0;
-        text-align: center;
-        color: var(--text-secondary);
-      }
-      
-      .file-upload input[type="file"] {
-        position: absolute;
-        width: 0;
-        height: 0;
-        opacity: 0;
-      }
-      
-      .selected-file {
-        display: none;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 15px;
-        background-color: rgba(106, 90, 205, 0.1);
-        border-radius: 10px;
-        margin-top: 10px;
-      }
-      
-      .dark-mode .selected-file {
-        background-color: rgba(79, 216, 235, 0.1);
-      }
-      
-      .selected-file.active {
-        display: flex;
-      }
-      
-      .selected-file i {
-        color: var(--pastel-purple);
-        font-size: 1.2rem;
-      }
-      
-      .dark-mode .selected-file i {
-        color: var(--pastel-blue);
-      }
-      
-      .selected-file p {
-        margin: 0;
-        flex: 1;
-      }
-      
-      .selected-file button {
-        background: none;
-        border: none;
-        color: #ff6b6b;
-        cursor: pointer;
-        font-size: 1.2rem;
-        padding: 0;
-      }
-      
-      .upload-btn {
-        background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-pink));
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        border-radius: 50px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 10px;
-        box-shadow: 0 5px 15px rgba(106, 90, 205, 0.3);
-      }
-      
-      .upload-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(106, 90, 205, 0.4);
-      }
-      
-      .dark-mode .upload-btn {
-        background: linear-gradient(90deg, var(--pastel-blue), var(--pastel-purple));
-        box-shadow: 0 5px 15px rgba(79, 216, 235, 0.3);
-      }
-      
-      .dark-mode .upload-btn:hover {
-        box-shadow: 0 8px 20px rgba(79, 216, 235, 0.4);
-      }
-      
-      /* Gallery section */
-      .gallery-section {
-        padding: 60px 40px 100px;
-        background-color: var(--bg-primary);
-      }
-      
-      .gallery-container {
-        max-width: 1500px;
-        margin: 0 auto;
-      }
-      
-      .gallery-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-      
-      .gallery-header h2 {
-        font-family: var(--heading-font);
-        color: var(--pastel-purple);
-        margin: 0;
-      }
-      
-      .dark-mode .gallery-header h2 {
-        color: var(--pastel-blue);
-      }
-      
-      .gallery-filters {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-      }
-      
-      .filter-btn {
-        padding: 8px 15px;
-        border-radius: 50px;
-        border: 1px solid #ddd;
-        background-color: white;
-        color: var(--text-primary);
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-      
-      .filter-btn:hover,
-      .filter-btn.active {
-        background-color: var(--pastel-purple);
-        color: white;
-        border-color: var(--pastel-purple);
-      }
-      
-      .dark-mode .filter-btn {
-        background-color: rgba(40, 40, 50, 0.8);
-        border-color: rgba(255, 255, 255, 0.1);
-      }
-      
-      .dark-mode .filter-btn:hover,
-      .dark-mode .filter-btn.active {
-        background-color: var(--pastel-blue);
-        border-color: var(--pastel-blue);
-      }
-      
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        /* No animation, always visible */
-      }
-      
-      .gallery-item {
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        aspect-ratio: 1/1;
-      }
-      
-      .gallery-item:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        cursor: pointer;
-        z-index: 1;
-      }
-      
-      .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-      }
-      
-      .gallery-item:hover img {
-        transform: scale(1.05);
-      }
-      
-      .gallery-item-info {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 15px;
-        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-        color: white;
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
-      }
-      
-      .gallery-item:hover .gallery-item-info {
-        transform: translateY(0);
-      }
-      
-      .gallery-item-info h3 {
-        margin: 0 0 5px 0;
-        font-size: 1.1rem;
-        font-family: var(--heading-font);
-      }
-      
-      .gallery-item-info p {
-        margin: 0;
-        font-size: 0.9rem;
-        opacity: 0.8;
-      }
-      
-      .gallery-item-category,
-      .gallery-item-talent-type {
-        margin: 0;
-        font-size: 0.9rem;
-        opacity: 0.8;
-      }
-      
-      .gallery-item-talent-type {
-        color: var(--pastel-purple);
-        font-weight: bold;
-      }
-      
-      .dark-mode .gallery-item-talent-type {
-        color: var(--pastel-blue);
-      }
-      
-      .loading {
-        text-align: center;
-        padding: 30px;
-        font-size: 1.2rem;
-        color: var(--pastel-purple);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-      }
-      
-      .dark-mode .loading {
-        color: var(--pastel-blue);
-      }
-      
-      .loading i {
-        animation: spin 1s linear infinite;
-      }
-      
-      .empty-gallery {
-        text-align: center;
-        padding: 50px 20px;
-        color: var(--text-secondary);
-      }
-      
-      .empty-gallery i {
-        font-size: 3rem;
-        margin-bottom: 20px;
-        color: var(--pastel-purple);
-      }
-      
-      .dark-mode .empty-gallery i {
-        color: var(--pastel-blue);
-      }
-      
-      /* Animations */
-      @keyframes fadeIn {
-        from {opacity: 0}
-        to {opacity: 1}
-      }
-      
-      @keyframes spin {
-        to { transform: rotate(360deg); }
-      }
-      
-      /* Modal Popup Styles */
-      .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.7);
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-      }
-      
-      .modal-overlay.active {
-        opacity: 1;
-        visibility: visible;
-      }
-      
-      .modal {
-        background-color: var(--bg-secondary);
-        border-radius: 20px;
-        width: 90%;
-        max-width: 600px;
-        max-height: 80vh;
-        overflow-y: auto;
-        padding: 30px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        transform: translateY(20px);
-        transition: transform 0.3s ease;
-        position: relative;
-      }
-      
-      .dark-mode .modal {
-        background-color: rgba(40, 40, 50, 0.95);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      
-      .modal-overlay.active .modal {
-        transform: translateY(0);
-      }
-      
-      .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      }
-      
-      .dark-mode .modal-header {
-        border-bottom-color: rgba(255, 255, 255, 0.1);
-      }
-      
-      .modal-title {
-        font-family: var(--heading-font);
-        color: var(--pastel-purple);
-        margin: 0;
-        font-size: 1.8rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      
-      .dark-mode .modal-title {
-        color: var(--pastel-blue);
-      }
-      
-      .modal-close {
-        background: none;
-        border: none;
-        color: var(--text-secondary);
-        font-size: 1.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        padding: 5px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      
-      .modal-close:hover {
-        color: var(--pastel-purple);
-        background-color: rgba(0, 0, 0, 0.05);
-        transform: rotate(90deg);
-      }
-      
-      .dark-mode .modal-close:hover {
-        color: var(--pastel-blue);
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-      
-      /* Mini Switcher Animated Indicator */
-      .mini-switcher {
-        position: relative;
-        display: flex;
-        align-items: center;
-        background: #f7f7fa;
-        border-radius: 30px;
-        padding: 4px 6px;
-        gap: 0.5rem;
-        margin: 0 auto 18px auto;
-        width: fit-content;
-        box-shadow: 0 2px 8px rgba(106,90,205,0.07);
-      }
-      .mini-switcher-btn {
-        position: relative;
-        background: none;
-        border: none;
-        outline: none;
-        font-family: var(--heading-font);
-        font-size: 1.05rem;
-        color: var(--pastel-purple);
-        padding: 10px 22px;
-        border-radius: 22px;
-        cursor: pointer;
-        z-index: 2;
-        transition: color 0.2s;
-      }
-      .mini-switcher-btn.active {
-        color: var(--pastel-purple);
-      }
-      .mini-switcher-indicator {
-        position: absolute;
-        top: 4px;
-        left: 0;
-        height: calc(100% - 8px);
-        background: linear-gradient(90deg, #6a5acd, #ff6b6b);
-        border-radius: 22px;
-        z-index: 1;
-        transition: left 0.32s cubic-bezier(.4,1.4,.6,1), width 0.32s cubic-bezier(.4,1.4,.6,1);
-        box-shadow: 0 2px 8px rgba(106,90,205,0.13);
-        width: 0;
-        pointer-events: none;
-      }
-      @media (max-width: 600px) {
-        .mini-switcher {
+
+        /* Filter styles */
+        .filters-container {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
           width: 100%;
-          justify-content: space-between;
         }
-        .mini-switcher-btn {
-          flex: 1 1 0;
-          padding: 10px 0;
-          font-size: 0.98rem;
+
+        .filter-title {
+          font-family: var(--heading-font);
+          color: var(--text-primary);
+          margin: 10px 0 5px 0;
+          font-size: 1.1rem;
         }
-      }
-      
-      /* Responsive */
-      @media (max-width: 768px) {
+
+        .talent-type-filters {
+          margin-bottom: 10px;
+        }
+
+        /* Hero section with slideshow */
+        .hero {
+        /* height: 60vh;*/
+          position: relative;
+          display: flex;
+          align-items: start;
+          justify-content: center;
+          color: white;
+          overflow: hidden;
+          margin-top: 0px;
+        }
+
+        .slideshow-container {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+        }
+
+        .slideshow-container img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 0;
+          transform: scale(1);
+          transition: opacity 2s ease-in-out, transform 10s ease-in-out;
+          will-change: opacity, transform;
+        }
+
+        .slideshow-container img.active {
+          opacity: 1;
+          z-index: 1;
+          transform: scale(1.1);
+        }
+
+        .hero::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 1;
+        }
+
         .hero-content {
-          padding-top: 0px !important;
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          max-width: 800px;
+          padding: 200px 20px 30px;
         }
-        .hero-content h1 {
-          font-size: 1.3rem !important;
-          margin-bottom: 0.7rem;
-        }
-        .hero-content p {
-          font-size: 1.1rem !important;
-          margin-bottom: 1.2rem;
-        }
-      }
-      
-      @media (max-width: 768px) {
+
         .hero-content h1 {
           font-size: 2.2rem;
+          margin-bottom: 1rem;
+          font-family: var(--heading-font);
+          color: #fff;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.25);
         }
+
+        .hero-content p {
+          font-size: 1.15rem;
+          margin-bottom: 2rem;
+          color: #f8f8ff;
+          line-height: 1.7;
+          max-width: 600px;
+          margin-left: auto;
+          margin-right: auto;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+        }
+
+        .hero-lead {
+          font-size: 1rem;
+          margin-bottom: 1.5rem;
+          color: #f0f0f5;
+          line-height: 1.6;
+        }
+
+        .swipe-down-hint {
+          margin-top: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .swipe-text {
+          font-size: 1.22rem;
+          color: #f0f0f5;
+          opacity: 0.93;
+          font-weight: 600;
+          letter-spacing: 0.01em;
+        }
+
+        @media (max-width: 600px) {
+          .swipe-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+          }
+        }
+
+        .down-arrow {
+          font-size: 1.5rem;
+          color:  var(--pastel-pink);
+          animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        /* Upload section */
+        .upload-section {
+          background-color: var(--bg-secondary);
+          padding: 60px 20px 200px 20px;
+          position: relative;
+          z-index: 10;
+          border-radius: 40px 40px 0 0;
+          margin-top: -40px;
+          box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-container {
+          max-width: 1000px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+        }
+
+        .section-title {
+          text-align: center;
+          margin-bottom: 40px;
+          /* No animation, always visible */
+        }
+
+        .section-title h2 {
+          font-family: var(--heading-font);
+          color: var(--pastel-purple);
+          font-size: 2.2rem;
+          margin-bottom: 10px;
+        }
+
+        .section-title p {
+          color: var(--text-secondary);
+          font-size: 1.1rem;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        /* Upload card */
+        .upload-card {
+          background-color: white;
+          border-radius: 20px;
+          padding: 30px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+          /* No animation, always visible */
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .upload-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .upload-form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .form-group label {
+          font-weight: bold;
+          color: var(--text-primary);
+          font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+          padding: 12px 15px;
+          border-radius: 10px;
+          border: 1px solid #ddd;
+          font-family: var(--body-font);
+          font-size: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        .dark-mode .form-group input,
+        .dark-mode .form-group select {
+          background-color: rgba(30, 30, 40, 0.8);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: var(--text-primary);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+          outline: none;
+          border-color: var(--pastel-purple);
+          box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.2);
+        }
+
+        .photographer-input {
+          display: flex;
+          gap: 10px;
+        }
+
+        .photographer-input select {
+          flex: 1;
+        }
+
+        .photographer-input input {
+          flex: 2;
+        }
+
+        .file-upload {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+          padding: 30px;
+          border: 2px dashed #ddd;
+          border-radius: 15px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+          border-color: var(--pastel-purple);
+          background-color: rgba(106, 90, 205, 0.05);
+        }
+
+        .dark-mode .file-upload {
+          border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .dark-mode .file-upload:hover {
+          border-color: var(--pastel-blue);
+          background-color: rgba(79, 216, 235, 0.1);
+        }
+
+        .file-upload i {
+          font-size: 3rem;
+          color: var(--pastel-purple);
+        }
+
+        .dark-mode .file-upload i {
+          color: var(--pastel-blue);
+        }
+
+        .file-upload p {
+          margin: 0;
+          text-align: center;
+          color: var(--text-secondary);
+        }
+
+        .file-upload input[type="file"] {
+          position: absolute;
+          width: 0;
+          height: 0;
+          opacity: 0;
+        }
+
+        .selected-file {
+          display: none;
+          align-items: center;
+          gap: 10px;
+          padding: 10px 15px;
+          background-color: rgba(106, 90, 205, 0.1);
+          border-radius: 10px;
+          margin-top: 10px;
+        }
+
+        .dark-mode .selected-file {
+          background-color: rgba(79, 216, 235, 0.1);
+        }
+
+        .selected-file.active {
+          display: flex;
+        }
+
+        .selected-file i {
+          color: var(--pastel-purple);
+          font-size: 1.2rem;
+        }
+
+        .dark-mode .selected-file i {
+          color: var(--pastel-blue);
+        }
+
+        .selected-file p {
+          margin: 0;
+          flex: 1;
+        }
+
+        .selected-file button {
+          background: none;
+          border: none;
+          color: #ff6b6b;
+          cursor: pointer;
+          font-size: 1.2rem;
+          padding: 0;
+        }
+
+        .upload-btn {
+          background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-pink));
+          color: white;
+          border: none;
+          padding: 15px 30px;
+          border-radius: 50px;
+          font-size: 1.1rem;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 10px;
+          box-shadow: 0 5px 15px rgba(106, 90, 205, 0.3);
+        }
+
+        .upload-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 20px rgba(106, 90, 205, 0.4);
+        }
+
+        .dark-mode .upload-btn {
+          background: linear-gradient(90deg, var(--pastel-blue), var(--pastel-purple));
+          box-shadow: 0 5px 15px rgba(79, 216, 235, 0.3);
+        }
+
+        .dark-mode .upload-btn:hover {
+          box-shadow: 0 8px 20px rgba(79, 216, 235, 0.4);
+        }
+
+        /* Gallery section */
+        .gallery-section {
+          padding: 60px 30px 100px;
+          background-color: var(--bg-primary);
+        }
+
+        .gallery-container {
+          max-width: 1500px;
+          margin: 0 0 80px auto;
+        }
+
+        .gallery-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 30px;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+
+        .gallery-header h2 {
+          font-family: var(--heading-font);
+          color: var(--pastel-purple);
+          margin: 0;
+        }
+
+        .dark-mode .gallery-header h2 {
+          color: var(--pastel-blue);
+        }
+
+        .gallery-filters {
+          display: flex;
+          gap: 15px;
+          flex-wrap: wrap;
+        }
+
+        .filter-btn {
+          padding: 8px 15px;
+          border-radius: 30px;
+          font-family: var(--heading-font);
+          background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-pink));
+          color: white;
+          font-size: 1em;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+          background-color: var(--pastel-purple);
+          color: white;
+          border-color: var(--pastel-purple);
+        }
+
+        .dark-mode .filter-btn {
+          background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-purple));
+          border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .filter-btn:hover,
+        .dark-mode .filter-btn.active {
+          background-color: var(--pastel-blue);
+          border-color: var(--pastel-blue);
+        }
+
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          /* No animation, always visible */
+        }
+
+        .gallery-item {
+          position: relative;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          aspect-ratio: 1/1;
+        }
+
+        .gallery-item:hover {
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+          cursor: pointer;
+          z-index: 1;
+        }
+
+        .gallery-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+          transform: scale(1.05);
+        }
+
         .gallery-item-info {
           position: absolute;
           bottom: 0;
@@ -752,852 +487,1159 @@
           padding: 15px;
           background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
           color: white;
-          transform: translateY(0%);
+          transform: translateY(100%);
           transition: transform 0.3s ease;
-      }
-      
-        .photographer-input {
-          flex-direction: column;
         }
-      
-        .gallery-header {
-          flex-direction: column;
-          align-items: flex-start;
+
+        .gallery-item:hover .gallery-item-info {
+          transform: translateY(0);
         }
-      
-        .gallery-grid {
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+
+        .gallery-item-info h3 {
+          font-size: 0.9rem;
+          font-family: var(--heading-font);
         }
-        
+
+        .gallery-item-info p {
+          margin: 0;
+          font-size: 0.7rem;
+          opacity: 0.8;
+        }
+
+        .gallery-item-category,
+        .gallery-item-talent-type {
+          margin: 0;
+          font-size: 0.9rem;
+          opacity: 0.8;
+        }
+
+        .gallery-item-talent-type {
+          color: var(--pastel-purple);
+          font-weight: bold;
+        }
+
+        .dark-mode .gallery-item-talent-type {
+          color: var(--pastel-purple);
+        }
+
+        .loading {
+          text-align: center;
+          padding: 30px;
+          font-size: 1.2rem;
+          color: var(--pastel-purple);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+        }
+
+        .dark-mode .loading {
+          color: var(--pastel-blue);
+        }
+
+        .loading i {
+          animation: spin 1s linear infinite;
+        }
+
+        .empty-gallery {
+          text-align: center;
+          padding: 50px 20px;
+          color: var(--text-secondary);
+        }
+
+        .empty-gallery i {
+          font-size: 3rem;
+          margin-bottom: 20px;
+          color: var(--pastel-purple);
+        }
+
+        .dark-mode .empty-gallery i {
+          color: var(--pastel-blue);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+          from {opacity: 0}
+          to {opacity: 1}
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        /* Modal Popup Styles */
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.7);
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+          opacity: 1;
+          visibility: visible;
+        }
+
         .modal {
-          width: 85%;
-          padding: 15px;
+          background-color: var(--bg-secondary);
+          border-radius: 20px;
+          width: 90%;
+          max-width: 600px;
+          max-height: 80vh;
+          overflow-y: auto;
+          padding: 30px;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+          transform: translateY(20px);
+          transition: transform 0.3s ease;
+          position: relative;
         }
-      }
-      
-      /* Extra small devices (phones, 375px and down) */
-      @media (max-width: 375px) {
-        .gallery-grid {
-          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-          gap: 6px;
+
+        .dark-mode .modal {
+          background-color: rgba(40, 40, 50, 0.95);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.1);
         }
-      }
 
-      @media (max-width: 600px) {
-  .gallery-item-info {
-    padding: 10px 6px;
-    text-align: center;
-    transform: translateY(0) !important;
-    opacity: 1 !important;
-    transition: none !important;
-    font-size: 1rem;
+        .modal-overlay.active .modal {
+          transform: translateY(0);
+        }
+
+        .modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .modal-header {
+          border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+          font-family: var(--heading-font);
+          color: var(--pastel-purple);
+          margin: 0;
+          font-size: 1.8rem;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .dark-mode .modal-title {
+          color: var(--pastel-blue);
+        }
+
+        .modal-close {
+          background: none;
+          border: none;
+          color: var(--text-secondary);
+          font-size: 1.5rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          padding: 5px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .modal-close:hover {
+          color: var(--pastel-purple);
+          background-color: rgba(0, 0, 0, 0.05);
+          transform: rotate(90deg);
+        }
+
+        .dark-mode .modal-close:hover {
+          color: var(--pastel-blue);
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Mini Switcher Animated Indicator */
+        .mini-switcher {
+          position: relative;
+          display: flex;
+          align-items: center;
+          background: #f7f7fa;
+          border-radius: 30px;
+          padding: 4px 6px;
+          gap: 0.5rem;
+          margin: 0 auto 18px auto;
+          width: fit-content;
+          box-shadow: -3px 4px 15px rgba(106, 90, 205, 0.31);
+        }
+        .mini-switcher-btn {
+          position: relative;
+          background: none;
+          border: none;
+          outline: none;
+          font-family: var(--heading-font);
+          font-size: 1.05rem;
+          color: var(--pastel-purple);
+          padding: 10px 22px;
+          border-radius: 22px;
+          cursor: pointer;
+          z-index: 2;
+          transition: color 0.2s;
+        }
+        .mini-switcher-btn.active {
+          color: var(--pastel-purple);
+        }
+        .mini-switcher-indicator {
+          position: absolute;
+          top: 4px;
+          left: 0;
+          height: calc(100% - 8px);
+          background: linear-gradient(90deg, #6a5acd, #ff6b6b);
+          border-radius: 22px;
+          z-index: 1;
+          transition: left 0.32s cubic-bezier(.4,1.4,.6,1), width 0.32s cubic-bezier(.4,1.4,.6,1);
+          box-shadow: 0 2px 8px rgba(106,90,205,0.13);
+          width: 0;
+          pointer-events: none;
+        }
+        @media (max-width: 600px) {
+          .mini-switcher {
+            width: 100%;
+            justify-content: space-between;
+          }
+          .mini-switcher-btn {
+            flex: 1 1 0;
+            padding: 10px 0;
+            font-size: 0.85rem;
+          }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+          .hero-content {
+            padding-top: 100px;
+          }
+          .hero-content h1 {
+            font-size: 1.4rem !important;
+            margin-bottom: 0.7rem;
+          }
+          .hero-content p {
+            font-size: 1.2rem !important;
+            margin-bottom: 1.2rem;
+          }
+          .swipe-down-hint {
+          margin-top: 3.5rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 5px;
+          }
+        }
+
+        @media (max-width: 768px) {
+
+          .gallery-item-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            transform: translateY(0%);
+            transition: transform 0.3s ease;
+        }
+
+          .photographer-input {
+            flex-direction: column;
+          }
+
+          .gallery-header {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .gallery-grid {
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          }
+
+          .modal {
+            width: 85%;
+            padding: 15px;
+          }
+        }
+
+        /* Extra small devices (phones, 375px and down) */
+        @media (max-width: 375px) {
+          .gallery-grid {
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 6px;
+          }
+        }
+
+        @media (max-width: 600px) {
+    .gallery-item-info {
+      padding: 10px 6px;
+      transform: translateY(0) !important;
+      opacity: 1 !important;
+      transition: none !important;
+      font-size: 1rem;
+    }
+    .gallery-item:hover .gallery-item-info {
+      transform: translateY(0) !important;
+      opacity: 1 !important;
+    }
+    .gallery-item {
+      transform: none !important;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: none !important;
+    }
+    .gallery-item:hover {
+      transform: none !important;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .gallery-item img {
+      transform: none !important;
+      transition: none !important;
+    }
+    .gallery-item:hover img {
+      transform: none !important;
+    }
   }
-  .gallery-item:hover .gallery-item-info {
-    transform: translateY(0) !important;
-    opacity: 1 !important;
-  }
-  .gallery-item {
-    transform: none !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: none !important;
-  }
-  .gallery-item:hover {
-    transform: none !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  .gallery-item img {
-    transform: none !important;
-    transition: none !important;
-  }
-  .gallery-item:hover img {
-    transform: none !important;
-  }
-}
-    </style>
-  </head>
-  <body>
-    <header>
-  <!-- Navigation Section -->
-  <nav class="navbar">
-      <div class="container">
-          <!-- Theme Toggle moved inside navbar container -->
-          <div class="theme-toggle">
-              <div class="toggle-wrapper">
-                  <input type="checkbox" id="theme-toggle" class="toggle-input">
-                  <label for="theme-toggle" class="toggle-label">
-                      <div class="toggle-icons">
-                          <i class="fas fa-sun"></i>
-                          <i class="fas fa-moon"></i>
-                      </div>
-                  </label>
-              </div>
+      </style>
+    </head>
+    <body>
+      <header>
+    <!-- Navigation Section -->
+    <nav class="navbar">
+        <div class="container">
+            <!-- Theme Toggle moved inside navbar container -->
+            <div class="theme-toggle">
+                <div class="toggle-wrapper">
+                    <input type="checkbox" id="theme-toggle" class="toggle-input">
+                    <label for="theme-toggle" class="toggle-label">
+                        <div class="toggle-icons">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <a href="main.html" class="logo">
+                <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
+                    alt="Circle Photography Friends Logo" 
+                    class="logo-image">
+            </a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+                <div class="nav-links">
+                    <a href="/main.html#about"><i class="fas fa-heart"></i> About</a>
+                    <a href="/main.html#gallery"><i class="fas fa-images"></i> Gallery</a>
+                    <a href="/main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
+                    <a href="/main.html#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
+                    <a href="/main.html#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
+                </div>
+            </div>
+        </nav>
+      </header>
+
+      <!-- Hero Section -->
+      <header class="hero" id="hero">
+        <div class="slideshow-container" id="slideshow"></div>
+        <div class="hero-content">
+          <h1>Showcase, Discover, and Connect in the Circle Community</h1>
+          <p class="hero-lead">Welcome to your creative hub! Browse our official photo gallery, explore community submissions, or upload your work.<br><br>
+  Switch galleries or add photos below. This is your space to shine, connect, and be inspired. Discover new talent and share your passion with the Circle community!</p>
+          <div class="swipe-down-hint">
+            <span class="swipe-text">Swipe down to explore the gallery</span>
+            <span class="down-arrow">
+              <i class="fas fa-angle-down"></i>
+            </span>
           </div>
+        </div>
+      </header>
 
-          <a href="main.html" class="logo">
-              <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
-                  alt="Circle Photography Friends Logo" 
-                  class="logo-image">
-          </a>
-          <button class="mobile-menu-btn">
-              <i class="fas fa-bars"></i>
-          </button>
-              <div class="nav-links">
-                  <a href="/main.html#about"><i class="fas fa-heart"></i> About</a>
-                  <a href="/main.html#gallery"><i class="fas fa-images"></i> Gallery</a>
-                  <a href="/main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                  <a href="/main.html#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
-                  <a href="/main.html#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
-              </div>
+      <!-- Official Gallery Section -->
+      <main id="official-gallery-section" class="section-card">
+        <div class="page-title" role="banner">
+            <h1>Official Gallery </h1>
+            <p>Browse through memories from our photowalks and meetup events. </p>
           </div>
-      </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <header class="hero">
-      <div class="slideshow-container" id="slideshow"></div>
-      <div class="hero-content">
-        <h1>Showcase, Discover, and Connect in the Circle Community</h1>
-        <p class="hero-lead">Welcome to your creative hub! Browse our official photo gallery, explore community submissions, or upload your work.<br><br>
-Switch galleries or add photos below. This is your space to shine, connect, and be inspired. Discover new talent and share your passion with the Circle community!</p>
-        <div class="swipe-down-hint">
-          <span class="swipe-text">Swipe down to explore the gallery</span>
-          <span class="down-arrow">
-            <i class="fas fa-angle-down"></i>
-          </span>
-        </div>
-      </div>
-    </header>
-
-    <!-- Official Gallery Section -->
-    <main id="official-gallery-section" class="section-card">
-      <div class="page-title" role="banner">
-          <h1>Official Gallery </h1>
-          <p>Browse through memories from our walks and meetups</p>
-        </div>
-        <div class="mini-switcher-wrapper" style="margin-top: 18px;">
-          <div class="mini-switcher">
-            <button class="mini-switcher-btn active" data-section="official-gallery-section"><i class="fas fa-crown"></i> Official</button>
-            <button class="mini-switcher-btn" data-section="community-gallery-section"><i class="fas fa-users"></i> Community</button>
-            <button class="mini-switcher-btn" data-section="upload-section"><i class="fas fa-upload"></i> Upload</button>
-            <div class="mini-switcher-indicator"></div>
+          <div class="mini-switcher-wrapper">
+            <div class="mini-switcher">
+              <button class="mini-switcher-btn active" data-section="official-gallery-section"><i class="fas fa-crown"></i> Official</button>
+              <button class="mini-switcher-btn" data-section="community-gallery-section"><i class="fas fa-users"></i> Community</button>
+              <button class="mini-switcher-btn" data-section="upload-section"><i class="fas fa-upload"></i> Upload</button>
+              <div class="mini-switcher-indicator"></div>
+            </div>
+          </div>
+        <!-- Album Name Toggle Button (Official Gallery only) -->
+        <div class="album-toggle-wrapper">
+          <div class="community-filter-bar">
+            <button id="toggleAlbumNamesBtn" class="filter-btn" aria-pressed="false">
+              <i class="fas fa-eye-slash"></i>
+              <span>Hide Album Names</span>
+            </button>
           </div>
         </div>
         <div id="gallery2" class="gallery2" role="region" aria-label="Photo gallery grid">
-          <div class="loading-spinner"></div>
-      </div>
-      <div class="viewer" role="dialog" aria-label="Image viewer" aria-modal="true">
-          <button class="nav-btn prev-btn" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
-          <div class="viewer-content">
-              <img class="viewer-img" src="" alt="Enlarged view" loading="lazy">
-              <div class="loading-overlay">
-                  <div class="loading-spinner"></div>
-              </div>
-              <button class="close-btn" aria-label="Close viewer">
-                  <i class="fas fa-times"></i>
-                  <span class="close-text">Close</span>
-              </button>
-          </div>
-          <button class="nav-btn next-btn" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
-          <div class="viewer-controls">
-              <span class="image-counter"></span>
-          </div>
-      </div>
-    </main>
-
-    <!-- Community Gallery Section -->
-    <section class="gallery-section section-card" id="community-gallery-section" style="display:none;">
-      <div class="gallery-container">
-        <div class="page-title" role="banner">
-          <h1>Community Gallery</h1>
-          <p>See photos shared by our members and filter by artist or talent type.</p>
+            <div class="loading-spinner"></div>
         </div>
-        <div class="mini-switcher-wrapper">
-          <div class="mini-switcher">
-            <button class="mini-switcher-btn" data-section="official-gallery-section"><i class="fas fa-crown"></i> Official</button>
-            <button class="mini-switcher-btn active" data-section="community-gallery-section"><i class="fas fa-users"></i> Community</button>
-            <button class="mini-switcher-btn" data-section="upload-section"><i class="fas fa-upload"></i> Upload</button>
-            <div class="mini-switcher-indicator"></div>
-          </div>
-        </div>
-        <div class="gallery-header">
-          <div class="community-filter-bar">
-            <select id="talentTypeDropdown" class="filter-dropdown" aria-label="Filter by Talent Type">
-              <option value="all">All Talent Types</option>
-              <option value="photographer">Photographer</option>
-              <option value="hmu">Hair & Makeup Artist</option>
-              <option value="model">Model</option>
-            </select>
-            <select id="artistNameDropdown" class="filter-dropdown" aria-label="Filter by Artist Name">
-              <option value="all">All Artists</option>
-              <!-- Artist names will be populated here -->
-            </select>
-            <button id="clearAllFilters" class="clear-filters-btn" style="display:none;">Clear All</button>
-          </div>
-          <div class="active-filters" id="activeFilters" style="display:none;"></div>
-        </div>
-        <div class="results-count" id="resultsCount" style="display:none;"></div>
-        <div class="loading" id="loadingMessage" style="display:none;">
-          <i class="fas fa-spinner"></i> Loading gallery...
-        </div>
-        <div class="gallery-grid" id="gallery"></div>
-        <!-- Photo Viewer Modal -->
-        <div id="photoViewer" class="photo-viewer-overlay">
-          <div class="photo-viewer-content">
-            <button id="closeViewer" class="photo-viewer-close" aria-label="Close viewer">
-              <i class="fas fa-times"></i>
-            </button>
-            <button id="prevPhoto" class="photo-viewer-nav photo-viewer-prev" aria-label="Previous photo">
-              <i class="fas fa-chevron-left"></i>
-            </button>
-            <button id="nextPhoto" class="photo-viewer-nav photo-viewer-next" aria-label="Next photo">
-              <i class="fas fa-chevron-right"></i>
-            </button>
-            <img id="viewerImage" class="photo-viewer-image" src="" alt="">
-          </div>
-          <div id="thumbnailStrip" class="photo-viewer-thumbnails">
-            <!-- Thumbnails will be populated here -->
-          </div>
-        </div>
-        <div class="empty-gallery" id="emptyGallery" style="display: none;">
-          <i class="fas fa-camera"></i>
-          <h3>No photos yet</h3>
-          <p>Be the first to upload and share your photography with our community!</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Upload Section -->
-    <section class="upload-section section-card" id="upload-section" style="display:none;">
-      <div class="upload-container">
-        <div class="page-title" role="banner">
-          <h1>Share Your Photos</h1>
-          <p>Join our vibrant community and let your work shine in our curated gallery.</p>
-        </div>
-        <div class="mini-switcher-wrapper">
-          <div class="mini-switcher">
-            <button class="mini-switcher-btn" data-section="official-gallery-section"><i class="fas fa-crown"></i> Official</button>
-            <button class="mini-switcher-btn" data-section="community-gallery-section"><i class="fas fa-users"></i> Community</button>
-            <button class="mini-switcher-btn active" data-section="upload-section"><i class="fas fa-upload"></i> Upload</button>
-            <div class="mini-switcher-indicator"></div>
-          </div>
-        </div>
-        <div class="upload-card">
-          <div class="upload-tabs">
-            <button class="tab-btn active" data-tab="upload"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
-            <button class="tab-btn" id="tips-btn"><i class="fas fa-lightbulb"></i> Tips</button>
-          </div>
-          <div class="tab-content active" id="upload-tab">
-            <form id="uploadForm" class="upload-form">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="talentType">Artist Type <span class="required">*</span></label>
-                  <select id="talentType" class="styled-select" aria-label="Select your artist type" required>
-                    <option value="" selected disabled>Select your creative field</option>
-                    <option value="photographer">Photographer</option>
-                    <option value="hmu">Hair & Makeup Artist</option>
-                    <option value="model">Model</option>
-                  </select>
+        <div class="viewer" role="dialog" aria-label="Image viewer" aria-modal="true">
+            <button class="nav-btn prev-btn" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+            <div class="viewer-content">
+                <img class="viewer-img" src="" alt="Enlarged view" loading="lazy">
+                <div class="loading-overlay">
+                    <div class="loading-spinner"></div>
                 </div>
-                <div class="form-group">
-                  <label for="photographerName">Artist Name <span class="required">*</span></label>
-                  <div class="artist-autocomplete-wrapper">
-                    <input type="text" id="photographerName" class="artist-autocomplete-input" placeholder="Start typing your artist name..." aria-label="Enter or select your artist name" autocomplete="off" required />
-                    <div class="artist-autocomplete-list" id="artistAutocompleteList"></div>
+                <button class="close-btn" aria-label="Close viewer">
+                    <i class="fas fa-times"></i>
+                    <span class="close-text">Close</span>
+                </button>
+            </div>
+            <button class="nav-btn next-btn" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+            <div class="viewer-controls">
+                <span class="image-counter"></span>
+            </div>
+        </div>
+      </main>
+
+      <!-- Community Gallery Section -->
+      <section class="gallery-section section-card" id="community-gallery-section" style="display:none;">
+        <div class="gallery-container">
+          <div class="page-title" role="banner">
+            <h1>Community Gallery</h1>
+            <p>See photos shared by our members and filter by artist or talent type.</p>
+          </div>
+          <div class="mini-switcher-wrapper">
+            <div class="mini-switcher">
+              <button class="mini-switcher-btn" data-section="official-gallery-section"><i class="fas fa-crown"></i> Official</button>
+              <button class="mini-switcher-btn active" data-section="community-gallery-section"><i class="fas fa-users"></i> Community</button>
+              <button class="mini-switcher-btn" data-section="upload-section"><i class="fas fa-upload"></i> Upload</button>
+              <div class="mini-switcher-indicator"></div>
+            </div>
+          </div>
+          <div class="gallery-header">
+            <div class="community-filter-bar">
+              <select id="talentTypeDropdown" class="filter-dropdown" aria-label="Filter by Talent Type">
+                <option value="all">All Talent Types</option>
+                <option value="photographer">Photographer</option>
+                <option value="hmu">Hair & Makeup Artist</option>
+                <option value="model">Model</option>
+              </select>
+              <select id="artistNameDropdown" class="filter-dropdown" aria-label="Filter by Artist Name">
+                <option value="all">All Artists</option>
+                <!-- Artist names will be populated here -->
+              </select>
+              <button id="clearAllFilters" class="clear-filters-btn" style="display:none;">Clear All</button>
+            </div>
+            <div class="active-filters" id="activeFilters" style="display:none;"></div>
+          </div>
+          <div class="results-count" id="resultsCount" style="display:none;"></div>
+          <div class="loading" id="loadingMessage" style="display:none;">
+            <i class="fas fa-spinner"></i> Loading gallery...
+          </div>
+          <div class="gallery-grid" id="gallery"></div>
+          <!-- Photo Viewer Modal -->
+          <div id="photoViewer" class="photo-viewer-overlay">
+            <div class="photo-viewer-content">
+              <button id="closeViewer" class="photo-viewer-close" aria-label="Close viewer">
+                <i class="fas fa-times"></i>
+              </button>
+              <button id="prevPhoto" class="photo-viewer-nav photo-viewer-prev" aria-label="Previous photo">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button id="nextPhoto" class="photo-viewer-nav photo-viewer-next" aria-label="Next photo">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+              <img id="viewerImage" class="photo-viewer-image" src="" alt="">
+            </div>
+            <div id="thumbnailStrip" class="photo-viewer-thumbnails">
+              <!-- Thumbnails will be populated here -->
+            </div>
+          </div>
+          <div class="empty-gallery" id="emptyGallery" style="display: none;">
+            <i class="fas fa-camera"></i>
+            <h3>No photos yet</h3>
+            <p>Be the first to upload and share your photography with our community!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Upload Section -->
+      <section class="upload-section section-card" id="upload-section" style="display:none;">
+        <div class="upload-container">
+          <div class="page-title" role="banner">
+            <h1>Share Your Photos</h1>
+            <p>Join our vibrant community and let your work shine in our curated gallery.</p>
+          </div>
+          <div class="mini-switcher-wrapper">
+            <div class="mini-switcher">
+              <button class="mini-switcher-btn" data-section="official-gallery-section"><i class="fas fa-crown"></i> Official</button>
+              <button class="mini-switcher-btn" data-section="community-gallery-section"><i class="fas fa-users"></i> Community</button>
+              <button class="mini-switcher-btn active" data-section="upload-section"><i class="fas fa-upload"></i> Upload</button>
+              <div class="mini-switcher-indicator"></div>
+            </div>
+          </div>
+          <div class="upload-card">
+            <div class="upload-tabs">
+              <button class="tab-btn active" data-tab="upload"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+              <button class="tab-btn" id="tips-btn"><i class="fas fa-lightbulb"></i> Tips</button>
+            </div>
+            <div class="tab-content active" id="upload-tab">
+              <form id="uploadForm" class="upload-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="talentType">Artist Type <span class="required">*</span></label>
+                    <select id="talentType" class="styled-select" aria-label="Select your artist type" required>
+                      <option value="" selected disabled>Select your creative field</option>
+                      <option value="photographer">Photographer</option>
+                      <option value="hmu">Hair & Makeup Artist</option>
+                      <option value="model">Model</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="photographerName">Artist Name <span class="required">*</span></label>
+                    <div class="artist-autocomplete-wrapper">
+                      <input type="text" id="photographerName" class="artist-autocomplete-input" placeholder="Start typing your artist name..." aria-label="Enter or select your artist name" autocomplete="off" required />
+                      <div class="artist-autocomplete-list" id="artistAutocompleteList"></div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="categorySelect">Category <span class="required">*</span></label>
+                    <select id="categorySelect" aria-label="Select photo category" required>
+                      <option value="" selected disabled>Select a category</option>
+                      <option value="Portrait">Portrait</option>
+                      <option value="Landscape">Landscape</option>
+                      <option value="Street">Street</option>
+                      <option value="Architecture">Architecture</option>
+                      <option value="Nature">Nature</option>
+                      <option value="Event">Event</option>
+                      <option value="Other">Other</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="categorySelect">Category <span class="required">*</span></label>
-                  <select id="categorySelect" aria-label="Select photo category" required>
-                    <option value="" selected disabled>Select a category</option>
-                    <option value="Portrait">Portrait</option>
-                    <option value="Landscape">Landscape</option>
-                    <option value="Street">Street</option>
-                    <option value="Architecture">Architecture</option>
-                    <option value="Nature">Nature</option>
-                    <option value="Event">Event</option>
-                    <option value="Other">Other</option>
-                  </select>
+                  <label for="eventName">Event (Optional)</label>
+                  <input type="text" id="eventName" placeholder="e.g. Yoyogi Park Photowalk, April 2024" aria-label="Enter event name">
                 </div>
-              </div>
-              <div class="form-group">
-                <label for="eventName">Event (Optional)</label>
-                <input type="text" id="eventName" placeholder="e.g. Yoyogi Park Photowalk, April 2024" aria-label="Enter event name">
-              </div>
-              <div class="form-group">
-                <label for="fileUpload">Upload Photo <span class="required">*</span></label>
-                <div class="file-upload" id="dropArea">
-                  <i class="fas fa-cloud-upload-alt"></i>
-                  <p>Drag & drop your photo here or click to browse</p>
-                  <p class="file-hint">Supported formats: JPG, PNG, HEIC (Max 10MB)</p>
-                  <input type="file" id="fileUpload" name="file" accept="image/*" required />
+                <div class="form-group">
+                  <label for="fileUpload">Upload Photo <span class="required">*</span></label>
+                  <div class="file-upload" id="dropArea">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop your photo here or click to browse</p>
+                    <p class="file-hint">Supported formats: JPG, PNG, HEIC (Max 10MB)</p>
+                    <input type="file" id="fileUpload" name="file" accept="image/*" required />
+                  </div>
+                  <div class="selected-file" id="selectedFile">
+                    <i class="fas fa-file-image"></i>
+                    <p id="fileName">No file selected</p>
+                    <button type="button" id="removeFile" aria-label="Remove selected file">
+                      <i class="fas fa-times-circle"></i>
+                    </button>
+                  </div>
                 </div>
-                <div class="selected-file" id="selectedFile">
-                  <i class="fas fa-file-image"></i>
-                  <p id="fileName">No file selected</p>
-                  <button type="button" id="removeFile" aria-label="Remove selected file">
-                    <i class="fas fa-times-circle"></i>
-                  </button>
+                <div class="upload-progress-bar" id="uploadProgressBar">
+                  <div class="upload-progress-fill" id="uploadProgressFill"></div>
                 </div>
-              </div>
-              <div class="upload-progress-bar" id="uploadProgressBar">
-                <div class="upload-progress-fill" id="uploadProgressFill"></div>
-              </div>
-              <div class="upload-progress-label" id="uploadProgressLabel">0%</div>
-              <button type="submit" class="upload-btn">
-                <i class="fas fa-cloud-upload-alt"></i> Upload Photo
-              </button>
-            </form>
+                <div class="upload-progress-label" id="uploadProgressLabel">0%</div>
+                <button type="submit" class="upload-btn">
+                  <i class="fas fa-cloud-upload-alt"></i> Upload Photo
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Tips Modal -->
-    <div class="modal-overlay" id="tips-modal">
-      <div class="modal">
-        <div class="modal-header">
-          <h2 class="modal-title"><i class="fas fa-lightbulb"></i> Photo Upload Guidelines</h2>
-          <button class="modal-close" id="close-modal"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="modal-content">
-          <div class="tips-content">
-            <div class="tip-item">
-              <div class="tip-icon"><i class="fas fa-image"></i></div>
-              <div class="tip-text">
-                <h4>Quality Matters</h4>
-                <p>Upload high-resolution images for the best display in our gallery. Aim for at least 1500px on the longest side.</p>
+      <!-- Tips Modal -->
+      <div class="modal-overlay" id="tips-modal">
+        <div class="modal">
+          <div class="modal-header">
+            <h2 class="modal-title"><i class="fas fa-lightbulb"></i> Photo Upload Guidelines</h2>
+            <button class="modal-close" id="close-modal"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="modal-content">
+            <div class="tips-content">
+              <div class="tip-item">
+                <div class="tip-icon"><i class="fas fa-image"></i></div>
+                <div class="tip-text">
+                  <h4>Quality Matters</h4>
+                  <p>Upload high-resolution images for the best display in our gallery. Aim for at least 1500px on the longest side.</p>
+                </div>
               </div>
-            </div>
-            
-            <div class="tip-item">
-              <div class="tip-icon"><i class="fas fa-crop"></i></div>
-              <div class="tip-text">
-                <h4>Composition</h4>
-                <p>Consider cropping your image to focus on the main subject and create a stronger composition.</p>
-              </div>
-            </div>
-            
-            <div class="tip-item">
-              <div class="tip-icon"><i class="fas fa-tags"></i></div>
-              <div class="tip-text">
-                <h4>Categorize Correctly</h4>
-                <p>Choose the most appropriate category for your photo to help others find your work.</p>
-              </div>
-            </div>
-            
-            <div class="tip-item">
-              <div class="tip-icon"><i class="fas fa-users"></i></div>
-              <div class="tip-text">
-                <h4>Consistent Name</h4>
-                <p>Use the same photographer name consistently to build your portfolio in our community gallery.</p>
-              </div>
-            </div>
 
-            <div class="tip-item">
-              <div class="tip-icon"><i class="fas fa-exclamation-triangle"></i></div>
-              <div class="tip-text">
-                <h4>Appropriate Content Only</h4>
-                <p>Please ensure your photos do not contain inappropriate, offensive, or explicit content. All uploads are reviewed.</p>
+              <div class="tip-item">
+                <div class="tip-icon"><i class="fas fa-crop"></i></div>
+                <div class="tip-text">
+                  <h4>Composition</h4>
+                  <p>Consider cropping your image to focus on the main subject and create a stronger composition.</p>
+                </div>
               </div>
-            </div>
 
-            <div class="tip-item">
-              <div class="tip-icon"><i class="fas fa-id-card"></i></div>
-              <div class="tip-text">
-                <h4>Use Your Real Name</h4>
-                <p>Please use your real name when uploading photos to help build your photography portfolio and connect with other members.</p>
+              <div class="tip-item">
+                <div class="tip-icon"><i class="fas fa-tags"></i></div>
+                <div class="tip-text">
+                  <h4>Categorize Correctly</h4>
+                  <p>Choose the most appropriate category for your photo to help others find your work.</p>
+                </div>
               </div>
-            </div>
 
-            <div class="tip-item">
-              <div class="tip-icon"><i class="fas fa-copyright"></i></div>
-              <div class="tip-text">
-                <h4>Respect Copyright</h4>
-                <p>Only upload photos that you have taken yourself or have permission to share. Respect the intellectual property of others.</p>
+              <div class="tip-item">
+                <div class="tip-icon"><i class="fas fa-users"></i></div>
+                <div class="tip-text">
+                  <h4>Consistent Name</h4>
+                  <p>Use the same photographer name consistently to build your portfolio in our community gallery.</p>
+                </div>
+              </div>
+
+              <div class="tip-item">
+                <div class="tip-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="tip-text">
+                  <h4>Appropriate Content Only</h4>
+                  <p>Please ensure your photos do not contain inappropriate, offensive, or explicit content. All uploads are reviewed.</p>
+                </div>
+              </div>
+
+              <div class="tip-item">
+                <div class="tip-icon"><i class="fas fa-id-card"></i></div>
+                <div class="tip-text">
+                  <h4>Use Your Real Name</h4>
+                  <p>Please use your real name when uploading photos to help build your photography portfolio and connect with other members.</p>
+                </div>
+              </div>
+
+              <div class="tip-item">
+                <div class="tip-icon"><i class="fas fa-copyright"></i></div>
+                <div class="tip-text">
+                  <h4>Respect Copyright</h4>
+                  <p>Only upload photos that you have taken yourself or have permission to share. Respect the intellectual property of others.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-about">
-            <h3>⭕️ Circle</h3>
-            <div class="footer-social">
-              <a href="https://www.instagram.com/tokyocircle/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-              <a href="https://line.me/ti/g/mJAkqUoScC" aria-label="Line"><i class="fab fa-line"></i></a>
-              <a href="https://www.meetup.com/circle/" aria-label="Meetup"><i class="fab fa-meetup"></i></a>
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-content">
+            <div class="footer-about">
+              <h3>⭕️ Circle</h3>
+              <div class="footer-social">
+                <a href="https://www.instagram.com/tokyocircle/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://line.me/ti/g/mJAkqUoScC" aria-label="Line"><i class="fab fa-line"></i></a>
+                <a href="https://www.meetup.com/circle/" aria-label="Meetup"><i class="fab fa-meetup"></i></a>
+              </div>
+            </div>
+
+            <div class="footer-links">
+              <h4>Quick Links</h4>
+              <a href="main.html#about"><i class="fas fa-heart"></i> About Us</a>
+              <a href="main.html#gallery"><i class="fas fa-images"></i> Photo Gallery</a>
+              <a href="main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
+              <a href="main.html#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
+              <a href="main.html#join"><i class="fas fa-user-plus"></i> Join Us</a>
+            </div>
+
+            <div class="footer-contact">
+              <h4>Contact Us</h4>
+              <a href="mailto:hello@circletokyo.com"><i class="fas fa-envelope"></i> hello@circletokyo.com</a>
+              <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> Message on Instagram</a>
             </div>
           </div>
-          
-          <div class="footer-links">
-            <h4>Quick Links</h4>
-            <a href="main.html#about"><i class="fas fa-heart"></i> About Us</a>
-            <a href="main.html#gallery"><i class="fas fa-images"></i> Photo Gallery</a>
-            <a href="main.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
-            <a href="main.html#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
-            <a href="main.html#join"><i class="fas fa-user-plus"></i> Join Us</a>
-          </div>
-          
-          <div class="footer-contact">
-            <h4>Contact Us</h4>
-            <a href="mailto:hello@circletokyo.com"><i class="fas fa-envelope"></i> hello@circletokyo.com</a>
-            <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> Message on Instagram</a>
+
+          <div class="footer-bottom">
+            <a>Made with <i class="fas fa-heart heart"></i> by TT &copy; 2025</a>
           </div>
         </div>
-        
-        <div class="footer-bottom">
-          <a>Made with <i class="fas fa-heart heart"></i> by TT &copy; 2025</a>
-        </div>
-      </div>
-    </footer>
-    <style>
-  body {
-      margin: 0;
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      overflow-x: hidden;
-      font-family: var(--body-font);
-  }
-  </style>
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
-    
-    <!-- Custom JavaScript -->
-    <script src="upload.js"></script>
-    <script src="script.js"></script>
-      <script src="a.js"></script>
-      <script src="a2.js"></script>
-      <script src="a3.js"></script>
-      <script>
-        // Hamburger menu functionality for mobile
-        document.addEventListener('DOMContentLoaded', function() {
-          const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-          const navLinks = document.querySelector('.nav-links');
-          if (mobileMenuBtn && navLinks) {
-            // Set custom property for staggered animation
-            navLinks.querySelectorAll('a').forEach((link, index) => {
-              link.style.setProperty('--i', index);
-            });
-            mobileMenuBtn.addEventListener('click', function() {
-              mobileMenuBtn.classList.toggle('active');
-              navLinks.classList.toggle('active');
-              document.body.classList.toggle('menu-open');
-            });
-            // Close menu when clicking a link
-            navLinks.querySelectorAll('a').forEach(link => {
-              link.addEventListener('click', function() {
-                mobileMenuBtn.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.classList.remove('menu-open');
+      </footer>
+      <style>
+    body {
+        margin: 0;
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        overflow-x: hidden;
+        font-family: var(--body-font);
+    }
+    </style>
+      <!-- Firebase SDKs -->
+      <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+
+      <!-- Custom JavaScript -->
+      <script src="upload.js"></script>
+      <script src="script.js"></script>
+        <script src="a.js"></script>
+        <script src="a2.js"></script>
+        <script src="a3.js"></script>
+        <script>
+          // Hamburger menu functionality for mobile
+          document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            if (mobileMenuBtn && navLinks) {
+              // Set custom property for staggered animation
+              navLinks.querySelectorAll('a').forEach((link, index) => {
+                link.style.setProperty('--i', index);
+              });
+              mobileMenuBtn.addEventListener('click', function() {
+                mobileMenuBtn.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+              });
+              // Close menu when clicking a link
+              navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                  mobileMenuBtn.classList.remove('active');
+                  navLinks.classList.remove('active');
+                  document.body.classList.remove('menu-open');
+                });
+              });
+            }
+          });
+
+          // Gallery Switcher Logic
+          document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.switcher-btn');
+            const sections = [
+              document.getElementById('official-gallery-section'),
+              document.getElementById('community-gallery-section'),
+              document.getElementById('upload-section')
+            ];
+            const loadingMessage = document.getElementById('loadingMessage');
+            function animateSection(sectionId) {
+              // No animation logic needed, just ensure content is visible
+            }
+            function showSection(sectionId) {
+              sections.forEach(section => {
+                if (section.id === sectionId) {
+                  section.style.display = '';
+                  section.classList.remove('hide');
+                  section.removeAttribute('hidden');
+                  animateSection(sectionId);
+                } else {
+                  section.classList.add('hide');
+                  setTimeout(() => {
+                    section.setAttribute('hidden', '');
+                    section.style.display = 'none';
+                    if (section.id === 'community-gallery-section' && loadingMessage) {
+                      loadingMessage.style.display = 'none';
+                    }
+                  }, 400);
+                }
+              });
+            }
+            buttons.forEach(btn => {
+              btn.addEventListener('click', function() {
+                buttons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                showSection(this.dataset.section);
               });
             });
-          }
-        });
-
-        // Gallery Switcher Logic
-        document.addEventListener('DOMContentLoaded', function() {
-          const buttons = document.querySelectorAll('.switcher-btn');
-          const sections = [
-            document.getElementById('official-gallery-section'),
-            document.getElementById('community-gallery-section'),
-            document.getElementById('upload-section')
-          ];
-          const loadingMessage = document.getElementById('loadingMessage');
-          function animateSection(sectionId) {
-            // No animation logic needed, just ensure content is visible
-          }
-          function showSection(sectionId) {
-            sections.forEach(section => {
-              if (section.id === sectionId) {
-                section.style.display = '';
-                section.classList.remove('hide');
-                section.removeAttribute('hidden');
-                animateSection(sectionId);
-                // Scroll to the section after it becomes visible
+            // Show correct section on load based on hash
+            if (window.location.hash === '#upload-section') {
+              const uploadBtn = document.querySelector('.switcher-btn[data-section="upload-section"]');
+              if (uploadBtn) {
+                uploadBtn.classList.add('active');
+                showSection('upload-section');
                 setTimeout(() => {
-                  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100); // slight delay to ensure visibility
-              } else {
-                section.classList.add('hide');
-                setTimeout(() => {
-                  section.setAttribute('hidden', '');
-                  section.style.display = 'none';
-                  if (section.id === 'community-gallery-section' && loadingMessage) {
-                    loadingMessage.style.display = 'none';
-                  }
-                }, 400);
+                  const uploadSection = document.getElementById('upload-section');
+                  if (uploadSection) uploadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 700);
               }
-            });
-          }
-          buttons.forEach(btn => {
-            btn.addEventListener('click', function() {
-              buttons.forEach(b => b.classList.remove('active'));
-              this.classList.add('active');
-              showSection(this.dataset.section);
-            });
-          });
-          // Show correct section on load based on hash
-          if (window.location.hash === '#upload-section') {
-            const uploadBtn = document.querySelector('.switcher-btn[data-section="upload-section"]');
-            if (uploadBtn) {
-              uploadBtn.classList.add('active');
-              showSection('upload-section');
-              setTimeout(() => {
-                const uploadSection = document.getElementById('upload-section');
-                if (uploadSection) uploadSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }, 700);
+            } else {
+              // Default: show official gallery
+              showSection('official-gallery-section');
             }
-          } else {
-            // Default: show official gallery
-            showSection('official-gallery-section');
-          }
-        });
+          });
 
-        // Mini & Main Gallery Switcher Logic (sync all switchers)
-document.addEventListener('DOMContentLoaded', function() {
-  function getAllSwitcherButtons(section) {
-    return [
-      ...document.querySelectorAll('.switcher-btn[data-section="' + section + '"]'),
-      ...document.querySelectorAll('.mini-switcher-btn[data-section="' + section + '"]')
-    ];
-  }
-  function setActiveSection(sectionId) {
-    // Show/hide sections
-    const sections = [
-      document.getElementById('official-gallery-section'),
-      document.getElementById('community-gallery-section'),
-      document.getElementById('upload-section')
-    ];
-    sections.forEach(section => {
-      if (section.id === sectionId) {
-        section.style.display = '';
-        section.classList.remove('hide');
-        section.removeAttribute('hidden');
-        // Removed scrollIntoView to disable jumping
-      } else {
-        section.classList.add('hide');
-        setTimeout(() => {
-          section.setAttribute('hidden', '');
-          section.style.display = 'none';
-        }, 400);
-      }
+          // Mini & Main Gallery Switcher Logic (sync all switchers)
+  document.addEventListener('DOMContentLoaded', function() {
+    function getAllSwitcherButtons(section) {
+      return [
+        ...document.querySelectorAll('.switcher-btn[data-section="' + section + '"]'),
+        ...document.querySelectorAll('.mini-switcher-btn[data-section="' + section + '"]')
+      ];
+    }
+    function setActiveSection(sectionId) {
+      // Show/hide sections
+      const sections = [
+        document.getElementById('official-gallery-section'),
+        document.getElementById('community-gallery-section'),
+        document.getElementById('upload-section')
+      ];
+      sections.forEach(section => {
+        if (section.id === sectionId) {
+          section.style.display = '';
+          section.classList.remove('hide');
+          section.removeAttribute('hidden');
+          // Removed scrollIntoView to disable jumping
+        } else {
+          section.classList.add('hide');
+          setTimeout(() => {
+            section.setAttribute('hidden', '');
+            section.style.display = 'none';
+          }, 400);
+        }
+      });
+      // Update all switchers' active state
+      ['official-gallery-section','community-gallery-section','upload-section'].forEach(id => {
+        const btns = getAllSwitcherButtons(id);
+        btns.forEach(btn => btn.classList.toggle('active', id === sectionId));
+      });
+      // --- Animate mini-switcher indicator ---
+      document.querySelectorAll('.mini-switcher').forEach(switcher => {
+        const indicator = switcher.querySelector('.mini-switcher-indicator');
+        const activeBtn = switcher.querySelector('.mini-switcher-btn.active');
+        if (indicator && activeBtn) {
+          // Calculate transform instead of left position for smoother animation
+          const multiplier = Array.from(switcher.children).indexOf(activeBtn);
+          indicator.style.transform = `translateX(${multiplier * 100}%)`;
+          indicator.style.display = 'block';
+        }
+      });
+      // --- End animate ---
+    }
+    // Attach click listeners to all switcher buttons
+    [
+      ...document.querySelectorAll('.switcher-btn'),
+      ...document.querySelectorAll('.mini-switcher-btn')
+    ].forEach(btn => {
+      btn.addEventListener('click', function() {
+        setActiveSection(this.dataset.section);
+      });
     });
-    // Update all switchers' active state
-    ['official-gallery-section','community-gallery-section','upload-section'].forEach(id => {
-      const btns = getAllSwitcherButtons(id);
-      btns.forEach(btn => btn.classList.toggle('active', id === sectionId));
-    });
-    // --- Animate mini-switcher indicator ---
-    document.querySelectorAll('.mini-switcher').forEach(switcher => {
-      const indicator = switcher.querySelector('.mini-switcher-indicator');
-      const activeBtn = switcher.querySelector('.mini-switcher-btn.active');
-      if (indicator && activeBtn) {
-        const btnRect = activeBtn.getBoundingClientRect();
-        const switcherRect = switcher.getBoundingClientRect();
-        const left = activeBtn.offsetLeft - switcher.scrollLeft;
-        indicator.style.left = left + 'px';
-        indicator.style.width = activeBtn.offsetWidth + 'px';
-      }
-    });
-    // --- End animate ---
-  }
-  // Attach click listeners to all switcher buttons
-  [
-    ...document.querySelectorAll('.switcher-btn'),
-    ...document.querySelectorAll('.mini-switcher-btn')
-  ].forEach(btn => {
-    btn.addEventListener('click', function() {
-      setActiveSection(this.dataset.section);
+    // On load, show correct section
+    if (window.location.hash === '#upload-section') {
+      setActiveSection('upload-section');
+    } else if (window.location.hash === '#community-gallery-section') {
+      setActiveSection('community-gallery-section');
+    } else {
+      setActiveSection('official-gallery-section');
+    }
+    // Animate indicator on window resize
+    window.addEventListener('resize', function() {
+      const activeSection = document.querySelector('.mini-switcher-btn.active')?.dataset.section;
+      if (activeSection) setActiveSection(activeSection);
     });
   });
-  // On load, show correct section
-  if (window.location.hash === '#upload-section') {
-    setActiveSection('upload-section');
-  } else if (window.location.hash === '#community-gallery-section') {
-    setActiveSection('community-gallery-section');
-  } else {
-    setActiveSection('official-gallery-section');
-  }
-  // Animate indicator on window resize
-  window.addEventListener('resize', function() {
-    const activeSection = document.querySelector('.mini-switcher-btn.active')?.dataset.section;
-    if (activeSection) setActiveSection(activeSection);
-  });
-});
 
-        // Swipe functionality for community gallery photo viewer
-        (function() {
-          const viewer = document.getElementById('photoViewer');
-          const viewerImage = document.getElementById('viewerImage');
-          const thumbnailStrip = document.getElementById('thumbnailStrip');
-          if (!viewer || !viewerImage) return;
-          let startX = 0, startY = 0, endX = 0, endY = 0;
-          let isTouching = false;
-          const minSwipeDist = 50; // px
+          // Swipe functionality for community gallery photo viewer
+          (function() {
+            const viewer = document.getElementById('photoViewer');
+            const viewerImage = document.getElementById('viewerImage');
+            const thumbnailStrip = document.getElementById('thumbnailStrip');
+            if (!viewer || !viewerImage) return;
+            let startX = 0, startY = 0, endX = 0, endY = 0;
+            let isTouching = false;
+            const minSwipeDist = 50; // px
 
-          // --- Prevent swipe navigation from thumbnail strip ---
-          if (thumbnailStrip) {
-            ['touchstart', 'touchmove', 'touchend'].forEach(evt => {
-              thumbnailStrip.addEventListener(evt, function(e) {
-                // Allow native horizontal scrolling, but block propagation so parent never sees these events
-                e.stopPropagation();
-                // For horizontal swipes, prevent default to avoid accidental vertical scrolls
-                if (evt === 'touchmove') {
-                  const t = e.touches[0];
-                  if (t && e.targetTouches.length === 1) {
-                    // Only prevent default if horizontal movement is dominant
-                    const dx = t.clientX - startX;
-                    const dy = t.clientY - startY;
-                    if (Math.abs(dx) > Math.abs(dy)) {
-                      e.preventDefault();
+            // --- Prevent swipe navigation from thumbnail strip ---
+            if (thumbnailStrip) {
+              ['touchstart', 'touchmove', 'touchend'].forEach(evt => {
+                thumbnailStrip.addEventListener(evt, function(e) {
+                  // Allow native horizontal scrolling, but block propagation so parent never sees these events
+                  e.stopPropagation();
+                  // For horizontal swipes, prevent default to avoid accidental vertical scrolls
+                  if (evt === 'touchmove') {
+                    const t = e.touches[0];
+                    if (t && e.targetTouches.length === 1) {
+                      // Only prevent default if horizontal movement is dominant
+                      const dx = t.clientX - startX;
+                      const dy = t.clientY - startY;
+                      if (Math.abs(dx) > Math.abs(dy)) {
+                        e.preventDefault();
+                      }
                     }
                   }
+                }, { passive: false });
+              });
+            }
+            // --- End block ---
+
+            function handleTouchStart(e) {
+              if (e.touches.length !== 1) return;
+              isTouching = true;
+              startX = e.touches[0].clientX;
+              startY = e.touches[0].clientY;
+            }
+            function handleTouchMove(e) {
+              if (!isTouching) return;
+              endX = e.touches[0].clientX;
+              endY = e.touches[0].clientY;
+              if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
+                e.preventDefault();
+              }
+            }
+            function handleTouchEnd(e) {
+              if (!isTouching) return;
+              isTouching = false;
+              const dx = endX - startX;
+              const dy = endY - startY;
+              if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
+                // Horizontal swipe
+                e.preventDefault();
+                if (dx < 0) {
+                  // Swipe left: next photo
+                  const nextBtn = document.getElementById('nextPhoto');
+                  if (nextBtn) nextBtn.click();
+                } else {
+                  // Swipe right: previous photo
+                  const prevBtn = document.getElementById('prevPhoto');
+                  if (prevBtn) prevBtn.click();
                 }
+              } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
+                // Vertical swipe
+                if (dy > 0) {
+                  // Swipe down: close viewer
+                  const closeBtn = document.getElementById('closeViewer');
+                  if (closeBtn) closeBtn.click();
+                }
+              }
+            }
+            // Attach to both overlay and image for robustness
+            [viewer, viewerImage].forEach(el => {
+              el.addEventListener('touchstart', handleTouchStart, { passive: true });
+              el.addEventListener('touchmove', handleTouchMove, { passive: false });
+              el.addEventListener('touchend', handleTouchEnd, { passive: false });
+            });
+          })();
+
+          // --- Block touch event propagation in thumbnail strip to prevent swipe navigation ---
+          (function() {
+            const thumbnailStrip = document.getElementById('thumbnailStrip');
+            if (!thumbnailStrip) return;
+            ['touchstart', 'touchmove', 'touchend', 'touchcancel'].forEach(evt => {
+              thumbnailStrip.addEventListener(evt, function(e) {
+                e.stopPropagation();
+                // Do NOT call preventDefault, so native scrolling works
               }, { passive: false });
             });
-          }
-          // --- End block ---
+          })();
 
-          function handleTouchStart(e) {
-            if (e.touches.length !== 1) return;
-            isTouching = true;
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
+          // Official gallery viewer controls
+  document.addEventListener('DOMContentLoaded', function() {
+      const viewer = document.querySelector('.viewer');
+      const viewerImg = viewer.querySelector('.viewer-img');
+      const nextBtn = viewer.querySelector('.next-btn');
+      const prevBtn = viewer.querySelector('.prev-btn');
+      const closeBtn = viewer.querySelector('.close-btn');
+      const imageCounter = viewer.querySelector('.image-counter');
+
+      if (!viewer || !viewerImg) return;
+
+      // State management
+      const state = {
+          currentIndex: 0,
+          total: 0,
+          images: [],
+          isNavigating: false,
+          isTouching: false,
+          touchStartX: 0,
+          touchStartY: 0,
+          touchEndX: 0,
+          touchEndY: 0,
+          moved: false
+      };
+
+      const TRANSITION_DURATION = 300;
+      const MIN_SWIPE_DISTANCE = 50;
+
+      function updateImageCounter() {
+          if (imageCounter) {
+              imageCounter.textContent = `${state.currentIndex + 1} / ${state.total}`;
           }
-          function handleTouchMove(e) {
-            if (!isTouching) return;
-            endX = e.touches[0].clientX;
-            endY = e.touches[0].clientY;
-            if (Math.abs(endX - startX) > Math.abs(endY - startY)) {
+      }
+
+      function showImage(index, direction = null) {
+          if (state.isNavigating) return;
+          state.isNavigating = true;
+
+          viewerImg.style.opacity = '0';
+          if (direction) {
+              viewerImg.classList.add(direction === 'next' ? 'slide-out-left' : 'slide-out-right');
+          }
+
+          setTimeout(() => {
+              viewerImg.src = state.images[index].src || state.images[index].url || state.images[index];
+              viewerImg.classList.remove('slide-out-left', 'slide-out-right');
+              viewerImg.style.opacity = '1';
+              state.currentIndex = index;
+              updateImageCounter();
+
+              // Reset navigation state after transition
+              setTimeout(() => {
+                  state.isNavigating = false;
+              }, TRANSITION_DURATION);
+          }, TRANSITION_DURATION);
+      }
+
+      function navigateNext() {
+          if (state.isNavigating || state.currentIndex >= state.total - 1) return;
+          showImage(state.currentIndex + 1, 'next');
+      }
+
+      function navigatePrev() {
+          if (state.isNavigating || state.currentIndex <= 0) return;
+          showImage(state.currentIndex - 1, 'prev');
+      }
+
+      function closeViewer() {
+          viewer.classList.remove('active');
+          document.body.classList.remove('viewer-active');
+          document.body.style.overflow = '';
+          document.body.style.touchAction = '';
+          document.body.style.overscrollBehavior = '';
+          state.isNavigating = false;
+      }
+
+      // Touch event handlers
+      function handleTouchStart(e) {
+          if (e.touches.length !== 1) return;
+          state.isTouching = true;
+          state.moved = false;
+          state.touchStartX = e.touches[0].clientX;
+          state.touchStartY = e.touches[0].clientY;
+      }
+
+      function handleTouchMove(e) {
+          if (!state.isTouching) return;
+          state.moved = true;
+          state.touchEndX = e.touches[0].clientX;
+          state.touchEndY = e.touches[0].clientY;
+
+          const dx = state.touchEndX - state.touchStartX;
+          const dy = state.touchEndY - state.touchStartY;
+
+          // Prevent vertical scrolling when swiping horizontally
+          if (Math.abs(dx) > Math.abs(dy)) {
               e.preventDefault();
-            }
           }
-          function handleTouchEnd(e) {
-            if (!isTouching) return;
-            isTouching = false;
-            const dx = endX - startX;
-            const dy = endY - startY;
-            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > minSwipeDist) {
-              // Horizontal swipe
+      }
+
+      function handleTouchEnd(e) {
+          if (!state.isTouching) return;
+          state.isTouching = false;
+
+          const dx = state.touchEndX - state.touchStartX;
+          const dy = state.touchEndY - state.touchStartY;
+
+          if (state.moved) {
+              if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > MIN_SWIPE_DISTANCE) {
+                  e.preventDefault();
+                  if (dx > 0) {
+                      navigatePrev(); // Swipe right for previous
+                  } else {
+                      navigateNext(); // Swipe left for next
+                  }
+              } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > MIN_SWIPE_DISTANCE && dy > 0) {
+                  e.preventDefault();
+                  closeViewer(); // Swipe down to close
+              }
+          }
+      }
+
+      // Event listeners
+      nextBtn.addEventListener('click', () => navigateNext());
+      prevBtn.addEventListener('click', () => navigatePrev());
+      closeBtn.addEventListener('click', () => closeViewer());
+
+      [viewer, viewerImg].forEach(el => {
+          el.addEventListener('touchstart', handleTouchStart, { passive: true });
+          el.addEventListener('touchmove', handleTouchMove, { passive: false });
+          el.addEventListener('touchend', handleTouchEnd, { passive: false });
+      });
+
+      // Keyboard navigation
+      function handleKeyboard(e) {
+          if (!viewer.classList.contains('active')) return;
+
+          if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
               e.preventDefault();
-              if (dx < 0) {
-                // Swipe left: next photo
-                const nextBtn = document.getElementById('nextPhoto');
-                if (nextBtn) nextBtn.click();
-              } else {
-                // Swipe right: previous photo
-                const prevBtn = document.getElementById('prevPhoto');
-                if (prevBtn) prevBtn.click();
-              }
-            } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > minSwipeDist) {
-              // Vertical swipe
-              if (dy > 0) {
-                // Swipe down: close viewer
-                const closeBtn = document.getElementById('closeViewer');
-                if (closeBtn) closeBtn.click();
-              }
-            }
           }
-          // Attach to both overlay and image for robustness
-          [viewer, viewerImage].forEach(el => {
-            el.addEventListener('touchstart', handleTouchStart, { passive: true });
-            el.addEventListener('touchmove', handleTouchMove, { passive: false });
-            el.addEventListener('touchend', handleTouchEnd, { passive: false });
-          });
-        })();
 
-        // --- Block touch event propagation in thumbnail strip to prevent swipe navigation ---
-        (function() {
-          const thumbnailStrip = document.getElementById('thumbnailStrip');
-          if (!thumbnailStrip) return;
-          ['touchstart', 'touchmove', 'touchend', 'touchcancel'].forEach(evt => {
-            thumbnailStrip.addEventListener(evt, function(e) {
-              e.stopPropagation();
-              // Do NOT call preventDefault, so native scrolling works
-            }, { passive: false });
-          });
-        })();
+          switch (e.key) {
+              case 'ArrowLeft':
+                  navigatePrev();
+                  break;
+              case 'ArrowRight':
+                  navigateNext();
+                  break;
+              case 'Escape':
+                  closeViewer();
+                  break;
+          }
+      }
 
-        // Official gallery viewer controls
-document.addEventListener('DOMContentLoaded', function() {
-    const viewer = document.querySelector('.viewer');
-    const viewerImg = viewer.querySelector('.viewer-img');
-    const nextBtn = viewer.querySelector('.next-btn');
-    const prevBtn = viewer.querySelector('.prev-btn');
-    const closeBtn = viewer.querySelector('.close-btn');
-    const imageCounter = viewer.querySelector('.image-counter');
-    
-    if (!viewer || !viewerImg) return;
+      document.addEventListener('keydown', handleKeyboard);
 
-    // State management
-    const state = {
-        currentIndex: 0,
-        total: 0,
-        images: [],
-        isNavigating: false,
-        isTouching: false,
-        touchStartX: 0,
-        touchStartY: 0,
-        touchEndX: 0,
-        touchEndY: 0,
-        moved: false
-    };
+      // Set up global access for other components
+      window.photoViewer = {
+          open: function(images, startIndex = 0) {
+              state.images = images;
+              state.total = images.length;
+              state.currentIndex = startIndex;
+              state.isNavigating = false;
 
-    const TRANSITION_DURATION = 300;
-    const MIN_SWIPE_DISTANCE = 50;
+              viewer.classList.add('active');
+              document.body.classList.add('viewer-active');
+              document.body.style.overflow = 'hidden';
+              document.body.style.touchAction = 'none';
+              document.body.style.overscrollBehavior = 'contain';
 
-    function updateImageCounter() {
-        if (imageCounter) {
-            imageCounter.textContent = `${state.currentIndex + 1} / ${state.total}`;
+              showImage(startIndex);
+          }
+      };
+  });
+      </script>
+      <script>
+        // Handle hash navigation and section management
+  document.addEventListener('DOMContentLoaded', function() {
+    const hash = window.location.hash;
+    const validSections = ['#upload-section', '#community-gallery-section', '#official-gallery-section', '#hero'];
+
+    // Function to handle section visibility and scrolling
+    function handleSection(hash) {
+      if (!hash || hash === '#hero' || !validSections.includes(hash)) {
+        // For hero section or invalid hash, show hero section
+        window.scrollTo(0, 0);
+        if (!hash) {
+          history.replaceState(null, '', '#hero');
         }
-    }
-
-    function showImage(index, direction = null) {
-        if (state.isNavigating) return;
-        state.isNavigating = true;
-        
-        viewerImg.style.opacity = '0';
-        if (direction) {
-            viewerImg.classList.add(direction === 'next' ? 'slide-out-left' : 'slide-out-right');
+        // Always show official gallery section by default
+        setActiveSection('official-gallery-section');
+      } else {
+        // For valid section hashes other than hero
+        const sectionId = hash.substring(1); // Remove # from hash
+        setActiveSection(sectionId);
+        // Only scroll if it's not the hero section
+        if (hash !== '#hero') {
+          const section = document.querySelector(hash);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         }
-
-        setTimeout(() => {
-            viewerImg.src = state.images[index].src || state.images[index].url || state.images[index];
-            viewerImg.classList.remove('slide-out-left', 'slide-out-right');
-            viewerImg.style.opacity = '1';
-            state.currentIndex = index;
-            updateImageCounter();
-
-            // Reset navigation state after transition
-            setTimeout(() => {
-                state.isNavigating = false;
-            }, TRANSITION_DURATION);
-        }, TRANSITION_DURATION);
+      }
     }
 
-    function navigateNext() {
-        if (state.isNavigating || state.currentIndex >= state.total - 1) return;
-        showImage(state.currentIndex + 1, 'next');
-    }
+    // Initial handling
+    handleSection(hash);
 
-    function navigatePrev() {
-        if (state.isNavigating || state.currentIndex <= 0) return;
-        showImage(state.currentIndex - 1, 'prev');
-    }
-
-    function closeViewer() {
-        viewer.classList.remove('active');
-        document.body.classList.remove('viewer-active');
-        document.body.style.overflow = '';
-        document.body.style.touchAction = '';
-        document.body.style.overscrollBehavior = '';
-        state.isNavigating = false;
-    }
-
-    // Touch event handlers
-    function handleTouchStart(e) {
-        if (e.touches.length !== 1) return;
-        state.isTouching = true;
-        state.moved = false;
-        state.touchStartX = e.touches[0].clientX;
-        state.touchStartY = e.touches[0].clientY;
-    }
-
-    function handleTouchMove(e) {
-        if (!state.isTouching) return;
-        state.moved = true;
-        state.touchEndX = e.touches[0].clientX;
-        state.touchEndY = e.touches[0].clientY;
-
-        const dx = state.touchEndX - state.touchStartX;
-        const dy = state.touchEndY - state.touchStartY;
-
-        // Prevent vertical scrolling when swiping horizontally
-        if (Math.abs(dx) > Math.abs(dy)) {
-            e.preventDefault();
-        }
-    }
-
-    function handleTouchEnd(e) {
-        if (!state.isTouching) return;
-        state.isTouching = false;
-
-        const dx = state.touchEndX - state.touchStartX;
-        const dy = state.touchEndY - state.touchStartY;
-
-        if (state.moved) {
-            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > MIN_SWIPE_DISTANCE) {
-                e.preventDefault();
-                if (dx > 0) {
-                    navigatePrev(); // Swipe right for previous
-                } else {
-                    navigateNext(); // Swipe left for next
-                }
-            } else if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > MIN_SWIPE_DISTANCE && dy > 0) {
-                e.preventDefault();
-                closeViewer(); // Swipe down to close
-            }
-        }
-    }
-
-    // Event listeners
-    nextBtn.addEventListener('click', () => navigateNext());
-    prevBtn.addEventListener('click', () => navigatePrev());
-    closeBtn.addEventListener('click', () => closeViewer());
-    
-    [viewer, viewerImg].forEach(el => {
-        el.addEventListener('touchstart', handleTouchStart, { passive: true });
-        el.addEventListener('touchmove', handleTouchMove, { passive: false });
-        el.addEventListener('touchend', handleTouchEnd, { passive: false });
+    // Handle hash changes
+    window.addEventListener('hashchange', function(e) {
+      handleSection(window.location.hash);
     });
-
-    // Keyboard navigation
-    function handleKeyboard(e) {
-        if (!viewer.classList.contains('active')) return;
-
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-            e.preventDefault();
-        }
-
-        switch (e.key) {
-            case 'ArrowLeft':
-                navigatePrev();
-                break;
-            case 'ArrowRight':
-                navigateNext();
-                break;
-            case 'Escape':
-                closeViewer();
-                break;
-        }
-    }
-
-    document.addEventListener('keydown', handleKeyboard);
-
-    // Set up global access for other components
-    window.photoViewer = {
-        open: function(images, startIndex = 0) {
-            state.images = images;
-            state.total = images.length;
-            state.currentIndex = startIndex;
-            state.isNavigating = false;
-            
-            viewer.classList.add('active');
-            document.body.classList.add('viewer-active');
-            document.body.style.overflow = 'hidden';
-            document.body.style.touchAction = 'none';
-            document.body.style.overscrollBehavior = 'contain';
-            
-            showImage(startIndex);
-        }
-    };
-});
-    </script>
-  </body>
-  </html>
+  });
+      </script>
+    </body>
+    </html>

@@ -29,11 +29,34 @@ const pageTitleObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.1 });
 
-// Observe page title
+// Observe page title and initialize album name toggle
 document.addEventListener('DOMContentLoaded', () => {
+    // Previous page title code
     document.querySelectorAll('.page-title').forEach(pageTitle => {
         pageTitleObserver.observe(pageTitle);
     });
+    
+    // Album name toggle functionality
+    const toggleBtn = document.getElementById('toggleAlbumNamesBtn');
+    const icon = toggleBtn?.querySelector('i');
+    let albumNamesVisible = true;
+    
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            albumNamesVisible = !albumNamesVisible;
+            document.querySelectorAll('.album-name').forEach(title => {
+                title.style.display = albumNamesVisible ? 'block' : 'none';
+            });
+            
+            // Update button text and icon
+            toggleBtn.innerHTML = albumNamesVisible ? 
+                '<i class="fas fa-eye-slash" style="margin-right: 6px;"></i> Hide Album Names' :
+                '<i class="fas fa-eye" style="margin-right: 6px;"></i> Show Album Names';
+                
+            // Update aria-pressed state
+            toggleBtn.setAttribute('aria-pressed', (!albumNamesVisible).toString());
+        });
+    }
     
     // Initialize back-to-top button
     const backToTopBtn = document.getElementById('back-to-top');
@@ -637,6 +660,7 @@ function showAlbums() {
                 
                 const title = document.createElement('h3');
                 title.textContent = album.title;
+                title.className = 'album-name'; // Add class for toggle functionality
 
                 container.appendChild(img);
                 container.appendChild(title);

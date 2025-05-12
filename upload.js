@@ -875,8 +875,10 @@ function updateThumbnails() {
 }
 
 // Add navigation for prev/next buttons (community gallery viewer)
+let swipeLock = false;
 if (prevPhoto && nextPhoto) {
   prevPhoto.addEventListener('click', function(e) {
+    if (swipeLock) return;
     e.stopPropagation();
     if (currentPhotoIndex > 0) {
       currentPhotoIndex--;
@@ -884,6 +886,7 @@ if (prevPhoto && nextPhoto) {
     }
   });
   nextPhoto.addEventListener('click', function(e) {
+    if (swipeLock) return;
     e.stopPropagation();
     if (currentPhotoIndex < currentViewerPhotos.length - 1) {
       currentPhotoIndex++;
@@ -891,7 +894,6 @@ if (prevPhoto && nextPhoto) {
     }
   });
 }
-
 // --- Swipe support for photo viewer ---
 (function() {
   if (!photoViewer || !viewerImage) return;
@@ -938,6 +940,8 @@ if (prevPhoto && nextPhoto) {
       // Horizontal swipe
       e.preventDefault();
       swipeJustHappened = true;
+      swipeLock = true;
+      setTimeout(() => { swipeLock = false; }, 350); // lock out button for 350ms
       if (dx < 0) {
         // Swipe left: next photo
         if (currentPhotoIndex < currentViewerPhotos.length - 1) {
