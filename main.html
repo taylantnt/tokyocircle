@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Circle Photowalk | Create Together with a Community</title>
     <meta name="description" content="Circle Photowalk brings together photographers, models, and creatives in Tokyo. Join our community, participate in photowalks, and connect with creative talent!" />
-    <meta name="keywords" content="Tokyo, photowalk, free, community, photographers, models, creatives, Circle" />
-    <!-- Open Graph Meta Tags -->
+    <meta name="keywords" content="Tokyo, photowalk, free, community, photographers, models, creatives, Circle" />  
+    <meta name="robots" content="index, follow" />
+<!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Circle Photowalk | Create Together with a Community" />
     <meta property="og:description" content="Circle Photowalk brings together photographers, models, and creatives in Tokyo. Join our community, participate in photowalks, and connect with creative talent!" />
     <meta property="og:type" content="website" />
@@ -17,12 +18,13 @@
     <meta name="twitter:title" content="Circle Photowalk | Create Together with a Community" />
     <meta name="twitter:description" content="Circle Photowalk brings together photographers, models, and creatives in Tokyo. Join our community, participate in photowalks, and connect with creative talent!" />
     <meta name="twitter:image" content="https://tokyocircle.jp/apple-touch-icon.png" />
-    <!-- Structured Data: Organization -->
+    <link rel="canonical" href="https://tokyocircle.jp/main.html" />  
+  <!-- Structured Data: Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "Circle Photowalk Tokyo",
+      "name": "Tokyo Circle Photowalks",
       "url": "https://tokyocircle.jp/main.html",
       "logo": "https://tokyocircle.jp/apple-touch-icon.png",
       "sameAs": [
@@ -409,11 +411,230 @@
         <div class="container">
             <div class="section-header">
                 <h2>Looking for Creatives?</h2>
-                <p class="section-description">Circle is a vibrant hub of photographers, videographers, models, and hair & makeup artists — all passionate about storytelling and creativity. Whether you're looking for a team to bring your vision to life or need a single specialist to collaborate with, we can connect you with the right talent from our community. Every project is different, and we're here to help you find the perfect match.</p>
-                <div class="text-center" style="margin-top: 2rem;">
-                    <a href="main2.html" class="btn rainbow-btn"><i class="fas fa-users"></i> Explore Circle Creatives</a>
+                <p class="section-description">Circle is a vibrant hub of talented individuals ready to bring your vision to life</p>
+            </div>
+            
+            <div class="creative-services-container">
+                <!-- Creative services cards -->
+                <div class="creative-services-grid">
+                    <a href="main2.html" class="creative-service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>Photographers</h3>
+                        <p>Professional photographers specializing in portraits, events, products, and more</p>
+                    </a>
+                    
+                    <a href="main2.html" class="creative-service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>Videographers</h3>
+                        <p>Skilled videographers to capture your special moments or create promotional content</p>
+                    </a>
+                    
+                    <a href="main2.html" class="creative-service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Models</h3>
+                        <p>Diverse talent for fashion, commercial, and artistic photography projects</p>
+                    </a>
+                    
+                    <a href="main2.html" class="creative-service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Makeup Artists</h3>
+                        <p>Creative makeup professionals for photoshoots, events, and special occasions</p>
+                    </a>
+                </div>
+                
+                <div class="creative-services-info">
+                    <div class="info-content">
+                        <h3>Why Choose Circle Creatives?</h3>
+                        <ul class="benefits-list">
+                            <li><i class="fas fa-check-circle"></i> Vetted professionals with proven portfolios</li>
+                            <li><i class="fas fa-check-circle"></i> Collaborative approach to bring your vision to life</li>
+                            <li><i class="fas fa-check-circle"></i> Flexible options for any budget and project scope</li>
+                            <li><i class="fas fa-check-circle"></i> Seamless booking and project management</li>
+                        </ul>
+                        <div class="cta-buttons">
+                            <a href="main2.html" class="btn outline-btn"><i class="fas fa-users"></i> Explore Circle Creatives</a>
+                            <a href="inquiry.html" class="btn outline-btn"><i class="fas fa-envelope"></i> Contact Us</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
+            <!-- Add custom styles for this section -->
+            <style>
+                .creative-services-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3rem;
+                    margin-top: 2rem;
+                }
+                
+                .creative-services-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 1.5rem;
+                }
+                
+                .creative-service-card {
+                    background: rgba(255, 255, 255, 0.9);
+                    border-radius: 15px;
+                    padding: 2rem;
+                    text-align: center;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                }
+                
+                .creative-service-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+                }
+                
+                .service-icon {
+                    font-size: 2.5rem;
+                    margin-bottom: 1rem;
+                    color: var(--accent-color, #ff6b6b);
+                    background: rgba(255, 107, 107, 0.1);
+                    width: 80px;
+                    height: 80px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    margin: 0 auto 1.5rem;
+                }
+                
+                .creative-service-card h3 {
+                    margin-bottom: 1rem;
+                    font-size: 1.5rem;
+                }
+                
+                .creative-service-card p {
+                    color: var(--text-secondary, #666);
+                    font-size: 0.95rem;
+                    line-height: 1.6;
+                }
+                
+                .creative-services-info {
+                    background: rgba(255, 255, 255, 0.9);
+                    border-radius: 15px;
+                    padding: 2.5rem;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                }
+                
+                .info-content h3 {
+                    margin-bottom: 1.5rem;
+                    font-size: 1.8rem;
+                    text-align: center;
+                }
+                
+                .benefits-list {
+                    list-style: none;
+                    padding: 0;
+                    margin-bottom: 2rem;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                    gap: 1rem;
+                }
+                
+                .benefits-list li {
+                    padding: 0.5rem 0;
+                    display: flex;
+                    align-items: center;
+                    font-size: 1.1rem;
+                }
+                
+                .benefits-list li i {
+                    color: red;
+                    margin-right: 10px;
+                    font-size: 1.2rem;
+                }
+                
+                .cta-buttons {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                }
+                
+                .outline-btn {
+                    background: transparent;
+                    border: 2px solid var(--accent-color, #ff6b6b);
+                    color: var(--accent-color, #ff6b6b);
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 50px;
+                    font-weight: bold;
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                
+                .outline-btn:hover {
+                    background: var(--accent-color, #ff6b6b);
+                    color: white;
+                }
+                
+                .outline-btn i {
+                    margin-right: 8px;
+                }
+                
+                /* Dark mode adjustments */
+                .dark-mode .creative-service-card,
+                .dark-mode .creative-services-info {
+                    background: rgba(40, 46, 57, 1);
+                }
+                
+                .dark-mode .creative-service-card p {
+                    color: #aaa;
+                }
+                
+                .dark-mode .benefits-list li {
+                    color: #e0e0e0;
+                }
+                
+                .dark-mode .benefits-list li i {
+                    color: var(--accent-color, #ff6b6b);
+                }
+                
+                .dark-mode .outline-btn {
+                    border-color: var(--accent-color, #ff6b6b);
+                    color: var(--accent-color, #ff6b6b);
+                }
+                
+                .dark-mode .outline-btn:hover {
+                    background: var(--accent-color, #ff6b6b);
+                    color: #222;
+                }
+                
+                /* Responsive adjustments */
+                @media (max-width: 768px) {
+                    .creative-services-grid {
+                        grid-template-columns: 1fr;
+                    }
+                    
+                    .benefits-list {
+                        grid-template-columns: 1fr;
+                    }
+                    
+                    .cta-buttons {
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    
+                    .cta-buttons a {
+                        width: 100%;
+                        margin-bottom: 1rem;
+                    }
+                }
+            </style>
         </div>
     </section>
 
