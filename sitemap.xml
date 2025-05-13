@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://yourdomain.com/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/index.html</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/main.html</loc>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/main2.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/inquiry.html</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/submit.html</loc>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/thank-you.html</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/admin.html</loc>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/new-gallery.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <!-- Creatives -->
+  <url>
+    <loc>https://yourdomain.com/creatives/imo.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/creatives/template.html</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/creatives/taylan.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/creatives/craig.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/creatives/simsek.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <!-- Artists -->
+  <url>
+    <loc>https://yourdomain.com/artists/mika.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <!-- Models -->
+  <url>
+    <loc>https://yourdomain.com/models/nami.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://yourdomain.com/models/hari.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <!-- Notused and backup files are excluded from sitemap for SEO -->
+</urlset>

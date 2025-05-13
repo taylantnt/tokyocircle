@@ -98,4 +98,16 @@
         .mobile-menu-btn:hover {
             color: var(--accent-color);
         }
-        
+                @media (max-width: 576px) {
+            .logo {
+            font-family: 'Baloo 2', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            letter-spacing: var(--letter-spacing-tight);
+            transition: all var(--transition-normal);
+            position: relative;
+            padding: 5px 0;
+        }
+        }

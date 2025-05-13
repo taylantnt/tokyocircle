@@ -4,26 +4,97 @@
   <meta charset="UTF-8">
   <title>Thank You!</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f9f9f9;
+      --text-primary: #2c3e50;
+      --text-secondary: #5d6d7e;
+      --accent-color: #ff0000;
+      --accent-dark: #a70000;
+      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+      --border-radius: 18px;
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
     body {
-      font-family: sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      font-family: 'Koh Santepheap', serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .thankyou-card {
+      background: var(--bg-primary);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      padding: 48px 32px 36px 32px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-      background-color: #f9f9f9;
+      gap: 18px;
+      border: 1px solid #ececec;
+      animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
     }
-    h1 {
-      color: #a70000;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: none; }
+    }
+    .thankyou-card h1 {
+      color: var(--accent-dark);
+      font-size: 2.2rem;
+      margin: 0 0 8px 0;
+      letter-spacing: 0.5px;
+      font-weight: 900;
+    }
+    .thankyou-card p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin: 0 0 12px 0;
+      font-weight: 400;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 28px;
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(255,0,0,0.07);
+      transition: background var(--transition-normal), box-shadow var(--transition-normal);
+      letter-spacing: 0.5px;
+    }
+    .back-btn:hover {
+      background: var(--accent-dark);
+      box-shadow: 0 4px 16px rgba(167,0,0,0.13);
+    }
+    @media (max-width: 500px) {
+      .thankyou-card {
+        padding: 32px 10px 24px 10px;
+        max-width: 95vw;
+      }
+      .thankyou-card h1 {
+        font-size: 1.4rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🎉 Thank you!</h1>
-  <p>Your quote request has been submitted successfully. We'll get back to you soon!</p>
-  <a href="/main2.html">← Back to Home</a>
+  <div class="thankyou-card">
+    <h1>🎉 Thank you!</h1>
+    <p>Your request has been submitted successfully.<br>We'll get back to you soon!</p>
+    <a class="back-btn" href="/main2.html">← Back to Home</a>
+  </div>
 </body>
 </html>

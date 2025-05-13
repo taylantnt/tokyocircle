@@ -932,6 +932,11 @@
   </div>
 
   <div class="form-group">
+    <label for="desired-creative">Desired Creative/Model</label>
+    <input type="text" id="desired-creative" name="desired-creative" placeholder="e.g. Craig Stennett">
+  </div>
+
+  <div class="form-group">
     <label for="service">Service Type <span class="required">*</span></label>
     <select id="service" name="service" required>
       <option value="" disabled selected>Select a service...</option>
@@ -1038,6 +1043,16 @@
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
+        
+        // Pre-fill Desired Creative/Model if ?creative= is in the URL
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const creative = params.get('creative');
+  if (creative) {
+    const input = document.getElementById('desired-creative');
+    if (input) input.value = creative;
+  }
+})();
     </script>
 </body>
 </html>

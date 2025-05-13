@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taylan Topuz | Artist page</title>
-    <meta name="description" content="Sarah Smith - Contemporary photographer specializing in street photography and urban landscapes. Explore portfolio and commission work.">
+    <title>PLACEHOLDER NAME | Artist page</title>
+    <meta name="description" content="PLACEHOLDER NAME - Contemporary photographer specializing in street photography and urban landscapes. Explore portfolio and commission work.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap" rel="stylesheet">
@@ -229,6 +229,28 @@
             opacity: 1;
         }
 
+        /* Button Style */
+        .ask-availability-btn {
+            display: inline-block;
+            background: var(--accent-color, #ff0000);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.85em 2.2em;
+            border-radius: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: background 0.2s, transform 0.15s;
+            margin: 0 auto;
+        }
+
+        .ask-availability-btn:hover {
+            background: var(--accent-light, #fe3a3a);
+            color: #fff;
+            transform: translateY(-2px) scale(1.04);
+        }
+
         /* Responsive Design */
         @media (max-width: 1200px) {
             .profile-container {
@@ -408,8 +430,12 @@
         <!-- Profile Information -->
         <div class="profile-info">
             <div class="profile-header">
-                <h1 class="profile-name">Taylan Topuz</h1>
+                <h1 class="profile-name">PLACEHOLDER NAME</h1>
                 <div class="profile-title">Street & Urban Photographer</div>
+                <!-- Ask Availability Button -->
+                <div style="display: flex; justify-content: center; margin-top: 24px; margin-bottom: 8px;">
+                  <a href="/inquiry.html?creative=PLACEHOLDER%20NAME" class="ask-availability-btn">Ask Availability</a>
+                </div>
             </div>
 
             <div class="profile-bio">

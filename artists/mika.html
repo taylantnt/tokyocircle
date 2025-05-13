@@ -253,6 +253,29 @@
                 font-size: 2rem;
             }
         }
+
+        .inquire-btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: #fff;
+            font-family: 'Koh Santepheap', serif;
+            font-weight: 700;
+            font-size: 1.08rem;
+            letter-spacing: 0.5px;
+            padding: 11px 32px;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(255,0,0,0.07);
+            text-decoration: none;
+            margin-top: 6px;
+            transition: background var(--transition-normal), box-shadow var(--transition-normal), transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        .inquire-btn:hover {
+            background: var(--accent-dark);
+            box-shadow: 0 4px 16px rgba(167,0,0,0.13);
+            transform: translateY(-2px) scale(1.03);
+        }
     </style>
 </head>
       <nav class="navbar">
@@ -448,6 +471,10 @@
                 </div>
                 <h1 class="profile-name">Mika Thompson</h1>
                 <div class="profile-title">Professional Makeup Artist</div>
+                <!-- Ask Availability Button -->
+                <div style="text-align:center; margin-bottom: 18px;">
+                  <a href="/inquiry.html?creative=Mika%20Thompson" class="inquire-btn">Ask Availability</a>
+                </div>
             </div>
 
             <div class="profile-bio">
