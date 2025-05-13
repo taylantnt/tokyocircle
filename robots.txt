@@ -1,4 +1,5 @@
+# robots.txt for https://tokyocircle.jp
 User-agent: *
 Allow: /
 
-Sitemap: /sitemap.xml
+Sitemap: https://tokyocircle.jp/sitemap.xml
