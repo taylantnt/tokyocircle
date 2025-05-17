@@ -524,7 +524,7 @@ body.menu-open.active::after {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   position: relative;
   transition: opacity 0.3s ease;
-  max-width: 1400px;
+  max-width: 1950px;
   margin: 70px 0 80px auto;
   background: transparent;
   box-shadow: none;
