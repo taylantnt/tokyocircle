@@ -57,6 +57,10 @@
     <loc>https://tokyocircle.jp/creatives/simsek.html</loc>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://tokyocircle.jp/creatives/matthew.html</loc>
+    <priority>0.7</priority>
+  </url>
   <!-- Artists -->
   <url>
     <loc>https://tokyocircle.jp/artists/mika.html</loc>
@@ -69,6 +73,14 @@
   </url>
   <url>
     <loc>https://tokyocircle.jp/models/hari.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokyocircle.jp/models/james.html</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tokyocircle.jp/models/gabriela.html</loc>
     <priority>0.7</priority>
   </url>
   <!-- Notused and backup files are excluded from sitemap for SEO -->
