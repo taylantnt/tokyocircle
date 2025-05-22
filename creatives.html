@@ -35,6 +35,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="/navbar.css" />
+    <link rel="stylesheet" href="/japanese-font.css" />
+    <script src="translations.js"></script>
+    <script src="language-switcher.js"></script>
   <style>
         :root {
             /* Color Palette */
@@ -345,8 +349,9 @@
         <div class="nav-container">
             <a href="index.html" class="logo">⭕️ Circle</a>
             <div class="nav-links">
-                <a href="#" class="nav-link">Home</a>
-                <a href="inquiry.html" class="nav-link">Inquiry</a>
+                <a href="#" class="nav-link" data-i18n="nav_home">Home</a>
+                <a href="inquiry.html" class="nav-link" data-i18n="nav_inquiry">Inquiry</a>
+                <a href="#" class="nav-link language-toggle" id="languageToggle" data-lang="ja" data-i18n="language_toggle">日本語</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -355,15 +360,15 @@
     </nav>
     <!-- Page Introduction -->
     <div class="page-intro">
-        <h1>Browse Creatives</h1>
-        <p>Browse curated collection of talented individuals in the creative industry. Our Creatives page showcases a diverse range of models, makeup artists, and creatives who bring unique perspectives and artistic visions to their work.</p>
-    <p>Explore the profiles, see their past work, and connect with the right people to help you create something amazing.</p>
+        <h1 data-i18n="creatives_browse_title">Browse Creatives</h1>
+        <p data-i18n="creatives_browse_text1">Browse curated collection of talented individuals in the creative industry. Our Creatives page showcases a diverse range of models, makeup artists, and creatives who bring unique perspectives and artistic visions to their work.</p>
+    <p data-i18n="creatives_browse_text2">Explore the profiles, see their past work, and connect with the right people to help you create something amazing.</p>
     </div>
     
     <div class="category-buttons">
-        <span class="category-link active" data-category="models">Models</span>
-        <span class="category-link" data-category="hmus">Artists</span>
-        <span class="category-link" data-category="creatives">Creatives</span>
+        <span class="category-link active" data-category="models" data-i18n="creatives_category_models">Models</span>
+        <span class="category-link" data-category="hmus" data-i18n="creatives_category_artists">Artists</span>
+        <span class="category-link" data-category="creatives" data-i18n="creatives_category_creatives">Creatives</span>
     </div>
 
     <div class="gallery">
@@ -371,8 +376,8 @@
     </div>
     <!-- Page Introduction -->
     <div class="page-intro">
-        <h1>Hire Top Creatives</h1>
-    <p>From photographers to models to makeup artists — find and hire the right people for your next shoot. Explore curated portfolios and connect with professionals ready to bring your ideas to life.</p>
+        <h1 data-i18n="creatives_hire_title">Hire Top Creatives</h1>
+    <p data-i18n="creatives_hire_text">From photographers to models to makeup artists — find and hire the right people for your next shoot. Explore curated portfolios and connect with professionals ready to bring your ideas to life.</p>
     </div>
 
     <!-- Service Cards Section -->
@@ -382,45 +387,45 @@
                     <div class="service-icon">
                         <i class="fas fa-camera"></i>
                     </div>
-                    <h3>Creatives</h3>
-                    <p>Capture emotion, energy, and elegance — our creators craft visuals that last.</p>
+                    <h3 data-i18n="creatives_service_photographers_title">Creatives</h3>
+                    <p data-i18n="creatives_service_photographers_text">Capture emotion, energy, and elegance — our creators craft visuals that last.</p>
                     <ul class="service-features">
-                    <li><i class="fas fa-check"></i> Portrait Photography</li>
-                    <li><i class="fas fa-check"></i> Wedding & Event Coverage</li>
-                    <li><i class="fas fa-check"></i> Travel Photography</li>
-                    <li><i class="fas fa-check"></i> Studio & Location Sessions</li>
+                    <li data-i18n="creatives_service_photographers_feature1"><i class="fas fa-check"></i> Portrait Photography</li>
+                    <li data-i18n="creatives_service_photographers_feature2"><i class="fas fa-check"></i> Wedding & Event Coverage</li>
+                    <li data-i18n="creatives_service_photographers_feature3"><i class="fas fa-check"></i> Travel Photography</li>
+                    <li data-i18n="creatives_service_photographers_feature4"><i class="fas fa-check"></i> Studio & Location Sessions</li>
                     </ul>
-                    <a href="inquiry.html" class="btn">Hire a Photographer</a>
+                    <a href="inquiry.html" class="btn" data-i18n="creatives_service_photographers_btn">Hire a Photographer</a>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-user-tie"></i>
                     </div>
-                    <h3>Models</h3>
-                    <p>Bring your concepts to life with great talent that fits your project.</p>
+                    <h3 data-i18n="creatives_service_models_title">Models</h3>
+                    <p data-i18n="creatives_service_models_text">Bring your concepts to life with great talent that fits your project.</p>
                     <ul class="service-features">
-                    <li><i class="fas fa-check"></i> Fashion Editorials</li>
-                    <li><i class="fas fa-check"></i> Commercial Projects</li>
-                    <li><i class="fas fa-check"></i> Lifestyle & Product Modeling</li>
-                    <li><i class="fas fa-check"></i> Brand Representation</li>
+                    <li data-i18n="creatives_service_models_feature1"><i class="fas fa-check"></i> Fashion Editorials</li>
+                    <li data-i18n="creatives_service_models_feature2"><i class="fas fa-check"></i> Commercial Projects</li>
+                    <li data-i18n="creatives_service_models_feature3"><i class="fas fa-check"></i> Lifestyle & Product Modeling</li>
+                    <li data-i18n="creatives_service_models_feature4"><i class="fas fa-check"></i> Brand Representation</li>
                     </ul>
-                    <a href="inquiry.html" class="btn">Book a Model</a>
+                    <a href="inquiry.html" class="btn" data-i18n="creatives_service_models_btn">Book a Model</a>
                 </div>
                 
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-paint-brush"></i>
                     </div>
-                    <h3>Hair & Makeup</h3>
-                    <p>Artistry that complements every shot — from clean beauty to creative looks.</p>
+                    <h3 data-i18n="creatives_service_makeup_title">Hair & Makeup</h3>
+                    <p data-i18n="creatives_service_makeup_text">Artistry that complements every shot — from clean beauty to creative looks.</p>
                     <ul class="service-features">
-                    <li><i class="fas fa-check"></i> Professional Makeup</li>
-                    <li><i class="fas fa-check"></i> Hair Styling for All Genders</li>
-                    <li><i class="fas fa-check"></i> Creative Direction</li>
-                    <li><i class="fas fa-check"></i> Wedding & Events</li>
+                    <li data-i18n="creatives_service_makeup_feature1"><i class="fas fa-check"></i> Professional Makeup</li>
+                    <li data-i18n="creatives_service_makeup_feature2"><i class="fas fa-check"></i> Hair Styling for All Genders</li>
+                    <li data-i18n="creatives_service_makeup_feature3"><i class="fas fa-check"></i> Creative Direction</li>
+                    <li data-i18n="creatives_service_makeup_feature4"><i class="fas fa-check"></i> Wedding & Events</li>
                     </ul>
-                    <a href="inquiry.html" class="btn">Book an Artist</a>
+                    <a href="inquiry.html" class="btn" data-i18n="creatives_service_makeup_btn">Book an Artist</a>
                 </div>
             </div>
         </div>
@@ -1940,11 +1945,11 @@
     <section class="join-talent-section" style="padding: 80px 0; margin-top: 100px; background-color: var(--bg-secondary);">
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 24px;">
             <div class="content-wrapper" style="text-align: center;">
-                <h2 style="color: var(--accent-color); font-size: 2rem; margin-bottom: 24px;">Wanna Join Circle Creatives?</h2>
-                <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <h2 style="color: var(--accent-color); font-size: 2rem; margin-bottom: 24px;" data-i18n="creatives_join_title">Wanna Join Circle Creatives?</h2>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; max-width: 800px; margin-left: auto; margin-right: auto;" data-i18n="creatives_join_text">
                     Are you a creative professional, model, or makeup artist looking to showcase your talent? Submit your profile to get a chance to become part of our exclusive Circle Creative community.
                 </p>
-                <a href="submit.html" class="btn" style="display: inline-block; background-color: var(--accent-color); color: white; padding: 12px 32px; border-radius:var(--border-radius); text-decoration: none; transition: all 0.3s ease;">
+                <a href="submit.html" class="btn" style="display: inline-block; background-color: var(--accent-color); color: white; padding: 12px 32px; border-radius:var(--border-radius); text-decoration: none; transition: all 0.3s ease;" data-i18n="creatives_join_btn">
                     Submit Your Profile
                 </a>
             </div>
@@ -2293,5 +2298,11 @@
             });
         }
     </script>
+<script>
+    // Initialize i18n attributes and language toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeI18n();
+    });
+</script>
 </body>
 </html>

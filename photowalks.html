@@ -43,9 +43,124 @@
     <link rel="stylesheet" href="reviews.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="kiwi-maru-font.css">
     <style>
+        /* Language Toggle Styling */
+        .language-toggle-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.62);
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .language-toggle i {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .language-toggle .fa-chevron-down {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .language-toggle.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            margin-top: 8px;
+            padding: 8px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .language-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .language-option {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .language-option:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .language-toggle {
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .dark-mode .language-toggle:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .dark-mode .language-dropdown {
+            background: rgba(150, 150, 150, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .language-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .language-toggle {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+            
+            .language-toggle i {
+                font-size: 0.9rem;
+            }
+
+            .language-dropdown {
+                margin-top: 6px;
+            }
+
+            .language-option {
+                padding: 6px 12px;
+            }
+        }
+
         .past-event {
             position: relative;
             opacity: 0.8;
@@ -75,9 +190,112 @@
         .past-event .event-details {
             position: relative;
         }
+
+        /* Benefits List Styling */
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 2.5rem 0;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 1.5rem;
+            border-radius: 15px;
+            background: var(--card-bg, rgba(255, 255, 255, 0.03));
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent-color, #ff6b6b);
+        }
+
+        .benefit-icon {
+            background: var(--accent-color, #ff6b6b);
+            color: white;
+            font-size: 1.8rem;
+            min-width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+        }
+
+        .benefit-content {
+            flex: 1;
+        }
+
+        .benefit-content h4 {
+            color: var(--heading-color, #333);
+            margin: 0 0 0.75rem 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .benefit-content p {
+            color: var(--text-color, #666);
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Dark mode styles */
+        .dark-mode .benefit-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dark-mode .benefit-content h4 {
+            color: var(--dark-heading-color, #fff);
+        }
+
+        .dark-mode .benefit-content p {
+            color: var(--dark-text-color, #ccc);
+        }
+
+        .dark-mode .benefit-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        @media (max-width: 768px) {
+            .benefits-list {
+                padding: 0 1rem;
+                gap: 1rem;
+            }
+
+            .benefit-item {
+                padding: 1.2rem;
+            }
+
+            .benefit-icon {
+                min-width: 40px;
+                height: 40px;
+                font-size: 1.4rem;
+                margin-right: 1rem;
+            }
+
+            .benefit-content h4 {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
-<body>
+<body class="photowalks-page">
     <!-- Loading Screen -->
     <div class="loader">
         <div class="loader-spinner"></div>
@@ -98,7 +316,7 @@
             </div>
         </div>
 
-        <a href="#" class="logo">
+        <a href="/index.html" class="logo">
             <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
                  alt="Circle Photography Friends Logo" 
                  class="logo-image">
@@ -107,11 +325,28 @@
             <i class="fas fa-bars"></i>
         </button>
             <div class="nav-links">
-                <a href="#about"><i class="fas fa-heart"></i> About</a>
-                <a href="#gallery"><i class="fas fa-images"></i> Gallery</a>
-                <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                <a href="#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
-                <a href="#join" class="btn"><i class="fas fa-user-plus"></i> Join</a>
+                <a href="#about" class="nav-link" data-i18n="nav_about"><i class="fas fa-heart"></i> About</a>
+                <a href="#gallery" class="nav-link" data-i18n="nav_gallery"><i class="fas fa-images"></i> Gallery</a>
+                <a href="#events" class="nav-link" data-i18n="nav_events"><i class="fas fa-calendar-alt"></i> Events</a>
+                <a href="#reviews" class="nav-link" data-i18n="nav_reviews"><i class="fas fa-briefcase"></i> Reviews</a>
+                <a href="#join" class="btn nav-link" data-i18n="nav_join"><i class="fas fa-user-plus"></i> Join</a>
+                <div class="language-toggle-container">
+                    <button class="nav-link language-toggle" id="languageToggle">
+                        <i class="fas fa-globe"></i>
+                        <span class="current-language">English</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-dropdown">
+                        <div class="language-option" data-lang="en">
+                            <i class="fas fa-check"></i>
+                            <span>English</span>
+                        </div>
+                        <div class="language-option" data-lang="ja">
+                            <i class="fas fa-check"></i>
+                            <span>日本語</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -125,14 +360,14 @@
             <div class="overlay"></div>
         </div>
         <div class="hero-content">
-            <h1>Welcome to ⭕️ Circle</h1>
+            <h1 data-i18n="photowalks_welcome">Welcome to ⭕️ Circle</h1>
             <div class="animated-slogan">
                 <span class="flip-text"></span>
             </div>
-            <p class="subtitle">Where Photography Meets Community!</p>
+            <p class="subtitle" data-i18n="photowalks_subtitle_small">Where Photography Meets Community!</p>
             <div class="hero-buttons">
-                <a href="#events" class="btn rainbow-btn">Upcoming Events</a>
-                <a href="#gallery" class="btn rainbow-btn">See Our Photos</a>
+                <a href="#events" class="btn rainbow-btn" data-i18n="btn_see_events">See Events</a>
+                <a href="#gallery" class="btn rainbow-btn" data-i18n="btn_add_me">Add Me</a>
             </div>
         </div>
     </header>
@@ -142,8 +377,8 @@
 
         <div class="container">
             <div class="section-header">
-                <h2>Our Happy Little Photo Family</h2>
-                <p class="section-description">No experience needed - just bring your smile and creativity!</p>
+                <h2 data-i18n="photowalks_about_title">Our Happy Little Photo Family</h2>
+                <p class="section-description" data-i18n="photowalks_about_subtitle">No experience needed - just bring your smile and creativity!</p>
             </div>
             
             <div class="about-redesign">
@@ -151,14 +386,14 @@
                 <div class="about-main-card">
                     <div class="about-content-wrapper">
                         <div class="about-text-content">
-                            <h3>"Circle" connects creatives</h3>
-                            <p class="about-lead">We help photographers, models, hair and makeup artists and other creatives to connect and collaborate.</p>
+                            <h3 data-i18n="photowalks_about_heading">"Circle" connects creatives</h3>
+                            <p class="about-lead" data-i18n="photowalks_about_lead">We help photographers, models, hair and makeup artists and other creatives to connect and collaborate.</p>
                             
-                            <p>Founded in 2024 by two friends, Circle has evolved from casual meetups to a thriving community. We emerged as a circle of friends passionate about photography, modeling and art.</p>
+                            <p data-i18n="photowalks_about_p1">Founded in 2024 by two friends, Circle has evolved from casual meetups to a thriving community. We emerged as a circle of friends passionate about photography, modeling and art.</p>
                             
-                            <p>Circle offers opportunities to meet like-minded creatives and create in a fun environment. Our photowalks take place in different parts of Tokyo, as well as weekend trips outside the city.</p>
+                            <p data-i18n="photowalks_about_p2">Circle offers opportunities to meet like-minded creatives and create in a fun environment. Our photowalks take place in different parts of Tokyo, as well as weekend trips outside the city.</p>
                             
-                            <p class="about-tagline">All skill levels are welcome! Come join our circle of artists and friends.</p>
+                            <p class="about-tagline" data-i18n="photowalks_about_tagline">All skill levels are welcome! Come join our circle of artists and friends.</p>
                         </div>
                         
                         <div class="about-image-container">
@@ -173,7 +408,7 @@
                         <div class="stat-number">790+</div>
                         <div class="stat-description">
                             <div class="stat-icon"><i class="fas fa-smile-beam"></i></div>
-                            <div class="stat-label">Happy Members</div>
+                            <div class="stat-label" data-i18n="photowalks_stats_members">Happy Members</div>
                         </div>
                     </div>
                     
@@ -181,7 +416,7 @@
                         <div class="stat-number">30+</div>
                         <div class="stat-description">
                             <div class="stat-icon"><i class="fas fa-camera"></i></div>
-                            <div class="stat-label">Photo Walks Yearly</div>
+                            <div class="stat-label" data-i18n="photowalks_stats_walks">Photo Walks Yearly</div>
                         </div>
                     </div>
                     
@@ -189,10 +424,25 @@
                         <div class="stat-number">5000+</div>
                         <div class="stat-description">
                             <div class="stat-icon"><i class="fas fa-images"></i></div>
-                            <div class="stat-label">Photos Shared</div>
+                            <div class="stat-label" data-i18n="photowalks_stats_photos">Photos Shared</div>
                         </div>
                     </div>
                 </div>
+                              <div class="creative-services-info">
+                    <div class="info-content">
+                        <h3 data-i18n="why_join_photowalks_title">Why join Circle Photowalks?</h3>
+                        <ul class="benefits-list plain-benefits-list">
+                            <li><i class="fas fa-users" style="color:#ff6b6b;margin-right:0.7em;"></i><span data-i18n="why_join_photowalks_benefit1">Meet friendly photographers, models, and creatives</span></li>
+                            <li><i class="fas fa-camera-retro" style="color:#4CAF50;margin-right:0.7em;"></i><span data-i18n="why_join_photowalks_benefit2">Improve your photography skills in a supportive group</span></li>
+                            <li><i class="fas fa-heart" style="color:#ffb347;margin-right:0.7em;"></i><span data-i18n="why_join_photowalks_benefit3">Make new friends and lasting memories</span></li>
+                            <li><i class="fas fa-map-marker-alt" style="color:#2196F3;margin-right:0.7em;"></i><span data-i18n="why_join_photowalks_benefit4">Discover unique locations in and around Tokyo</span></li>
+                            <li><i class="fas fa-lightbulb" style="color:#9c27b0;margin-right:0.7em;"></i><span data-i18n="why_join_photowalks_benefit5">Get inspired by creative collaborations</span></li>
+                            <li><i class="fas fa-star" style="color:#FFD700;margin-right:0.7em;"></i><span data-i18n="why_join_photowalks_benefit6">All skill levels welcome – just bring your curiosity!</span></li>
+                        </ul>    
+                    </div>
+                </div>
+            </div>
+            
             </div>
         </div>
     </section>
@@ -203,7 +453,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Meet Your Photo Buddies</h2>
-                <p class="section-description">Your facilitators during the photowalks</p>
+                <p class="section-description" data-i18n="photowalks_founders_subtitle">Your facilitators during the photowalks</p>
             </div>
             
             <div class="founders-grid">
@@ -306,8 +556,8 @@
             </div>
             
             <div class="full-gallery-link">      
-              <a href="gallery.html#hero" class="btn rainbow-btn"><i class="fas fa-images"></i> Explore Galleries</a>
-              <a href="gallery.html#upload-section" class="btn rainbow-btn"><i class="fas fa-cloud-upload-alt"></i> Upload Your Photos</a>
+              <a href="gallery.html#hero" class="btn rainbow-btn" data-i18n="photowalks_btn_photos"><i class="fas fa-images"></i> Explore Galleries</a>
+              <a href="gallery.html#upload-section" class="btn rainbow-btn" data-i18n="photowalks_btn_upload"><i class="fas fa-cloud-upload-alt"></i> Upload Your Photos</a>
 
           </div>
         </div>
@@ -319,7 +569,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Upcoming Photowalk Events</h2>
-                <p class="section-description">Come join the adventure!</p>
+                <p class="section-description" data-i18n="photowalks_events_subtitle">Come join the adventure!</p>
             </div>
             
             <div class="events-grid">
@@ -333,7 +583,7 @@
                         <p><i class="fas fa-map-marker-alt"></i>JR Akihabara St. Electric Town exit</p>
                         <p><i class="fas fa-clock"></i> 3:00 PM - 5:00 PM</p>
                         <p>Daytime Photowalk🌞</p>
-                        <a href="https://www.meetup.com/circle/events/307618800/" class="btn pastel-pink-btn">I'm Coming!</a>
+                        <a href="https://www.meetup.com/circle/events/307618800/" class="btn pastel-pink-btn" data-i18n="btn_coming">I'm Coming!</a>
                     </div>
                 </div>
                 
@@ -359,7 +609,7 @@
                         <span>March</span>
                     </div>
                     <div class="event-details">
-                        <h3>Kawagoe Little Edo (川越 小 江戸)</h3>
+                        <h3>Kawagoe Little Edo</h3>
                         <p><i class="fas fa-map-marker-alt"></i> JR. Kawagoe St.</p>
                         <p><i class="fas fa-clock"></i> 3:30 PM - 5:30 PM</p>
                         <p>🌸 Daytime Photowalk 🌸</p>
@@ -376,29 +626,29 @@
     <section id="join" class="section join parallax-section">
         <div class="container">
             <div class="join-content">
-                <h2>Ready to Join the Fun?</h2>
-                <p>We can't wait to meet you! Here's how to get started:</p>
+                <h2 data-i18n="photowalks_join_title">Ready to Join the Fun?</h2>
+                <p data-i18n="photowalks_join_text">We can't wait to meet you! Here's how to get started:</p>
                 
                 <div class="join-steps">
                     <div class="step">
                         <div class="step-number">1</div>
-                        <h3>Follow Us</h3>
-                        <p>Check out our Instagram to see what we're up to</p>
+                        <h3 data-i18n="photowalks_join_step1">Follow Us</h3>
+                        <p data-i18n="photowalks_join_step1_text">Check out our Instagram to see what we're up to</p>
                         <a href="https://www.instagram.com/tokyocircle/" class="btn instagram-btn"><i class="fab fa-instagram"></i> tokyocircle</a>
                     </div>
                     
                     <div class="step">
                         <div class="step-number">2</div>
-                        <h3>Join Our Chat</h3>
-                        <p>Get added to our friendly LINE group today</p>
-                        <a href="" class="btn line-btn"><i class="fab fa-line"></i> Add Me</a>
+                        <h3 data-i18n="photowalks_join_step2">Join Our Chat</h3>
+                        <p data-i18n="photowalks_join_step2_text">Get added to our friendly LINE group today</p>
+                        <a href="" class="btn line-btn"><i class="fab fa-line"></i> <span data-i18n="btn_add_me">Add Me</span></a>
                     </div>
                     
                     <div class="step">
                         <div class="step-number">3</div>
-                        <h3>Come Say Hi!</h3>
-                        <p>Show up to any event - we'll be expecting you!</p>
-                        <a href="https://www.meetup.com/circle/" class="btn meetup-btn"><i class="fab fa-meetup"></i> See Events</a>
+                        <h3 data-i18n="photowalks_join_step3">Come Say Hi!</h3>
+                        <p data-i18n="photowalks_join_step3_text">Show up to any event - we'll be expecting you!</p>
+                        <a href="https://www.meetup.com/circle/" class="btn meetup-btn"><i class="fab fa-meetup"></i> <span data-i18n="btn_see_events">See Events</span></a>
                     </div>
                 </div>
             </div>
@@ -409,8 +659,8 @@
     <section id="hire-us" class="section hire-us parallax-section">
         <div class="container">
             <div class="section-header">
-                <h2>Looking for Creatives?</h2>
-                <p class="section-description">Circle is a vibrant hub of talented individuals ready to bring your vision to life</p>
+                <h2 data-i18n="looking_for_creatives_title">Looking for Creatives?</h2>
+                <p class="section-description" data-i18n="looking_for_creatives_subtitle">Circle is a vibrant hub of talented individuals ready to bring your vision to life</p>
             </div>
             
             <div class="creative-services-container">
@@ -420,47 +670,49 @@
                         <div class="service-icon">
                             <i class="fas fa-camera"></i>
                         </div>
-                        <h3>Photographers</h3>
-                        <p>Professional photographers specializing in portraits, events, products, and more</p>
+                        <h3 data-i18n="creatives_photographers_title">Photographers</h3>
+                        <p data-i18n="creatives_photographers_desc">Professional photographers specializing in portraits, events, products, and more</p>
                     </a>
                     
                     <a href="creatives.html" class="creative-service-card">
                         <div class="service-icon">
                             <i class="fas fa-video"></i>
                         </div>
-                        <h3>Videographers</h3>
-                        <p>Skilled videographers to capture your special moments or create promotional content</p>
+                        <h3 data-i18n="creatives_videographers_title">Videographers</h3>
+                        <p data-i18n="creatives_videographers_desc">Skilled videographers to capture your special moments or create promotional content</p>
                     </a>
                     
                     <a href="creatives.html" class="creative-service-card">
                         <div class="service-icon">
                             <i class="fas fa-user-tie"></i>
                         </div>
-                        <h3>Models</h3>
-                        <p>Diverse talent for fashion, commercial, and artistic photography projects</p>
+                        <h3 data-i18n="creatives_models_title">Models</h3>
+                        <p data-i18n="creatives_models_desc">Diverse talent for fashion, commercial, and artistic photography projects</p>
                     </a>
                     
                     <a href="creatives.html" class="creative-service-card">
                         <div class="service-icon">
                             <i class="fas fa-paint-brush"></i>
                         </div>
-                        <h3>Makeup Artists</h3>
-                        <p>Creative makeup professionals for photoshoots, events, and special occasions</p>
+                        <h3 data-i18n="creatives_makeup_title">Makeup Artists</h3>
+                        <p data-i18n="creatives_makeup_desc">Creative makeup professionals for photoshoots, events, and special occasions</p>
                     </a>
                 </div>
                 
                 <div class="creative-services-info">
                     <div class="info-content">
-                        <h3>Why Choose Circle Creatives?</h3>
-                        <ul class="benefits-list">
-                            <li><i class="fas fa-check-circle"></i> Vetted professionals with proven portfolios</li>
-                            <li><i class="fas fa-check-circle"></i> Collaborative approach to bring your vision to life</li>
-                            <li><i class="fas fa-check-circle"></i> Flexible options for any budget and project scope</li>
-                            <li><i class="fas fa-check-circle"></i> Seamless booking and project management</li>
+                        <h3 data-i18n="why_choose_circle_title">Why Choose Circle Creatives?</h3>
+                        <ul class="benefits-list plain-benefits-list">
+                            <li><i class="fas fa-users" style="color:#ff6b6b;margin-right:0.7em;"></i><span data-i18n="why_choose_circle_benefit1">Find talented creatives from a wide range of cultural backgrounds.</span></li>
+                            <li><i class="fas fa-camera-retro" style="color:#4CAF50;margin-right:0.7em;"></i><span data-i18n="why_choose_circle_benefit2">Communicate seamlessly with multilingual professionals.</span></li>
+                            <li><i class="fas fa-heart" style="color:#ffb347;margin-right:0.7em;"></i><span data-i18n="why_choose_circle_benefit3">Find the right expert for any project, from fashion to corporate.</span></li>
+                            <li><i class="fas fa-map-marker-alt" style="color:#2196F3;margin-right:0.7em;"></i><span data-i18n="why_choose_circle_benefit4">Choose from a diverse roster representing all styles and identities.</span></li>
+                            <li><i class="fas fa-lightbulb" style="color:#9c27b0;margin-right:0.7em;"></i><span data-i18n="why_choose_circle_benefit5">Build your own creative team based on your specific needs.</span></li>
+                            <li><i class="fas fa-star" style="color:#FFD700;margin-right:0.7em;"></i><span data-i18n="why_choose_circle_benefit6">Scale your project flexibly—from solo shoots to full productions.</span></li>
                         </ul>
                         <div class="cta-buttons">
-                            <a href="creatives.html" class="btn outline-btn"><i class="fas fa-users"></i> Explore Circle Creatives</a>
-                            <a href="inquiry.html" class="btn outline-btn"><i class="fas fa-envelope"></i> Contact Us</a>
+                            <a href="creatives.html" class="btn outline-btn" data-i18n="explore_circle_creatives_btn"><i class="fas fa-users"></i> Explore Circle Creatives</a>
+                            <a href="inquiry.html" class="btn outline-btn" data-i18n="contact_us_btn"><i class="fas fa-envelope"></i> Contact Us</a>
                         </div>
                     </div>
                 </div>
@@ -641,8 +893,8 @@
     <section id="reviews" class="section reviews parallax-section">
         <div class="container">
             <div class="section-header">
-                <h2>What Our Members Say</h2>
-                <p class="section-description">Real experiences from our photography community</p>
+                <h2 data-i18n="reviews_section_title">What Our Members Say</h2>
+                <p class="section-description" data-i18n="reviews_section_subtitle">Real experiences from our photography community</p>
             </div>
             
             <div class="reviews-content">
@@ -656,7 +908,7 @@
                         <i class="fas fa-star-half-alt"></i>
                     </div>
                     <div class="rating-number">4.8<span class="rating-total">/5</span></div>
-                    <p class="rating-count">Based on 189 ratings across all events</p>
+                    <p class="rating-count" data-i18n="reviews_section_ratings">Based on 189 ratings across all events</p>
                 </div>
                 
                 <!-- Reviews Grid -->
@@ -717,7 +969,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="review-text">“I want to support this event. It’s full of friendly people, I felt comfortable, and I love what I do.”</p>
+                        <p class="review-text">“I want to support this event. It's full of friendly people, I felt comfortable, and I love what I do.”</p>
                         <p class="review-event">Tokyo International Forum Daytime Walk</p>
                     </div>
                   
@@ -757,7 +1009,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="review-text">A fun, inclusive event—I’d love to help grow it! Guys, increase the limit, man. Let’s connect with more people and be more inclusive. If you need help organizing, I can even help out. I’ll even behave in chat too!”</p>
+                        <p class="review-text">A fun, inclusive event—I'd love to help grow it! Guys, increase the limit, man. Let's connect with more people and be more inclusive. If you need help organizing, I can even help out. I'll even behave in chat too!”</p>
                         <p class="review-event">Meiji Jingumae Night Photowalk</p>
                     </div>
                   
@@ -978,5 +1230,7 @@ if (gallerySlider) {
     <script src="script.js"></script>
     <script src="slogan-animation.js"></script>
     <script src="popup.js"></script>
+    <script src="translations.js"></script>
+    <script src="language-switcher.js"></script>
 </body>
 </html>

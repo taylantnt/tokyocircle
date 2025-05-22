@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="/navbar.css" />
+    <link rel="stylesheet" href="/japanese-font.css" />
+    <script src="translations.js"></script>
+    <script src="language-switcher.js"></script>
     <style>
         :root {
             /* Color Palette */
@@ -307,8 +310,9 @@
         <div class="nav-container">
             <a href="creatives.html" class="logo">⭕️ Circle</a>
             <div class="nav-links">
-                <a href="/creatives.html" class="nav-link">Home</a>
-                <a href="/inquiry.html" class="nav-link">Inquiry</a>
+                <a href="/creatives.html" class="nav-link" data-i18n="nav_home">Home</a>
+            <a href="/inquiry.html" class="nav-link" data-i18n="nav_inquiry">Inquiry</a>
+            <a href="#" class="nav-link language-toggle" data-lang="ja" data-i18n="language_toggle">日本語</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -519,80 +523,80 @@
     <!-- Submission Form -->
     <div class="form-container">
         <div class="form-header">
-            <h1>Join Our Creative Network</h1>
-            <p>Take the first step towards exciting creative opportunities. Fill out the form below and share your portfolio with us.</p>
+            <h1 data-i18n="submit_title">Join Our Creative Network</h1>
+            <p data-i18n="submit_subtitle">Take the first step towards exciting creative opportunities. Fill out the form below and share your portfolio with us.</p>
         </div>
 
 <form name="talent-submission-form" method="POST" data-netlify="true"  action="/thank-you.html"netlify class="talent-submission-form">
   <input type="hidden" name="form-name" value="talent-submission-form">
 
   <div class="form-group">
-    <label for="talent-type">I am a*</label>
+    <label for="talent-type" data-i18n="submit_form_type">I am a*</label>
     <select id="talent-type" name="talent-type" required>
       <option value="">Select your profession</option>
-      <option value="photographer">Photographer/Creative</option>
-      <option value="model">Model</option>
-      <option value="makeup">Hair & Makeup Artist</option>
+      <option value="photographer" data-i18n="submit_form_type_photographer">Photographer/Creative</option>
+      <option value="model" data-i18n="submit_form_type_model">Model</option>
+      <option value="makeup" data-i18n="submit_form_type_makeup">Hair & Makeup Artist</option>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="full-name">Full Name*</label>
-    <input type="text" id="full-name" name="full-name" placeholder="Real Name or Nickname you would like to be addressed as" required>
+    <label for="full-name" data-i18n="submit_form_name">Full Name*</label>
+    <input type="text" id="full-name" name="full-name" placeholder="Real Name or Nickname you would like to be addressed as" data-i18n="submit_form_name_placeholder" required>
   </div>
 
   <div class="form-group">
-    <label for="email">Email Address*</label>
+    <label for="email" data-i18n="submit_form_email">Email Address*</label>
     <input type="email" id="email" name="email" required>
   </div>
 
   <div class="form-group">
-    <label for="phone">Phone Number</label>
+    <label for="phone" data-i18n="submit_form_phone">Phone Number</label>
     <input type="tel" id="phone" name="phone">
   </div>
 
   <div class="form-group">
-    <label for="location">Location*</label>
-    <input type="text" id="location" name="location" placeholder="City, Country" required>
+    <label for="location" data-i18n="submit_form_location">Location*</label>
+    <input type="text" id="location" name="location" placeholder="City, Country" data-i18n="submit_form_location_placeholder" required>
   </div>
 
   <div class="form-group">
-    <label for="portfolio">Portfolio Link*</label>
-    <input type="url" id="portfolio" name="portfolio" placeholder="Google Drive or Website URL" required>
+    <label for="portfolio" data-i18n="submit_form_portfolio">Portfolio Link*</label>
+    <input type="url" id="portfolio" name="portfolio" placeholder="Google Drive or Website URL" data-i18n="submit_form_portfolio_placeholder" required>
   </div>
   
   <div class="form-group">
-  <label for="text">Social Media Links*</label>
-  <input type="url" id="portfolio" name="portfolio" placeholder="Please share any social media accounts you have" >
+  <label for="text" data-i18n="submit_form_social">Social Media Links*</label>
+  <input type="url" id="portfolio" name="portfolio" placeholder="Please share any social media accounts you have" data-i18n="submit_form_social_placeholder">
   </div>
 
   <div class="form-group">
-    <label for="experience">Years of Experience*</label>
+    <label for="experience" data-i18n="submit_form_experience">Years of Experience*</label>
     <select id="experience" name="experience" required>
       <option value="">Select experience level</option>
-      <option value="0-2">0-2 years</option>
-      <option value="3-5">3-5 years</option>
-      <option value="5-10">5-10 years</option>
-      <option value="10+">10+ years</option>
+      <option value="0-2" data-i18n="submit_form_experience_0">0-2 years</option>
+      <option value="3-5" data-i18n="submit_form_experience_3">3-5 years</option>
+      <option value="5-10" data-i18n="submit_form_experience_5">5-10 years</option>
+      <option value="10+" data-i18n="submit_form_experience_10">10+ years</option>
     </select>
   </div>
 
   <div class="form-group">
-    <label for="about">About You</label>
-    <textarea id="about" name="about" placeholder="Tell us about yourself, your style, and what makes you unique. Languages that you speak, any notable work. Measurements for Models. Any Notable clients, works, awards etc."></textarea>
+    <label for="about" data-i18n="submit_form_about">About You</label>
+    <textarea id="about" name="about" placeholder="Tell us about yourself, your style, and what makes you unique. Languages that you speak, any notable work. Measurements for Models. Any Notable clients, works, awards etc." data-i18n="submit_form_about_placeholder"></textarea>
   </div>
 
-  <button type="submit" class="submit-btn">Submit Application</button>
+  <button type="submit" class="submit-btn" data-i18n="submit_form_submit">Submit Application</button>
 </form>
 
         <div class="requirements">
-            <h3>Portfolio Requirements</h3>
+            <h3 data-i18n="submit_requirements_title">Portfolio Requirements</h3>
             <ul>
-                <li><i class="fas fa-check-circle"></i> Create a Google Drive folder with your full name as the title</li>
-                <li><i class="fas fa-check-circle"></i> Name the photo you would like to use as your profile photo as "profile.jpg"</li>
-                <li><i class="fas fa-check-circle"></i> Include a professional headshot or full-body photo (for models)</li>
-                <li><i class="fas fa-check-circle"></i> Share 10 of your best work samples</li>
-                <li><i class="fas fa-check-circle"></i> Ensure the Google Drive link is set to "Anyone with the link can view"</li>
+                <li data-i18n="submit_requirements_1"><i class="fas fa-check-circle"></i> Create a Google Drive folder with your full name as the title</li>
+                <li data-i18n="submit_requirements_2"><i class="fas fa-check-circle"></i> Name the photo you would like to use as your profile photo as "profile.jpg"</li>
+                <li data-i18n="submit_requirements_3"><i class="fas fa-check-circle"></i> Include a professional headshot or full-body photo (for models)</li>
+                <li data-i18n="submit_requirements_4"><i class="fas fa-check-circle"></i> Share 10 of your best work samples</li>
+                <li data-i18n="submit_requirements_5"><i class="fas fa-check-circle"></i> Ensure the Google Drive link is set to "Anyone with the link can view"</li>
             </ul>
         </div>
     </div>

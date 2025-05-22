@@ -1,0 +1,40 @@
+/* kiwi-maru-font.css - Adds Kiwi Maru styling for Japanese text on photowalks page */
+
+/* Import Kiwi Maru from Google Fonts - a playful Japanese font */
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
+
+/* Apply Kiwi Maru font to all Japanese text elements on photowalks page */
+html[lang="ja"] .photowalks-page [data-i18n^="nav_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page [data-i18n^="btn_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page [data-i18n^="photowalks_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page [data-i18n^="reviews_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page [data-i18n^="footer_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page [data-i18n^="creatives_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page [data-i18n^="looking_for_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page [data-i18n^="why_choose_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page [data-i18n^="why_join_photowalks_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page [data-i18n="language_toggle"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page .btn.rainbow-btn[data-i18n]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .photowalks-page .btn[data-i18n]:not(i):not(.fas):not(.fab):not(.fa):not(.far) {
+  font-family: 'Kiwi Maru', serif;
+  letter-spacing: 0.01em;
+}
+
+/* Adjust specific elements for better Japanese typography */
+html[lang="ja"] .photowalks-page .logo {
+  font-family: 'Kiwi Maru', 'Comic Neue', 'Fredoka One', sans-serif;
+  font-weight: 400;
+}
+
+/* Adjust line height for better readability with Japanese characters */
+html[lang="ja"] .photowalks-page p,
+html[lang="ja"] .photowalks-page li {
+  line-height: 1.7;
+}
+
+/* Adjust font weight for headings in Japanese */
+html[lang="ja"] .photowalks-page h1,
+html[lang="ja"] .photowalks-page h2,
+html[lang="ja"] .photowalks-page h3 {
+  font-weight: 400; /* Kiwi Maru only has 400 weight */
+}

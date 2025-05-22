@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request a Quote | Circle Creatives</title>
     <meta name="description" content="Request a quote for professional creative services from Circle - connecting you with top talent in photography, modeling, and artistry.">
+    <meta name="keywords" content="request quote, hire creative, photography services, modeling services, makeup artist, Tokyo creatives, Circle Talent">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="canonical" href="https://tokyocircle.jp/inquiry.html">
@@ -12,6 +13,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="inquiry.css">
+    <link rel="stylesheet" href="/navbar.css" />
+    <link rel="stylesheet" href="/japanese-font.css" />
+    <script src="translations.js"></script>
+    <script src="language-switcher.js"></script>
+    <meta property="og:title" content="Request a Quote | Circle Creatives" />
+    <meta property="og:description" content="Request a quote for professional creative services from Circle - connecting you with top talent in photography, modeling, and artistry." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tokyocircle.jp/inquiry.html" />
+    <meta property="og:image" content="https://tokyocircle.jp/apple-touch-icon.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Request a Quote | Circle Creatives" />
+    <meta name="twitter:description" content="Request a quote for professional creative services from Circle - connecting you with top talent in photography, modeling, and artistry." />
+    <meta name="twitter:image" content="https://tokyocircle.jp/apple-touch-icon.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Request a Quote | Circle Creatives",
+      "description": "Request a quote for professional creative services from Circle - connecting you with top talent in photography, modeling, and artistry.",
+      "url": "https://tokyocircle.jp/inquiry.html",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Tokyo Circle",
+        "url": "https://tokyocircle.jp/"
+      }
+    }
+    </script>
     <style>
         :root {
             /* Color Palette */
@@ -293,7 +321,6 @@
         
         .category-link:hover::after {
             width: 100%;
-        }
         }
         .gallery-item img {
             width: 100%;
@@ -778,8 +805,9 @@
         <div class="nav-container">
             <a href="creatives.html" class="logo">⭕️ Circle</a>
             <div class="nav-links">
-                <a href="/creatives.html" class="nav-link">Home</a>
-                <a href="#" class="nav-link">Inquiry</a>
+                <a href="/creatives.html" class="nav-link" data-i18n="nav_home">Home</a>
+                <a href="#" class="nav-link" data-i18n="nav_inquiry">Inquiry</a>
+                <a href="#" class="nav-link language-toggle" data-lang="ja" data-i18n="language_toggle">日本語</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -876,8 +904,8 @@
     </div>
     <main>
         <div class="page-intro">
-            <h1>Request Quote</h1>
-            <p>Let's bring your creative vision to life. Fill out the form below and we'll craft a personalized quote tailored to your needs. Or just ask a question.</p>
+            <h1 data-i18n="inquiry_title">Request Quote</h1>
+            <p data-i18n="inquiry_intro_text1">Let's bring your creative vision to life. Fill out the form below and we'll craft a personalized quote tailored to your needs. Or just ask a question.</p>
         </div>
 
         <section class="quote-section">
@@ -918,27 +946,27 @@
   <input type="hidden" name="form-name" value="quote">
 
   <div class="form-group">
-    <label for="name">Full Name <span class="required">*</span></label>
+    <label for="name" data-i18n="inquiry_form_name">Full Name <span class="required">*</span></label>
     <input type="text" id="name" name="name" required>
   </div>
 
   <div class="form-group">
-    <label for="email">Email Address <span class="required">*</span></label>
+    <label for="email" data-i18n="inquiry_form_email">Email Address <span class="required">*</span></label>
     <input type="email" id="email" name="email" required>
   </div>
 
   <div class="form-group">
-    <label for="phone">Phone Number</label>
+    <label for="phone" data-i18n="inquiry_form_phone">Phone Number</label>
     <input type="tel" id="phone" name="phone">
   </div>
 
   <div class="form-group">
-    <label for="desired-creative">Desired Creative/Model</label>
+    <label for="desired-creative" data-i18n="inquiry_form_creative">Desired Creative/Model</label>
     <input type="text" id="desired-creative" name="desired-creative" placeholder="e.g. Craig Stennett, Simsek Sua Tortu">
   </div>
 
   <div class="form-group">
-    <label for="service">Service Type <span class="required">*</span></label>
+    <label for="service" data-i18n="inquiry_form_service">Service Type <span class="required">*</span></label>
     <select id="service" name="service" required>
       <option value="" disabled selected>Select a service...</option>
       <option value="photography">Photography</option>
@@ -951,22 +979,22 @@
   </div>
 
   <div class="form-group">
-    <label for="date">Preferred Date</label>
+    <label for="date" data-i18n="inquiry_form_date">Preferred Date</label>
     <input type="date" id="date" name="date">
   </div>
 
   <div class="form-group">
-    <label for="location">Location</label>
+    <label for="location" data-i18n="inquiry_form_location">Location</label>
     <input type="text" id="location" name="location" placeholder="City, Country">
   </div>
 
   <div class="form-group full-width">
-    <label for="details">Project Details <span class="required">*</span></label>
+    <label for="details" data-i18n="inquiry_form_details">Project Details <span class="required">*</span></label>
     <textarea id="details" name="details" rows="4" placeholder="Please describe your project requirements..." required></textarea>
   </div>
 
   <div class="form-group">
-    <label for="referral">How did you find us?</label>
+    <label for="referral" data-i18n="inquiry_form_referral">How did you find us?</label>
     <select id="referral" name="referral">
       <option value="" disabled selected>Select an option...</option>
       <option value="instagram">Instagram</option>
@@ -978,7 +1006,7 @@
   </div>
 
   <div class="form-buttons">
-    <button type="submit" class="submit-btn">
+    <button type="submit" class="submit-btn" data-i18n="inquiry_form_submit">
       <i class="fas fa-paper-plane"></i> Send Request
     </button>
   </div>

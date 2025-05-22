@@ -1,0 +1,35 @@
+/* japanese-font.css - Adds styling for Japanese text */
+
+/* Import Noto Sans JP from Google Fonts - a popular and readable Japanese font */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+/* Apply Japanese font only to elements with Japanese text */
+html[lang="ja"] [data-i18n^="nav_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n^="btn_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n^="inquiry_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n^="submit_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n^="photowalks_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n^="creatives_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n^="looking_for_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n^="why_choose_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n^="reviews_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n^="footer_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] [data-i18n="language_toggle"]:not(i):not(.fas):not(.fab):not(.fa):not(.far) {
+  font-family: 'Noto Sans JP', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+
+
+/* Adjust line height for better readability with Japanese characters */
+html[lang="ja"] p,
+html[lang="ja"] li {
+  line-height: 1.7;
+}
+
+/* Adjust font weight for headings in Japanese */
+html[lang="ja"] h1,
+html[lang="ja"] h2,
+html[lang="ja"] h3 {
+  font-weight: 700;
+}

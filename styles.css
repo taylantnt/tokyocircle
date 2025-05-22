@@ -488,7 +488,7 @@ body {
               display: inline-block;
               padding: var(--space-sm) var(--space-md);
               border-radius: 50px;
-              font-weight: bold;
+              /*font-weight: bold;*/
               transition: all 0.3s ease;
               text-align: center;
               border: none;
