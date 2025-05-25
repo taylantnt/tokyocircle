@@ -175,10 +175,12 @@ const translations = {
     reviews_section_ratings_ja: "全イベントでの189件の評価に基づく",
     looking_for_creatives_title_ja: "クリエイターをお探しですか？",
     why_choose_circle_title_ja: "なぜCircleのクリエイターを選ぶのか？",
-    btn_add_me: "Add Me",
+    btn_add_me: "See Our Photos",
     btn_see_events: "See Events",
-    btn_add_me_ja: "追加する",
+    btn_line_add: "Add Me",
+    btn_add_me_ja: "写真を見る",
     btn_see_events_ja: "イベントを見る",
+    btn_line_add_ja: "追加する",
     creatives_makeup_title_ja: "メイクアップアーティスト",
     creatives_makeup_desc_ja: "撮影、イベント、特別な機会のためのクリエイティブなメイクアッププロフェッショナル",
     reviews_event_yoyogi: "Yoyogi Park Cherry Blossom Walk",
@@ -355,7 +357,7 @@ const translations = {
     language_toggle: "English",
 
     // Button translations
-    btn_add_me: "追加する",
+    btn_line_add: "追加する",
     btn_see_events: "イベントを見る",
 
     // Reviews/Testimonials Section

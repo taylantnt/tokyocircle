@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Shop - Premium Photography Gear</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Comic+Neue:wght@300;400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --primary-dark: #357ABD;
+            --primary-light: rgba(74, 144, 226, 0.15);
+            --accent: #50E3C2;
+            --accent-light: rgba(80, 227, 194, 0.15);
+            
+            --elegant-navy: #2C3E50;
+            --elegant-teal: #16A085;
+            --elegant-coral: #E74C3C;
+            --elegant-purple: #8E44AD;
+            
+            --background: #F8FAFC;
+            --surface: #FFFFFF;
+            --card: #FFFFFF;
+            --hover: rgba(0, 0, 0, 0.03);
+            
+            --text: #2C3E50;
+            --text-light: #34495E;
+            --text-lighter: #7F8C8D;
+            
+            --border: #E2E8F0;
+            --border-light: #F1F5F9;
+            
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            
+            --radius-sm: 0.5rem;
+            --radius-md: 1rem;
+            --radius-lg: 1.5rem;
+            --radius-full: 9999px;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-announcement {
+            background: linear-gradient(135deg, var(--elegant-navy), var(--elegant-purple));
+            color: white;
+            text-align: center;
+            padding: var(--space-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .header-main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xl);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: red;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .logo i {
+            color: red;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: var(--space-sm) var(--space-xl);
+            padding-left: 3rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-full);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-lighter);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--space-lg);
+            margin-left: auto;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .main-content {
+            max-width: 1400px;
+            margin: var(--space-xl) auto;
+            padding: 0 var(--space-xl);
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: var(--space-xl);
+        }
+
+        .filters {
+            background: var(--surface);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .mobile-filter-button {
+            display: none;
+            position: fixed;
+            bottom: var(--space-lg);
+            right: var(--space-lg);
+            background: var(--elegant-navy);
+            color: white;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-lg);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-filter-button i {
+            margin-right: var(--space-xs);
+        }
+
+        .mobile-filter-button:hover {
+            background: var(--elegant-purple);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                display: none;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: var(--surface);
+                z-index: 1001;
+                max-height: 80vh;
+                overflow-y: auto;
+                border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+                box-shadow: var(--shadow-xl);
+                padding-bottom: calc(var(--space-lg) + env(safe-area-inset-bottom));
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+            }
+
+            .filters.show {
+                transform: translateY(0);
+                display: block;
+            }
+
+            .mobile-filter-button {
+                display: flex;
+                align-items: center;
+            }
+
+            .mobile-filter-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .mobile-filter-overlay.show {
+                display: block;
+                opacity: 1;
+            }
+        }
+
+        .filter-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .filter-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--elegant-navy);
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .filter-checkbox {
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            appearance: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .filter-checkbox:checked {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .filter-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 0.8rem;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .filter-label {
+            font-size: 0.95rem;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .products-count {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        .sort-select {
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            color: var(--text);
+            background: var(--surface);
+            cursor: pointer;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .product-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-image {
+            position: relative;
+            padding-top: 100%;
+            background: var(--background);
+        }
+
+        .product-image img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: var(--space-md);
+        }
+
+        .product-category {
+            font-size: 0.8rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: var(--space-xs);
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: var(--space-sm);
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--elegant-navy);
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            margin-top: var(--space-xs);
+        }
+
+        .product-rating i {
+            color: #FFD700;
+            font-size: 0.9rem;
+        }
+
+        .product-rating span {
+            color: var(--text-lighter);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .filters {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-main {
+                flex-direction: column;
+                padding: var(--space-sm);
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+
+            .nav-menu {
+                width: 100%;
+                justify-content: center;
+                margin-top: var(--space-sm);
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-announcement">
+            Welcome to the Official Circle Shop! This shop curates a selection of camera goods and equipments the Circle community utilizes and recommends. 🌟
+        </div>
+        <div class="header-main">
+            <a href="/" class="logo">
+                ⭕️
+                Circle Shop
+            </a>
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search for cameras, lenses, and more...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <aside class="filters">
+            <div class="filter-group">
+                <h3 class="filter-title">Categories</h3>
+                <div class="filter-options">
+
+                    <div class="filter-option">
+                        <input type="checkbox" class="filter-checkbox" id="cat-apparel">
+                        <label class="filter-label" for="cat-apparel">Apparel</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" class="filter-checkbox" id="cat-presets">
+                        <label class="filter-label" for="cat-presets">Presets</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" class="filter-checkbox" id="cat-accessories">
+                        <label class="filter-label" for="cat-accessories">Accessories</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" class="filter-checkbox" id="cat-lighting">
+                        <label class="filter-label" for="cat-lighting">Lighting</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3 class="filter-title">Price Range</h3>
+                <div class="filter-options">
+                    <div class="filter-option">
+                        <input type="checkbox" class="filter-checkbox" id="price-1">
+                        <label class="filter-label" for="price-1">Under ¥2,000</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" class="filter-checkbox" id="price-2">
+                        <label class="filter-label" for="price-2">¥2,000 - ¥10,000</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" class="filter-checkbox" id="price-3">
+                        <label class="filter-label" for="price-3">10,000 - ¥30,000</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" class="filter-checkbox" id="price-4">
+                        <label class="filter-label" for="price-4">Over 30,000</label>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="products-section">
+            <div class="products-header">
+                <div class="products-count">Showing 12 of 48 products</div>
+                <select class="sort-select">
+                    <option>Featured</option>
+                    <option>Newest</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Best Rated</option>
+                </select>
+            </div>
+<div class="product-container"></div>
+
+            <div class="products-grid">
+          </div>
+        </section>
+    </main>
+
+    <div class="mobile-filter-overlay"></div>
+    <button class="mobile-filter-button">
+        <i class="fas fa-filter"></i>
+        Filters
+    </button>
+
+    <script>
+        // Add your JavaScript for filtering and sorting functionality here
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+            const sortSelect = document.querySelector('.sort-select');
+            const productsGrid = document.querySelector('.products-grid');
+            const productsCount = document.querySelector('.products-count');
+            const searchInput = document.querySelector('.search-input');
+            const mobileFilterButton = document.querySelector('.mobile-filter-button');
+            const filters = document.querySelector('.filters');
+            const mobileFilterOverlay = document.querySelector('.mobile-filter-overlay');
+
+            // Store all products data
+            let allProducts = [];
+
+            // Toggle mobile filters
+            mobileFilterButton.addEventListener('click', () => {
+                filters.classList.add('show');
+                mobileFilterOverlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+
+            mobileFilterOverlay.addEventListener('click', () => {
+                filters.classList.remove('show');
+                mobileFilterOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+            });
+
+            // Google Sheets API configuration
+            const SPREADSHEET_ID = '1PHC3qpnpthG-aIngFZMDJ4p-u24vxwhcdadNYyiVleM';
+            const SHEET_NAME = 'Data';
+            const API_KEY = 'AIzaSyDwF23qSlq540-BdQlLzKjf67kTV6k-xD0'; // Replace with your actual API key
+
+            // Fetch products from Google Sheets
+            async function fetchProducts() {
+                try {
+                    const response = await fetch(
+                        `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`
+                    );
+                    const data = await response.json();
+                    const [headers, ...rows] = data.values;
+
+                    // Store the fetched products
+                    allProducts = rows.map((row, index) => {
+                        const [category, title, price, rating, imageUrl, affiliateLink, timestamp] = row;
+                        const numericRating = parseFloat(rating) || 0;
+                        const numericPrice = parseInt(price.replace(/[^0-9]/g, '')) || 0;
+                        const featuredScore = (numericRating * 1000) + (Math.min(numericPrice / 10000, 5) * 100);
+                        
+                        return {
+                            category,
+                            title,
+                            price: numericPrice,
+                            rating: numericRating,
+                            imageUrl,
+                            affiliateLink,
+                            timestamp: timestamp || Date.now() - index,
+                            featuredScore
+                        };
+                    });
+
+                    updateProducts();
+                } catch (error) {
+                    console.error('Error fetching products:', error);
+                }
+            }
+
+            // Initial fetch
+            fetchProducts();
+
+            // Add event listeners for filters and sorting
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProducts);
+            });
+
+            sortSelect.addEventListener('change', updateProducts);
+            searchInput.addEventListener('input', updateProducts);
+
+            function updateProducts() {
+                const selectedCategories = Array.from(filterCheckboxes)
+                    .filter(checkbox => checkbox.checked && checkbox.id.startsWith('cat-'))
+                    .map(checkbox => checkbox.nextElementSibling.textContent);
+
+                const selectedPriceRanges = Array.from(filterCheckboxes)
+                    .filter(checkbox => checkbox.checked && checkbox.id.startsWith('price-'))
+                    .map(checkbox => checkbox.id);
+
+                const searchTerm = searchInput.value.toLowerCase();
+
+                // Filter products
+                let filteredProducts = allProducts.filter(product => {
+                    const matchesCategory = selectedCategories.length === 0 || 
+                                   selectedCategories.includes(product.category);
+                    const matchesSearch = product.title.toLowerCase().includes(searchTerm);
+                    const matchesPrice = selectedPriceRanges.length === 0 || 
+                                selectedPriceRanges.some(range => {
+                                    switch(range) {
+                                        case 'price-1': return product.price < 2000;
+                                        case 'price-2': return product.price >= 2000 && product.price < 10000;
+                                        case 'price-3': return product.price >= 10000 && product.price < 30000;
+                                        case 'price-4': return product.price >= 30000;
+                                        default: return false;
+                                    }
+                                });
+
+                    return matchesCategory && matchesSearch && matchesPrice;
+                });
+
+                // Sort filtered products
+                const sortOption = sortSelect.value;
+                filteredProducts.sort((a, b) => {
+                    switch(sortOption) {
+                        case 'Price: Low to High':
+                            return a.price - b.price;
+                        case 'Price: High to Low':
+                            return b.price - a.price;
+                        case 'Best Rated':
+                            return b.rating - a.rating || b.timestamp - a.timestamp;
+                        case 'Newest':
+                            return a.timestamp - b.timestamp; // Reversed timestamp comparison
+                        default: // Featured
+                            return b.featuredScore - a.featuredScore;
+                    }
+                });
+
+                // Update DOM
+                productsGrid.innerHTML = '';
+                filteredProducts.forEach(product => {
+                    const stars = product.rating;
+                    const fullStars = Math.floor(stars);
+                    const hasHalfStar = stars % 1 >= 0.5;
+
+                    const productCard = document.createElement('a');
+                    productCard.href = product.affiliateLink || '#';
+                    productCard.target = '_blank';
+                    productCard.rel = 'nofollow';
+                    productCard.className = 'product-card';
+                    productCard.style.textDecoration = 'none';
+                    productCard.style.color = 'inherit';
+
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.imageUrl || 'https://source.unsplash.com/random/400x400/?product'}" alt="${product.title}">
+                        </div>
+                        <div class="product-details">
+                            <span class="product-category">${product.category}</span>
+                            <h3 class="product-title">${product.title}</h3>
+                            <div class="product-price">¥${product.price.toLocaleString()}</div>
+                            <div class="product-rating">
+                                ${Array(fullStars).fill('<i class="fas fa-star"></i>').join('')}
+                                ${hasHalfStar ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                                ${Array(5 - fullStars - (hasHalfStar ? 1 : 0)).fill('<i class="far fa-star"></i>').join('')}
+                                <span>(${product.rating})</span>
+                            </div>
+                        </div>
+                    `;
+
+                    productsGrid.appendChild(productCard);
+                });
+
+                productsCount.textContent = `Showing ${filteredProducts.length} products`;
+            }
+        });
+    </script>
+</body>
+</html>

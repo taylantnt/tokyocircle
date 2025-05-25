@@ -166,29 +166,39 @@
             opacity: 0.8;
         }
         
+        .event-details {
+            position: relative;
+        }
+
         .past-event-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(214, 192, 169, 0.78);
-            padding: 10px 20px;
-            border-radius: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /*background-color: rgba(214, 192, 169, 0.78);*/
+            border-radius: 15px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             color: #fff;
             font-weight: bold;
             backdrop-filter: blur(3px);
-            z-index: 1;
+            z-index: 10;
         }
         
+        .past-event-overlay span {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
         .past-event-overlay i {
             color: #4CAF50;
             margin-right: 5px;
-        }
-        
-        .past-event .event-details {
-            position: relative;
         }
 
         /* Benefits List Styling */
@@ -367,7 +377,7 @@
             <p class="subtitle" data-i18n="photowalks_subtitle_small">Where Photography Meets Community!</p>
             <div class="hero-buttons">
                 <a href="#events" class="btn rainbow-btn" data-i18n="btn_see_events">See Events</a>
-                <a href="#gallery" class="btn rainbow-btn" data-i18n="btn_add_me">Add Me</a>
+                <a href="#gallery" class="btn rainbow-btn" data-i18n="btn_add_me">See Our Photos</a>
             </div>
         </div>
     </header>
@@ -572,54 +582,69 @@
                 <p class="section-description" data-i18n="photowalks_events_subtitle">Come join the adventure!</p>
             </div>
             
-            <div class="events-grid">
-                <div class="event-card">
-                    <div class="event-date pastel-blue">
-                        <span>11</span>
-                        <span>May</span>
-                    </div>
-                    <div class="event-details">
-                        <h3>Akihabara Electric Town Photowalk</h3>
-                        <p><i class="fas fa-map-marker-alt"></i>JR Akihabara St. Electric Town exit</p>
-                        <p><i class="fas fa-clock"></i> 3:00 PM - 5:00 PM</p>
-                        <p>Daytime Photowalk🌞</p>
-                        <a href="https://www.meetup.com/circle/events/307618800/" class="btn pastel-pink-btn" data-i18n="btn_coming">I'm Coming!</a>
-                    </div>
-                </div>
-                
-                <div class="event-card past-event">
-                    <div class="event-date pastel-yellow">
-                        <span>3</span>
-                        <span>May</span>
-                    </div>
-                    <div class="event-details">
-                        <h3>Osaka - Shinsekai Photowalk</h3>
-                        <p><i class="fas fa-map-marker-alt"></i>Don Quijote</p>
-                        <p><i class="fas fa-clock"></i> 3:00 PM- 5:00 PM</p>
-                        <p>Let's travel and capture Osaka together!</p>
-                        <div class="past-event-overlay">
-                            <span><i class="fas fa-calendar-check"></i> Event Completed</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-card past-event">
-                    <div class="event-date pastel-pink">
-                        <span>13</span>
-                        <span>March</span>
-                    </div>
-                    <div class="event-details">
-                        <h3>Kawagoe Little Edo</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> JR. Kawagoe St.</p>
-                        <p><i class="fas fa-clock"></i> 3:30 PM - 5:30 PM</p>
-                        <p>🌸 Daytime Photowalk 🌸</p>
-                        <div class="past-event-overlay">
-                            <span><i class="fas fa-calendar-check"></i> Event Completed</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="events-grid" id="events-container">
+                <!-- Events will be dynamically loaded here -->
             </div>
         </div>
+    </section>
+
+    <script>
+        // Google Sheets API configuration
+        const SPREADSHEET_ID = '1PHC3qpnpthG-aIngFZMDJ4p-u24vxwhcdadNYyiVleM';
+        const SHEET_NAME = 'Events';
+        const API_KEY = 'AIzaSyDwF23qSlq540-BdQlLzKjf67kTV6k-xD0';
+
+        // Fetch events from Google Sheets
+        async function fetchEvents() {
+            try {
+                const response = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`
+                );
+                const data = await response.json();
+                const [headers, ...rows] = data.values;
+
+                const eventsContainer = document.getElementById('events-container');
+                eventsContainer.innerHTML = '';
+
+                rows.forEach(row => {
+                    const [date, month, title, location, time, description, meetupLink, rawIsPast] = row;
+                    const isPast = typeof rawIsPast === 'string' && rawIsPast.trim().toLowerCase() === 'true';
+                    const eventCard = document.createElement('div');
+                    eventCard.className = `event-card ${isPast ? 'past-event' : ''}`;
+
+                    eventCard.innerHTML = `
+                        <div class="event-date ${isPast ? 'pastel-yellow' : 'pastel-blue'}">
+                            <span>${date}</span>
+                            <span>${month}</span>
+                        </div>
+                        <div class="event-details">
+                            ${isPast ? '<div class="past-event-overlay"><span><i class="fas fa-calendar-check"></i> Event Completed</span></div>' : ''}
+                            <h3>${title}</h3>
+                            <p><i class="fas fa-map-marker-alt"></i>${location}</p>
+                            <p><i class="fas fa-clock"></i>${time}</p>
+                            <p>${description}</p>
+                            ${isPast ? '' : `<a href="${meetupLink}" class="btn pastel-pink-btn" data-i18n="btn_coming">I'm Coming!</a>`}
+                        </div>
+                    `;
+
+                    eventsContainer.appendChild(eventCard);
+                });
+
+                // Re-initialize i18next after adding new elements
+                if (window.i18next) {
+                    window.i18next.init();
+                }
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
+        }
+
+        // Initial fetch
+        fetchEvents();
+
+        // Refresh events every 5 minutes
+        setInterval(fetchEvents, 5 * 60 * 1000);
+    </script>
     </section>
 
     <!-- Join Section -->
@@ -641,7 +666,7 @@
                         <div class="step-number">2</div>
                         <h3 data-i18n="photowalks_join_step2">Join Our Chat</h3>
                         <p data-i18n="photowalks_join_step2_text">Get added to our friendly LINE group today</p>
-                        <a href="" class="btn line-btn"><i class="fab fa-line"></i> <span data-i18n="btn_add_me">Add Me</span></a>
+                        <a href="" class="btn line-btn"><i class="fab fa-line"></i> <span data-i18n="btn_line_add">Add Me</span></a>
                     </div>
                     
                     <div class="step">
