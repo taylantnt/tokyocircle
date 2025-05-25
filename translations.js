@@ -178,6 +178,12 @@ const translations = {
     btn_add_me: "See Our Photos",
     btn_see_events: "See Events",
     btn_line_add: "Add Me",
+    "photowalks_shop_teaser_title": "Explore Our Gear",
+    "photowalks_shop_teaser_subtitle": "Find recommended cameras, lenses, and accessories used by our community!",
+    "photowalks_shop_teaser_heading": "Level Up Your Photography",
+    "photowalks_shop_teaser_p1": "Discover a curated selection of photography equipment and accessories hand-picked and recommended by the Tokyo Circle community. Whether you're a beginner looking for your first camera or a seasoned pro seeking new gear, our shop has something for everyone.",
+    "photowalks_shop_teaser_p2": "Support our community and find great deals on items that will help you capture stunning photos on your next photowalk!",
+    "photowalks_btn_visit_shop": "Visit Our Shop",
     btn_add_me_ja: "写真を見る",
     btn_see_events_ja: "イベントを見る",
     btn_line_add_ja: "追加する",
@@ -358,6 +364,12 @@ const translations = {
 
     // Button translations
     btn_line_add: "追加する",
+    "photowalks_shop_teaser_title": "私たちのギアを探検",
+    "photowalks_shop_teaser_subtitle": "コミュニティで使用されているおすすめのカメラ、レンズ、アクセサリーを見つけましょう！",
+    "photowalks_shop_teaser_heading": "写真撮影をレベルアップ",
+    "photowalks_shop_teaser_p1": "東京サークルのコミュニティが厳選し推薦する写真機材やアクセサリーをご覧ください。初心者向けの最初のカメラをお探しの方も、新しい機材を求める経験豊富なプロの方も、当店では誰にでも合うものが見つかります。",
+    "photowalks_shop_teaser_p2": "私たちのコミュニティをサポートし、次回のフォトウォークで見事な写真を撮影するのに役立つアイテムをお得に見つけてください！",
+    "photowalks_btn_visit_shop": "ショップを見る",
     btn_see_events: "イベントを見る",
 
     // Reviews/Testimonials Section
