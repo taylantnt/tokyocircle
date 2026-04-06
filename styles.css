@@ -1304,100 +1304,134 @@ body {
           }
   
           .event-card {
-              display: flex;
-              background-color: white;
-              border-radius: var(--space-md);
-              overflow: hidden;
-              box-shadow: var(--soft-shadow);
-              transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                          box-shadow 0.5s ease, 
-                          background-color 0.3s ease;
-              position: relative;
-              z-index: 1;
-          }
-  
-          .event-card:hover {
-              transform: translateY(-12px) scale(1.02);
-              box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-              background-color: rgba(255, 255, 255, 0.95);
-          }
-          
-          .event-card::before {
-              content: '';
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 100%);
-              opacity: 0;
-              transition: opacity 0.5s ease;
-              z-index: 1;
-              pointer-events: none;
-          }
-          
-          .event-card:hover::before {
-              opacity: 1;
-          }
-  
-          .event-date {
-              width: 80px;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              color: white;
-              font-weight: bold;
-              text-align: center;
-          }
-  
-          .event-date span:first-child {
-              font-size: 2rem;
-              line-height: 1;
-          }
-  
-          .pastel-blue {
-              background-color: var(--pastel-blue);
-          }
-  
-          .pastel-yellow {
-              background-color: var(--pastel-yellow);
-          }
-  
-          .pastel-pink {
-              background-color: var(--pastel-pink);
-          }
-  
-          .event-details {
-              padding: var(--space-md);
-              flex: 1;
-          }
-  
-          .event-details h3 {
-              font-size: 1.3rem;
-              margin-bottom: var(--space-sm);
-              color: #6a5acd;
-          }
-  
-          .event-details p {
-              margin-bottom: var(--space-sm);
-              display: flex;
-              align-items: center;
-              gap: var(--space-sm);
-          }
-  
-          .event-details i {
-              color: var(--pastel-pink);
-          }
-  
-          .event-details .btn {
-              background-color: var(--pastel-pink);
-              color: white;
-              border: none;
-              padding: 8px 16px;
-              border-radius: 20px;
-              transition: all 0.3s ease;
-          }
+            display: flex;
+            background-color: white;
+            border-radius: var(--space-md);
+            overflow: hidden;
+            box-shadow: var(--soft-shadow);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        box-shadow 0.5s ease, 
+                        background-color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            background-color: var(--pastel-blue);
+        }
+        
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .event-card:hover::before {
+            opacity: 1;
+        }
+
+        .event-date {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            background-color: var(--pastel-blue);
+            transition: background-color 0.3s ease;
+        }
+        
+        .event-card:hover .event-date {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .event-date span:first-child {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .pastel-blue {
+            background-color: var(--pastel-blue);
+        }
+
+        .pastel-yellow {
+            background-color: var(--pastel-yellow);
+        }
+
+        .pastel-pink {
+            background-color: var(--pastel-pink);
+        }
+
+        .event-details {
+            padding: var(--space-md);
+            flex: 1;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+        
+        .event-card:hover .event-details {
+            color: white;
+        }
+
+        .event-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: var(--space-sm);
+            color: #6a5acd;
+            transition: color 0.3s ease;
+        }
+        
+        .event-card:hover .event-details h3 {
+            color: white;
+        }
+
+        .event-details p {
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+        
+        .event-card:hover .event-details p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .event-details i {
+            color: var(--pastel-pink);
+            transition: color 0.3s ease;
+        }
+        
+        .event-card:hover .event-details i {
+            color: white;
+        }
+
+        .event-details .btn {
+            background-color: var(--pastel-pink);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .event-card:hover .event-details .btn {
+            background-color: white;
+            color: var(--pastel-blue);
+        }
   
           .event-details .btn:hover {
               transform: translateY(-3px);
@@ -1943,38 +1977,70 @@ body {
           }
   
           /* Enhance dark mode card styling */
-          .dark-mode .founder-card,
-          .dark-mode .event-card,
-          .dark-mode .step,
-          .dark-mode .stat-item,
-          .dark-mode .about-main-card {
-              background-color: rgba(40, 40, 50, 0.8);
-              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-              border: 1px solid rgba(255, 255, 255, 0.05);
-          }
-  
-          /* Improve dark mode heading visibility */
-          .dark-mode .section-header h2,
-          .dark-mode .event-details h3,
-          .dark-mode .founder-card h3,
-          .dark-mode .step h3,
-          .dark-mode .about-text-content h3,
-          .dark-mode .join-content h2 {
-              color: var(--pastel-blue);
-              text-shadow: 0 0 10px rgba(79, 216, 235, 0.3);
-          }
-  
-          /* Enhance dark mode text visibility */
-          .dark-mode .about-lead {
-              color: var(--text-primary);
-          }
-  
-          .dark-mode .about-text-content p,
-          .dark-mode .stat-label,
-          .dark-mode .event-details p,
-          .dark-mode .step p {
-              color: var(--text-secondary);
-          }
+        .dark-mode .founder-card,
+        .dark-mode .step,
+        .dark-mode .stat-item,
+        .dark-mode .about-main-card {
+            background-color: rgba(40, 40, 50, 0.8);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .dark-mode .event-card {
+            background-color: rgba(40, 40, 50, 0.8); /* Default to dark background */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .dark-mode .event-card:hover {
+            background-color: var(--pastel-blue); /* Hover to pastel-blue */
+        }
+        
+        .dark-mode .event-card:hover .event-date {
+            background-color: rgba(0, 0, 0, 0.2); /* Darker on hover */
+        }
+
+        /* Improve dark mode heading visibility */
+        .dark-mode .section-header h2,
+        .dark-mode .founder-card h3,
+        .dark-mode .step h3,
+        .dark-mode .about-text-content h3,
+        .dark-mode .join-content h2 {
+            color: var(--pastel-blue);
+            text-shadow: 0 0 10px rgba(79, 216, 235, 0.3);
+            transition: color 0.3s ease;
+        }
+        
+        .dark-mode .event-details h3 {
+            color: var(--pastel-blue); /* Default to pastel-blue */
+            text-shadow: 0 0 10px rgba(79, 216, 235, 0.3);
+            transition: color 0.3s ease;
+        }
+        
+        .dark-mode .event-card:hover .event-details h3 {
+            color: white; /* White on pastel-blue */
+        }
+
+        /* Enhance dark mode text visibility */
+        .dark-mode .about-lead {
+            color: var(--text-primary);
+        }
+
+        .dark-mode .about-text-content p,
+        .dark-mode .stat-label,
+        .dark-mode .step p {
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+        
+        .dark-mode .event-details p {
+            color: var(--text-secondary); /* Default to secondary */
+            transition: color 0.3s ease;
+        }
+        
+        .dark-mode .event-card:hover .event-details p {
+            color: white; /* White on pastel-blue */
+        }
   
           /* Add subtle glow effects to icons in dark mode */
           .dark-mode .stat-icon,
