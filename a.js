@@ -311,9 +311,9 @@ const albums = [
     { 
         title: "Akihabara Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/aki1?v=1746291680107" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/aki2?v=1746291680107" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/aki3?v=1746291680107" }
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505112/aki1_biufkz.jpg" },
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505122/aki2_aniqqo.jpg" },
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505112/aki1_biufkz.jpg" }
         ] 
     },
     { 
