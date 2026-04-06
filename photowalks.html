@@ -1384,31 +1384,44 @@
         </div>
     </footer>
 <script>
-const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
+// Safari 26 dynamic top bar sync workaround
+// The rainbow background is now animated purely via CSS @property and @keyframes in styles.css.
+// This is much more performant and allows Safari to track the background color natively.
+const themeColorMeta = document.getElementById('theme-color');
+const navbar = document.querySelector('.navbar');
 
-if (motion.matches) {
-  const themeColorMeta = document.getElementById('theme-color');
-  const navbar = document.querySelector('.navbar');
-  let hue = 0;
-
-  function getCurrentColor() {
+// Update theme color when dark mode toggles or user scrolls
+function updateThemeMetaColor() {
+  if (themeColorMeta) {
     const isDarkMode = document.body.classList.contains('dark-mode');
-    return isDarkMode
-      ? `hsl(${hue}, 30%, 25%)`
-      : `hsl(${hue}, 40%, 90%)`;
+    if (navbar && navbar.classList.contains('navbar-scrolled')) {
+      themeColorMeta.setAttribute('content', isDarkMode ? '#1e1e1e' : '#ffffff');
+    } else {
+      // When not scrolled, Safari 26+ natively tracks the CSS-animated fixed element's background color.
+      // But for older browsers, we could just clear it or let it track.
+      // For now, we leave it alone so it doesn't fight the CSS animation.
+      themeColorMeta.setAttribute('content', isDarkMode ? 'hsl(0, 30%, 25%)' : 'hsl(0, 40%, 90%)');
+    }
   }
-
-  function updateColors() {
-    hue = (hue + 1) % 360;
-    const color = getCurrentColor();
-
-    document.body.style.background = color;
-    if (navbar) navbar.style.background = color;
-    if (themeColorMeta) themeColorMeta.setAttribute('content', color);
-  }
-
-  setInterval(updateColors, 100);
 }
+
+// Watch for scroll events to update the meta tag when the navbar solidifies
+window.addEventListener('scroll', () => {
+  updateThemeMetaColor();
+});
+
+// Watch for dark mode toggles on the body
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.attributeName === 'class') {
+      updateThemeMetaColor();
+    }
+  });
+});
+observer.observe(document.body, { attributes: true });
+
+// Initial call
+updateThemeMetaColor();
 
 // Make gallery-slider clickable
 const gallerySlider = document.getElementById('clickable-gallery');

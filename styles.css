@@ -2537,3 +2537,51 @@ body {
   background: rgba(30, 30, 30, 0.8); /* Or pick a nice dark/neutral tone */
   backdrop-filter: blur(10px);
 }
+
+/* ==========================================================================
+   Rainbow Background Animation (replaces JavaScript for better performance)
+   ========================================================================== */
+
+@property --rainbow-hue {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes spin-hue {
+  0% { --rainbow-hue: 0; }
+  100% { --rainbow-hue: 360; }
+}
+
+body.photowalks-page {
+  /* Animate the hue from 0 to 360 over 36 seconds, infinitely */
+  animation: spin-hue 36s linear infinite;
+  
+  /* Fallback background if animation or @property is unsupported */
+  background-color: hsl(0, 40%, 90%);
+  
+  /* The animated background */
+  background-color: hsl(calc(var(--rainbow-hue) * 1), 40%, 90%);
+  transition: background-color 0.5s ease;
+}
+
+body.photowalks-page.dark-mode {
+  /* Fallback dark mode */
+  background-color: hsl(0, 30%, 25%);
+  
+  /* Animated dark mode */
+  background-color: hsl(calc(var(--rainbow-hue) * 1), 30%, 25%);
+}
+
+/* Make sure the navbar matches the body exactly before scroll, so Safari can pick it up! */
+body.photowalks-page .navbar:not(.navbar-scrolled) {
+  /* Safari 26 infers the top bar color from the background-color of fixed elements */
+  background: transparent;
+  /* OR we can match the body color: */
+  background-color: hsl(calc(var(--rainbow-hue) * 1), 40%, 90%);
+  box-shadow: none;
+}
+
+body.photowalks-page.dark-mode .navbar:not(.navbar-scrolled) {
+  background-color: hsl(calc(var(--rainbow-hue) * 1), 30%, 25%);
+}
