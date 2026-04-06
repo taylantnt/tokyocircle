@@ -2534,8 +2534,7 @@ body {
 
 /* When scrolled */
 .navbar.navbar-scrolled {
-  background: rgba(30, 30, 30, 0.8); /* Or pick a nice dark/neutral tone */
-  backdrop-filter: blur(10px);
+  /* No more frosted glass or dark background for photowalks page, handled by JS now */
 }
 
 /* ==========================================================================
@@ -2550,15 +2549,4 @@ body.photowalks-page {
 
 body.photowalks-page.dark-mode {
   background-color: hsl(0, 30%, 25%);
-}
-
-/* Make sure the navbar matches the body exactly before scroll, so Safari can pick it up! */
-body.photowalks-page .navbar:not(.navbar-scrolled) {
-  /* This lets the body background show through */
-  background: transparent;
-  box-shadow: none;
-}
-
-body.photowalks-page.dark-mode .navbar:not(.navbar-scrolled) {
-  background: transparent;
 }

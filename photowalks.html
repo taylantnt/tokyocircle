@@ -1403,15 +1403,19 @@ function updateColors(time) {
     // Update body background smoothly every frame
     document.body.style.backgroundColor = currentColor;
     
+    // Make sure navbar EXACTLY matches the background at all times (no frosted glass)
+    if (navbar) {
+      navbar.style.background = currentColor;
+      // Remove any backdrop filter that might make it look disconnected
+      navbar.style.backdropFilter = 'none';
+      navbar.style.webkitBackdropFilter = 'none';
+    }
+    
     // Throttle the theme-color meta tag update to avoid Safari's spam filter
     // Safari natively crossfades theme-color over ~0.3s, so updating every 800ms is safe and smooth
     if (time - lastThemeColorUpdate > 800) {
       if (themeColorMeta) {
-        if (navbar && navbar.classList.contains('navbar-scrolled')) {
-          themeColorMeta.setAttribute('content', isDarkMode ? '#1e1e1e' : '#ffffff');
-        } else {
-          themeColorMeta.setAttribute('content', currentColor);
-        }
+        themeColorMeta.setAttribute('content', currentColor);
       }
       lastThemeColorUpdate = time;
     }
@@ -1427,11 +1431,7 @@ function forceThemeMetaColorUpdate() {
   if (themeColorMeta) {
     const isDarkMode = document.body.classList.contains('dark-mode');
     const currentColor = isDarkMode ? `hsl(${hue}, 30%, 25%)` : `hsl(${hue}, 40%, 90%)`;
-    if (navbar && navbar.classList.contains('navbar-scrolled')) {
-      themeColorMeta.setAttribute('content', isDarkMode ? '#1e1e1e' : '#ffffff');
-    } else {
-      themeColorMeta.setAttribute('content', currentColor);
-    }
+    themeColorMeta.setAttribute('content', currentColor);
     lastThemeColorUpdate = performance.now();
   }
 }
