@@ -1,8 +1,6 @@
-<style>
 body {
   transition: background 1s linear;
 }
-</style>
 
 /* Modal Styles */
 .modal {
@@ -89,7 +87,7 @@ body {
           .animated-slogan {
             font-size: 20px;
               height: 50px;
-  ¥            justify-content: center;
+              justify-content: center;
               align-items: center;
           }
   
