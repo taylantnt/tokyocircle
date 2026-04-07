@@ -26,7 +26,7 @@ document.addEventListener('scroll', function() {
       // Toggle dark mode with smooth transition
       themeToggle.addEventListener('change', function() {
           // Get all sections and important elements that need transition
-          const sections = document.querySelectorAll('.section');
+          const sections = document.querySelectorAll('.section, .section-card');
           const sectionHeaders = document.querySelectorAll('.section-header h2, .section-header .section-description');
           const cards = document.querySelectorAll('.event-card, .step, .founder-card, .about-main-card');
           const heroElements = document.querySelectorAll('.hero-content, .hero-content h1, .hero-buttons, .subtitle');
@@ -37,13 +37,19 @@ document.addEventListener('scroll', function() {
           const images = document.querySelectorAll('img');
 
           // Apply transitions to all elements before toggling the theme
-          document.body.style.transition = 'background-color 0.6s ease, color 0.6s ease';
+          // We don't apply inline transition to body if it's photowalks or gallery page because they have a hue shifting loop that constantly updates background-color inline.
+          // Adding an inline transition to body here would interfere with the requestAnimationFrame loop, causing it to snap instead of animate.
+          if (!document.body.classList.contains('photowalks-page') && !document.body.classList.contains('gallery-page')) {
+              document.body.style.transition = 'background-color 0.6s ease, color 0.6s ease';
+          }
           document.body.classList.add('transition-active');
 
           // Apply navbar transition
           const navbar = document.querySelector('.navbar');
           if (navbar) {
-              navbar.style.transition = 'background 0.6s ease, backdrop-filter 0.6s ease';
+              if (!document.body.classList.contains('photowalks-page') && !document.body.classList.contains('gallery-page')) {
+                  navbar.style.transition = 'background 0.6s ease, backdrop-filter 0.6s ease';
+              }
           }
 
           // Apply footer transition
@@ -102,7 +108,9 @@ document.addEventListener('scroll', function() {
 
           // Remove inline transitions after they're complete
           setTimeout(() => {
-              document.body.style.transition = '';
+              if (!document.body.classList.contains('photowalks-page') && !document.body.classList.contains('gallery-page')) {
+                  document.body.style.transition = '';
+              }
               document.body.classList.remove('transition-active');
 
               // Remove all inline transitions

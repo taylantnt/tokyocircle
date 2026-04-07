@@ -105,7 +105,7 @@
 }
 
 body {
-  background: linear-gradient(180deg, var(--secondary) 0%, var(--primary) 100%);
+  /* background: linear-gradient(180deg, var(--secondary) 0%, var(--primary) 100%); Removed to allow JS animated background */
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -174,7 +174,7 @@ body {
 #official-gallery-section,
 #community-gallery-section,
 #upload-section {
-  background: linear-gradient(120deg, var(--secondary) 0%, var(--primary) 100%);
+  /* background: linear-gradient(120deg, var(--secondary) 0%, var(--primary) 100%); Removed to allow JS animated background */
   min-height: 70vh;
   position: relative;
   padding-top: 4rem;
@@ -1503,7 +1503,7 @@ z-index: 0;
 .gallery-section.section-card,
 .upload-section.section-card,
 main.section-card {
-background: #f8f9fa;
+background-color: #faf8f3; /* Warm off-white */
 border-radius: 40px 40px 0 0;
 box-shadow: 0 8px 32px rgba(60,60,100,0.08), 0 1.5px 6px rgba(60,60,100,0.04);
 margin-top: 0;
@@ -1513,7 +1513,7 @@ position: relative;
 
 .gallery-section,
 .upload-section {
-background: transparent;
+/* background: transparent; Removed to fix color changing issue */
 border-radius: 0;
 box-shadow: none;
 }
@@ -1550,7 +1550,7 @@ main.section-card {
 .dark-mode .gallery-section.section-card,
 .dark-mode .upload-section.section-card,
 .dark-mode main.section-card {
-background: #181824;
+background-color: #2c3862; /* Deep blue from photowalks */
 color: var(--text-primary);
 }
 

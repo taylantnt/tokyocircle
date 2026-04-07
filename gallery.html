@@ -47,10 +47,11 @@
           color: var(--text-primary);
           overflow-x: hidden;
           font-family: var(--body-font);
-          transition: background-color 0.5s ease;
+          /* Background color is smoothly transitioned by JS, only color needs CSS transition */
+          transition: color 0.6s ease;
         }
         body.gallery-page.dark-mode {
-          background-color: hsl(0, 30%, 25%);
+          /* No background-color override here! JS fully handles background color shifting */
         }
 
         /* Filter styles */
@@ -74,10 +75,10 @@
 
         /* Hero section with slideshow */
         .hero {
-        /* height: 60vh;*/
+          min-height: 80vh;
           position: relative;
           display: flex;
-          align-items: start;
+          align-items: center;
           justify-content: center;
           color: white;
           overflow: hidden;
@@ -120,7 +121,10 @@
           z-index: 2;
           text-align: center;
           max-width: 800px;
-          padding: 200px 20px 30px;
+          padding: 80px 20px 30px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
         .hero-content h1 {
@@ -1133,7 +1137,7 @@
       <style>
     body {
         margin: 0;
-        background-color: var(--bg-primary);
+        /* background-color: var(--bg-primary); Removed to allow JS animated background */
         color: var(--text-primary);
         overflow-x: hidden;
         font-family: var(--body-font);

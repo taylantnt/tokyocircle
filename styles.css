@@ -1,5 +1,12 @@
+/* Base body styles */
 body {
-  transition: background 1s linear;
+  transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+/* Override for pages with JS-driven animated backgrounds */
+body.photowalks-page,
+body.gallery-page {
+  transition: color 0.6s ease; /* Only transition text color, let JS handle background */
 }
 
 /* Modal Styles */
@@ -1968,7 +1975,7 @@ body {
           /* Only apply variable-based colors in dark mode */
           .dark-mode body {
               color: var(--text-primary);
-              background-color: var(--bg-primary);
+              /* background-color: var(--bg-primary); Removed to allow JS animated background */
           }
   
           .dark-mode .section-description {
@@ -2218,13 +2225,14 @@ body {
           }
   
           /* Add smooth transitions for theme changes */
-          body,
-          .navbar,
+          body:not(.photowalks-page):not(.gallery-page),
+          .navbar:not(.photowalks-page .navbar):not(.gallery-page .navbar),
           .footer,
           .section,
+          .section-card,
           .container,
           .hero,
-          .review-info
+          .review-info,
           .hero-content,
           .about-main-card,
           .founder-card,
@@ -2232,9 +2240,9 @@ body {
           .event-card,
           .step,
           h1, h2, h3, h4, p, button,
-  
+
           .footer * {
-              transition: background-color 0.4s ease, color 0.4s ease, transform 0.4s ease, box-shadow 0.3s ease !important;
+              transition: background-color 0.6s ease, color 0.6s ease, transform 0.6s ease, box-shadow 0.6s ease, opacity 0.6s ease !important;
           }
   
           /* Add specific transitions for section headers */
@@ -2267,12 +2275,7 @@ body {
           }
   
           /* Navbar transitions */
-          .navbar {
-              transition: background 0.4s ease, backdrop-filter 0.4s ease !important;
-          }
-  
-          /* Navbar transitions */
-          .navbar {
+          body:not(.photowalks-page):not(.gallery-page) .navbar {
               transition: background 0.4s ease, backdrop-filter 0.4s ease !important;
           }
           /* ================ */
@@ -2584,9 +2587,14 @@ body {
 body.photowalks-page {
   /* JS will update the background-color directly */
   background-color: hsl(0, 40%, 90%);
-  transition: background-color 0.5s ease;
+  transition: color 0.6s ease;
 }
 
+/* 
+  We must NOT define a background-color for dark-mode here because
+  it overrides the inline JS style momentarily due to CSS cascading / reflows,
+  causing a single-frame flash/snap. JS fully controls the color.
+*/
 body.photowalks-page.dark-mode {
-  background-color: hsl(0, 30%, 25%);
+  /* No background-color override here! */
 }
