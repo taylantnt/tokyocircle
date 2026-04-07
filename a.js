@@ -855,7 +855,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         showPrevImage();
     });
 
-    document.querySelector('.close-btn').addEventListener('click', function(e) {
+    document.querySelector('.photo-viewer-close').addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         officialCloseViewer();
@@ -863,7 +863,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Close button touch and click handling
     (function() {
-        const closeBtn = document.querySelector('.viewer .close-btn');
+        const closeBtn = document.querySelector('.viewer .photo-viewer-close');
         if (closeBtn) {
             let swipeJustHappened = false;
             let lastTouchTime = 0;

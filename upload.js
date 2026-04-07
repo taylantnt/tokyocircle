@@ -971,15 +971,6 @@ if (prevPhoto && nextPhoto) {
     el.addEventListener('touchmove', handleTouchMove, { passive: false });
     el.addEventListener('touchend', handleTouchEnd, { passive: false });
   });
-  // Make close button easier to tap on mobile
-  if (window.innerWidth <= 768) {
-    closeViewer.style.minWidth = '48px';
-    closeViewer.style.minHeight = '48px';
-    closeViewer.style.padding = '12px';
-    closeViewer.style.margin = '8px';
-    closeViewer.style.zIndex = '10001';
-    closeViewer.style.touchAction = 'manipulation';
-  }
 })();
 
 // Close photo viewer and clean up event listeners

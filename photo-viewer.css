@@ -54,22 +54,27 @@
 }
 
 .photo-viewer-close {
-  position: absolute;
-  top: -40px;
-  right: -40px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
   width: 40px;
   height: 40px;
   border: none;
-  background: none;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
   color: white;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
-  z-index: 10;
-  transition: transform 0.3s ease;
+  z-index: 25001;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .photo-viewer-close:hover {
   transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.8);
 }
 
 .photo-viewer-nav {
@@ -232,8 +237,11 @@ body.photo-viewer-active .navbar {
   }
 
   .photo-viewer-close {
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
   }
 
   .photo-viewer-nav {
