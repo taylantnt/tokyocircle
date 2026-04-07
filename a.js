@@ -293,19 +293,19 @@ const albums = [
     { 
         title: "Shibamata Walk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shibamata1.jpeg?v=1746637235233" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shibamata2.jpeg?v=1746637235233" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shibamata3.jpeg?v=1746637235233" }
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775504999/shibamata3_a1cqr1.jpg" },
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775504954/shibamata2_iclamt.jpg" },
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775504947/shibamata1_foizui.jpg" }
         ] 
     }, 
     { 
         title: "Kanda Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda1?v=1746211508651" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda2?v=1746211508651" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda3?v=1746211508651" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda4?v=1746211508651" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kanda5?v=1746211508651" }
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda1.jpg" },
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda2.jpg" },
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda3.jpg" },
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda4.jpg" },
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda5.jpg" }
         ] 
     },
     { 
@@ -313,7 +313,7 @@ const albums = [
         photos: [ 
             { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505112/aki1_biufkz.jpg" },
             { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505122/aki2_aniqqo.jpg" },
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505112/aki1_biufkz.jpg" }
+            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505132/aki3_tthows.jpg" }
         ] 
     },
     { 
@@ -575,7 +575,7 @@ async function showAlbumPhotos(album) {
 
         const img = document.createElement('img');
         img.src = PLACEHOLDER_IMAGE;
-        img.dataset.src = photo.url;
+        img.dataset.src = getThumbnailUrl(photo.url);
         img.alt = album.title;
         img.className = 'gallery2-thumb';
 
@@ -612,7 +612,8 @@ async function showViewer() {
     viewerImg.style.opacity = '0';
 
     try {
-        const img = await loadImage(state.currentImages[state.currentIndex].url, ERROR_IMAGE);
+        const imgUrl = getViewerUrl(state.currentImages[state.currentIndex].url);
+        const img = await loadImage(imgUrl, ERROR_IMAGE);
         viewerImg.src = img.src;
         viewerImg.style.opacity = '1';
         updateImageCounter();
@@ -625,6 +626,37 @@ async function showViewer() {
 }
 
 // Navigation functions
+function getThumbnailUrl(url) {
+    if (!url.includes('cloudinary.com')) return url;
+    
+    // Replace q_auto/f_auto with q_auto,f_auto,c_fill,w_400,h_400
+    if (url.includes('/q_auto/f_auto/')) {
+        return url.replace('/q_auto/f_auto/', '/q_auto,f_auto,c_fill,w_400,h_400/');
+    }
+    
+    // Alternatively, if it doesn't have q_auto/f_auto but has /upload/
+    if (url.includes('/upload/')) {
+        return url.replace('/upload/', '/upload/q_auto,f_auto,c_fill,w_400,h_400/');
+    }
+    
+    return url;
+}
+
+function getViewerUrl(url) {
+    if (!url.includes('cloudinary.com')) return url;
+    
+    // Replace q_auto/f_auto with q_auto,f_auto,w_1200
+    if (url.includes('/q_auto/f_auto/')) {
+        return url.replace('/q_auto/f_auto/', '/q_auto,f_auto,w_1200/');
+    }
+    
+    if (url.includes('/upload/')) {
+        return url.replace('/upload/', '/upload/q_auto,f_auto,w_1200/');
+    }
+    
+    return url;
+}
+
 function showAlbums() {
     if (state.isTransitioning) return;
     state.isTransitioning = true;
@@ -654,7 +686,7 @@ function showAlbums() {
 
                 const img = document.createElement('img');
                 img.src = PLACEHOLDER_IMAGE;
-                img.dataset.src = album.photos[0].url;
+                img.dataset.src = getThumbnailUrl(album.photos[0].url);
                 img.alt = album.title;
                 img.className = 'gallery2-thumb';
                 
@@ -775,26 +807,7 @@ function preventBodyScroll(e) {
     e.preventDefault();
 }
 
-// Handle viewer opening
-function openViewer(images, index) {
-    currentIndex = index;
-    currentImages = images;
-    viewer.classList.add('active');
-    document.body.classList.add('viewer-active');
-    loadViewerImage(images[currentIndex]);
-    
-    // Add keyboard navigation
-    document.addEventListener('keydown', handleKeyboardNavigation);
-    // Prevent body scroll and improve touch handling
-    document.body.style.overflow = 'hidden';
-    document.body.style.touchAction = 'none';
-    document.body.style.overscrollBehavior = 'contain';
-    // Prevent background scroll on mobile
-    document.body.addEventListener('touchmove', preventBodyScroll, { passive: false });
-    
-    // Initial thumbnails update
-    updateThumbnails();
-}
+
 
 // Add swipe gesture support for official gallery viewer
 (function() {
