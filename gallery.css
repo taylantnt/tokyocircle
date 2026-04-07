@@ -667,8 +667,10 @@ body.menu-open.active::after {
 
 .viewer-content {
   position: relative;
-  max-width: 90%;
-  max-height: 90vh;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
 }
 
 .loading-overlay {
@@ -718,15 +720,24 @@ body.viewer-active .footer {
 }
 
 .viewer-img {
-  max-width: 100%;
+  max-width: calc(100vw - 160px);
   max-height: 90vh;
-  object-fit: contain;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   transition: opacity 0.3s ease;
 }
 
 .viewer-img.loaded {
   opacity: 1;
   transform: scale(1);
+}
+
+@media (max-width: 768px) {
+  .viewer-img {
+    max-width: 95vw;
+  }
 }
 
 
