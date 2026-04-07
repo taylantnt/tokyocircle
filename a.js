@@ -486,6 +486,13 @@ async function showAlbumPhotos(album) {
     state.currentImages = album.photos;
     state.currentIndex = 0;
 
+    // Preload first few viewer images of the album for instant viewing
+    const initialPreloadUrls = [];
+    for (let i = 0; i < Math.min(3, album.photos.length); i++) {
+        initialPreloadUrls.push(getViewerUrl(album.photos[i].id || album.photos[i].url));
+    }
+    imageCache.preload(initialPreloadUrls);
+
     // Create back button as first grid item
     const backContainer = document.createElement('div');
     backContainer.className = 'gallery2-album back-button';
@@ -517,6 +524,15 @@ async function showAlbumPhotos(album) {
         img.className = 'gallery2-thumb';
 
         container.appendChild(img);
+        
+        // Preload viewer image on hover or touchstart for instant loading
+        const preloadViewerImage = () => {
+            const viewerUrl = getViewerUrl(photo.id || photo.url);
+            imageCache.preload([viewerUrl]);
+        };
+        container.addEventListener('mouseenter', preloadViewerImage, { once: true });
+        container.addEventListener('touchstart', preloadViewerImage, { once: true, passive: true });
+
         container.addEventListener('click', () => {
             state.currentIndex = album.photos.indexOf(photo);
             showViewer();
@@ -545,15 +561,48 @@ async function showViewer() {
     // Ensure proper order: first add the body class, then show the viewer
     document.body.classList.add('viewer-active');
     viewer.classList.add('active');
+
+    const photoIdOrUrl = state.currentImages[state.currentIndex].id || state.currentImages[state.currentIndex].url;
+    const imgUrl = getViewerUrl(photoIdOrUrl);
+    const thumbUrl = getThumbnailUrl(photoIdOrUrl);
+
+    // Aggressively preload next and previous images in background
+    if (state.currentImages.length > 1) {
+        const nextIndex = (state.currentIndex + 1) % state.currentImages.length;
+        const prevIndex = (state.currentIndex - 1 + state.currentImages.length) % state.currentImages.length;
+        
+        const nextUrl = getViewerUrl(state.currentImages[nextIndex].id || state.currentImages[nextIndex].url);
+        const prevUrl = getViewerUrl(state.currentImages[prevIndex].id || state.currentImages[prevIndex].url);
+        
+        imageCache.preload([nextUrl, prevUrl]);
+        
+        // Also preload 2 images ahead if possible
+        if (state.currentImages.length > 2) {
+            const nextNextIndex = (state.currentIndex + 2) % state.currentImages.length;
+            const nextNextUrl = getViewerUrl(state.currentImages[nextNextIndex].id || state.currentImages[nextNextIndex].url);
+            imageCache.preload([nextNextUrl]);
+        }
+    }
+
+    // Fast path: if high-res image is already cached, show it instantly with no flash
+    const cachedImage = imageCache.get(imgUrl);
+    if (cachedImage) {
+        viewerImg.src = cachedImage.src;
+        viewerImg.style.opacity = '1';
+        loadingOverlay.style.display = 'none';
+        updateImageCounter();
+        return;
+    }
+
+    // Fallback: instantly show the thumbnail as a placeholder to prevent black flashes
+    viewerImg.src = thumbUrl;
+    viewerImg.style.opacity = '1';
     loadingOverlay.style.display = 'flex';
-    viewerImg.style.opacity = '0';
+    updateImageCounter();
 
     try {
-        const imgUrl = getViewerUrl(state.currentImages[state.currentIndex].id || state.currentImages[state.currentIndex].url);
         const img = await loadImage(imgUrl, ERROR_IMAGE);
         viewerImg.src = img.src;
-        viewerImg.style.opacity = '1';
-        updateImageCounter();
     } catch (error) {
         console.error('Error loading viewer image:', error);
         viewerImg.src = ERROR_IMAGE;
