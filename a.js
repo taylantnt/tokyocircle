@@ -293,219 +293,219 @@ const albums = [
     { 
         title: "Shibamata Walk", 
         photos: [ 
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775504999/shibamata3_a1cqr1.jpg" },
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775504954/shibamata2_iclamt.jpg" },
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775504947/shibamata1_foizui.jpg" }
+            { id: "shibamata1_foizui" },
+            { id: "shibamata3_a1cqr1" },
+            { id: "shibamata2_iclamt" }
         ] 
     }, 
     { 
         title: "Kanda Photowalk", 
         photos: [ 
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda1.jpg" },
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda2.jpg" },
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda3.jpg" },
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda4.jpg" },
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505099/kanda5.jpg" }
+            { id: "kanda1" },
+            { id: "kanda2" },
+            { id: "kanda3" },
+            { id: "kanda4" },
+            { id: "kanda5" }
         ] 
     },
     { 
         title: "Akihabara Photowalk", 
         photos: [ 
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505112/aki1_biufkz.jpg" },
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505122/aki2_aniqqo.jpg" },
-            { url: "https://res.cloudinary.com/drnh8zy84/image/upload/q_auto/f_auto/v1775505132/aki3_tthows.jpg" }
+            { id: "aki1_biufkz" },
+            { id: "aki2_aniqqo" },
+            { id: "aki3_tthows" }
         ] 
     },
     { 
         title: "Shimokitazawa Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo1.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo2.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo3.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo4.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo5.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo6.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo7.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo8.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo9.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo10.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo11.jpeg?v=1746638645681" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo12.jpeg?v=1746638645681" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo13.jpeg?v=1746638645681" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shimo14.jpeg?v=1746638645681" }
+            { id: "shimo" },
+            { id: "shimo-3" },
+            { id: "shimo-2" },
+            { id: "shimo-4" },
+            { id: "shimo-5" },
+            { id: "shimo-6" },
+            { id: "shimo-7" },
+            { id: "shimo-8" },
+            { id: "shimo-9" },
+            { id: "shimo-10" },
+            { id: "shimo-11" },
+            { id: "shimo-12" },
+            { id: "shimo-13" },
+            { id: "shimo-14" }
+
         ] 
     },
     { 
         title: "Kichijoji Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi8.jpeg?v=1746641501739" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi2.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi3.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi4.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi5.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi1.jpeg" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi6.jpeg?v=1746641501739" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi7.jpeg?v=1746641501739" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi9.jpeg?v=1746641501739" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi10.jpeg?v=1746641501739" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi11.jpeg?v=1746641501739" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kichi12.jpeg?v=1746641501739" }
-
+            { id: "kichi" },
+            { id: "kichi-2" },
+            { id: "kichi-3" },
+            { id: "kichi-4" },
+            { id: "kichi-5" },
+            { id: "kichi-6" },
+            { id: "kichi-7" },
+            { id: "kichi-8" },
+            { id: "kichi-9" },
+            { id: "kichi-10" },
+            { id: "kichi-11" },
+            { id: "kichi-12" }
         ] 
     },
     { 
         title: "Ochanomizu Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ocha1.jpeg?v=1746639271898" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ocha2.jpeg?v=1746639271898" }
+            { id: "ocha" },
+            { id: "ocha-2" }
         ] 
     },
     { 
         title: "Hanzomon Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hanzo1.jpeg?v=1746639380873" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hanzo2.jpeg?v=1746639380873" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hanzo3.jpeg?v=1746639380873" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hanzo4.jpeg?v=1746639380873" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hanzo5.jpeg?v=1746639380873" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hanzo6.jpeg?v=1746639380873" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hanzo7.jpeg?v=1746639380873" }
+            { id: "hanzo" },
+            { id: "hanzo-2" },
+            { id: "hanzo-3" },
+            { id: "hanzo-4" },
+            { id: "hanzo-5" },
+            { id: "hanzo-6" },
+            { id: "hanzo-7" }
 
         ] 
     },
     { 
         title: "Hibiya Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hibi1.jpeg?v=1746639761941" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hibi2.jpeg?v=1746639761941" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hibi3.jpeg?v=1746639761941" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hibi4.jpeg?v=1746639761941" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hibi5.jpeg?v=1746639761941" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hibi6.jpeg?v=1746639761941" }
+            { id: "hibi" },
+            { id: "hibi-2" },
+            { id: "hibi-3" },
+            { id: "hibi-4" },
+            { id: "hibi-5" },
+            { id: "hibi-6" }
         ] 
     },
     { 
         title: "Tokyo Station Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/tok2.jpeg?v=1746640003247" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/tok1.jpeg?v=1746640003376" }
+            { id: "tok-2" },
+            { id: "tok" }
         ] 
     },
     { 
         title: "Shinjuku Gyoen Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shinju1.jpeg?v=1746640078052" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shinju2.jpeg?v=1746640078052" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shinju3.jpeg?v=1746640078052" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/shinju4.jpeg?v=1746640078052" }
+            { id: "shinju" },
+            { id: "shinju-2" },
+            { id: "shinju-3" },
+            { id: "shinju-4" }
         ] 
     },
     { 
         title: "Mizumoto Kouen Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/mizu1.jpeg?v=1746640201484" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/mizu2.jpeg?v=1746640201484" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/mizu3.jpeg?v=1746640201484" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/mizu4.jpeg?v=1746640201484" }
+            { id: "mizu" },
+            { id: "mizu-2" },
+            { id: "mizu-3" },
+            { id: "mizu-4" }
         ] 
     },
     { 
         title: "Yurakucho Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/yura3.jpeg?v=1746640333010" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/yura2.jpeg?v=1746640333010" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/yura1.jpeg?v=1746640333010" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/yura4.jpeg?v=1746640333010" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/yura5.jpeg?v=1746640333010" }
+            { id: "yura" },
+            { id: "yura-2" },
+            { id: "yura-3" },
+            { id: "yura-4" },
+            { id: "yura-5" }
         ] 
     },
     { 
         title: "Tokyo International Forum", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/inter4.jpeg?v=1746640462017" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/inter3.jpeg?v=1746640462017" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/inter2.jpeg?v=1746640462017" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/inter1.jpeg?v=1746640462017" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/inter5.jpeg?v=1746640462017" }
+            { id: "inter" },
+            { id: "inter-4" },
+            { id: "inter-3" },
+            { id: "inter-2" },
+            { id: "inter-5" }
         ] 
     },
     { 
         title: "Kabukicho Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kabu1.jpeg?v=1746640604139" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kabu2.jpeg?v=1746640604139" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kabu3.jpeg?v=1746640604139" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kabu4.jpeg?v=1746640604139" }
+            { id: "kabu" },
+            { id: "kabu-2" },
+            { id: "kabu-3" },
+            { id: "kabu-4" }
         ] 
     },
     { 
         title: "Kiba Kouen Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kiba4.jpeg?v=1746640711316" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kiba5.jpeg?v=1746640711316" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kiba3.jpeg?v=1746640711316" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kiba2.jpeg?v=1746640711316" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kiba1.jpeg?v=1746640711316" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kiba6.jpeg?v=17466423203836" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kiba7.jpeg?v=17466423203836" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kiba8.jpeg?v=17466423203836" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/kiba9.jpeg?v=17466423203836" }
+            { id: "kiba" },
+            { id: "kiba-5" },
+            { id: "kiba-3" },
+            { id: "kiba-2" },
+            { id: "kiba-4" },
+            { id: "kiba-6" },
+            { id: "kiba-7" },
+            { id: "kiba-8" },
+            { id: "kiba-9" }
 
         ] 
     },
     { 
         title: "Circle Exhibition", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex3.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex2.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex1.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex4.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex5.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex6.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex7.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex8.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex9.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex10.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex11.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex12.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex13.jpeg?v=1746640988677" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/ex14.jpeg?v=1746640988677" }
+            { id: "ex-3" },
+            { id: "ex-2" },
+            { id: "ex" },
+            { id: "ex-4" },
+            { id: "ex-5" },
+            { id: "ex-6" },
+            { id: "ex-7" },
+            { id: "ex-8" },
+            { id: "ex-9" },
+            { id: "ex-10" },
+            { id: "ex-11" },
+            { id: "ex-12" },
+            { id: "ex-13" },
+            { id: "ex-14" } 
         ] 
     },
     { 
         title: "Halloween Party", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/halo1.jpeg?v=1746641222096" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/halo2.jpeg?v=1746641222096" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/halo3.jpeg?v=1746641222096" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/halo4.jpeg?v=1746641222096" }
+            { id: "halo" },
+            { id: "halo-2" },
+            { id: "halo-3" },
+            { id: "halo-4" }
         ] 
     },
     { 
         title: "Hie Shrine Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie4.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie3.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie2.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie1.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie5.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie6.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie7.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie8.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie9.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie10.jpeg?v=1746641316647" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hie11.jpeg?v=1746641316647" }
+            { id: "hie-4" },
+            { id: "hie-3" },
+            { id: "hie-2" },
+            { id: "hie" },
+            { id: "hie-5" },
+            { id: "hie-6" },
+            { id: "hie-7" },
+            { id: "hie-8" },
+            { id: "hie-9" },
+            { id: "hie-10" },
+            { id: "hie-11" }
         ] 
     },
     { 
         title: "Harajuku Photowalk", 
         photos: [ 
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hara4.jpeg?v=1746641805001" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hara3.jpeg?v=1746641805001" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hara2.jpeg?v=1746641805001" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hara1.jpeg?v=1746641805001" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hara5.jpeg?v=1746641805001" },
-            { url: "https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hara6.jpeg?v=1746641805001" },
+            { id: "hara-4" },
+            { id: "hara-3" },
+            { id: "hara-2" },
+            { id: "hara" },
+            { id: "hara-5" },
+            { id: "hara-6" },
         ] 
     }
 ];
@@ -575,7 +575,7 @@ async function showAlbumPhotos(album) {
 
         const img = document.createElement('img');
         img.src = PLACEHOLDER_IMAGE;
-        img.dataset.src = getThumbnailUrl(photo.url);
+        img.dataset.src = getThumbnailUrl(photo.id || photo.url);
         img.alt = album.title;
         img.className = 'gallery2-thumb';
 
@@ -612,7 +612,7 @@ async function showViewer() {
     viewerImg.style.opacity = '0';
 
     try {
-        const imgUrl = getViewerUrl(state.currentImages[state.currentIndex].url);
+        const imgUrl = getViewerUrl(state.currentImages[state.currentIndex].id || state.currentImages[state.currentIndex].url);
         const img = await loadImage(imgUrl, ERROR_IMAGE);
         viewerImg.src = img.src;
         viewerImg.style.opacity = '1';
@@ -626,35 +626,40 @@ async function showViewer() {
 }
 
 // Navigation functions
-function getThumbnailUrl(url) {
-    if (!url.includes('cloudinary.com')) return url;
+function getThumbnailUrl(urlOrId) {
+    if (!urlOrId) return '';
+    if (!urlOrId.startsWith('http')) {
+        return `https://res.cloudinary.com/drnh8zy84/image/upload/q_auto,f_auto,c_fill,w_400,h_400/${urlOrId}.jpg`;
+    }
+    if (!urlOrId.includes('cloudinary.com')) return urlOrId;
     
-    // Replace q_auto/f_auto with q_auto,f_auto,c_fill,w_400,h_400
-    if (url.includes('/q_auto/f_auto/')) {
-        return url.replace('/q_auto/f_auto/', '/q_auto,f_auto,c_fill,w_400,h_400/');
+    if (urlOrId.includes('/q_auto/f_auto/')) {
+        return urlOrId.replace('/q_auto/f_auto/', '/q_auto,f_auto,c_fill,w_400,h_400/');
     }
     
-    // Alternatively, if it doesn't have q_auto/f_auto but has /upload/
-    if (url.includes('/upload/')) {
-        return url.replace('/upload/', '/upload/q_auto,f_auto,c_fill,w_400,h_400/');
+    if (urlOrId.includes('/upload/')) {
+        return urlOrId.replace('/upload/', '/upload/q_auto,f_auto,c_fill,w_400,h_400/');
     }
     
-    return url;
+    return urlOrId;
 }
 
-function getViewerUrl(url) {
-    if (!url.includes('cloudinary.com')) return url;
+function getViewerUrl(urlOrId) {
+    if (!urlOrId) return '';
+    if (!urlOrId.startsWith('http')) {
+        return `https://res.cloudinary.com/drnh8zy84/image/upload/q_auto,f_auto,w_1200/${urlOrId}.jpg`;
+    }
+    if (!urlOrId.includes('cloudinary.com')) return urlOrId;
     
-    // Replace q_auto/f_auto with q_auto,f_auto,w_1200
-    if (url.includes('/q_auto/f_auto/')) {
-        return url.replace('/q_auto/f_auto/', '/q_auto,f_auto,w_1200/');
+    if (urlOrId.includes('/q_auto/f_auto/')) {
+        return urlOrId.replace('/q_auto/f_auto/', '/q_auto,f_auto,w_1200/');
     }
     
-    if (url.includes('/upload/')) {
-        return url.replace('/upload/', '/upload/q_auto,f_auto,w_1200/');
+    if (urlOrId.includes('/upload/')) {
+        return urlOrId.replace('/upload/', '/upload/q_auto,f_auto,w_1200/');
     }
     
-    return url;
+    return urlOrId;
 }
 
 function showAlbums() {
@@ -686,7 +691,7 @@ function showAlbums() {
 
                 const img = document.createElement('img');
                 img.src = PLACEHOLDER_IMAGE;
-                img.dataset.src = getThumbnailUrl(album.photos[0].url);
+                img.dataset.src = getThumbnailUrl(album.photos[0].id || album.photos[0].url);
                 img.alt = album.title;
                 img.className = 'gallery2-thumb';
                 
