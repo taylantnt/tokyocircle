@@ -201,7 +201,6 @@
               border-radius: 0 0 40px 40px;
               box-shadow: 0 9px 11px rgba(0, 0, 0, 0.4);
               transition: all 0.5s ease;
-              transform: translateZ(0); /* Force hardware acceleration */
               will-change: background; /* Hint for browser optimization */
               display: flex;
               justify-content: space-between;
@@ -211,7 +210,6 @@
           /* Ensure transitions take priority during theme change */
           .navbar.theme-transition {
               transition: all 0.5s ease !important;
-              transform: translateZ(0); /* Force hardware acceleration */
           }
 
           /* Pause all other animations during theme transition */
@@ -366,7 +364,7 @@
   }
 
   /* Stop animations during resize */
-  .resize-animation-stopper * {q
+  .resize-animation-stopper * {
       animation: none !important;
       transition: none !important;
   }

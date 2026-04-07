@@ -114,6 +114,7 @@
   transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1), visibility 0.4s cubic-bezier(0.4,0,0.2,1);
   opacity: 1;
   visibility: visible;
+  min-height: calc(100vh - 140px);
 }
 
 #official-gallery-section[hidden],
@@ -130,6 +131,11 @@
 }
 
 @media (max-width: 600px) {
+  #official-gallery-section,
+  #community-gallery-section,
+  #upload-section {
+    min-height: calc(100vh - 100px);
+  }
   .gallery-switcher-wrapper {
     margin-top: 16px;
     margin-bottom: 12px;

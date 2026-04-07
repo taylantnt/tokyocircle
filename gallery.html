@@ -32,7 +32,6 @@
         }
       }
       </script>
-      <link rel="stylesheet" href="upload.css">
       <link rel="stylesheet" href="gallery.css">
       <link rel="stylesheet" href="upload-styles.css">
       <link rel="stylesheet" href="photo-viewer.css">
@@ -42,12 +41,16 @@
       <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
       <style>
-        body {
+        body.gallery-page {
           margin: 0;
-          background-color: var(--bg-primary);
+          background-color: hsl(0, 40%, 90%);
           color: var(--text-primary);
           overflow-x: hidden;
           font-family: var(--body-font);
+          transition: background-color 0.5s ease;
+        }
+        body.gallery-page.dark-mode {
+          background-color: hsl(0, 30%, 25%);
         }
 
         /* Filter styles */
@@ -692,61 +695,6 @@
           background-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Mini Switcher Animated Indicator */
-        .mini-switcher {
-          position: relative;
-          display: flex;
-          align-items: center;
-          background: #f7f7fa;
-          border-radius: 30px;
-          padding: 4px 6px;
-          gap: 0.5rem;
-          margin: 0 auto 18px auto;
-          width: fit-content;
-          box-shadow: -3px 4px 15px rgba(106, 90, 205, 0.31);
-        }
-        .mini-switcher-btn {
-          position: relative;
-          background: none;
-          border: none;
-          outline: none;
-          font-family: var(--heading-font);
-          font-size: 1.05rem;
-          color: var(--pastel-purple);
-          padding: 10px 22px;
-          border-radius: 22px;
-          cursor: pointer;
-          z-index: 2;
-          transition: color 0.2s;
-        }
-        .mini-switcher-btn.active {
-          color: var(--pastel-purple);
-        }
-        .mini-switcher-indicator {
-          position: absolute;
-          top: 4px;
-          left: 0;
-          height: calc(100% - 8px);
-          background: linear-gradient(90deg, #6a5acd, #ff6b6b);
-          border-radius: 22px;
-          z-index: 1;
-          transition: left 0.32s cubic-bezier(.4,1.4,.6,1), width 0.32s cubic-bezier(.4,1.4,.6,1);
-          box-shadow: 0 2px 8px rgba(106,90,205,0.13);
-          width: 0;
-          pointer-events: none;
-        }
-        @media (max-width: 600px) {
-          .mini-switcher {
-            width: 100%;
-            justify-content: space-between;
-          }
-          .mini-switcher-btn {
-            flex: 1 1 0;
-            padding: 10px 0;
-            font-size: 0.85rem;
-          }
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
           .hero-content {
@@ -841,7 +789,7 @@
   }
       </style>
     </head>
-    <body>
+    <body class="gallery-page">
       <header>
     <!-- Navigation Section -->
     <nav class="navbar">
@@ -859,7 +807,7 @@
                 </div>
             </div>
 
-            <a href="photowalks.html" class="logo">
+            <a href="index.html" class="logo">
                 <img src="https://res.cloudinary.com/drnh8zy84/image/upload/f_auto,q_auto/v1775490948/logo1.png" 
                     alt="Circle Photography Friends Logo" 
                     class="logo-image">
@@ -894,6 +842,7 @@
         </div>
       </header>
 
+      <div class="gallery-sections-wrapper">
       <!-- Official Gallery Section -->
       <main id="official-gallery-section" class="section-card">
         <div class="page-title" role="banner">
@@ -908,21 +857,13 @@
               <div class="mini-switcher-indicator"></div>
             </div>
           </div>
-        <!-- Album Name Toggle Button (Official Gallery only) -->
-        <div class="album-toggle-wrapper">
-          <div class="community-filter-bar">
-            <button id="toggleAlbumNamesBtn" class="filter-btn" aria-pressed="false">
-              <i class="fas fa-eye-slash"></i>
-              <span>Hide Album Names</span>
-            </button>
-          </div>
-        </div>
         <div id="gallery2" class="gallery2" role="region" aria-label="Photo gallery grid">
             <div class="loading-spinner"></div>
         </div>
-        <div class="viewer" role="dialog" aria-label="Image viewer" aria-modal="true">
-            <button class="nav-btn prev-btn" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+        <div class="viewer" role="dialog" aria-label="Image viewer" aria-modal="true" style="position: fixed; z-index: 99999;">
             <div class="viewer-content">
+                <button class="photo-viewer-nav photo-viewer-prev prev-btn" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+                <button class="photo-viewer-nav photo-viewer-next next-btn" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
                 <img class="viewer-img" src="" alt="Enlarged view" loading="lazy">
                 <div class="loading-overlay">
                     <div class="loading-spinner"></div>
@@ -932,7 +873,6 @@
                     <span class="close-text">Close</span>
                 </button>
             </div>
-            <button class="nav-btn next-btn" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
             <div class="viewer-controls">
                 <span class="image-counter"></span>
             </div>
@@ -1086,6 +1026,7 @@
           </div>
         </div>
       </section>
+      </div>
 
       <!-- Tips Modal -->
       <div class="modal-overlay" id="tips-modal">
@@ -1207,34 +1148,8 @@
       <script src="upload.js"></script>
       <script src="script.js"></script>
         <script src="a.js"></script>
-        <script src="a2.js"></script>
         <script src="a3.js"></script>
         <script>
-          // Hamburger menu functionality for mobile
-          document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-            if (mobileMenuBtn && navLinks) {
-              // Set custom property for staggered animation
-              navLinks.querySelectorAll('a').forEach((link, index) => {
-                link.style.setProperty('--i', index);
-              });
-              mobileMenuBtn.addEventListener('click', function() {
-                mobileMenuBtn.classList.toggle('active');
-                navLinks.classList.toggle('active');
-                document.body.classList.toggle('menu-open');
-              });
-              // Close menu when clicking a link
-              navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function() {
-                  mobileMenuBtn.classList.remove('active');
-                  navLinks.classList.remove('active');
-                  document.body.classList.remove('menu-open');
-                });
-              });
-            }
-          });
-
           // Gallery Switcher Logic
           document.addEventListener('DOMContentLoaded', function() {
             const buttons = document.querySelectorAll('.switcher-btn');
@@ -1298,32 +1213,98 @@
         ...document.querySelectorAll('.mini-switcher-btn[data-section="' + section + '"]')
       ];
     }
-    function setActiveSection(sectionId) {
-      // Show/hide sections
+    window.setActiveSection = function(sectionId) {
+      // Find the current active section to know what we're transitioning FROM
+      const activeSectionBtn = document.querySelector('.mini-switcher-btn.active, .switcher-btn.active');
+      const prevSectionId = activeSectionBtn ? activeSectionBtn.getAttribute('data-section') : null;
+      
+      // If we are already on this section, do nothing
+      if (prevSectionId === sectionId) return;
+
       const sections = [
         document.getElementById('official-gallery-section'),
         document.getElementById('community-gallery-section'),
         document.getElementById('upload-section')
       ];
-      sections.forEach(section => {
-        if (section.id === sectionId) {
-          section.style.display = '';
-          section.classList.remove('hide');
-          section.removeAttribute('hidden');
-          // Removed scrollIntoView to disable jumping
-        } else {
-          section.classList.add('hide');
-          setTimeout(() => {
-            section.setAttribute('hidden', '');
-            section.style.display = 'none';
-          }, 400);
-        }
-      });
-      // Update all switchers' active state
+
+      const wrapper = document.querySelector('.gallery-sections-wrapper');
+      
+      // Update all switchers' active state immediately
       ['official-gallery-section','community-gallery-section','upload-section'].forEach(id => {
         const btns = getAllSwitcherButtons(id);
         btns.forEach(btn => btn.classList.toggle('active', id === sectionId));
       });
+
+      // Prepare wrapper for height transition
+      if (wrapper && prevSectionId) {
+        const prevSection = document.getElementById(prevSectionId);
+        if (prevSection) {
+          wrapper.style.height = prevSection.offsetHeight + 'px';
+          void wrapper.offsetHeight; // Force reflow to apply starting height
+        }
+      }
+
+      // Handle the transition for all sections
+      sections.forEach(section => {
+        if (section.id === sectionId) {
+          // This is the INCOMING section
+          section.style.display = '';
+          section.removeAttribute('hidden');
+          section.classList.remove('hide');
+          section.classList.add('active-section');
+        } else if (section.id === prevSectionId) {
+          // This is the OUTGOING section
+          section.classList.remove('active-section');
+          section.classList.add('hide');
+          
+          // Cleanup after animation completes
+          setTimeout(() => {
+            if (section.classList.contains('hide')) {
+              section.setAttribute('hidden', '');
+              section.style.display = 'none';
+              section.classList.remove('hide'); // Reset to original transform
+            }
+          }, 400); // 400ms matches CSS transition
+        } else {
+          // Other inactive sections
+          section.classList.remove('active-section');
+          section.classList.remove('hide');
+          section.setAttribute('hidden', '');
+          section.style.display = 'none';
+        }
+      });
+
+      // Animate wrapper height to match incoming section
+      if (wrapper) {
+        const incomingSection = document.getElementById(sectionId);
+        if (incomingSection) {
+          // Force a reflow so the browser registers the display:'' change
+          void incomingSection.offsetHeight;
+          
+          const endHeight = incomingSection.offsetHeight;
+          
+          // Use requestAnimationFrame to ensure the starting height is applied before transitioning
+          requestAnimationFrame(() => {
+            // Animate to new height
+            wrapper.style.height = endHeight + 'px';
+            
+            // Clear any existing timeout to prevent premature height reset
+            if (wrapper.dataset.heightTimeout) {
+              clearTimeout(parseInt(wrapper.dataset.heightTimeout));
+            }
+            
+            // Clean up height after animation
+            const timeoutId = setTimeout(() => {
+              if (wrapper.style.height === endHeight + 'px') {
+                wrapper.style.height = '';
+              }
+            }, 400);
+            
+            wrapper.dataset.heightTimeout = timeoutId.toString();
+          });
+        }
+      }
+
       // --- Animate mini-switcher indicator ---
       document.querySelectorAll('.mini-switcher').forEach(switcher => {
         const indicator = switcher.querySelector('.mini-switcher-indicator');
@@ -1336,7 +1317,7 @@
         }
       });
       // --- End animate ---
-    }
+    };
     // Attach click listeners to all switcher buttons
     [
       ...document.querySelectorAll('.switcher-btn'),

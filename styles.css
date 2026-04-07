@@ -1737,19 +1737,26 @@ body {
               }
               
               .nav-links {
-                  position: fixed;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100vh;
-                  flex-direction: column;
-                  justify-content: center;
-                  align-items: center;
-                  transform: translateY(-100%);
-                  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                  z-index: 1000;
-                  padding: 2rem;
-              }
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateY(-100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1000;
+                padding: 2rem;
+                background: rgba(255, 255, 255, 0.6);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+            }
+            
+            .dark-mode .nav-links {
+                background: rgba(30, 30, 30, 0.6);
+            }
               
               .nav-links.active {
                   transform: translateY(0);
@@ -2563,7 +2570,11 @@ body {
 
 /* When scrolled */
 .navbar.navbar-scrolled {
-  /* No more frosted glass or dark background for photowalks page, handled by JS now */
+  /* JS dynamically handles the background color for color shifting */
+}
+
+.dark-mode .navbar.navbar-scrolled {
+  /* JS dynamically handles the background color for color shifting */
 }
 
 /* ==========================================================================
@@ -2573,7 +2584,7 @@ body {
 body.photowalks-page {
   /* JS will update the background-color directly */
   background-color: hsl(0, 40%, 90%);
-  /* We don't use transition here because JS requestAnimationFrame is smooth enough */
+  transition: background-color 0.5s ease;
 }
 
 body.photowalks-page.dark-mode {

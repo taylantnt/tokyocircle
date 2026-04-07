@@ -1,24 +1,3 @@
-// Initialize mobile menu
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navLinks = document.querySelector('.nav-links');
-
-if (mobileMenuBtn && navLinks) {
-    mobileMenuBtn.addEventListener('click', () => {
-        mobileMenuBtn.classList.toggle('active');
-        navLinks.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-    });
-
-    // Close menu when clicking a link
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenuBtn.classList.remove('active');
-            navLinks.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        });
-    });
-}
-
 // Initialize Intersection Observer for page title
 const pageTitleObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -34,48 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Previous page title code
     document.querySelectorAll('.page-title').forEach(pageTitle => {
         pageTitleObserver.observe(pageTitle);
-    });
-    
-    // Album name toggle functionality
-    const toggleBtn = document.getElementById('toggleAlbumNamesBtn');
-    const icon = toggleBtn?.querySelector('i');
-    let albumNamesVisible = true;
-    
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-            albumNamesVisible = !albumNamesVisible;
-            document.querySelectorAll('.album-name').forEach(title => {
-                title.style.display = albumNamesVisible ? 'block' : 'none';
-            });
-            
-            // Update button text and icon
-            toggleBtn.innerHTML = albumNamesVisible ? 
-                '<i class="fas fa-eye-slash" style="margin-right: 6px;"></i> Hide Album Names' :
-                '<i class="fas fa-eye" style="margin-right: 6px;"></i> Show Album Names';
-                
-            // Update aria-pressed state
-            toggleBtn.setAttribute('aria-pressed', (!albumNamesVisible).toString());
-        });
-    }
-    
-    // Initialize back-to-top button
-    const backToTopBtn = document.getElementById('back-to-top');
-    
-    // Show button when user scrolls down 300px
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTopBtn.classList.add('show');
-        } else {
-            backToTopBtn.classList.remove('show');
-        }
-    });
-    
-    // Scroll to top when button is clicked
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
     });
 });
 
