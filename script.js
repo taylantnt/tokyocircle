@@ -16,6 +16,12 @@ document.addEventListener('scroll', function() {
   const navbar = document.querySelector('.navbar');
   if (!navbar) return;
 
+  // Skip adding the scrolled class if the page has dynamic hue-shifting backgrounds
+  // which fully manage the navbar's appearance inline.
+  if (document.body.classList.contains('photowalks-page') || document.body.classList.contains('gallery-page')) {
+    return;
+  }
+
   if (window.scrollY > 20) {
     navbar.classList.add('navbar-scrolled');
   } else {
