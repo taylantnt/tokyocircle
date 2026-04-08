@@ -92,17 +92,34 @@
         .profile-header {
             margin-bottom: 40px;
             position: relative;
+            text-align: center;
         }
 
         .profile-header::after {
             content: '';
             position: absolute;
             bottom: -15px;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 60px;
             height: 3px;
             background-color: var(--accent-color);
             border-radius: 3px;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .profile-name {
@@ -290,8 +307,9 @@
             .profile-details {
                 padding: 20px;
             }
+        }
           
-                  @media (max-width: 823px) {
+        @media (max-width: 823px) {
               .mobile-menu-btn {
                 display: block;
             }
@@ -430,6 +448,9 @@
         <!-- Profile Information -->
         <div class="profile-info">
             <div class="profile-header">
+                <div class="profile-image">
+                    <img id="profile-img" src="" alt="PLACEHOLDER NAME" loading="lazy" decoding="async">
+                </div>
                 <h1 class="profile-name">PLACEHOLDER NAME</h1>
                 <div class="profile-title">Street & Urban Photographer</div>
                 <!-- Ask Availability Button -->
@@ -484,6 +505,16 @@
     </div>
 
     <script>
+        // Helper function for Cloudinary URLs
+        function getImageUrl(urlOrId) {
+            if (!urlOrId) return '';
+            if (urlOrId.startsWith('http')) return urlOrId;
+            return `https://res.cloudinary.com/drnh8zy84/image/upload/q_auto,f_auto,c_fill,w_800/v1/${urlOrId}.jpg`;
+        }
+
+        // Profile image data
+        document.getElementById('profile-img').src = getImageUrl('craig'); // PLACEHOLDER ID
+
         // Mobile menu functionality
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.querySelector('.nav-links');
@@ -516,16 +547,16 @@
 
         // Sample portfolio data - Replace with actual data
         const portfolioItems = [
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/mina?v=1746084961622', caption: 'Tokyo Streets at Night' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/diane?v=1746090955546', caption: 'Urban Geometry' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Danna?v=1746085200974', caption: 'City Life' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/lisa?v=1746091472128', caption: 'Street Stories' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nikki?v=1746092469106', caption: 'Metropolitan Moments' },
-            { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/IMG_6768.jpeg?v=1725061722347', caption: 'Urban Geometry' },
-            { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/IMG_6769.jpeg?v=1725061919742', caption: 'City Life' },
-            { image: 'https://cdn.glitch.me/d6da9e36-e150-4a04-8aac-2a224dc24a8d/DSCF1990.jpg?v=1725039332157', caption: 'Street Stories' },
-            { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/IMG_1782.JPG?v=1725178162333', caption: 'Metropolitan Moments' },
-            { image: 'https://cdn.glitch.global/d6da9e36-e150-4a04-8aac-2a224dc24a8d/IMG_6771.jpeg?v=1725063790132', caption: 'Urban Abstract' }
+            { image: 'mina', caption: 'Tokyo Streets at Night' },
+            { image: 'diane', caption: 'Urban Geometry' },
+            { image: 'Danna', caption: 'City Life' },
+            { image: 'lisa', caption: 'Street Stories' },
+            { image: 'nikki', caption: 'Metropolitan Moments' },
+            { image: 'IMG_6768', caption: 'Urban Geometry' },
+            { image: 'IMG_6769', caption: 'City Life' },
+            { image: 'DSCF1990', caption: 'Street Stories' },
+            { image: 'IMG_1782', caption: 'Metropolitan Moments' },
+            { image: 'IMG_6771', caption: 'Urban Abstract' }
         ];
 
         // Populate portfolio gallery
@@ -534,7 +565,7 @@
             const portfolioItem = document.createElement('div');
             portfolioItem.className = 'portfolio-item';
             portfolioItem.innerHTML = `
-                <img src="${item.image}" alt="${item.caption}">
+                <img src="${getImageUrl(item.image)}" alt="${item.caption}" loading="lazy" decoding="async">
             `;
             gallery.appendChild(portfolioItem);
         });

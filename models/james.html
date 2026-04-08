@@ -343,8 +343,8 @@
             .profile-info {
                 padding: 20px;
             }
-      }
-                   @media (max-width: 823px) {
+        }
+        @media (max-width: 823px) {
               .mobile-menu-btn {
                 display: block;
             }
@@ -567,7 +567,7 @@
         <div class="profile-info">
             <div class="profile-header">
                 <div class="profile-image">
-                    <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/james.jpg?v=1747584098813" alt="James">
+                    <img id="profile-img" src="" alt="James" loading="lazy" decoding="async">
                 </div>
                 <h1 class="profile-name">James</h1>
                 <div class="profile-title">Street Fashion and Portrait Model</div>
@@ -646,45 +646,56 @@
             navLinks.classList.toggle('active');
         });
 
+        // Helper function for Cloudinary URLs
+        function getImageUrl(urlOrId) {
+            if (!urlOrId) return '';
+            if (urlOrId.startsWith('http')) return urlOrId;
+            return `https://res.cloudinary.com/drnh8zy84/image/upload/q_auto,f_auto,c_fill,w_800/v1/${urlOrId}.jpg`;
+        }
+
+        // Profile image data
+        const profileImageId = 'james';
+        document.getElementById('profile-img').src = getImageUrl(profileImageId);
+
         // Sample portfolio data - Replace with actual data
         const portfolioItems = [
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/james.jpg?v=1747584098813',
+                image: 'james',
                 caption: 'Urban Tokyo',
                 location: 'Street Photoshoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/james1.jpg?v=1747584098813',
+                image: 'james1',
                 caption: 'Urban Tokyo',
                 location: 'Street Photoshoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/james2.jpg?v=1747584098813',
+                image: 'james2',
                 caption: 'Urban Tokyo',
                 location: 'Street Photoshoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/james3.jpg?v=1747584098813',
+                image: 'james3',
                 caption: 'Urban Tokyo',
                 location: 'Street Photoshoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/james4.jpg?v=1747584098813',
+                image: 'james4',
                 caption: 'Urban Tokyo',
                 location: 'Street Photoshoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/james5.jpg?v=1747584098813',
+                image: 'james5',
                 caption: 'Urban Tokyo',
                 location: 'Event Photoshoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/james6.jpg?v=1747584098813',
+                image: 'james6',
                 caption: 'Urban Tokyo',
                 location: 'Street Photoshoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/james7.jpg?v=1747584098813',
+                image: 'james7',
                 caption: 'Urban Tokyo',
                 location: 'Street Photoshoot'
             }
@@ -696,7 +707,7 @@
             const portfolioItem = document.createElement('div');
             portfolioItem.className = 'portfolio-item';
             portfolioItem.innerHTML = `
-                <img src="${item.image}" alt="${item.caption}">
+                <img src="${getImageUrl(item.image)}" alt="${item.caption}" loading="lazy" decoding="async">
                 <div class="portfolio-caption">
                     <h3>${item.caption}</h3>
                     <p>${item.location}</p>

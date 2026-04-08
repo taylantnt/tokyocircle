@@ -567,7 +567,7 @@
         <div class="profile-info">
             <div class="profile-header">
                 <div class="profile-image">
-                    <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/craig3" alt="Akiko Tanaka">
+                    <img id="profile-img" src="" alt="Craig Stennett" loading="lazy" decoding="async">
                 </div>
                 <h1 class="profile-name">Craig Stennett</h1>
                 <div class="profile-title">Portrait & Street Photographer</div>
@@ -671,55 +671,66 @@
             navLinks.classList.toggle('active');
         });
 
+        // Helper function for Cloudinary URLs
+        function getImageUrl(urlOrId) {
+            if (!urlOrId) return '';
+            if (urlOrId.startsWith('http')) return urlOrId;
+            return `https://res.cloudinary.com/drnh8zy84/image/upload/q_auto,f_auto,c_fill,w_800/v1/${urlOrId}.jpg`;
+        }
+
+        // Profile image data
+        const profileImageId = 'craig';
+        document.getElementById('profile-img').src = getImageUrl(profileImageId);
+
         // Sample portfolio data - Replace with actual data
         const portfolioItems = [
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c1',
+                image: 'c1',
                 caption: 'Mount Fuji at Dawn',
                 location: 'Yamanashi Prefecture'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c2',
+                image: 'c2',
                 caption: 'Ancient Temple in Autumn',
                 location: 'Kyoto'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c3',
+                image: 'c3',
                 caption: 'Bamboo Forest Path',
                 location: 'Arashiyama'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c4.jpg?v=1746104553295',
+                image: 'c4',
                 caption: 'Urban Tokyo at Night',
                 location: 'Shinjuku'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c5',
+                image: 'c5',
                 caption: 'Cherry Blossoms by the Lake',
                 location: 'Hakone'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c6',
+                image: 'c6',
                 caption: 'Traditional Garden in Snow',
                 location: 'Kanazawa'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c7',
+                image: 'c7',
                 caption: 'Cherry Blossoms by the Lake',
                 location: 'Hakone'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c8',
+                image: 'c8',
                 caption: 'Traditional Garden in Snow',
                 location: 'Kanazawa'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c9',
+                image: 'c9',
                 caption: 'Cherry Blossoms by the Lake',
                 location: 'Hakone'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/c10',
+                image: 'c10',
                 caption: 'Traditional Garden in Snow',
                 location: 'Kanazawa'
             }
@@ -731,7 +742,7 @@
             const portfolioItem = document.createElement('div');
             portfolioItem.className = 'portfolio-item';
             portfolioItem.innerHTML = `
-                <img src="${item.image}" alt="${item.caption}">
+                <img src="${getImageUrl(item.image)}" alt="${item.caption}" loading="lazy" decoding="async">
                 <div class="portfolio-caption">
                     <h3>${item.caption}</h3>
                     <p>${item.location}</p>

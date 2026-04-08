@@ -567,7 +567,7 @@
         <div class="profile-info">
             <div class="profile-header">
                 <div class="profile-image">
-                    <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matthew?v=1747578560278" alt="Matthew Abe">
+                    <img id="profile-img" src="" alt="Matthew Abe" loading="lazy" decoding="async">
                 </div>
                 <h1 class="profile-name">Matthew Abe</h1>
                 <div class="profile-title">Portrait & Concept/Product Photographer</div>
@@ -639,6 +639,16 @@
     </div>
 
     <script>
+        // Helper function for Cloudinary URLs
+        function getImageUrl(urlOrId) {
+            if (!urlOrId) return '';
+            if (urlOrId.startsWith('http')) return urlOrId;
+            return `https://res.cloudinary.com/drnh8zy84/image/upload/q_auto,f_auto,c_fill,w_800/v1/${urlOrId}.jpg`;
+        }
+
+        // Profile image data
+        document.getElementById('profile-img').src = getImageUrl('matthew');
+
         // Dark mode toggle functionality
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
@@ -672,52 +682,52 @@
         // Sample portfolio data - Replace with actual data
         const portfolioItems = [
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt1.jpg?v=1747578893172',
+                image: 'matt1',
                 caption: 'Product Photography',
                 location: 'Tokyo'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt2.jpg?v=1747578893172',
+                image: 'matt2',
                 caption: 'Product Photography',
                 location: 'Tokyo'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt3.jpg?v=1747578893172',
+                image: 'matt3',
                 caption: 'Portrait Photography',
                 location: 'Tokyo'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt4.jpg?v=1747578893172',
+                image: 'matt4',
                 caption: 'Portrait Photography',
                 location: 'Tokyo'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt5.jpg?v=1747578893172',
+                image: 'matt5',
                 caption: 'Studio Photography',
                 location: 'Tokyo'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt6.jpg?v=1747578893172',
+                image: 'matt6',
                 caption: 'Concept Photography',
                 location: 'Tokyo'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt7.jpg?v=1747578893172',
+                image: 'matt7',
                 caption: 'Concept Photography',
                 location: 'Tokyo'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt8.jpg?v=1747578893172',
+                image: 'matt8',
                 caption: 'Studio Photography',
                 location: 'Tokyo'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt9.jpg?v=1747578893172',
+                image: 'matt9',
                 caption: 'Concept Photography',
                 location: 'Tokyo'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/matt10.jpg?v=1747578893172',
+                image: 'matt10',
                 caption: 'Concept Photography',
                 location: 'Tokyo'
             }
@@ -729,7 +739,7 @@
             const portfolioItem = document.createElement('div');
             portfolioItem.className = 'portfolio-item';
             portfolioItem.innerHTML = `
-                <img src="${item.image}" alt="${item.caption}">
+                <img src="${getImageUrl(item.image)}" alt="${item.caption}" loading="lazy" decoding="async">
                 <div class="portfolio-caption">
                     <h3>${item.caption}</h3>
                     <p>${item.location}</p>

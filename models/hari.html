@@ -343,8 +343,8 @@
             .profile-info {
                 padding: 20px;
             }
-      }
-                   @media (max-width: 823px) {
+        }
+        @media (max-width: 823px) {
               .mobile-menu-btn {
                 display: block;
             }
@@ -567,7 +567,7 @@
         <div class="profile-info">
             <div class="profile-header">
                 <div class="profile-image">
-                    <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari-p" alt="Akiko Tanaka">
+                    <img id="profile-img" src="" alt="Akiko Tanaka" loading="lazy" decoding="async">
                 </div>
                 <h1 class="profile-name">Hari</h1>
                 <div class="profile-title">Street Fashion and Portrait Model</div>
@@ -648,65 +648,76 @@
             navLinks.classList.toggle('active');
         });
 
+        // Helper function for Cloudinary URLs
+        function getImageUrl(urlOrId) {
+            if (!urlOrId) return '';
+            if (urlOrId.startsWith('http')) return urlOrId;
+            return `https://res.cloudinary.com/drnh8zy84/image/upload/q_auto,f_auto,c_fill,w_800/v1/${urlOrId}.jpg`;
+        }
+
+        // Profile image data
+        const profileImageId = 'hari-p';
+        document.getElementById('profile-img').src = getImageUrl(profileImageId);
+
         // Sample portfolio data - Replace with actual data
         const portfolioItems = [
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari1.jpeg',
+                image: 'hari1',
                 caption: 'Studio Hours',
                 location: 'Studio Shoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari2.jpeg',
+                image: 'hari2',
                 caption: 'Studio Hours',
                 location: 'Studio Shoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari3.jpeg',
+                image: 'hari3',
                 caption: 'Urban Tokyo',
                 location: 'Street Photoshoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari4.jpeg',
+                image: 'hari4',
                 caption: 'Urban Tokyo',
                 location: 'Street Photoshoot'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari5.jpeg',
+                image: 'hari5',
                 caption: 'Shibuya Crossing',
                 location: 'Photowalk'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari6.jpeg',
+                image: 'hari6',
                 caption: 'Harajuku',
                 location: 'Photowalk'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari7.jpeg',
+                image: 'hari7',
                 caption: 'Enoshima',
                 location: 'Portrait Session'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari8.jpeg',
+                image: 'hari8',
                 caption: 'Street',
                 location: 'Photowalk'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari9.jpeg',
+                image: 'hari9',
                 caption: 'Portrait',
                 location: 'Portrait Session'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari10.jpeg',
+                image: 'hari10',
                 caption: 'Tokyo International Forum',
                 location: 'Portrait Session'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari11.jpeg',
+                image: 'hari11',
                 caption: 'Shibuya Night Time',
                 location: 'Photowalk'
             },
             { 
-                image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/hari12.jpeg',
+                image: 'hari12',
                 caption: 'Shibuya Night Time',
                 location: 'Photowalk'
             }
@@ -718,7 +729,7 @@
             const portfolioItem = document.createElement('div');
             portfolioItem.className = 'portfolio-item';
             portfolioItem.innerHTML = `
-                <img src="${item.image}" alt="${item.caption}">
+                <img src="${getImageUrl(item.image)}" alt="${item.caption}" loading="lazy" decoding="async">
                 <div class="portfolio-caption">
                     <h3>${item.caption}</h3>
                     <p>${item.location}</p>

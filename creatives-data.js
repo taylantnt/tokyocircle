@@ -1,0 +1,45 @@
+const galleryData = {
+    models: [
+        { image: 'tapioka_xmr459', caption: 'Tapioka' },
+        { image: 'antonio_yggxcj', caption: 'Antonio' },
+        { image: 'akane_ngkimc', caption: 'Akane' },
+        { image: 'sora_toehma', caption: 'Sora' },
+        { image: 'mimi_lxtb2i', caption: 'Mimi' },
+        { image: 'Akane2_fugeoz', caption: 'Ruby' },
+        { image: 'james_cy9xmf', caption: 'James', link: '/models/james.html' },
+        { image: 'nami_tnxvtd', caption: 'Nami', link: '/models/nami.html' },
+        { image: 'doria_zqf61m', caption: 'Doria' },
+        { image: 'lea_ud6zkx', caption: 'Lea' },
+        { image: 'marie_jjea6c', caption: 'marie' },
+        { image: 'madoka_yaxqtl', caption: 'Madoka' },
+        { image: 'Mina_hqjnij', caption: 'Mina' },
+        { image: 'IMG_6773_fiqtls', caption: 'Lia' },
+        { image: 'V_rgznak', caption: 'Mille V' },
+        { image: 'justyna_cefilu', caption: 'Justyna' },
+        { image: 'diane_ygheow', caption: 'Diane' },
+        { image: 'lina_p0vqwy', caption: 'Lina' },
+        { image: 'nahnah_mlenhe', caption: 'Nahnah' },
+        { image: 'Nikki_icabuj', caption: 'Nikki' },
+        { image: 'Anna_kauzkr', caption: 'Anna' },
+        { image: 'Katie_gtezp0', caption: 'Katie' }
+    ],
+    hmus: [
+        { image: 'Simsek', caption: 'UNDER CONSTRUCTION' },
+    ],
+    creatives: [
+        { image: 'DSCF8436', caption: 'Marvin' },
+        { image: 'matthew', caption: 'Matthew', link: '/creatives/matthew.html' },
+        { image: 'craig', caption: 'Craig', link: '/creatives/craig.html' },
+        { image: 'taylan1', caption: 'Taylan', link: '/creatives/taylan.html' },
+        { image: 'Simsek', caption: 'Simsek', link: '/creatives/simsek.html' }, 
+        { image: 'nami2', caption: 'Nami' }, 
+        { image: 'joker', caption: 'Joker' },
+        { image: 'cammi', caption: 'Cammi' },
+        { image: 'nelson', caption: 'Nelson' },
+        { image: 'hari', caption: 'Hari', link: '/models/hari.html' },
+        { image: 'loner', caption: 'Loner' },
+        { image: 'hendrik', caption: 'Hendrik' },
+        { image: 'cedric', caption: 'Cedric' },
+        { image: 'imo', caption: 'Imo', link: '/creatives/imo.html' }
+    ]
+};

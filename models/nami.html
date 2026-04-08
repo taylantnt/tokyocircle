@@ -283,7 +283,8 @@
             .profile-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
-                   @media (max-width: 823px) {
+        }
+        @media (max-width: 823px) {
               .mobile-menu-btn {
                 display: block;
             }
@@ -504,7 +505,7 @@
         <div class="profile-info">
             <div class="profile-header">
                 <div class="profile-image">
-                    <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/nami?v=1746108260327" alt="Nami">
+                    <img id="profile-img" src="" alt="Nami" loading="lazy" decoding="async">
                 </div>
                 <h1 class="profile-name">Nami</h1>
                 <div class="profile-title">International Fashion Model</div>
@@ -639,16 +640,27 @@
             }
         });
 
+        // Helper function for Cloudinary URLs
+        function getImageUrl(urlOrId) {
+            if (!urlOrId) return '';
+            if (urlOrId.startsWith('http')) return urlOrId;
+            return `https://res.cloudinary.com/drnh8zy84/image/upload/q_auto,f_auto,c_fill,w_800/v1/${urlOrId}.jpg`;
+        }
+
+        // Profile image data
+        const profileImageId = 'nami';
+        document.getElementById('profile-img').src = getImageUrl(profileImageId);
+
         // Sample portfolio data
         const portfolioItems = [
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/n1', caption: 'Runway Show' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/n2', caption: 'Editorial Shoot' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/n3', caption: 'Portrait' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/n4', caption: 'Commercial' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/n5', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/n6', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/n7', caption: 'Studio Work' },
-            { image: 'https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/n8', caption: 'Campaign' }
+            { image: 'n1', caption: 'Runway Show' },
+            { image: 'n2', caption: 'Editorial Shoot' },
+            { image: 'n3', caption: 'Portrait' },
+            { image: 'n4', caption: 'Commercial' },
+            { image: 'n5', caption: 'Studio Work' },
+            { image: 'n6', caption: 'Studio Work' },
+            { image: 'n7', caption: 'Studio Work' },
+            { image: 'n8', caption: 'Campaign' }
         ];
 
         // Populate portfolio gallery
@@ -657,7 +669,7 @@
             const portfolioItem = document.createElement('div');
             portfolioItem.className = 'portfolio-item';
             portfolioItem.innerHTML = `
-                <img src="${item.image}" alt="${item.caption}">
+                <img src="${getImageUrl(item.image)}" alt="${item.caption}" loading="lazy" decoding="async">
             `;
             gallery.appendChild(portfolioItem);
         });
