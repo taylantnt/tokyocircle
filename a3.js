@@ -8,6 +8,17 @@ if (motion.matches) {
   let currentSat = document.body.classList.contains('dark-mode') ? 30 : 40;
   let currentLight = document.body.classList.contains('dark-mode') ? 25 : 90;
 
+  function hslToHex(h, s, l) {
+    l /= 100;
+    const a = s * Math.min(l, 1 - l) / 100;
+    const f = n => {
+      const k = (n + h / 30) % 12;
+      const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+      return Math.round(255 * color).toString(16).padStart(2, '0');
+    };
+    return `#${f(0)}${f(8)}${f(4)}`;
+  }
+
   function updateColors(time) {
     // Smoothly increment hue (approx 10 degrees per second to match photowalks)
     hue = (hue + 0.1) % 360;
@@ -22,6 +33,7 @@ if (motion.matches) {
     currentLight += (targetLight - currentLight) * 0.05;
 
     const currentColor = `hsl(${hue}, ${currentSat}%, ${currentLight}%)`;
+    const currentHex = hslToHex(hue, currentSat, currentLight);
 
     // Update body background smoothly every frame
     document.body.style.backgroundColor = currentColor;
@@ -37,7 +49,7 @@ if (motion.matches) {
     // Throttle the theme-color meta tag update to avoid Safari's spam filter
     if (time - lastThemeColorUpdate > 800) {
       if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', currentColor);
+        themeColorMeta.setAttribute('content', currentHex);
       }
       lastThemeColorUpdate = time;
     }
@@ -51,8 +63,8 @@ if (motion.matches) {
   function forceThemeMetaColorUpdate() {
     if (themeColorMeta) {
       const isDarkMode = document.body.classList.contains('dark-mode');
-      const currentColor = isDarkMode ? `hsl(${hue}, 30%, 25%)` : `hsl(${hue}, 40%, 90%)`;
-      themeColorMeta.setAttribute('content', currentColor);
+      const hexColor = hslToHex(hue, isDarkMode ? 30 : 40, isDarkMode ? 25 : 90);
+      themeColorMeta.setAttribute('content', hexColor);
       lastThemeColorUpdate = performance.now();
     }
   }

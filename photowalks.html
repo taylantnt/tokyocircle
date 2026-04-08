@@ -14,6 +14,7 @@
     <meta property="og:image" content="https://tokyocircle.jp/apple-touch-icon.png" />
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#faf8f3" id="theme-color">
     <meta name="twitter:title" content="Photowalk Tokyo with Tokyo Circle | Capture Japan with a Creative Community" />
     <meta name="twitter:description" content="Circle Photowalk brings together photographers, models, and creatives in Tokyo. Join our community, participate in photowalks, and connect with creative talent!" />
     <meta name="twitter:image" content="https://tokyocircle.jp/apple-touch-icon.png" />
@@ -36,7 +37,6 @@
 <link rel="shortcut icon" href="/favicon.ico" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="Circle" />
-<meta name="theme-color" content="#000000" id="theme-color">
 <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="popup.css">
@@ -1394,6 +1394,17 @@ let currentLight = document.body.classList.contains('dark-mode') ? 25 : 90;
 let lastThemeColorUpdate = 0;
 const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
 
+function hslToHex(h, s, l) {
+  l /= 100;
+  const a = s * Math.min(l, 1 - l) / 100;
+  const f = n => {
+    const k = (n + h / 30) % 12;
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, '0');
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+
 function updateColors(time) {
   if (motion.matches) {
     // Smoothly increment hue (approx 10 degrees per second)
@@ -1409,6 +1420,7 @@ function updateColors(time) {
     currentLight += (targetLight - currentLight) * 0.05;
     
     const currentColor = `hsl(${hue}, ${currentSat}%, ${currentLight}%)`;
+    const currentHex = hslToHex(hue, currentSat, currentLight);
     
     // Update body background smoothly every frame
     document.body.style.backgroundColor = currentColor;
@@ -1425,7 +1437,7 @@ function updateColors(time) {
     // Safari natively crossfades theme-color over ~0.3s, so updating every 800ms is safe and smooth
     if (time - lastThemeColorUpdate > 800) {
       if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', currentColor);
+        themeColorMeta.setAttribute('content', currentHex);
       }
       lastThemeColorUpdate = time;
     }
@@ -1440,8 +1452,8 @@ requestAnimationFrame(updateColors);
 function forceThemeMetaColorUpdate() {
   if (themeColorMeta) {
     const isDarkMode = document.body.classList.contains('dark-mode');
-    const currentColor = isDarkMode ? `hsl(${hue}, 30%, 25%)` : `hsl(${hue}, 40%, 90%)`;
-    themeColorMeta.setAttribute('content', currentColor);
+    const hexColor = hslToHex(hue, isDarkMode ? 30 : 40, isDarkMode ? 25 : 90);
+    themeColorMeta.setAttribute('content', hexColor);
     lastThemeColorUpdate = performance.now();
   }
 }
