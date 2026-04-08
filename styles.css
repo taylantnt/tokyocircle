@@ -55,6 +55,7 @@ body.gallery-page {
               --pastel-pink: hsl(330, 100%, 85%);
               
               /* Navigation Colors - Light Mode */
+              --nav-bg: hsla(342, 100%, 85%, 0.65); /* A mix of 354 and 330 */
               --nav-gradient-start: hsla(354, 100%, 85%, 0.65);
               --nav-gradient-end: hsla(330, 100%, 85%, 0.65);
               --nav-backdrop-blur: 10px;
@@ -64,7 +65,7 @@ body.gallery-page {
               --bg-secondary: #f8f8f8;
               --bg-about: var(--pastel-blue);
               --bg-founders: #E5FEFD;
-              --bg-gallery: linear-gradient(135deg, var(--pastel-blue), var(--pastel-pink));
+              --bg-gallery: #e6f2ff; /* Was gradient, changed to solid for smooth transition */
               --bg-events: #F5E6d4;
               --bg-join: var(--pastel-green);
               --bg-footer: #6a5acd;
@@ -142,6 +143,7 @@ body.gallery-page {
               --pastel-pink: #ff7eb6;
               
               /* Navigation Colors - Dark Mode */
+              --nav-bg: rgba(65, 41, 82, 0.85); /* A mix of 45,50,80 and 85,33,85 */
               --nav-gradient-start: rgba(45, 50, 80, 0.85);
               --nav-gradient-end: rgba(85, 33, 85, 0.85);
               
@@ -150,7 +152,7 @@ body.gallery-page {
               --bg-secondary: #1e1e1e;
               --bg-about: #2c3862;       /* Deep blue */
               --bg-founders: #2d2a4a;    /* Deep purple-blue */
-              --bg-gallery: linear-gradient(135deg, #2c3862, #74325e);
+              --bg-gallery: #2c3862;     /* Was gradient, changed to solid for smooth transition */
               --bg-events: #303b58;      /* Steel blue */
               --bg-join: #274559;        /* Deep teal */
               --bg-footer: #1e1537;      /* Dark purple */
@@ -186,7 +188,8 @@ body.gallery-page {
                   height: 60px;
                   top: 0;
                   z-index: 1000;
-                  background: linear-gradient(90deg, var(--nav-gradient-start), var(--nav-gradient-end));
+                  background-color: var(--nav-bg);
+                  transition: background-color 0.6s ease, backdrop-filter 0.6s ease;
               }
   
               .navbar .container {
@@ -346,7 +349,7 @@ body.gallery-page {
           }
   
           .gallery {
-              background: var(--bg-gallery);
+              background-color: var(--bg-gallery);
           }
   
           .events {
@@ -897,17 +900,17 @@ body.gallery-page {
           }
   
           .stat-item {
-              background-color: white;
-              border-radius: 16px;
-              padding: 1.5rem;
-              box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-              display: flex;
-              align-items: center;
-              transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.3s ease;
-              position: relative;
-              overflow: hidden;
-              cursor: pointer;
-          }
+            background-color: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            transition: transform 0.6s ease, box-shadow 0.6s ease, background-color 0.6s ease, color 0.6s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
   
           .stat-item:hover {
               transform: translateY(-8px) scale(1.02);
@@ -1143,16 +1146,17 @@ body.gallery-page {
           /* Gallery Section */
           /* ================ */
           .gallery {
-              position: relative;
-              background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-pink));
-              border-radius: 40px 40px 0 0;
-              margin-top: -70px;
-              padding-top: 0px;
-              padding-bottom: 120px;
-              box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.07);
-              z-index: 30;
-              transform-origin: center top;
-          }
+          position: relative;
+          background-color: var(--bg-gallery);
+          border-radius: 40px 40px 0 0;
+          margin-top: -70px;
+            padding-top: 0px;
+            padding-bottom: 120px;
+            box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.07);
+            z-index: 30;
+            transform-origin: center top;
+            transition: background-color 0.6s ease;
+        }
   
           .gallery-container {
               max-width: 1200px;
@@ -1163,7 +1167,7 @@ body.gallery-page {
   
           .gallery-slider {
               display: flex;
-              transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+              transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.6s ease;
               margin-bottom: 2rem;
           }
   
@@ -1194,14 +1198,15 @@ body.gallery-page {
           }
   
           .caption {
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              right: 0;
-              padding: 2rem;
-              background: linear-gradient(transparent, rgba(106, 90, 205, 0.8));
-              color: white;
-              text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background-color: rgba(106, 90, 205, 0.8); /* Solid color instead of linear-gradient */
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            transition: background-color 0.6s ease, color 0.6s ease;
           }
   
           .caption i {
@@ -1224,7 +1229,7 @@ body.gallery-page {
   
           /* Enhance dark mode contrast for gallery captions */
           .dark-mode .caption {
-              background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+              background-color: rgba(0, 0, 0, 0.8);
           }
   
           .dark-mode .caption p {
@@ -1991,8 +1996,8 @@ body.gallery-page {
           }
   
           .dark-mode .gallery {
-              background: var(--bg-gallery);
-          }
+            background-color: var(--bg-gallery);
+        }
   
           .dark-mode .events {
               background-color: var(--bg-events);
@@ -2282,20 +2287,21 @@ body.gallery-page {
           /* Hire Us Section */
           /* ================ */
           .hire-us {
-              background: linear-gradient(360deg, #f9E9E9, #f0f0f0);
-              position: relative;
-              z-index: 101;
-              padding-bottom: 200px;
-              border-radius: 40px 40px 0 0;
-              margin-top: -80px; /* Move section up to avoid white gap */
-              margin-bottom: 90px;
-              padding-top: var(--space-xl);
-              width: 100%; /* Changed to 100% to prevent horizontal scrolling */
-              margin-left: 0; /* Removed negative margin */
-          }
+            background-color: #f5ecec; /* Was gradient, changed to solid for smooth transition */
+            position: relative;
+            z-index: 101;
+            padding-bottom: 200px;
+            border-radius: 40px 40px 0 0;
+            margin-top: -80px; /* Move section up to avoid white gap */
+            margin-bottom: 90px;
+            padding-top: var(--space-xl);
+            width: 100%; /* Changed to 100% to prevent horizontal scrolling */
+            margin-left: 0; /* Removed negative margin */
+            transition: background-color 0.6s ease;
+        }
   
           .dark-mode .hire-us {
-              background: linear-gradient(135deg, #1a1a2e, #16213e);
+              background-color: #181d36; /* Was gradient, changed to solid for smooth transition */
           }
   
           .hire-us-content {
@@ -2350,7 +2356,7 @@ body.gallery-page {
               display: flex;
               align-items: center;
               justify-content: center;
-              background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
+              background-color: var(--pastel-purple);
               box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
               position: absolute; /* Ensure proper positioning */
               top: 25px; /* Position from top of card */
@@ -2554,7 +2560,7 @@ body.gallery-page {
   
           /* Ensure dark mode on hire section */
           .dark-mode .hire-us {
-              background: linear-gradient(135deg, #1a1a2e, #16213e);
+              background-color: #181d36; /* Was gradient, changed to solid for smooth transition */
           }
   
           /* Ensure consistent button styling across events section in dark mode */
@@ -2566,9 +2572,9 @@ body.gallery-page {
           }
 
 .navbar {
-  background: linear-gradient(135deg, var(--nav-gradient-start), var(--nav-gradient-end));
+  background-color: var(--nav-bg);
   backdrop-filter: blur(0px);
-  transition: background 0.6s ease, backdrop-filter 0.6s ease;
+  transition: background-color 0.6s ease, backdrop-filter 0.6s ease;
 }
 
 /* When scrolled */

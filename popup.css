@@ -23,7 +23,8 @@
 }
 
 .popup-content {
-    background-color: var(--bg-color, #fff);
+    background-color: var(--bg-primary, #fff);
+    color: var(--text-primary, #333);
     border-radius: 15px;
     padding: 25px;
     position: relative;
@@ -39,7 +40,7 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-    color: var(--text-color, #333);
+    color: var(--text-primary, #333);
     transition: transform 0.2s;
 }
 

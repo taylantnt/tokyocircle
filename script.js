@@ -34,7 +34,7 @@ document.addEventListener('scroll', function() {
           // Get all sections and important elements that need transition
           const sections = document.querySelectorAll('.section, .section-card');
           const sectionHeaders = document.querySelectorAll('.section-header h2, .section-header .section-description');
-          const cards = document.querySelectorAll('.event-card, .step, .founder-card, .about-main-card');
+          const cards = document.querySelectorAll('.event-card, .step, .founder-card, .about-main-card, .creative-service-card, .creative-services-info, .hire-card, .review-card, .overall-rating');
           const heroElements = document.querySelectorAll('.hero-content, .hero-content h1, .hero-buttons, .subtitle');
           const footer = document.querySelector('.footer');
           const footerElements = document.querySelectorAll('.footer-content, .footer-about, .footer-links, .footer-contact, .footer-bottom, .footer-social a');
@@ -54,7 +54,7 @@ document.addEventListener('scroll', function() {
           const navbar = document.querySelector('.navbar');
           if (navbar) {
               if (!document.body.classList.contains('photowalks-page') && !document.body.classList.contains('gallery-page')) {
-                  navbar.style.transition = 'background 0.6s ease, backdrop-filter 0.6s ease';
+                  navbar.style.transition = 'background-color 0.6s ease, backdrop-filter 0.6s ease';
               }
           }
 

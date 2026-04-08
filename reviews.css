@@ -1,7 +1,7 @@
 
 /* Reviews Section Styles */
 .reviews {
-    background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-blue));
+    background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-pink)); /* Restored gradient as requested */
     color: var(--text-primary);
     padding: var(--space-xxl) 0 var(--space-xxl);
     position: relative;
@@ -26,7 +26,7 @@
 }
 
 .dark-mode .reviews {
-    background: linear-gradient(135deg, #2d2a4a, #2c3862);
+    background: linear-gradient(135deg, #2c3862, #74325e); /* Restored gradient as requested */
 }
 
 .reviews-content {
@@ -44,7 +44,7 @@
     text-align: center;
     max-width: 400px;
     margin: 0 auto;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.6s ease, color 0.6s ease;
 }
 
 .overall-rating:hover {
@@ -90,7 +90,7 @@
     border-radius: 15px;
     padding: var(--space-lg);
     box-shadow: var(--soft-shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.6s ease, color 0.6s ease;
 }
 
 .review-card:hover {
