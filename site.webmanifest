@@ -1,6 +1,7 @@
 {
-  "name": "Circle Photowalk Tokyo",
-  "short_name": "Circle",
+  "name": "Tokyo Circle Photowalks",
+  "short_name": "Tokyo Circle",
+  "description": "Join Tokyo's largest free photowalk community. Connect with photographers, models, and creatives in Japan.",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

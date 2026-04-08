@@ -67,8 +67,8 @@ const translations = {
     submit_requirements_5: "Ensure the Google Drive link is set to \"Anyone with the link can view\"",
     
     // Photowalks page
-    photowalks_title: "Photowalk Tokyo with Tokyo Circle",
-    photowalks_subtitle: "Capture Japan with a Creative Community",
+    photowalks_title: "Free Tokyo Photowalks by Tokyo Circle",
+    photowalks_subtitle: "Join 1000+ Photographers & Creatives in Japan",
     photowalks_welcome: "Welcome to ⭕️ Circle",
     photowalks_subtitle_small: "Where Photography Meets Community!",
     photowalks_btn_events: "Upcoming Events",
@@ -78,7 +78,7 @@ const translations = {
     photowalks_about_subtitle: "No experience needed - just bring your smile and creativity!",
     photowalks_about_heading: "\"Circle\" connects creatives",
     photowalks_about_lead: "We help photographers, models, hair and makeup artists and other creatives to connect and collaborate.",
-    photowalks_about_p1: "Founded in 2024 by two friends, Circle has evolved from casual meetups to a thriving community. We emerged as a circle of friends passionate about photography, modeling and art.",
+    photowalks_about_p1: "Founded in 2024 by two friends, Circle has evolved into Tokyo's largest free photowalk community with over 1000 members. We emerged as a circle of friends passionate about photography, modeling and art.",
     photowalks_about_p2: "Circle offers opportunities to meet like-minded creatives and create in a fun environment. Our photowalks take place in different parts of Tokyo, as well as weekend trips outside the city.",
     photowalks_about_tagline: "All skill levels are welcome! Come join our circle of artists and friends.",
     photowalks_stats_members: "Happy Members",
@@ -274,8 +274,8 @@ const translations = {
     submit_requirements_5: "Googleドライブリンクが「リンクを持っている人は誰でも閲覧可能」に設定されていることを確認する",
     
     // Photowalks page
-    photowalks_title: "Tokyo Circle フォトウォーク",
-    photowalks_subtitle: "クリエイティブコミュニティと一緒に日本を撮影",
+    photowalks_title: "東京の無料フォトウォーク | Tokyo Circle",
+    photowalks_subtitle: "1000人以上のクリエイターと一緒に日本を撮影",
     photowalks_welcome: "ようこそCircle⭕️へ",
     photowalks_subtitle_small: "写真とコミュニティが出会う場所！",
     photowalks_btn_events: "今後のイベント",
@@ -285,7 +285,7 @@ const translations = {
     photowalks_about_subtitle: "経験は必要ありません - あなたの笑顔と創造性を持ってきてください！",
     photowalks_about_heading: "「Circle」はクリエイターをつなぎます",
     photowalks_about_lead: "私たちは写真家、モデル、ヘアメイクアーティストなどのクリエイターが繋がり、コラボレーションするのを手伝います。",
-    photowalks_about_p1: "2024年に2人の友人によって設立されたCircleは、カジュアルな集まりから活気あるコミュニティへと進化しました。私たちは写真、モデリング、アートに情熱を持つ友人の輪として誕生しました。",
+    photowalks_about_p1: "2024年に2人の友人によって設立されたCircleは、現在1000人以上のメンバーを抱える東京最大の無料フォトウォークコミュニティへと進化しました。写真、モデリング、アートに情熱を持つ友人の輪として誕生しました。",
     photowalks_about_p2: "Circleは同じ志を持つクリエイターと出会い、楽しい環境で創作する機会を提供します。フォトウォークは東京のさまざまな場所で行われ、週末には市外への旅行も行います。",
     photowalks_about_tagline: "すべてのスキルレベルを歓迎します！アーティストと友人の輪に参加してください。",
     photowalks_stats_members: "ハッピーメンバー",
