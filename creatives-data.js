@@ -24,7 +24,6 @@ const galleryData = {
         { image: 'Katie_gtezp0', caption: 'Katie' }
     ],
     hmus: [
-        { image: 'Simsek', caption: 'UNDER CONSTRUCTION' },
     ],
     creatives: [
         { image: 'marvin', caption: 'Marvin' },
