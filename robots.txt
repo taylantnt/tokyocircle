@@ -1,5 +1,8 @@
 # robots.txt for https://tokyocircle.jp
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /thank-you.html
+Disallow: /creatives/template.html
 
 Sitemap: https://tokyocircle.jp/sitemap.xml

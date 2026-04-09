@@ -37,30 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
     popupOverlay.appendChild(popupContainer);
     document.body.appendChild(popupOverlay);
     
-    // LINE popup content
-    const lineRules = `
-        <p><strong>Before joining our LINE group, please note:</strong></p>
-        <ul>
-            <li><i class="fas fa-check-circle"></i> Be respectful to all members</li>
-            <li><i class="fas fa-check-circle"></i> Share your photography and experiences</li>
-            <li><i class="fas fa-check-circle"></i> No spam or promotional content</li>
-            <li><i class="fas fa-check-circle"></i> English is our primary language</li>
-            <li><i class="fas fa-check-circle"></i> Introduce yourself when you join</li>
-        </ul>
-    `;
-    
-    // Meetup popup content
-    const meetupRules = `
-        <p><strong>Before joining our Meetup events, please note:</strong></p>
-        <ul>
-            <li><i class="fas fa-check-circle"></i> RSVP accurately and cancel if you can't attend</li>
-            <li><i class="fas fa-check-circle"></i> Arrive on time for scheduled events</li>
-            <li><i class="fas fa-check-circle"></i> Bring your own camera equipment</li>
-            <li><i class="fas fa-check-circle"></i> Follow the event leader's instructions</li>
-            <li><i class="fas fa-check-circle"></i> Share your photos with the group after events</li>
-        </ul>
-    `;
-    
     // Get the buttons
     const lineButton = document.querySelector('.line-btn');
     const meetupButton = document.querySelector('.meetup-btn');
@@ -69,13 +45,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const lineUrl = lineButton ? lineButton.getAttribute('href') : '';
     const meetupUrl = meetupButton ? meetupButton.getAttribute('href') : '';
     
+    // Helper function to get translation or fallback
+    function getTranslation(key, fallback) {
+        const lang = localStorage.getItem('language') || 'en';
+        if (typeof translations !== 'undefined' && translations[lang] && translations[lang][key]) {
+            return translations[lang][key];
+        }
+        return fallback;
+    }
+    
     // Prevent default navigation and show popup for LINE button
     if (lineButton) {
         lineButton.addEventListener('click', function(e) {
             e.preventDefault();
-            popupTitle.textContent = 'LINE Group Rules';
-            popupText.innerHTML = lineRules;
-            popupButton.textContent = 'I Agree, Join LINE Group';
+            
+            // LINE popup content fallback
+            const lineRulesFallback = `
+                <p><strong>Before joining our LINE group, please note:</strong></p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Be respectful to all members</li>
+                    <li><i class="fas fa-check-circle"></i> Share your photography and experiences</li>
+                    <li><i class="fas fa-check-circle"></i> No spam or promotional content</li>
+                    <li><i class="fas fa-check-circle"></i> English is our primary language</li>
+                    <li><i class="fas fa-check-circle"></i> Introduce yourself when you join</li>
+                </ul>
+            `;
+            
+            popupTitle.textContent = getTranslation('popup_line_title', 'LINE Group Rules');
+            popupText.innerHTML = getTranslation('popup_line_rules', lineRulesFallback);
+            popupButton.textContent = getTranslation('popup_line_btn', 'I Agree, Join LINE Group');
             popupButton.setAttribute('href', lineUrl);
             popupOverlay.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Prevent scrolling
@@ -86,9 +84,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (meetupButton) {
         meetupButton.addEventListener('click', function(e) {
             e.preventDefault();
-            popupTitle.textContent = 'Meetup Event Rules';
-            popupText.innerHTML = meetupRules;
-            popupButton.textContent = 'I Agree, See Events';
+            
+            // Meetup popup content fallback
+            const meetupRulesFallback = `
+                <p><strong>Before joining our Meetup events, please note:</strong></p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> RSVP accurately and cancel if you can't attend</li>
+                    <li><i class="fas fa-check-circle"></i> Arrive on time for scheduled events</li>
+                    <li><i class="fas fa-check-circle"></i> Bring your own camera equipment</li>
+                    <li><i class="fas fa-check-circle"></i> Follow the event leader's instructions</li>
+                    <li><i class="fas fa-check-circle"></i> Share your photos with the group after events</li>
+                </ul>
+            `;
+            
+            popupTitle.textContent = getTranslation('popup_meetup_title', 'Meetup Event Rules');
+            popupText.innerHTML = getTranslation('popup_meetup_rules', meetupRulesFallback);
+            popupButton.textContent = getTranslation('popup_meetup_btn', 'I Agree, See Events');
             popupButton.setAttribute('href', meetupUrl);
             popupOverlay.style.display = 'flex';
             document.body.style.overflow = 'hidden'; // Prevent scrolling

@@ -12,13 +12,13 @@
     <meta property="og:description" content="Join Tokyo's largest free photowalk community! Connect with over 1000 photographers, models, and creatives in Tokyo. Capture Japan and grow your creative network." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://tokyocircle.jp/photowalks.html" />
-    <meta property="og:image" content="https://tokyocircle.jp/apple-touch-icon.png" />
+    <meta property="og:image" content="https://tokyocircle.jp/assets/apple-touch-icon.png" />
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#faf8f3" id="theme-color">
     <meta name="twitter:title" content="Free Tokyo Photowalks & Photography Community | Tokyo Circle" />
     <meta name="twitter:description" content="Join Tokyo's largest free photowalk community! Connect with over 1000 photographers, models, and creatives in Tokyo. Capture Japan and grow your creative network." />
-    <meta name="twitter:image" content="https://tokyocircle.jp/apple-touch-icon.png" />
+    <meta name="twitter:image" content="https://tokyocircle.jp/assets/apple-touch-icon.png" />
     <link rel="canonical" href="https://tokyocircle.jp/photowalks.html" />  
   <!-- Structured Data: Organization -->
     <script type="application/ld+json">
@@ -27,16 +27,16 @@
       "@type": "Organization",
       "name": "Tokyo Circle Photowalks",
       "url": "https://tokyocircle.jp/photowalks.html",
-      "logo": "https://tokyocircle.jp/apple-touch-icon.png",
+      "logo": "https://tokyocircle.jp/assets/apple-touch-icon.png",
       "sameAs": [
         "https://www.instagram.com/tokyocircle/"
       ]
     }
     </script>
-<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-<link rel="shortcut icon" href="/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="shortcut icon" href="/assets/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="Circle" />
 <link rel="manifest" href="/site.webmanifest" />
     <link rel="stylesheet" href="styles.css">
@@ -46,7 +46,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="kiwi-maru-font.css">
+    <link rel="stylesheet" href="assets/kiwi-maru-font.css">
     <style>
         /* Language Toggle Styling */
         .language-toggle-container {
@@ -758,16 +758,25 @@
                 if (!data.values || data.values.length <= 1) {
                     const emptyCard = document.createElement('div');
                     emptyCard.className = 'event-card';
+                    
+                    // Get current language and translations
+                    const lang = localStorage.getItem('language') || 'en';
+                    const getTrans = (key, fallback) => {
+                        return (typeof translations !== 'undefined' && translations[lang] && translations[lang][key]) 
+                            ? translations[lang][key] 
+                            : fallback;
+                    };
+                    
                     emptyCard.innerHTML = `
                         <div class="event-date pastel-blue" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                             <span><i class="fas fa-calendar-times" style="font-size: 1.5rem; margin-bottom: 5px;"></i></span>
-                            <span style="font-size: 0.9rem;">TBA</span>
+                            <span style="font-size: 0.9rem;" data-i18n="photowalks_no_events_tba">${getTrans('photowalks_no_events_tba', 'TBA')}</span>
                         </div>
                         <div class="event-details">
-                            <h3 data-i18n="photowalks_no_events_title">No Planned Events Right Now</h3>
-                            <p data-i18n="photowalks_no_events_desc" style="margin-bottom: 10px;"><i class="fas fa-camera-retro"></i> We are busy planning our next adventure! Check back soon for new photowalks.</p>
-                            <p style="margin-bottom: 15px;"><i class="fab fa-instagram"></i> Follow our Instagram for instant updates.</p>
-                            <a href="https://www.instagram.com/tokyocircle/" target="_blank" class="btn pastel-pink-btn" data-i18n="btn_follow_ig">Follow Us</a>
+                            <h3 data-i18n="photowalks_no_events_title">${getTrans('photowalks_no_events_title', 'No Planned Events Right Now')}</h3>
+                            <p style="margin-bottom: 10px;"><i class="fas fa-camera-retro"></i> <span data-i18n="photowalks_no_events_desc">${getTrans('photowalks_no_events_desc', 'We are busy planning our next adventure! Check back soon for new photowalks.')}</span></p>
+                            <p style="margin-bottom: 15px;"><i class="fab fa-instagram"></i> <span data-i18n="photowalks_no_events_follow_desc">${getTrans('photowalks_no_events_follow_desc', 'Follow our Instagram for instant updates.')}</span></p>
+                            <a href="https://www.instagram.com/tokyocircle/" target="_blank" class="btn pastel-pink-btn" data-i18n="btn_follow_ig">${getTrans('btn_follow_ig', 'Follow Us')}</a>
                         </div>
                     `;
                     eventsContainer.appendChild(emptyCard);
@@ -1369,23 +1378,23 @@
                 </div>
                 
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <a href="#about"><i class="fas fa-heart"></i> About Us</a>
-                    <a href="#gallery"><i class="fas fa-images"></i> Photo Gallery</a>
-                    <a href="#events"><i class="fas fa-calendar-alt"></i> Events</a>
-                    <a href="#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
-                    <a href="#join"><i class="fas fa-user-plus"></i> Join Us</a>
+                    <h4 data-i18n="footer_quick_links_title">Quick Links</h4>
+                    <a href="#about"><i class="fas fa-heart"></i> <span data-i18n="footer_quick_links_about">About Us</span></a>
+                    <a href="#gallery"><i class="fas fa-images"></i> <span data-i18n="footer_quick_links_gallery">Photo Gallery</span></a>
+                    <a href="#events"><i class="fas fa-calendar-alt"></i> <span data-i18n="footer_quick_links_events">Events</span></a>
+                    <a href="#reviews"><i class="fas fa-briefcase"></i> <span data-i18n="footer_quick_links_reviews">Reviews</span></a>
+                    <a href="#join"><i class="fas fa-user-plus"></i> <span data-i18n="footer_quick_links_join">Join Us</span></a>
                 </div>
                 
                 <div class="footer-contact">
-                    <h4>Contact Us</h4>
+                    <h4 data-i18n="footer_contact_us">Contact Us</h4>
                     <a href="mailto:hello@circletokyo.com"><i class="fas fa-envelope"></i> hello@circletokyo.com</a>
-                    <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> Message on Instagram</a>
+                    <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> <span data-i18n="footer_message_instagram">Message on Instagram</span></a>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <a>Made with <i class="fas fa-heart heart"></i> by TT &copy; 2025</a>
+                <a><span data-i18n="footer_made_with">Made with</span> <i class="fas fa-heart heart"></i> <span data-i18n="footer_by">by TT &copy; 2025</span></a>
             </div>
         </div>
     </footer>

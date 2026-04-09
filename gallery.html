@@ -11,13 +11,13 @@
       <meta property="og:description" content="Upload and showcase your photography from Circle Photography events and walks">
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://tokyocircle.jp/gallery.html" />
-      <meta property="og:image" content="https://tokyocircle.jp/apple-touch-icon.png" /> <!-- Replace with a relevant image URL if possible -->
+      <meta property="og:image" content="https://tokyocircle.jp/assets/apple-touch-icon.png" /> <!-- Replace with a relevant image URL if possible -->
       <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#faf8f3" id="theme-color">
     <meta name="twitter:title" content="Circle Gallery | Showcase Your Photography" />
       <meta name="twitter:description" content="Upload and showcase your photography from Circle Photography events and walks" />
-      <meta name="twitter:image" content="https://tokyocircle.jp/apple-touch-icon.png" /> <!-- Replace with a relevant image URL if possible -->
+      <meta name="twitter:image" content="https://tokyocircle.jp/assets/apple-touch-icon.png" /> <!-- Replace with a relevant image URL if possible -->
       <!-- Structured Data -->
       <script type="application/ld+json">
       {
@@ -1114,23 +1114,23 @@
             </div>
 
             <div class="footer-links">
-              <h4>Quick Links</h4>
-              <a href="photowalks.html#about"><i class="fas fa-heart"></i> About Us</a>
-              <a href="photowalks.html#gallery"><i class="fas fa-images"></i> Photo Gallery</a>
-              <a href="photowalks.html#events"><i class="fas fa-calendar-alt"></i> Events</a>
-              <a href="photowalks.html#reviews"><i class="fas fa-briefcase"></i> Reviews</a>
-              <a href="photowalks.html#join"><i class="fas fa-user-plus"></i> Join Us</a>
+              <h4 data-i18n="footer_quick_links_title">Quick Links</h4>
+              <a href="photowalks.html#about"><i class="fas fa-heart"></i> <span data-i18n="footer_quick_links_about">About Us</span></a>
+              <a href="photowalks.html#gallery"><i class="fas fa-images"></i> <span data-i18n="footer_quick_links_gallery">Photo Gallery</span></a>
+              <a href="photowalks.html#events"><i class="fas fa-calendar-alt"></i> <span data-i18n="footer_quick_links_events">Events</span></a>
+              <a href="photowalks.html#reviews"><i class="fas fa-briefcase"></i> <span data-i18n="footer_quick_links_reviews">Reviews</span></a>
+              <a href="photowalks.html#join"><i class="fas fa-user-plus"></i> <span data-i18n="footer_quick_links_join">Join Us</span></a>
             </div>
 
             <div class="footer-contact">
-              <h4>Contact Us</h4>
+              <h4 data-i18n="footer_contact_us">Contact Us</h4>
               <a href="mailto:hello@circletokyo.com"><i class="fas fa-envelope"></i> hello@circletokyo.com</a>
-              <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> Message on Instagram</a>
+              <a href="https://www.instagram.com/tokyocircle/"><i class="fas fa-camera"></i> <span data-i18n="footer_message_instagram">Message on Instagram</span></a>
             </div>
           </div>
 
           <div class="footer-bottom">
-            <a>Made with <i class="fas fa-heart heart"></i> by TT &copy; 2025</a>
+            <a><span data-i18n="footer_made_with">Made with</span> <i class="fas fa-heart heart"></i> <span data-i18n="footer_by">by TT &copy; 2025</span></a>
           </div>
         </div>
       </footer>
@@ -1150,9 +1150,9 @@
 
       <!-- Custom JavaScript -->
       <script src="upload.js"></script>
-      <script src="script.js"></script>
-        <script src="a.js"></script>
-        <script src="a3.js?v=2"></script>
+        <script src="script.js"></script>
+        <script src="gallery-core.js"></script>
+        <script src="gallery-theme.js?v=2"></script>
         <script>
           // Gallery Switcher Logic
           document.addEventListener('DOMContentLoaded', function() {

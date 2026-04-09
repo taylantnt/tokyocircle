@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Your Profile | Circle Network</title>
-    <meta name="description" content="Join Circle's exclusive creative network. Submit your portfolio as a model, photographer, or makeup artist and become part of our creative community.">
+    <title data-i18n="submit_meta_title">Submit Your Profile | Circle Network</title>
+    <meta name="description" data-i18n="submit_meta_desc" content="Join Circle's exclusive creative network. Submit your portfolio as a model, photographer, or makeup artist and become part of our creative community.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap" rel="stylesheet">
@@ -74,108 +74,6 @@
             transition: background-color 0.3s ease, color 0.3s ease;
             overflow-x: hidden;
         }
-
-        /* Modern Frosted Glass Navigation */
-        .navbar {
-            position: sticky;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-20%);
-            width: 70%;
-            background-color: var(--nav-bg);
-            backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
-            z-index: 1000;
-            border-radius: 45px;
-            box-shadow: 0 3px 13px rgba(0, 0, 0, 0.49);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all var(--transition-normal);
-        }
-        
-        .navbar.scrolled {
-            padding: 12px 0;
-            top: 0;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        
-        .logo {
-            font-family: 'Baloo 2', sans-serif;
-            font-weight: 700;
-            font-size: 2rem;
-            color: var(--accent-color);
-            text-decoration: none;
-            letter-spacing: var(--letter-spacing-tight);
-            transition: all var(--transition-normal);
-            position: relative;
-            padding: 5px 0;
-        }
-        
-        .logo:hover {
-            transform: translateY(-2px);
-            color: var(--accent-dark);
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 36px;
-        }
-        
-        .nav-link {
-            color: var(--nav-text);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: var(--letter-spacing-wide);
-            text-transform: none;
-            transition: all var(--transition-normal);
-            position: relative;
-            padding: 8px 0;
-            opacity: 0.9;
-        }
-        
-        .nav-link:hover {
-            color: var(--accent-color);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--accent-color);
-            transition: width var(--transition-fast);
-            transform-origin: left;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--nav-text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color var(--transition-fast);
-        }
-        
-        .mobile-menu-btn:hover {
-            color: var(--accent-color);
-        }
-        
 
         /* Form Styles */
         .form-container {
@@ -308,217 +206,18 @@
     <!-- Modern Frosted Glass Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="creatives.html" class="logo">⭕️ Circle</a>
+            <a href="index.html" class="logo">⭕️ Circle</a>
             <div class="nav-links">
-                <a href="/creatives.html" class="nav-link" data-i18n="nav_home">Home</a>
-            <a href="/inquiry.html" class="nav-link" data-i18n="nav_inquiry">Inquiry</a>
-            <a href="#" class="nav-link language-toggle" data-lang="ja" data-i18n="language_toggle">日本語</a>
+                <a href="creatives.html" class="nav-link" data-i18n="nav_home">Home</a>
+                <a href="inquiry.html" class="nav-link" data-i18n="nav_inquiry">Inquiry</a>
+                <a href="#" class="nav-link" data-i18n="nav_submit">Submit</a>
+                <a href="#" class="nav-link language-toggle" id="languageToggle" data-lang="ja" data-i18n="language_toggle">日本語</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
-    <style>
-        /* Theme Toggle Styles */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1100;
-            transform: scale(0.95);
-            transition: transform var(--transition-fast);
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1);
-        }
-        
-        .toggle-wrapper {
-            position: relative;
-            width: 64px;
-            height: 32px;
-            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
-        }
-        
-        .toggle-input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .toggle-label {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.15);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            overflow: hidden;
-        }
-        
-        .toggle-label:before {
-            position: absolute;
-            content: "";
-            height: 24px;
-            width: 24px;
-            left: 4px;
-            bottom: 2px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            transition: all var(--transition-normal);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 2;
-        }
-        
-        .toggle-input:checked + .toggle-label {
-            background-color: rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .toggle-input:checked + .toggle-label:before {
-            transform: translateX(32px);
-            background-color: var(--accent-light);
-        }
-        
-        .toggle-icons {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
-            padding: 0 8px;
-            box-sizing: border-box;
-            color: var(--text-primary);
-            font-size: 14px;
-            opacity: 0.8;
-            transition: opacity var(--transition-normal);
-        }
-
-        .toggle-label:hover .toggle-icons {
-            opacity: 1;
-        }
-              .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .toggle-wrapper {
-            position: relative;
-            width: 60px;
-            height: 30px;
-        }
-
-        .toggle-input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-label {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--bg-secondary);
-            border-radius: 34px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: var(--shadow-md);
-        }
-
-        .toggle-label:before {
-            content: '';
-            position: absolute;
-            width: 26px;
-            height: 26px;
-            left: 2px;
-            bottom: 2px;
-            background-color: white;
-            border-radius: 50%;
-            transition: 0.4s;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .toggle-input:checked + .toggle-label {
-            background-color: var(--accent-color);
-        }
-
-        .toggle-input:checked + .toggle-label:before {
-            transform: translateX(30px);
-        }
-
-        .toggle-icons {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 8px;
-            box-sizing: border-box;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .toggle-icons i {
-            z-index: 1;
-            transition: color 0.3s ease;
-        }
-
-        .toggle-input:checked ~ .toggle-label .toggle-icons i {
-            color: white;
-        }
-                @media (max-width: 823px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .nav-links.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                border-radius: 45px;
-                background-color: var(--nav-bg);
-                padding: 20px;
-                box-shadow: 0 2px 22px rgba(4, 4, 4, 0.32);
-                gap: 15px;
-              align-items: center;
-            }
-
-            .nav-link {
-                padding: 10px 0;
-                font-size: 1rem;
-            }
-        }
-        
-    </style>
-        <div class="theme-toggle">
-        <div class="toggle-wrapper">
-            <input type="checkbox" id="theme-toggle" class="toggle-input">
-            <label for="theme-toggle" class="toggle-label">
-                <div class="toggle-icons">
-                    <i class="fas fa-sun"></i>
-                    <i class="fas fa-moon"></i>
-                </div>
-            </label>
-        </div>
-    </div>
     <main>
     <!-- Submission Form -->
     <div class="form-container">
@@ -533,7 +232,7 @@
   <div class="form-group">
     <label for="talent-type" data-i18n="submit_form_type">I am a*</label>
     <select id="talent-type" name="talent-type" required>
-      <option value="">Select your profession</option>
+      <option value="" data-i18n="submit_form_type_placeholder">Select your profession</option>
       <option value="photographer" data-i18n="submit_form_type_photographer">Photographer/Creative</option>
       <option value="model" data-i18n="submit_form_type_model">Model</option>
       <option value="makeup" data-i18n="submit_form_type_makeup">Hair & Makeup Artist</option>
@@ -566,14 +265,14 @@
   </div>
   
   <div class="form-group">
-  <label for="text" data-i18n="submit_form_social">Social Media Links*</label>
-  <input type="url" id="portfolio" name="portfolio" placeholder="Please share any social media accounts you have" data-i18n="submit_form_social_placeholder">
+  <label for="social" data-i18n="submit_form_social">Social Media Links*</label>
+  <input type="url" id="social" name="social" placeholder="Please share any social media accounts you have" data-i18n="submit_form_social_placeholder">
   </div>
 
   <div class="form-group">
     <label for="experience" data-i18n="submit_form_experience">Years of Experience*</label>
     <select id="experience" name="experience" required>
-      <option value="">Select experience level</option>
+      <option value="" data-i18n="submit_form_experience_placeholder">Select experience level</option>
       <option value="0-2" data-i18n="submit_form_experience_0">0-2 years</option>
       <option value="3-5" data-i18n="submit_form_experience_3">3-5 years</option>
       <option value="5-10" data-i18n="submit_form_experience_5">5-10 years</option>
@@ -601,33 +300,19 @@
         </div>
     </div>
           <script>
-        // Theme toggle functionality
-        const themeToggle = document.querySelector('.toggle-input');
-        
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            themeToggle.checked = true;
-        }
-        
-        // Handle theme toggle
-        themeToggle.addEventListener('change', function() {
-            if (this.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-
         // Mobile menu functionality
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.querySelector('.nav-links');
 
         mobileMenuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+        });
+
+        // Initialize i18n attributes and language toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initializeI18n === 'function') {
+                initializeI18n();
+            }
         });
     </script>
 </body>

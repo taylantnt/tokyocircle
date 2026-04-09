@@ -27,7 +27,7 @@ const galleryData = {
         { image: 'Simsek', caption: 'UNDER CONSTRUCTION' },
     ],
     creatives: [
-        { image: 'DSCF8436', caption: 'Marvin' },
+        { image: 'marvin', caption: 'Marvin' },
         { image: 'matthew', caption: 'Matthew', link: '/creatives/matthew.html' },
         { image: 'craig', caption: 'Craig', link: '/creatives/craig.html' },
         { image: 'taylan1', caption: 'Taylan', link: '/creatives/taylan.html' },
@@ -36,9 +36,6 @@ const galleryData = {
         { image: 'joker', caption: 'Joker' },
         { image: 'cammi', caption: 'Cammi' },
         { image: 'nelson', caption: 'Nelson' },
-        { image: 'hari', caption: 'Hari', link: '/models/hari.html' },
-        { image: 'loner', caption: 'Loner' },
-        { image: 'hendrik', caption: 'Hendrik' },
         { image: 'cedric', caption: 'Cedric' },
         { image: 'imo', caption: 'Imo', link: '/creatives/imo.html' }
     ]

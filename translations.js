@@ -10,6 +10,7 @@ const translations = {
     nav_reviews: "Reviews",
     nav_join: "Join",
     nav_inquiry: "Inquiry",
+    nav_submit: "Submit",
     
     // Common buttons
     btn_submit: "Submit",
@@ -18,6 +19,33 @@ const translations = {
     btn_coming: "I'm Coming!",
     btn_explore: "Explore",
     btn_upload: "Upload",
+
+    // Popups
+    popup_line_title: "LINE Group Rules",
+    popup_line_rules: `
+        <p><strong>Before joining our LINE group, please note:</strong></p>
+        <ul>
+            <li><i class="fas fa-check-circle"></i> Be respectful to all members</li>
+            <li><i class="fas fa-check-circle"></i> Share your photography and experiences</li>
+            <li><i class="fas fa-check-circle"></i> No spam or promotional content</li>
+            <li><i class="fas fa-check-circle"></i> English is our primary language</li>
+            <li><i class="fas fa-check-circle"></i> Introduce yourself when you join</li>
+        </ul>
+    `,
+    popup_line_btn: "I Agree, Join LINE Group",
+    
+    popup_meetup_title: "Meetup Event Rules",
+    popup_meetup_rules: `
+        <p><strong>Before joining our Meetup events, please note:</strong></p>
+        <ul>
+            <li><i class="fas fa-check-circle"></i> RSVP accurately and cancel if you can't attend</li>
+            <li><i class="fas fa-check-circle"></i> Arrive on time for scheduled events</li>
+            <li><i class="fas fa-check-circle"></i> Bring your own camera equipment</li>
+            <li><i class="fas fa-check-circle"></i> Follow the event leader's instructions</li>
+            <li><i class="fas fa-check-circle"></i> Share your photos with the group after events</li>
+        </ul>
+    `,
+    popup_meetup_btn: "I Agree, See Events",
     
     // Inquiry page
     inquiry_title: "Request a Quote",
@@ -32,12 +60,44 @@ const translations = {
     inquiry_form_budget: "Budget Range",
     inquiry_form_date: "Project Date",
     inquiry_form_message: "Project Details",
+    inquiry_form_details_ph: "Please describe your project requirements...",
+    inquiry_form_creative: "Desired Creative/Model",
+    inquiry_form_creative_ph: "e.g. Craig Stennett, Simsek Sua Tortu",
+    inquiry_form_service: "Service Type",
+    inquiry_form_service_opt_default: "Select a service...",
+    inquiry_form_service_opt_photo: "Photography",
+    inquiry_form_service_opt_video: "Videography",
+    inquiry_form_service_opt_model: "Modeling",
+    inquiry_form_service_opt_makeup: "Hair & Makeup",
+    inquiry_form_service_opt_custom: "Custom Project",
+    inquiry_form_service_opt_question: "Just Asking a Question",
+    inquiry_form_location: "Location",
+    inquiry_form_location_ph: "City, Country",
+    inquiry_form_referral: "How did you find us?",
+    inquiry_form_referral_opt_default: "Select an option...",
+    inquiry_form_referral_opt_ig: "Instagram",
+    inquiry_form_referral_opt_fb: "Facebook",
+    inquiry_form_referral_opt_google: "Google Search",
+    inquiry_form_referral_opt_friend: "Friend/Referral",
+    inquiry_form_referral_opt_other: "Other",
     inquiry_form_submit: "Submit Inquiry",
+    inquiry_services_title: "Our Services",
+    inquiry_services_photography: "Photography",
+    inquiry_services_photography_desc: "Professional photography for events, portraits, travel and commercial projects",
+    inquiry_services_videography: "Videography",
+    inquiry_services_videography_desc: "Cinematic video production for your special moments",
+    inquiry_services_modeling: "Modeling",
+    inquiry_services_modeling_desc: "Professional models for fashion, commercial, and editorial work",
+    inquiry_services_makeup: "Hair & Makeup",
+    inquiry_services_makeup_desc: "Expert hair & makeup services for any occasion",
     
     // Submit page
+    submit_meta_title: "Submit Your Profile | Circle Network",
+    submit_meta_desc: "Join Circle's exclusive creative network. Submit your portfolio as a model, photographer, or makeup artist and become part of our creative community.",
     submit_title: "Join Our Creative Network",
     submit_subtitle: "Take the first step towards exciting creative opportunities. Fill out the form below and share your portfolio with us.",
     submit_form_type: "I am a*",
+    submit_form_type_placeholder: "Select your profession",
     submit_form_type_photographer: "Photographer/Creative",
     submit_form_type_model: "Model",
     submit_form_type_makeup: "Hair & Makeup Artist",
@@ -52,6 +112,7 @@ const translations = {
     submit_form_social: "Social Media Links*",
     submit_form_social_placeholder: "Please share any social media accounts you have",
     submit_form_experience: "Years of Experience*",
+    submit_form_experience_placeholder: "Select experience level",
     submit_form_experience_0: "0-2 years",
     submit_form_experience_3: "3-5 years",
     submit_form_experience_5: "5-10 years",
@@ -90,6 +151,11 @@ const translations = {
     photowalks_gallery_subtitle: "Explore our favorite moments from recent adventures",
     photowalks_events_title: "Upcoming Photowalk Events",
     photowalks_events_subtitle: "Come join the adventure!",
+    photowalks_no_events_tba: "TBA",
+    photowalks_no_events_title: "No Planned Events Right Now",
+    photowalks_no_events_desc: "We are busy planning our next adventure! Check back soon for new photowalks.",
+    photowalks_no_events_follow_desc: "Follow our Instagram for instant updates.",
+    btn_follow_ig: "Follow Us",
     photowalks_join_title: "Ready to Join the Fun?",
     photowalks_join_text: "We can't wait to meet you! Here's how to get started:",
     photowalks_join_step1: "Follow Us",
@@ -130,6 +196,24 @@ const translations = {
     creatives_service_makeup_feature3: "Creative Direction",
     creatives_service_makeup_feature4: "Wedding & Events",
     creatives_service_makeup_btn: "Book an Artist",
+    
+    // Creatives Join Section
+    creatives_join_title: "Wanna Join Circle Creatives?",
+    creatives_join_text: "Are you a creative professional, model, or makeup artist looking to showcase your talent? Submit your profile to get a chance to become part of our exclusive Circle Creative community.",
+    creatives_join_btn: "Submit Your Profile",
+    
+    // Footer
+    footer_about_title: "About Circle",
+    footer_about_text: "Circle is a collective dedicated to showcasing talented individuals in the creative industry. We believe in the power of collaboration and artistic expression.",
+    footer_connect_title: "Connect With Us",
+    footer_connect_text: "See our creative community and stay updated with our latest projects and events.",
+    footer_contact_title: "Contact",
+    footer_quick_links_title: "Quick Links",
+    footer_quick_links_about: "About Us",
+    footer_quick_links_gallery: "Photo Gallery",
+    footer_quick_links_events: "Events",
+    footer_quick_links_reviews: "Reviews",
+    footer_quick_links_join: "Join Us",
     
     // Looking for Creatives section
     looking_for_creatives_title: "Looking for Creatives?",
@@ -217,6 +301,7 @@ const translations = {
     nav_reviews: "レビュー",
     nav_join: "参加する",
     nav_inquiry: "お問い合わせ",
+    nav_submit: "提出",
     
     // Common buttons
     btn_submit: "送信",
@@ -225,6 +310,33 @@ const translations = {
     btn_coming: "参加します！",
     btn_explore: "探索する",
     btn_upload: "アップロード",
+
+    // Popups
+    popup_line_title: "LINEグループルール",
+    popup_line_rules: `
+        <p><strong>LINEグループに参加する前に、以下をご確認ください：</strong></p>
+        <ul>
+            <li><i class="fas fa-check-circle"></i> 全てのメンバーに敬意を払いましょう</li>
+            <li><i class="fas fa-check-circle"></i> 写真や経験をシェアしましょう</li>
+            <li><i class="fas fa-check-circle"></i> スパムや宣伝は禁止です</li>
+            <li><i class="fas fa-check-circle"></i> 英語が主な言語です</li>
+            <li><i class="fas fa-check-circle"></i> 参加時に自己紹介をお願いします</li>
+        </ul>
+    `,
+    popup_line_btn: "同意してLINEグループに参加",
+    
+    popup_meetup_title: "Meetupイベントルール",
+    popup_meetup_rules: `
+        <p><strong>Meetupイベントに参加する前に、以下をご確認ください：</strong></p>
+        <ul>
+            <li><i class="fas fa-check-circle"></i> 参加可否を正確にし、参加できない場合はキャンセルしてください</li>
+            <li><i class="fas fa-check-circle"></i> イベントには時間通りにお越しください</li>
+            <li><i class="fas fa-check-circle"></i> 自分のカメラ機材を持参してください</li>
+            <li><i class="fas fa-check-circle"></i> イベントリーダーの指示に従ってください</li>
+            <li><i class="fas fa-check-circle"></i> イベント後はグループで写真をシェアしましょう</li>
+        </ul>
+    `,
+    popup_meetup_btn: "同意してイベントを見る",
     
     // Inquiry page
     inquiry_title: "お見積もり依頼",
@@ -239,12 +351,44 @@ const translations = {
     inquiry_form_budget: "予算範囲",
     inquiry_form_date: "プロジェクト日程",
     inquiry_form_message: "プロジェクトの詳細",
+    inquiry_form_details_ph: "プロジェクトの要件をご記入ください...",
+    inquiry_form_creative: "希望するクリエイター/モデル",
+    inquiry_form_creative_ph: "例：Craig Stennett, Simsek Sua Tortu",
+    inquiry_form_service: "サービスの種類",
+    inquiry_form_service_opt_default: "サービスを選択してください...",
+    inquiry_form_service_opt_photo: "写真撮影",
+    inquiry_form_service_opt_video: "ビデオ撮影",
+    inquiry_form_service_opt_model: "モデリング",
+    inquiry_form_service_opt_makeup: "ヘア＆メイク",
+    inquiry_form_service_opt_custom: "カスタムプロジェクト",
+    inquiry_form_service_opt_question: "質問のみ",
+    inquiry_form_location: "撮影場所",
+    inquiry_form_location_ph: "都市、国",
+    inquiry_form_referral: "私たちをどこで知りましたか？",
+    inquiry_form_referral_opt_default: "選択してください...",
+    inquiry_form_referral_opt_ig: "Instagram",
+    inquiry_form_referral_opt_fb: "Facebook",
+    inquiry_form_referral_opt_google: "Google検索",
+    inquiry_form_referral_opt_friend: "友人/紹介",
+    inquiry_form_referral_opt_other: "その他",
     inquiry_form_submit: "お問い合わせを送信",
+    inquiry_services_title: "私たちのサービス",
+    inquiry_services_photography: "写真撮影",
+    inquiry_services_photography_desc: "イベント、ポートレート、旅行、商業プロジェクト向けのプロフェッショナルな写真撮影",
+    inquiry_services_videography: "ビデオ撮影",
+    inquiry_services_videography_desc: "特別な瞬間のためのシネマティックな映像制作",
+    inquiry_services_modeling: "モデル",
+    inquiry_services_modeling_desc: "ファッション、コマーシャル、エディトリアル向けのプロフェッショナルモデル",
+    inquiry_services_makeup: "ヘア＆メイク",
+    inquiry_services_makeup_desc: "あらゆるシーンに対応する専門的なヘア＆メイクサービス",
     
     // Submit page
+    submit_meta_title: "プロフィールを送信 | Circle Network",
+    submit_meta_desc: "Circleの独占的なクリエイティブネットワークに参加しましょう。モデル、フォトグラファー、またはメイクアップアーティストとしてポートフォリオを送信し、私たちのクリエイティブコミュニティの一員になりましょう。",
     submit_title: "クリエイティブネットワークに参加する",
     submit_subtitle: "エキサイティングなクリエイティブな機会への第一歩を踏み出しましょう。以下のフォームに記入し、あなたのポートフォリオを共有してください。",
     submit_form_type: "私は*",
+    submit_form_type_placeholder: "職業を選択してください",
     submit_form_type_photographer: "フォトグラファー/クリエイティブ",
     submit_form_type_model: "モデル",
     submit_form_type_makeup: "ヘアメイクアーティスト",
@@ -259,6 +403,7 @@ const translations = {
     submit_form_social: "ソーシャルメディアリンク*",
     submit_form_social_placeholder: "お持ちのソーシャルメディアアカウントを共有してください",
     submit_form_experience: "経験年数*",
+    submit_form_experience_placeholder: "経験レベルを選択してください",
     submit_form_experience_0: "0-2年",
     submit_form_experience_3: "3-5年",
     submit_form_experience_5: "5-10年",
@@ -297,6 +442,11 @@ const translations = {
     photowalks_gallery_subtitle: "最近の冒険からのお気に入りの瞬間を探索する",
     photowalks_events_title: "今後のフォトウォークイベント",
     photowalks_events_subtitle: "冒険に参加しよう！",
+    photowalks_no_events_tba: "未定",
+    photowalks_no_events_title: "現在予定されているイベントはありません",
+    photowalks_no_events_desc: "次の冒険を計画中です！新しいフォトウォークについてすぐに確認してください。",
+    photowalks_no_events_follow_desc: "Instagramをフォローして最新情報をゲットしよう。",
+    btn_follow_ig: "フォローする",
     photowalks_join_title: "楽しみに参加する準備はできましたか？",
     photowalks_join_text: "お会いできるのを楽しみにしています！始め方は次のとおりです：",
     photowalks_join_step1: "フォローする",
@@ -337,6 +487,24 @@ const translations = {
     creatives_service_makeup_feature3: "クリエイティブディレクション",
     creatives_service_makeup_feature4: "ウェディング＆イベント",
     creatives_service_makeup_btn: "アーティストを予約する",
+    
+    // Creatives Join Section
+    creatives_join_title: "Circleクリエイティブに参加しませんか？",
+    creatives_join_text: "才能を披露したいクリエイティブのプロフェッショナル、モデル、またはメイクアップアーティストですか？プロフィールを送信して、限定のCircle Creativeコミュニティの一員になるチャンスを掴みましょう。",
+    creatives_join_btn: "プロフィールを送信する",
+    
+    // Footer
+    footer_about_title: "Circleについて",
+    footer_about_text: "Circleは、クリエイティブ業界で才能ある個人を紹介することに特化した集団です。私たちはコラボレーションと芸術的表現の力を信じています。",
+    footer_connect_title: "つながる",
+    footer_connect_text: "私たちのクリエイティブコミュニティを見て、最新のプロジェクトやイベントの情報を入手してください。",
+    footer_contact_title: "連絡先",
+    footer_quick_links_title: "クイックリンク",
+    footer_quick_links_about: "私たちについて",
+    footer_quick_links_gallery: "フォトギャラリー",
+    footer_quick_links_events: "イベント",
+    footer_quick_links_reviews: "レビュー",
+    footer_quick_links_join: "参加する",
     
     // Looking for Creatives section
     looking_for_creatives_title: "クリエイティブをお探しですか？",

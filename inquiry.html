@@ -13,19 +13,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="inquiry.css">
-    <link rel="stylesheet" href="/navbar.css" />
-    <link rel="stylesheet" href="/japanese-font.css" />
+    <link rel="stylesheet" href="navbar.css" />
+    <link rel="stylesheet" href="assets/japanese-font.css" />
     <script src="translations.js"></script>
     <script src="language-switcher.js"></script>
     <meta property="og:title" content="Request a Quote | Circle Creatives" />
     <meta property="og:description" content="Request a quote for professional creative services from Circle - connecting you with top talent in photography, modeling, and artistry." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://tokyocircle.jp/inquiry.html" />
-    <meta property="og:image" content="https://tokyocircle.jp/apple-touch-icon.png" />
+    <meta property="og:image" content="https://tokyocircle.jp/assets/apple-touch-icon.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Request a Quote | Circle Creatives" />
     <meta name="twitter:description" content="Request a quote for professional creative services from Circle - connecting you with top talent in photography, modeling, and artistry." />
-    <meta name="twitter:image" content="https://tokyocircle.jp/apple-touch-icon.png" />
+    <meta name="twitter:image" content="https://tokyocircle.jp/assets/apple-touch-icon.png" />
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -98,108 +98,6 @@
             font-weight: 400;
             line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
-            overflow-x: hidden;
-        }
-        
-        /* Modern Frosted Glass Navigation */
-        .navbar {
-            position: sticky;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-20%);
-            width: 70%;
-            background-color: var(--nav-bg);
-            backdrop-filter: blur(15px) saturate(180%);
-            -webkit-backdrop-filter: blur(15px) saturate(180%);
-            z-index: 1000;
-            border-radius: 45px;
-            box-shadow: 0 3px 13px rgba(0, 0, 0, 0.49);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all var(--transition-normal);
-        }
-        
-        .navbar.scrolled {
-            padding: 12px 0;
-            top: 0;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-        
-        .logo {
-            font-family: 'Baloo 2', sans-serif;
-            font-weight: 700;
-            font-size: 2rem;
-            color: var(--accent-color);
-            text-decoration: none;
-            letter-spacing: var(--letter-spacing-tight);
-            transition: all var(--transition-normal);
-            position: relative;
-            padding: 5px 0;
-        }
-        
-        .logo:hover {
-            transform: translateY(-2px);
-            color: var(--accent-dark);
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 36px;
-        }
-        
-        .nav-link {
-            color: var(--nav-text);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: var(--letter-spacing-wide);
-            text-transform: none;
-            transition: all var(--transition-normal);
-            position: relative;
-            padding: 8px 0;
-            opacity: 0.9;
-        }
-        
-        .nav-link:hover {
-            color: var(--accent-color);
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--accent-color);
-            transition: width var(--transition-fast);
-            transform-origin: left;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--nav-text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color var(--transition-fast);
-        }
-        
-        .mobile-menu-btn:hover {
-            color: var(--accent-color);
         }
         
         /* Page Introduction */
@@ -364,95 +262,34 @@
         }
         
         @media (max-width: 823px) {
-            .category-buttons {
-                font-size: 1rem;
-                gap: 35px;
-                margin-bottom: 30px;
-                flex-wrap: wrap;
-                justify-content: center;
-                padding: 0 20px;
+            .quote-container {
+                padding: 0 15px;
             }
             
-            .gallery {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-                padding: 20px;
-                max-width: 600px;
-            }
-            
-            .gallery-item {
-                aspect-ratio: 3/4;
-                min-height: 280px;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .nav-links.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                border-radius: 45px;
-                background-color: var(--nav-bg);
-                padding: 20px;
-                box-shadow: 0 2px 22px rgba(4, 4, 4, 0.32);
-                gap: 15px;
-              align-items: center;
-            }
-
-            .nav-link {
-                padding: 10px 0;
-                font-size: 1rem;
+            .intro-card, .form-card {
+                padding: 30px 20px;
             }
         }
         
         @media (max-width: 576px) {
-            .gallery {
-                grid-template-columns: repeat(1, 1fr);
-                gap: 25px;
-                padding: 20px;
-                max-width: 400px;
-            }
-            
-            .gallery-item {
-                aspect-ratio: 4/5;
-                min-height: 400px;
-                margin: 0 auto;
-                width: 100%;
-            }
-            
-            .gallery-item img {
-                height: 100%;
-                max-height: none;
-                object-fit: cover;
+            .page-intro {
+                margin: 40px auto 60px;
             }
             
             .page-intro h1 {
-                font-size: 2rem;
-                margin-bottom: 25px;
+                font-size: 2.5rem;
             }
             
-            .page-intro p {
-                font-size: 1rem;
-                padding: 0 20px;
-                line-height: 1.7;
+            .quote-container {
+                padding: 0;
             }
             
-            .category-buttons {
-                padding: 0 15px;
+            .intro-card, .form-card {
+                border-radius: 0;
             }
-
-            .category-link {
-                font-size: 0.9rem;
-                padding: 8px 12px;
+            
+            .form-row {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -803,11 +640,12 @@
     <!-- Modern Frosted Glass Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="creatives.html" class="logo">⭕️ Circle</a>
+            <a href="index.html" class="logo">⭕️ Circle</a>
             <div class="nav-links">
-                <a href="/creatives.html" class="nav-link" data-i18n="nav_home">Home</a>
+                <a href="creatives.html" class="nav-link" data-i18n="nav_home">Home</a>
                 <a href="#" class="nav-link" data-i18n="nav_inquiry">Inquiry</a>
-                <a href="#" class="nav-link language-toggle" data-lang="ja" data-i18n="language_toggle">日本語</a>
+                <a href="submit.html" class="nav-link" data-i18n="nav_submit">Submit</a>
+                <a href="#" class="nav-link language-toggle" id="languageToggle" data-lang="ja" data-i18n="language_toggle">日本語</a>
             </div>
             <button class="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -915,27 +753,27 @@
                         <div class="intro-icon">
                             <i class="fas fa-star"></i>
                         </div>
-                        <h2>Our Services</h2>
+                        <h2 data-i18n="inquiry_services_title">Our Services</h2>
                         <div class="service-list">
                             <div class="service-item">
                                 <i class="fas fa-camera-retro"></i>
-                                <h3>Photography</h3>
-                                <p>Professional photography for events, portraits, travel and commercial projects</p>
+                                <h3 data-i18n="inquiry_services_photography">Photography</h3>
+                                <p data-i18n="inquiry_services_photography_desc">Professional photography for events, portraits, travel and commercial projects</p>
                             </div>
                             <div class="service-item">
                                 <i class="fas fa-video"></i>
-                                <h3>Videography</h3>
-                                <p>Cinematic video production for your special moments</p>
+                                <h3 data-i18n="inquiry_services_videography">Videography</h3>
+                                <p data-i18n="inquiry_services_videography_desc">Cinematic video production for your special moments</p>
                             </div>
                             <div class="service-item">
                                 <i class="fas fa-user-tie"></i>
-                                <h3>Modeling</h3>
-                                <p>Professional models for fashion, commercial, and editorial work</p>
+                                <h3 data-i18n="inquiry_services_modeling">Modeling</h3>
+                                <p data-i18n="inquiry_services_modeling_desc">Professional models for fashion, commercial, and editorial work</p>
                             </div>
                             <div class="service-item">
                                 <i class="fas fa-paint-brush"></i>
-                                <h3>Hair & Makeup</h3>
-                                <p>Expert hair & makeup services for any occasion</p>
+                                <h3 data-i18n="inquiry_services_makeup">Hair & Makeup</h3>
+                                <p data-i18n="inquiry_services_makeup_desc">Expert hair & makeup services for any occasion</p>
                             </div>
                         </div>
                     </div>
@@ -946,12 +784,12 @@
   <input type="hidden" name="form-name" value="quote">
 
   <div class="form-group">
-    <label for="name" data-i18n="inquiry_form_name">Full Name <span class="required">*</span></label>
+    <label for="name"><span data-i18n="inquiry_form_name">Full Name</span> <span class="required">*</span></label>
     <input type="text" id="name" name="name" required>
   </div>
 
   <div class="form-group">
-    <label for="email" data-i18n="inquiry_form_email">Email Address <span class="required">*</span></label>
+    <label for="email"><span data-i18n="inquiry_form_email">Email Address</span> <span class="required">*</span></label>
     <input type="email" id="email" name="email" required>
   </div>
 
@@ -962,19 +800,19 @@
 
   <div class="form-group">
     <label for="desired-creative" data-i18n="inquiry_form_creative">Desired Creative/Model</label>
-    <input type="text" id="desired-creative" name="desired-creative" placeholder="e.g. Craig Stennett, Simsek Sua Tortu">
+    <input type="text" id="desired-creative" name="desired-creative" placeholder="e.g. Craig Stennett, Simsek Sua Tortu" data-i18n="inquiry_form_creative_ph">
   </div>
 
   <div class="form-group">
-    <label for="service" data-i18n="inquiry_form_service">Service Type <span class="required">*</span></label>
+    <label for="service"><span data-i18n="inquiry_form_service">Service Type</span> <span class="required">*</span></label>
     <select id="service" name="service" required>
-      <option value="" disabled selected>Select a service...</option>
-      <option value="photography">Photography</option>
-      <option value="videography">Videography</option>
-      <option value="modeling">Modeling</option>
-      <option value="makeup">Hair & Makeup</option>
-      <option value="custom">Custom Project</option>
-      <option value="question">Just Asking a Question</option>
+      <option value="" disabled selected data-i18n="inquiry_form_service_opt_default">Select a service...</option>
+      <option value="photography" data-i18n="inquiry_form_service_opt_photo">Photography</option>
+      <option value="videography" data-i18n="inquiry_form_service_opt_video">Videography</option>
+      <option value="modeling" data-i18n="inquiry_form_service_opt_model">Modeling</option>
+      <option value="makeup" data-i18n="inquiry_form_service_opt_makeup">Hair & Makeup</option>
+      <option value="custom" data-i18n="inquiry_form_service_opt_custom">Custom Project</option>
+      <option value="question" data-i18n="inquiry_form_service_opt_question">Just Asking a Question</option>
     </select>
   </div>
 
@@ -985,23 +823,23 @@
 
   <div class="form-group">
     <label for="location" data-i18n="inquiry_form_location">Location</label>
-    <input type="text" id="location" name="location" placeholder="City, Country">
+    <input type="text" id="location" name="location" placeholder="City, Country" data-i18n="inquiry_form_location_ph">
   </div>
 
   <div class="form-group full-width">
-    <label for="details" data-i18n="inquiry_form_details">Project Details <span class="required">*</span></label>
-    <textarea id="details" name="details" rows="4" placeholder="Please describe your project requirements..." required></textarea>
+    <label for="details"><span data-i18n="inquiry_form_message">Project Details</span> <span class="required">*</span></label>
+    <textarea id="details" name="details" rows="4" placeholder="Please describe your project requirements..." required data-i18n="inquiry_form_details_ph"></textarea>
   </div>
 
   <div class="form-group">
     <label for="referral" data-i18n="inquiry_form_referral">How did you find us?</label>
     <select id="referral" name="referral">
-      <option value="" disabled selected>Select an option...</option>
-      <option value="instagram">Instagram</option>
-      <option value="facebook">Facebook</option>
-      <option value="google">Google Search</option>
-      <option value="referral">Friend/Referral</option>
-      <option value="other">Other</option>
+      <option value="" disabled selected data-i18n="inquiry_form_referral_opt_default">Select an option...</option>
+      <option value="instagram" data-i18n="inquiry_form_referral_opt_ig">Instagram</option>
+      <option value="facebook" data-i18n="inquiry_form_referral_opt_fb">Facebook</option>
+      <option value="google" data-i18n="inquiry_form_referral_opt_google">Google Search</option>
+      <option value="referral" data-i18n="inquiry_form_referral_opt_friend">Friend/Referral</option>
+      <option value="other" data-i18n="inquiry_form_referral_opt_other">Other</option>
     </select>
   </div>
 
@@ -1019,12 +857,12 @@
     <footer>
         <div class="footer-container">
             <div class="footer-section">
-                <h3>About Circle </h3>
-                <p>Circle is a collective dedicated to showcasing talented individuals in the creative industry. We believe in the power of collaboration and artistic expression.</p>
+                <h3 data-i18n="footer_about_title">About Circle</h3>
+                <p data-i18n="footer_about_text">Circle is a collective dedicated to showcasing talented individuals in the creative industry. We believe in the power of collaboration and artistic expression.</p>
             </div>
             <div class="footer-section">
-                <h3>Connect With Us</h3>
-                <p>See our creative community and stay updated with our latest projects and events.</p>
+                <h3 data-i18n="footer_connect_title">Connect With Us</h3>
+                <p data-i18n="footer_connect_text">See our creative community and stay updated with our latest projects and events.</p>
                 <div class="social-links">
                         <a href="https://www.instagram.com/tokyocircle/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="https://line.me/ti/g/mJAkqUoScC" aria-label="Line"><i class="fab fa-line"></i></a>
@@ -1032,7 +870,7 @@
                 </div>
             </div>
             <div class="footer-section">
-                <h3>Contact</h3>
+                <h3 data-i18n="footer_contact_title">Contact</h3>
                 <p>Email: simsektortu@gmail.com</p>
                 <p>Phone: Not Available Yet</p>
                 <p>Location: Tokyo, Japan</p>
@@ -1069,8 +907,30 @@
         const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
         const navLinks = document.querySelector('.nav-links');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                
+                // Change icon based on menu state
+                const icon = mobileMenuBtn.querySelector('i');
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         });
         
         // Pre-fill Desired Creative/Model if ?creative= is in the URL
@@ -1082,6 +942,13 @@
     if (input) input.value = creative;
   }
 })();
+
+    // Initialize i18n attributes and language toggle functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof initializeI18n === 'function') {
+            initializeI18n();
+        }
+    });
     </script>
 </body>
 </html>
