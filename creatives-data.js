@@ -20,6 +20,8 @@ const galleryData = {
         { image: 'lina_p0vqwy', caption: 'Lina' },
         { image: 'nahnah_mlenhe', caption: 'Nahnah' },
         { image: 'Nikki_icabuj', caption: 'Nikki' },
+        { image: 'Annabelle', caption: 'Annabelle' },
+        { image: 'jodie', caption: 'Jodie' },
         { image: 'Anna_kauzkr', caption: 'Anna' },
         { image: 'Katie_gtezp0', caption: 'Katie' }
     ],
