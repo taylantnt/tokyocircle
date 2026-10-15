@@ -34,7 +34,8 @@ document.addEventListener('scroll', function() {
           // Get all sections and important elements that need transition
           const sections = document.querySelectorAll('.section, .section-card');
           const sectionHeaders = document.querySelectorAll('.section-header h2, .section-header .section-description');
-          const cards = document.querySelectorAll('.event-card, .step, .founder-card, .about-main-card, .creative-service-card, .creative-services-info, .hire-card, .review-card, .overall-rating');
+          const cards = document.querySelectorAll('.event-card, .step, .founder-card, .about-main-card, .stat-item, .creative-service-card, .creative-services-info, .hire-card, .review-card, .overall-rating');
+          const statElements = document.querySelectorAll('.stat-number, .stat-icon, .stat-label');
           const heroElements = document.querySelectorAll('.hero-content, .hero-content h1, .hero-buttons, .subtitle');
           const footer = document.querySelector('.footer');
           const footerElements = document.querySelectorAll('.footer-content, .footer-about, .footer-links, .footer-contact, .footer-bottom, .footer-social a');
@@ -75,7 +76,12 @@ document.addEventListener('scroll', function() {
 
           // Apply transitions to cards
           cards.forEach(card => {
-              card.style.transition = 'background-color 0.6s ease, color 0.6s ease, box-shadow 0.6s ease, transform 0.6s ease';
+              card.style.transition = 'background-color 0.6s ease, color 0.6s ease, box-shadow 0.6s ease, border-color 0.6s ease, transform 0.6s ease';
+          });
+
+          // Apply transitions to stat contents so numbers/icons/labels animate too
+          statElements.forEach(element => {
+              element.style.transition = 'color 0.6s ease, filter 0.6s ease';
           });
 
           // Apply transitions to hero elements
@@ -133,6 +139,10 @@ document.addEventListener('scroll', function() {
 
               cards.forEach(card => {
                   card.style.transition = '';
+              });
+
+              statElements.forEach(element => {
+                  element.style.transition = '';
               });
 
               heroElements.forEach(element => {

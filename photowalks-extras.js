@@ -32,10 +32,11 @@
                   const translateY = Math.max(0, (1 - visiblePercentage) * 20);
                   const scale = 0.98 + (visiblePercentage * 0.02);
 
-                  // Apply transforms with subtle shadow effect
+                  // Keep the parallax movement, but let CSS own the section shadow.
+                  // This prevents scroll-time JS from overriding the stacked card shadow.
                   section.style.transform = `translateY(${translateY}px)`;
-                  section.style.boxShadow = `0 -${10 + visiblePercentage * 20}px 30px rgba(0, 0, 0, ${0.05 + visiblePercentage * 0.03})`;
-                  section.style.transition = 'transform 0.3s ease-out, box-shadow 0.3s ease-out';
+                  section.style.removeProperty('box-shadow');
+                  section.style.transition = 'transform 0.3s ease-out';
 
                   // Animate content within the section for depth effect
                   const container = section.querySelector('.container');
