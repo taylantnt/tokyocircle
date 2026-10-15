@@ -39,9 +39,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="Circle" />
 <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="stylesheet" href="styles.css?v=3">
     <link rel="stylesheet" href="popup.css">
-    <link rel="stylesheet" href="reviews.css">
+    <link rel="stylesheet" href="reviews.css?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
@@ -383,11 +383,9 @@
                     </button>
                     <div class="language-dropdown">
                         <div class="language-option" data-lang="en">
-                            <i class="fas fa-check"></i>
                             <span>English</span>
                         </div>
                         <div class="language-option" data-lang="ja">
-                            <i class="fas fa-check"></i>
                             <span>日本語</span>
                         </div>
                     </div>
@@ -811,7 +809,6 @@
                     display: flex;
                     flex-direction: column;
                     gap: 3rem;
-                    margin-top: 2rem;
                 }
                 
                 .creative-services-grid {
@@ -825,13 +822,13 @@
                     border-radius: 15px;
                     padding: 2rem;
                     text-align: center;
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                    box-shadow: var(--soft-shadow);
                     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.6s ease;
                 }
                 
                 .creative-service-card:hover {
                     transform: translateY(-10px);
-                    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+                    box-shadow: var(--floating-shadow);
                 }
                 
                 .service-icon {
@@ -865,7 +862,7 @@
                     background-color: rgba(255, 255, 255, 0.9);
                     border-radius: 15px;
                     padding: 2.5rem;
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                    box-shadow: var(--soft-shadow);
                     transition: background-color 0.6s ease, box-shadow 0.6s ease, color 0.6s ease;
                 }
                 

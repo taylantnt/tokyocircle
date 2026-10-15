@@ -3,7 +3,7 @@
 .reviews {
     background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-pink)); /* Restored gradient as requested */
     color: var(--text-primary);
-    padding: var(--space-xxl) 0 var(--space-xxl);
+    padding: 120px 0 var(--space-xxl);
     position: relative;
     z-index: 70;
     border-radius: 40px 40px 0 0;

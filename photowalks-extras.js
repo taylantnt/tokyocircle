@@ -50,7 +50,9 @@
           });
 
           // Create a subtle parallax effect for elements within sections
-          const elementsToAnimate = document.querySelectorAll('.section-header, .slide-content, .event-card, .step, .founder-card, .stat-item');
+          // Note: .section-header is intentionally excluded so headers stay glued
+          // to their section content (prevents uneven spacing between sections)
+          const elementsToAnimate = document.querySelectorAll('.slide-content, .event-card, .step, .founder-card, .stat-item');
 
           elementsToAnimate.forEach(element => {
               // Skip elements during theme transitions
