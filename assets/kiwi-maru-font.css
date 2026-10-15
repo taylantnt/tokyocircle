@@ -44,13 +44,13 @@ html[lang="ja"] .gallery-page li {
   line-height: 1.7;
 }
 
-/* Japanese headings - use Noto Sans JP 700 for thicker, bolder look */
+/* Japanese headings - Kiwi Maru with bold weight (synthetic bold since only 400 is available) */
 html[lang="ja"] .photowalks-page h1[data-i18n],
 html[lang="ja"] .photowalks-page h2[data-i18n],
 html[lang="ja"] .photowalks-page h3[data-i18n],
 html[lang="ja"] .gallery-page h1[data-i18n],
 html[lang="ja"] .gallery-page h2[data-i18n],
 html[lang="ja"] .gallery-page h3[data-i18n] {
-  font-family: 'Noto Sans JP', 'Kiwi Maru', sans-serif !important;
+  font-family: 'Kiwi Maru', serif !important;
   font-weight: 700 !important;
 }
