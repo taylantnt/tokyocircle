@@ -39,7 +39,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="Circle" />
 <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2">
     <link rel="stylesheet" href="popup.css">
     <link rel="stylesheet" href="reviews.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,120 +48,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/kiwi-maru-font.css">
     <style>
-        /* Language Toggle Styling */
-        .language-toggle-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .language-toggle {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            color: #ffffff;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.62);
-        }
-
-        .language-toggle:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .language-toggle i {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .language-toggle .fa-chevron-down {
-            font-size: 0.8rem;
-            transition: transform 0.3s ease;
-        }
-
-        .language-toggle.active .fa-chevron-down {
-            transform: rotate(180deg);
-        }
-
-        .language-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            margin-top: 8px;
-            padding: 8px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 10000;
-        }
-
-        .language-dropdown.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .language-option {
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .language-option:hover {
-            background: rgba(0, 0, 0, 0.05);
-        }
-
-        .dark-mode .language-toggle {
-            background: rgba(0, 0, 0, 0.2);
-            border-color: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-        }
-
-        .dark-mode .language-toggle:hover {
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .dark-mode .language-dropdown {
-            background: rgba(150, 150, 150, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .dark-mode .language-option:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        @media (max-width: 768px) {
-            .language-toggle {
-                padding: 6px 12px;
-                font-size: 0.85rem;
-            }
-            
-            .language-toggle i {
-                font-size: 0.9rem;
-            }
-
-            .language-dropdown {
-                margin-top: 6px;
-            }
-
-            .language-option {
-                padding: 6px 12px;
-            }
-        }
-
         .past-event {
             position: relative;
             opacity: 0.8;
@@ -1500,7 +1386,7 @@ if (gallerySlider) {
     <script src="photowalks-extras.js"></script>
     <script src="slogan-animation.js"></script>
     <script src="popup.js"></script>
-    <script src="translations.js"></script>
-    <script src="language-switcher.js"></script>
+    <script src="translations.js?v=2"></script>
+    <script src="language-switcher.js?v=2"></script>
 </body>
 </html>

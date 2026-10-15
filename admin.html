@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Circle Photo Moderation | Admin Panel</title>
-  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="gallery.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +39,34 @@
       --border-radius: 10px;
       --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .admin-header {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 1000;
+    }
+
+    .logout-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .logout-btn:hover {
+      background: #c0392b;
+      transform: translateY(-1px);
     }
 
     body {
@@ -1046,34 +1073,8 @@
       </div>
     </aside>
 
-    <header>
-      <nav class="navbar" role="navigation" aria-label="Main navigation">
-        <div class="container">
-          <div class="theme-toggle">
-            <div class="toggle-wrapper">
-              <input type="checkbox" id="theme-toggle" class="toggle-input">
-              <label for="theme-toggle" class="toggle-label">
-                <div class="toggle-icons">
-                  <i class="fas fa-sun"></i>
-                  <i class="fas fa-moon"></i>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <a href="photowalks.html" class="logo">
-            <img src="https://cdn.glitch.global/a0def4c3-e1ef-4dec-a1b4-5c1abf13ecce/Apr%205%2C%202025%20at%2003_13_47%20PM.png?v=1743833940361" 
-                 alt="Circle Photography Friends Logo" 
-                 class="logo-image">
-          </a>
-          <div class="nav-links">
-            <a href="photowalks.html"><i class="fas fa-home"></i> Home</a>
-            <a href="upload.html"><i class="fas fa-cloud-upload-alt"></i> Upload</a>
-            <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
-            <button onclick="logout()" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
-          </div>
-        </div>
-      </nav>
+    <header class="admin-header">
+      <button onclick="logout()" class="btn btn-danger logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </header>
 
   <main class="admin-container">
