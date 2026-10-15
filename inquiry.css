@@ -57,6 +57,7 @@
 .service-item {
     padding: 20px;
     background-color: var(--bg-secondary);
+    box-shadow: -1px -2px 4px rgba(0, 0, 0, 0.27) inset;
     border-radius: 15px;
     text-align: center;
     transition: transform var(--transition-normal);

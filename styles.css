@@ -1516,6 +1516,7 @@ a {
   gap: var(--space-lg);
   max-width: 1000px;
   margin: 0 auto;
+  margin-bottom: 40px;
 }
 
 .event-card {
