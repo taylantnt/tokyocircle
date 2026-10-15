@@ -1,7 +1,7 @@
 /* kiwi-maru-font.css - Adds Kiwi Maru styling for Japanese text across pages */
 
-/* Import Kiwi Maru from Google Fonts - a playful Japanese font */
-@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Noto+Sans+JP:wght@400;700&display=swap');
+/* Import Kiwi Maru from Google Fonts - a playful Japanese font (max weight is 500 Medium) */
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Noto+Sans+JP:wght@400;700&display=swap');
 
 /* Apply Kiwi Maru font to all Japanese text elements */
 html[lang="ja"] .photowalks-page [data-i18n^="nav_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
@@ -44,13 +44,15 @@ html[lang="ja"] .gallery-page li {
   line-height: 1.7;
 }
 
-/* Japanese headings - Kiwi Maru with bold weight (synthetic bold since only 400 is available) */
+/* Japanese headings - Kiwi Maru Medium (500) is the heaviest available weight */
 html[lang="ja"] .photowalks-page h1[data-i18n],
 html[lang="ja"] .photowalks-page h2[data-i18n],
 html[lang="ja"] .photowalks-page h3[data-i18n],
+html[lang="ja"] .photowalks-page h4[data-i18n],
 html[lang="ja"] .gallery-page h1[data-i18n],
 html[lang="ja"] .gallery-page h2[data-i18n],
-html[lang="ja"] .gallery-page h3[data-i18n] {
+html[lang="ja"] .gallery-page h3[data-i18n],
+html[lang="ja"] .gallery-page h4[data-i18n] {
   font-family: 'Kiwi Maru', serif !important;
-  font-weight: 700 !important;
+  font-weight: 500 !important;
 }

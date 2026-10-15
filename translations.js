@@ -147,7 +147,7 @@ const translations = {
     photowalks_stats_photos: "Photos Shared",
     photowalks_founders_title: "Meet Your Photo Buddies",
     photowalks_founders_subtitle: "Your facilitators during the photowalks",
-    photowalks_gallery_title: "Highlights From Our Previous walks",
+    photowalks_gallery_title: "Highlights From Our Previous Walks",
     photowalks_gallery_subtitle: "Explore our favorite moments from recent adventures",
     photowalks_events_title: "Upcoming Photowalk Events",
     photowalks_events_subtitle: "Come join the adventure!",
@@ -218,7 +218,6 @@ const translations = {
     // Looking for Creatives section
     looking_for_creatives_title: "Looking for Creatives?",
     looking_for_creatives_subtitle: "Circle is a vibrant hub of talented individuals ready to bring your vision to life",
-    why_choose_circle_title: "Why Choose Circle Creatives?",
     creatives_photographers_title: "Photographers",
     creatives_photographers_desc: "Professional photographers specializing in portraits, events, products, and more",
     creatives_videographers_title: "Videographers",
@@ -239,7 +238,7 @@ const translations = {
     contact_us_btn: "Contact Us",
     
     // Why Join Circle Photowalks Section
-    why_join_photowalks_title: "Why join Circle Photowalks?",
+    why_join_photowalks_title: "Why Join Circle Photowalks?",
     why_join_photowalks_benefit1: "Meet friendly photographers, models, and creatives",
     why_join_photowalks_benefit2: "Improve your photography skills in a supportive group",
     why_join_photowalks_benefit3: "Make new friends and lasting memories",
@@ -254,11 +253,6 @@ const translations = {
     reviews_section_title: "What Our Members Say",
     reviews_section_subtitle: "Real experiences from our photography community",
     reviews_section_ratings: "Based on 189 ratings across all events",
-    reviews_section_title_ja: "メンバーの声",
-    reviews_section_subtitle_ja: "写真コミュニティからの実際の体験",
-    reviews_section_ratings_ja: "全イベントでの189件の評価に基づく",
-    looking_for_creatives_title_ja: "クリエイターをお探しですか？",
-    why_choose_circle_title_ja: "なぜCircleのクリエイターを選ぶのか？",
     btn_add_me: "See Our Photos",
     btn_see_events: "See Events",
     btn_line_add: "Add Me",
@@ -268,11 +262,6 @@ const translations = {
     "photowalks_shop_teaser_p1": "Discover a curated selection of photography equipment and accessories hand-picked and recommended by the Tokyo Circle community. Whether you're a beginner looking for your first camera or a seasoned pro seeking new gear, our shop has something for everyone.",
     "photowalks_shop_teaser_p2": "Support our community and find great deals on items that will help you capture stunning photos on your next photowalk!",
     "photowalks_btn_visit_shop": "Visit Our Shop",
-    btn_add_me_ja: "写真を見る",
-    btn_see_events_ja: "イベントを見る",
-    btn_line_add_ja: "追加する",
-    creatives_makeup_title_ja: "メイクアップアーティスト",
-    creatives_makeup_desc_ja: "撮影、イベント、特別な機会のためのクリエイティブなメイクアッププロフェッショナル",
     reviews_event_yoyogi: "Yoyogi Park Cherry Blossom Walk",
     reviews_event_meguro: "Meguro River Evening Walk",
     reviews_event_kamakura: "Kamakura Weekend Trip",
@@ -317,7 +306,7 @@ const translations = {
     footer_contact_us: "Contact Us",
     footer_message_instagram: "Message on Instagram",
     footer_made_with: "Made with",
-    footer_by: "by TT © 2025"
+    footer_by: "by TT © 2026"
   },
   ja: {
     // Navigation
@@ -558,6 +547,7 @@ const translations = {
     language_toggle: "English",
 
     // Button translations
+    btn_add_me: "写真を見る",
     btn_line_add: "追加する",
     "photowalks_shop_teaser_title": "私たちのギアを探検",
     "photowalks_shop_teaser_subtitle": "コミュニティで使用されているおすすめのカメラ、レンズ、アクセサリーを見つけましょう！",
@@ -586,15 +576,6 @@ const translations = {
     why_join_photowalks_benefit4: "東京とその周辺のユニークな場所を発見できる",
     why_join_photowalks_benefit5: "クリエイティブなコラボでインスピレーションを得る",
     why_join_photowalks_benefit6: "全てのスキルレベルを歓迎 - 好奇心を持ってご参加ください！",
-
-    // Why Choose Circle Creatives Section
-    why_choose_circle_title: "なぜCircleのクリエイターを選ぶのか？",
-    why_choose_circle_benefit1: "多様な文化的背景を持つ才能あるクリエイターを見つけられます。",
-    why_choose_circle_benefit2: "多言語を話すプロフェッショナルとシームレスにコミュニケーションできます。",
-    why_choose_circle_benefit3: "ファッションからコーポレートまで、あらゆるプロジェクトに適した専門家を見つけられます。",
-    why_choose_circle_benefit4: "あらゆるスタイルとアイデンティティを代表する多様な人材から選べます。",
-    why_choose_circle_benefit5: "ニーズに応じてチームを編成可能",
-    why_choose_circle_benefit6: "ソロ撮影からフルプロダクションまで柔軟に対応できます",
 
     // Gallery Page
     gallery_hero_title: "サークルコミュニティで作品を披露し、発見し、つながろう",
@@ -633,6 +614,6 @@ const translations = {
     footer_contact_us: "お問い合わせ",
     footer_message_instagram: "Instagramでメッセージ",
     footer_made_with: "作成者",
-    footer_by: "TTより © 2025"
+    footer_by: "TTより © 2026"
   }
 };
