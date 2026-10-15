@@ -226,13 +226,22 @@
   color: var(--text-primary);
   margin: 0 0 5px 0;
   font-size: 1.1rem;
+  line-height: 1.25;
 }
 
 .tip-text p {
   color: var(--text-secondary);
   margin: 0;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
+}
+
+.dark-mode .tip-text h4 {
+  color: var(--pastel-blue);
+}
+
+.dark-mode .tip-text p {
+  color: var(--text-secondary);
 }
 
 /* Notification styling */
@@ -348,18 +357,48 @@
   }
   
   .tip-item {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    gap: 12px;
+    padding-bottom: 18px;
   }
   
   .tip-icon {
-    margin-bottom: 10px;
+    width: 44px;
+    height: 44px;
+    font-size: 1rem;
   }
   
   .notification {
     left: 20px;
     right: 20px;
     bottom: 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .tips-content {
+    padding: 0;
+  }
+
+  .tip-item {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .tip-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 0.95rem;
+  }
+
+  .tip-text h4 {
+    font-size: 1rem;
+  }
+
+  .tip-text p {
+    font-size: 0.96rem;
+    line-height: 1.55;
   }
 }

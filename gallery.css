@@ -1254,7 +1254,7 @@ main.section-card {
 .dark-mode .gallery-section.section-card,
 .dark-mode .upload-section.section-card,
 .dark-mode main.section-card {
-background-color: #2c3862; /* Deep blue from photowalks */
+background-color: transparent;
 color: var(--text-primary);
 }
 

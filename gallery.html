@@ -34,8 +34,8 @@
       }
       </script>
       <link rel="stylesheet" href="styles.css?v=9">
-      <link rel="stylesheet" href="gallery.css">
-      <link rel="stylesheet" href="upload-styles.css">
+      <link rel="stylesheet" href="gallery.css?v=2">
+      <link rel="stylesheet" href="upload-styles.css?v=2">
       <link rel="stylesheet" href="photo-viewer.css">
       <link rel="stylesheet" href="gallery-switcher.css">
       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -612,102 +612,147 @@
           to { transform: rotate(360deg); }
         }
 
-        /* Modal Popup Styles */
-        .modal-overlay {
+        /* Tips modal styles */
+        .tips-modal-overlay {
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
-          background-color: rgba(0, 0, 0, 0.7);
-          z-index: 1000;
+          background:
+            radial-gradient(circle at top, rgba(255, 255, 255, 0.16), transparent 38%),
+            rgba(13, 10, 24, 0.72);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          z-index: 3001;
           display: flex;
           align-items: center;
           justify-content: center;
           opacity: 0;
           visibility: hidden;
-          transition: all 0.3s ease;
+          padding: 24px;
+          transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
         }
 
-        .modal-overlay.active {
+        .tips-modal-overlay.active {
           opacity: 1;
           visibility: visible;
         }
 
-        .modal {
-          background-color: var(--bg-secondary);
-          border-radius: 20px;
-          width: 90%;
-          max-width: 600px;
-          max-height: 80vh;
+        .tips-modal-panel {
+          background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 248, 255, 0.97));
+          border-radius: 28px;
+          width: min(100%, 760px);
+          max-height: min(84vh, 860px);
           overflow-y: auto;
-          padding: 30px;
-          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-          transform: translateY(20px);
-          transition: transform 0.3s ease;
+          box-shadow:
+            0 26px 80px rgba(20, 16, 44, 0.28),
+            inset 0 1px 0 rgba(255, 255, 255, 0.55);
+          transform: translateY(24px) scale(0.985);
+          transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease,
+            background-color 0.6s ease,
+            color 0.6s ease;
           position: relative;
+          border: 1px solid rgba(255, 255, 255, 0.55);
         }
 
-        .dark-mode .modal {
-          background-color: rgba(40, 40, 50, 0.95);
-          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+        .dark-mode .tips-modal-panel {
+          background:
+            linear-gradient(180deg, rgba(35, 40, 56, 0.96), rgba(27, 30, 44, 0.98));
+          box-shadow:
+            0 28px 90px rgba(0, 0, 0, 0.55),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .modal-overlay.active .modal {
-          transform: translateY(0);
+        .tips-modal-overlay.active .tips-modal-panel {
+          transform: translateY(0) scale(1);
         }
 
-        .modal-header {
+        .tips-modal-header {
           display: flex;
           justify-content: space-between;
-          align-items: center;
-          margin-bottom: 20px;
-          padding-bottom: 15px;
-          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          align-items: flex-start;
+          gap: 16px;
+          padding: 24px 24px 18px;
+          border-bottom: 1px solid rgba(74, 62, 130, 0.12);
+          position: sticky;
+          top: 0;
+          z-index: 2;
+          background: inherit;
         }
 
-        .dark-mode .modal-header {
-          border-bottom-color: rgba(255, 255, 255, 0.1);
+        .dark-mode .tips-modal-header {
+          border-bottom-color: rgba(255, 255, 255, 0.08);
         }
 
-        .modal-title {
+        .tips-modal-title {
           font-family: var(--heading-font);
           color: var(--pastel-purple);
           margin: 0;
-          font-size: 1.8rem;
+          font-size: clamp(1.55rem, 2vw, 2rem);
+          line-height: 1.15;
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
         }
 
-        .dark-mode .modal-title {
+        .tips-modal-title i {
+          color: #ffd966;
+          filter: drop-shadow(0 2px 8px rgba(255, 214, 102, 0.35));
+        }
+
+        .dark-mode .tips-modal-title {
           color: var(--pastel-blue);
         }
 
-        .modal-close {
-          background: none;
-          border: none;
+        .tips-modal-close {
+          background: rgba(106, 90, 205, 0.08);
+          border: 1px solid rgba(106, 90, 205, 0.14);
           color: var(--text-secondary);
-          font-size: 1.5rem;
+          width: 44px;
+          height: 44px;
+          font-size: 1.1rem;
           cursor: pointer;
-          transition: all 0.3s ease;
-          padding: 5px;
+          transition:
+            transform 0.3s ease,
+            color 0.3s ease,
+            background-color 0.3s ease,
+            border-color 0.3s ease;
+          padding: 0;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
+          flex-shrink: 0;
         }
 
-        .modal-close:hover {
+        .tips-modal-close:hover {
           color: var(--pastel-purple);
-          background-color: rgba(0, 0, 0, 0.05);
+          background-color: rgba(106, 90, 205, 0.14);
+          border-color: rgba(106, 90, 205, 0.24);
           transform: rotate(90deg);
         }
 
-        .dark-mode .modal-close:hover {
+        .dark-mode .tips-modal-close {
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.08);
+          color: rgba(255, 255, 255, 0.72);
+        }
+
+        .dark-mode .tips-modal-close:hover {
           color: var(--pastel-blue);
-          background-color: rgba(255, 255, 255, 0.1);
+          background-color: rgba(89, 165, 255, 0.12);
+          border-color: rgba(89, 165, 255, 0.18);
+        }
+
+        .tips-modal-content {
+          padding: 18px 24px 24px;
         }
 
         /* Responsive */
@@ -759,9 +804,53 @@
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
           }
 
-          .modal {
-            width: 85%;
-            padding: 15px;
+          .tips-modal-overlay {
+            padding: 16px;
+          }
+
+          .tips-modal-panel {
+            width: 100%;
+            max-height: 88vh;
+            border-radius: 24px;
+          }
+
+          .tips-modal-header {
+            padding: 18px 18px 14px;
+          }
+
+          .tips-modal-content {
+            padding: 14px 18px 18px;
+          }
+
+          .tips-modal-title {
+            font-size: 1.35rem;
+            gap: 10px;
+          }
+
+          .tips-modal-close {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        @media (max-width: 520px) {
+          .tips-modal-overlay {
+            padding: 12px;
+            align-items: flex-end;
+          }
+
+          .tips-modal-panel {
+            width: 100%;
+            max-height: 82vh;
+            border-radius: 22px 22px 0 0;
+          }
+
+          .tips-modal-header {
+            gap: 12px;
+          }
+
+          .tips-modal-title {
+            font-size: 1.2rem;
           }
         }
 
@@ -1058,13 +1147,13 @@
       </div>
 
       <!-- Tips Modal -->
-      <div class="modal-overlay" id="tips-modal">
-        <div class="modal">
-          <div class="modal-header">
-            <h2 class="modal-title"><i class="fas fa-lightbulb"></i> <span data-i18n="gallery_guidelines_title">Photo Upload Guidelines</span></h2>
-            <button class="modal-close" id="close-modal"><i class="fas fa-times"></i></button>
+      <div class="tips-modal-overlay" id="tips-modal">
+        <div class="tips-modal-panel" role="dialog" aria-modal="true" aria-labelledby="tips-modal-title">
+          <div class="tips-modal-header">
+            <h2 class="tips-modal-title" id="tips-modal-title"><i class="fas fa-lightbulb"></i> <span data-i18n="gallery_guidelines_title">Photo Upload Guidelines</span></h2>
+            <button class="tips-modal-close" id="close-modal" type="button" aria-label="Close upload tips"><i class="fas fa-times"></i></button>
           </div>
-          <div class="modal-content">
+          <div class="tips-modal-content">
             <div class="tips-content">
               <div class="tip-item">
                 <div class="tip-icon"><i class="fas fa-image"></i></div>
