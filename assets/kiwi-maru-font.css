@@ -1,9 +1,9 @@
-/* kiwi-maru-font.css - Adds Kiwi Maru styling for Japanese text on photowalks page */
+/* kiwi-maru-font.css - Adds Kiwi Maru styling for Japanese text across pages */
 
 /* Import Kiwi Maru from Google Fonts - a playful Japanese font */
-@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Noto+Sans+JP:wght@400;700&display=swap');
 
-/* Apply Kiwi Maru font to all Japanese text elements on photowalks page */
+/* Apply Kiwi Maru font to all Japanese text elements */
 html[lang="ja"] .photowalks-page [data-i18n^="nav_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
 html[lang="ja"] .photowalks-page [data-i18n^="btn_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
 html[lang="ja"] .photowalks-page [data-i18n^="photowalks_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
@@ -15,26 +15,42 @@ html[lang="ja"] .photowalks-page [data-i18n^="why_choose_"]:not(i):not(.fas):not
 html[lang="ja"] .photowalks-page [data-i18n^="why_join_photowalks_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
 html[lang="ja"] .photowalks-page [data-i18n="language_toggle"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
 html[lang="ja"] .photowalks-page .btn.rainbow-btn[data-i18n]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
-html[lang="ja"] .photowalks-page .btn[data-i18n]:not(i):not(.fas):not(.fab):not(.fa):not(.far) {
+html[lang="ja"] .photowalks-page .btn[data-i18n]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+
+/* Gallery page Japanese text */
+html[lang="ja"] .gallery-page [data-i18n^="nav_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .gallery-page [data-i18n^="gallery_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .gallery-page [data-i18n^="footer_"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .gallery-page [data-i18n="current_language_display"]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .gallery-page .btn[data-i18n]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .gallery-page .switcher-btn[data-i18n]:not(i):not(.fas):not(.fab):not(.fa):not(.far),
+html[lang="ja"] .gallery-page .tab-btn[data-i18n]:not(i):not(.fas):not(.fab):not(.fa):not(.far) {
   font-family: 'Kiwi Maru', serif;
   letter-spacing: 0.01em;
 }
 
 /* Adjust specific elements for better Japanese typography */
-html[lang="ja"] .photowalks-page .logo {
+html[lang="ja"] .photowalks-page .logo,
+html[lang="ja"] .gallery-page .logo {
   font-family: 'Kiwi Maru', 'Comic Neue', 'Fredoka One', sans-serif;
   font-weight: 400;
 }
 
 /* Adjust line height for better readability with Japanese characters */
 html[lang="ja"] .photowalks-page p,
-html[lang="ja"] .photowalks-page li {
+html[lang="ja"] .photowalks-page li,
+html[lang="ja"] .gallery-page p,
+html[lang="ja"] .gallery-page li {
   line-height: 1.7;
 }
 
-/* Adjust font weight for headings in Japanese */
-html[lang="ja"] .photowalks-page h1,
-html[lang="ja"] .photowalks-page h2,
-html[lang="ja"] .photowalks-page h3 {
-  font-weight: 400; /* Kiwi Maru only has 400 weight */
+/* Japanese headings - use Noto Sans JP 700 for thicker, bolder look */
+html[lang="ja"] .photowalks-page h1[data-i18n],
+html[lang="ja"] .photowalks-page h2[data-i18n],
+html[lang="ja"] .photowalks-page h3[data-i18n],
+html[lang="ja"] .gallery-page h1[data-i18n],
+html[lang="ja"] .gallery-page h2[data-i18n],
+html[lang="ja"] .gallery-page h3[data-i18n] {
+  font-family: 'Noto Sans JP', 'Kiwi Maru', sans-serif !important;
+  font-weight: 700 !important;
 }
